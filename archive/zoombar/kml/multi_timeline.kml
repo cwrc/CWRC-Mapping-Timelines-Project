@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.1">
+<Document>
+<Placemark>
+<name>
+Peter Paul Rubens
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Peter_Paul_Rubens"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Fri Jun 28 00:00:00 GMT 1577</begin><end>Wed May 30 00:00:00 GMT 1640</end></TimeSpan>
+<ExtendedData><Data name="DateString">
+<value>28 June 1577-30 May 1640</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Peter_Paul_Rubens</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>8.017137,50.883191</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Frans Hals
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Frans_Hals"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Thu Jun 30 00:00:00 GMT 1580</begin><end>Thu Aug 26 00:00:00 GMT 1666</end></TimeSpan>
+<ExtendedData><Data name="DateString">
+<value>30 June 1580-26 August 1666</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Frans_Hals</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>4.400311,51.216777</coordinates>
+</Point>
+</Placemark>
+</Document>
+</kml>

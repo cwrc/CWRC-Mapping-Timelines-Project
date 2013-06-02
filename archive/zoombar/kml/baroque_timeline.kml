@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.1">
+<Document>
+<Placemark>
+<name>
+Annibale Carracci
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Annibale_Caracci"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Sun Nov 03 00:00:00 GMT 1560</begin><end>Wed Jul 15 00:00:00 GMT 1609</end></TimeSpan>
+<Point>
+<coordinates>11.351389,44.5075</coordinates>
+</Point>
+<ExtendedData><Data name="DateString">
+<value>03 November 1560-15 July 1609</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Annibale_Caracci</value>
+</Data>
+<Data name="theme"><value>AnnibaleCarracci</value></Data>
+</ExtendedData>
+</Placemark>
+<Placemark>
+<name>
+Francisco Ribalta
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Francisco_Ribalta"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Sat Jun 02 00:00:00 GMT 1565</begin><end>Fri Jan 14 00:00:00 GMT 1628</end></TimeSpan>
+<Point>
+<coordinates>1.520833,41.997778</coordinates>
+</Point>
+<ExtendedData><Data name="DateString">
+<value>02 June 1565-14 January 1628</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Francisco_Ribalta</value>
+</Data>
+<Data name="theme"><value>FranciscoRibalta</value></Data>
+</ExtendedData>
+</Placemark>
+<Placemark caption="Peter Paul Rubens Caption">
+<name>
+Peter Paul Rubens
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Peter_Paul_Rubens"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Fri Jun 28 00:00:00 GMT 1577</begin><end>Wed May 30 00:00:00 GMT 1640</end></TimeSpan>
+<Point>
+<coordinates>8.017137,50.883191</coordinates>
+</Point>
+<ExtendedData><Data name="DateString">
+<value>28 June 1577-30 May 1640</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Peter_Paul_Rubens</value>
+</Data>
+<Data name="theme"><value>PeterPaulRubens</value></Data>
+</ExtendedData>
+</Placemark>
+<Placemark>
+<name>
+Jusepe de Ribera
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Jusepe_de_Ribera"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Sat Jan 12 00:00:00 GMT 1591</begin><end>Mon Sep 02 00:00:00 GMT 1652</end></TimeSpan>
+<Point>
+<coordinates>-0.521111,38.990278</coordinates>
+</Point>
+<ExtendedData><Data name="DateString">
+<value>12 January 1591-02 September 1652</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Jusepe_de_Ribera</value>
+</Data>
+<Data name="theme"><value>JusepedeRibera</value></Data>
+</ExtendedData>
+</Placemark>
+<Placemark>
+<name>
+Georges de La Tour
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Georges_de_la_Tour"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Sat Mar 13 00:00:00 GMT 1593</begin><end>Tue Jan 30 00:00:00 GMT 1652</end></TimeSpan>
+<Point>
+<coordinates>6.5322,48.7831</coordinates>
+</Point>
+<ExtendedData><Data name="DateString">
+<value>13 March 1593-30 January 1652</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Georges_de_la_Tour</value>
+</Data>
+<Data name="theme"><value>GeorgesdeLaTour</value></Data>
+</ExtendedData>
+</Placemark>
+<Placemark>
+<name>
+Artemisia Gentileschi
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Artemisia_Gentileschi"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Thu Jul 08 00:00:00 GMT 1593</begin><end>Sun Jun 01 00:00:00 GMT 1653</end></TimeSpan>
+<Point>
+<coordinates>12.5,41.9</coordinates>
+</Point>
+<ExtendedData><Data name="DateString">
+<value>08 July 1593-01 June 1653</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Artemisia_Gentileschi</value>
+</Data>
+<Data name="theme"><value>ArtemisiaGentileschi</value></Data>
+</ExtendedData>
+</Placemark>
+<Placemark>
+<name>
+Jacob Jordaens
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Jacob_Jordaens"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Wed May 19 00:00:00 GMT 1593</begin><end>Tue Oct 18 00:00:00 GMT 1678</end></TimeSpan>
+<Point>
+<coordinates>4.400311,51.216777</coordinates>
+</Point>
+<ExtendedData><Data name="DateString">
+<value>19 May 1593-18 October 1678</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Jacob_Jordaens</value>
+</Data>
+<Data name="theme"><value>JacobJordaens</value></Data>
+</ExtendedData>
+</Placemark>
+<Placemark>
+<name>
+Nicolas Poussin
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Nicolas_Poussin"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Wed Jun 15 00:00:00 GMT 1594</begin><end>Thu Nov 19 00:00:00 GMT 1665</end></TimeSpan>
+<Point>
+<coordinates>1.4125,49.2461</coordinates>
+</Point>
+<ExtendedData><Data name="DateString">
+<value>15 June 1594-19 November 1665</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Nicolas_Poussin</value>
+</Data>
+<Data name="theme"><value>NicolasPoussin</value></Data>
+</ExtendedData>
+</Placemark>
+<Placemark>
+<name>
+Francisco de Zurbaran
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Francisco_de_Zurbar%C3%A1n"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Sat Nov 07 00:00:00 GMT 1598</begin><end>Wed Aug 27 00:00:00 GMT 1664</end></TimeSpan>
+<Point>
+<coordinates>-6.283333,38.25</coordinates>
+</Point>
+<ExtendedData><Data name="DateString">
+<value>07 November 1598-27 August 1664</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Francisco_de_Zurbar%C3%A1n</value>
+</Data>
+<Data name="theme"><value>FranciscodeZurbaran</value></Data>
+</ExtendedData>
+</Placemark>
+<Placemark>
+<name>
+Anthony van Dyck
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Anthony_van_Dyck"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Mon Mar 22 00:00:00 GMT 1599</begin><end>Mon Dec 09 00:00:00 GMT 1641</end></TimeSpan>
+<Point>
+<coordinates>4.400311,51.216777</coordinates>
+</Point>
+<ExtendedData><Data name="DateString">
+<value>22 March 1599-09 December 1641</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Anthony_van_Dyck</value>
+</Data>
+<Data name="theme"><value>AnthonyvanDyck</value></Data>
+</ExtendedData>
+</Placemark>
+<Placemark>
+<name>
+Diego Velazquez
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Diego_Vel%C3%A1zquez"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Sun Jun 06 00:00:00 GMT 1599</begin><end>Fri Aug 06 00:00:00 GMT 1660</end></TimeSpan>
+<Point>
+<coordinates>-5.986944,37.377222</coordinates>
+</Point>
+<ExtendedData><Data name="DateString">
+<value>06 June 1599-06 August 1660</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Diego_Vel%C3%A1zquez</value>
+</Data>
+<Data name="theme"><value>DiegoVelazquez</value></Data>
+</ExtendedData>
+</Placemark>
+<Placemark>
+<name>
+Claude Lorrain
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Claude_Lorrain"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Tue Jun 01 00:00:00 GMT 1604</begin><end>Mon Nov 23 00:00:00 GMT 1682</end></TimeSpan>
+<Point>
+<coordinates>6.2808,48.4092</coordinates>
+</Point>
+<ExtendedData><Data name="DateString">
+<value>01 June 1604-23 November 1682</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Claude_Lorrain</value>
+</Data>
+<Data name="theme"><value>ClaudeLorrain</value></Data>
+</ExtendedData>
+</Placemark>
+<Placemark>
+<name>
+Giovanni Benedetto Castiglione
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Giovanni_Benedetto_Castiglione"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Mon Mar 23 00:00:00 GMT 1609</begin><end>Sun Jun 01 00:00:00 GMT 1664</end></TimeSpan>
+<Point>
+<coordinates>8.932778,44.411111</coordinates>
+</Point>
+<ExtendedData><Data name="DateString">
+<value>23 March 1609-01 June 1664</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Giovanni_Benedetto_Castiglione</value>
+</Data>
+<Data name="theme"><value>GiovanniBenedettoCastiglione</value></Data>
+</ExtendedData>
+</Placemark>
+<Placemark>
+<name>
+Bartolome Esteban Murillo
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Bartolom%C3%A9_Esteban_Murillo"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Tue Dec 26 00:00:00 GMT 1617</begin><end>Fri Apr 03 00:00:00 GMT 1682</end></TimeSpan>
+<Point>
+<coordinates>-5.986944,37.377222</coordinates>
+</Point>
+<ExtendedData><Data name="DateString">
+<value>26 December 1617-03 April 1682</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Bartolom%C3%A9_Esteban_Murillo</value>
+</Data>
+<Data name="theme"><value>BartolomeEstebanMurillo</value></Data>
+</ExtendedData>
+</Placemark>
+</Document>
+</kml>

@@ -1,0 +1,219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+    
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+        <title>Baroque Timemap</title>
+        <link rel="stylesheet" href="./master.css" type="text/css" media="screen" charset="utf-8">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.js"></script>
+
+        <script type="text/javascript" src="OpenLayers-2.10/OpenLayers.js"></script>
+        <script type="text/javascript" src="timemap/lib/mxn/mxn.js?(openlayers)"></script>
+        <!-- <script type="text/javascript" src="http://static.simile.mit.edu/timeline/api-2.3.0/timeline-api.js?bundle=true"></script> -->
+        <!-- changes made locally to correct issue 278 - iphone gestures -->
+        <script src="timeline_2.3.0/src/webapp/api/timeline-api.js?bundle=false" type="text/javascript"></script>
+        <script type="text/javascript" src="timemap/src/timemap.js"></script>
+        <script type="text/javascript" src="timemap/src/manipulation.js"></script>
+        <script type="text/javascript" src="timemap/src/param.js"></script>
+        <script type="text/javascript" src="timemap/src/loaders/xml.js"></script>
+        <script type="text/javascript" src="timemap/src/loaders/kml.js"></script>
+        <!-- Load the customisations required for the zoombar -->
+        <script src="./timeline_zoom_overrides.js" type="text/javascript"></script>
+        <script src="./TimelineBandZoomBar.js" type="text/javascript"></script>
+        <script src="./TimelineBandPanControl.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="./timemaps.css" type="text/css">
+        <link rel="stylesheet" href="./TimelineBandZoomBar.css" type="text/css">
+        <link rel="stylesheet" href="./TimelineBandPanControl.css" type="text/css">
+        <!-- Load the customisations required to get the correct multiple event behaviour -->
+        <script src="./timemap_artists_overrides.js" type="text/javascript"></script>
+        <!-- Load mobile browser detection so that the correct directions string can be set -->
+        <script type="text/javascript" src="./detectmobilebrowser.js"></script>
+        <script type="text/javascript">
+            var tm_ba;
+
+            $(function () {
+ 	        var theme1 = Timeline.ClassicTheme.create();
+                theme1.autoWidth = false;
+		theme1.timeline_start = new Date(Date.UTC(1470, 1,1));
+	        theme1.timeline_stop  = new Date(Date.UTC(1770, 1, 1));
+                theme1.mouseWheel = 'scroll';
+                theme1.autoWidth = false;
+                theme1.color = "green";
+    theme1.event.track.gap = -8;
+    theme1.event.tape.height = 16;
+	
+		var d = "Sat 01 Jan 1600 13:00:00 GMT-0000";
+		/*
+		var startDate = new Date(Date.UTC(1550, 1,1));
+		var endDate = new Date(Date.UTC(1700, 1,1));		
+
+        var greatestMag = {
+	pixelsPerInterval : 1200,
+	unit : Timeline.DateTime.DECADE
+	},
+	leastMag = {
+	pixelsPerInterval : 700,
+	unit : Timeline.DateTime.CENTURY
+	};
+	var theZoomSteps = initZoomSteps(12, greatestMag, leastMag);
+	var theZoomIndex = 9;
+	var theIntervalUnit = theZoomSteps[theZoomIndex].unit;
+	var theIntervalPixels = theZoomSteps[theZoomIndex].pixelsPerInterval;
+*/
+    var colors = ["#FFFF00", "#FFFF99", "#330033", "#FFF0099", "#33CC33","#006600", "#003300", "#3399FF", "#F0066CC", "#003366", "#CC6633", "#993300", "#663300", "#900633", "#666600", "#669900", "#000000"];
+	TimeMap.themes.myTheme = TimeMapTheme.create("green", {icon: "./timemap/images/red-circle.png", iconSize: [16, 16],  iconAnchor: [8, 8], lineWeight:2, lineColor: "#FFFF00"}); 
+	TimeMap.themes.PeterPaulRubens = TimeMapTheme.create("myTheme", {lineColor: colors[0], eventColor: colors[0], eventTextColor: "#000000"}); 
+	TimeMap.themes.AnnibaleCarracci =  TimeMapTheme.create("myTheme", {lineColor: colors[1], eventColor: colors[1], eventTextColor: "#000000"});  
+	TimeMap.themes.FranciscoRibalta =  TimeMapTheme.create("myTheme", {lineColor: colors[2], eventColor: colors[2], eventTextColor: "#FFFFFF"});  
+	TimeMap.themes.JusepedeRibera =  TimeMapTheme.create("myTheme", {lineColor: colors[3], eventColor: colors[3], eventTextColor: "#000000"});  
+	TimeMap.themes.GeorgesdeLaTour =  TimeMapTheme.create("myTheme", {lineColor: colors[4], eventColor: colors[4], eventTextColor: "#000000"});  
+	TimeMap.themes.ArtemisiaGentileschi =  TimeMapTheme.create("myTheme", {lineColor: colors[5], eventColor: colors[5], eventTextColor: "#FFFFFF"});  
+	TimeMap.themes.JacobJordaens = TimeMapTheme.create("myTheme", {lineColor: colors[6], eventColor: colors[6], eventTextColor: "#FFFFFF"});  
+	TimeMap.themes.NicolasPoussin =  TimeMapTheme.create("myTheme", {lineColor: colors[7], eventColor: colors[7], eventTextColor: "#FFFFFF"});  
+	TimeMap.themes.FranciscodeZurbaran =  TimeMapTheme.create("myTheme", {lineColor: colors[8], eventColor: colors[8], eventTextColor: "#FFFFFF"});  
+	TimeMap.themes.AnthonyvanDyck =  TimeMapTheme.create("myTheme", {lineColor: colors[9], eventColor: colors[9], eventTextColor: "#FFFFFF"});  
+	TimeMap.themes.DiegoVelazquez =  TimeMapTheme.create("myTheme", {lineColor: colors[10], eventColor: colors[10], eventTextColor: "#FFFFFF"});  
+	TimeMap.themes.ClaudeLorrain =  TimeMapTheme.create("myTheme", {lineColor: colors[11], eventColor: colors[11], eventTextColor: "#FFFFFF"});  
+	TimeMap.themes.GiovanniBenedettoCastiglione =  TimeMapTheme.create("myTheme", {lineColor: colors[12], eventColor: colors[12], eventTextColor: "#FFFFFF"});  
+	TimeMap.themes.BartolomeEstebanMurillo =  TimeMapTheme.create("myTheme", {lineColor: colors[13], eventColor: colors[13], eventTextColor: "#FFFFFF"});  
+
+
+ var theme = Timeline.ClassicTheme.create();
+    theme.event.track.gap = -8;
+    theme.event.tape.height = 16;	
+    
+        var       theMapZoom = 5,
+                    lon = 4.40914,
+                    lat = 45.0,
+                    theMapCenter = new mxn.LatLonPoint();
+
+                theMapCenter.lon = lon;
+                theMapCenter.lat = lat;
+                theMapCenter.lng = lon;
+
+                tm_ba = TimeMap.init({
+                    mapId: "map_ba",
+                    // Id of map div element (required)
+                    timelineId: "timeline_ba",
+                    // Id of timeline div element (required)
+                    scrollTo: d,
+                    options: {
+		   // theme : "myTheme",
+                        eventIconPath: "timemap/images/",
+                        centerOnItems: false,
+                        mapCenter: theMapCenter,
+                        mapZoom: theMapZoom
+                    },
+                    datasets: [{
+                        title: "Baroque placemark",
+                       // theme: theme1,
+                        type: "kml",
+                        // Data to be loaded in KML - must be a local URL
+                        options: {
+			    noEventLoad : true,
+			    openInfoWindow: TimeMapItem.openInfoWindowMap,
+                            url: "./kml/baroque_map.kml" ,
+			    
+                            // KML file to load
+                            extendedData: ["LocationName", "DateString", "Url", "theme"],
+                            tagMap: {
+                                "Url": "wiki_link"
+                            },
+                            openInfoWindow: TimeMapItem.openInfoWindowMap,
+                            // template for loaded data
+                            infoTemplate: '<div style="font-size:small"><strong><a href="{{wiki_link}}" target="_blank">{{title}}</a></strong><br>' + 
+			                                              '<div style="font-size:small"><strong>{{LocationName}}</strong><br>' + 
+								     '<strong>Date: </strong>{{DateString}}</div><br>'
+		       }
+		       },
+		       {
+                        title: "Baroque timeline",
+                        //theme: "green",
+                        type: "kml",
+                        // Data to be loaded in KML - must be a local URL
+                        options: {
+			    noPlacemarkLoad : true,
+			    openInfoWindow: TimeMapItem.openInfoWindowTimeline,
+			    closeInfoWindow: TimeMapItem.closeInfoWindowTimeline,
+                            extendedData: ["Url", "theme"],
+                            url: "./kml/baroque_timeline.kml"
+                            // KML file to load
+ 		       }
+                    }],
+		            bandInfo: [    
+            {
+                     width:          "90%", 
+                        intervalUnit: Timeline.DateTime.DECADE,
+                        intervalPixels: 110,
+			                        date: d,
+                     theme:          theme1
+            },
+            {
+                     width:          "10%", 
+                     intervalUnit:   Timeline.DateTime.CENTURY, 
+                     intervalPixels: 300,
+                     overview:       true
+            }
+        ]
+	/*
+                    bandInfo: [{
+                        width: "100%",
+                        intervalUnit: theIntervalUnit,
+                        intervalPixels: theIntervalPixels,
+                        date: d,
+                        theme: theme1,
+                        layout: 'original',
+                        // original, overview, detailed
+                        zoomIndex: theZoomIndex,
+                        zoomSteps: theZoomSteps
+                    }]*/
+                });
+		
+                //~ Timeline.OriginalEventPainter.prototype._showBubble = function (x, y, evt) {
+                    //~ evt.item.fromTimeline = true;
+                    //~ evt.item.openInfoWindow();
+                //~ };
+
+                //~ var theTimeline_fjz = tm_ba.timeline,
+                    //~ theBandNo_fjz = 0,
+                    //~ tlZoomBar_fjz = new TimelineBandZoomBar(theTimeline_fjz, theBandNo_fjz),
+                    //~ tlPanControl_fjz = new TimelineBandPanControl(theTimeline_fjz, theBandNo_fjz);
+
+                //~ theTimeline_fjz.ZoomBar = tlZoomBar_fjz;
+                //~ theTimeline_fjz.PanControl = tlPanControl_fjz;
+		                });
+        </script>
+	
+	<style>
+	    /* This is necessary to get old-style duration events */
+    .timeline-event-label {
+        margin-top: -15px;
+        margin-left: 4px;
+        line-height: 10px;
+    }
+    </style>
+    </head>
+    
+    <body>
+        <div id="wrapper">
+            <div id="content">
+                <h2 id="Baroque_timemap">Old Masters (Baroque)</h2>
+                <div id="timemap_ba">
+                    <div id="timelinecontainer_ba">
+                        <div id="timeline_ba" class="timeline"></div>
+                    </div>
+                    <div id="mapcontainer_ba">
+                        <div id="map_ba" class="map"></div>
+                    </div>
+                </div>
+                <p class="description">The timemap is implemented using a
+                    <a href="http://code.google.com/p/timemap/">MIT timemap</a> version 2.0.1. The map being used is
+                    <a href="http://openlayers.org/">OpenLayers</a> with
+                    <a href="http://www.openstreetmap.org/">OpenStreetMap</a>.</p>
+                <p class="description">
+                    <a href="mailto:alan_leslie@ymail.com?Subject=Edinburgh Science festival timemap">
+	Send Mail</a>
+                </p>
+    </body>
+
+</html>

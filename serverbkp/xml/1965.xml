@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Lesbian and Gay Liberation In Canada 1964-1975: An Online Research Database and Community Resource.</title>
+                
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2011</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <idno></idno>
+                <publisher><persName key="MSC">Michelle Schwartz</persName> and <persName key="#CCR">Constance Crompton</persName></publisher>
+                <pubPlace>Canadian Lesbian and Gay Archives</pubPlace>
+                <address>
+                       <addrLine n="1">34 Isabella St.</addrLine>
+                        <addrLine n="2">Toronto, Ontario</addrLine>
+                        <country>Canada</country>
+                        <postCode>M4Y 1N1</postCode> 
+                </address>
+                <availability>
+                    <p>Usable according to the Creative Commons License <ref target="http://creativecommons.org/licenses/by-nc-sa/3.0/">Attribution
+                        Non-commercial Share-alike</ref>.</p>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                <biblStruct>
+                    <monogr>
+                        <title level="m">Lesbian and Gay Liberation In Canada: A Selected Chronology, 1964-1975</title>
+                        <title level="a">1965</title>
+                        <author>Donald McLeod</author>
+                        <imprint>
+                            <publisher>EWC Press/ Homewood Books</publisher>
+                            
+                            <pubPlace>
+                                Toronto
+                            </pubPlace>
+                            <biblScope>citation here</biblScope>
+                        </imprint>
+                    </monogr>
+                </biblStruct>
+            </sourceDesc>
+            
+        </fileDesc>
+        <encodingDesc>
+            <editorialDecl>
+                <p>Editorial declaration for the project</p>
+            </editorialDecl>
+        </encodingDesc>
+        <profileDesc>
+            <creation>
+                <date></date>
+            </creation>
+            <langUsage>
+                <language ident="en">English</language>
+            </langUsage>
+            <textClass>
+                <keywords scheme="#lcsh">
+                    <list>
+                        <item>Gay liberation movement -- Canada -- Chronology.</item>
+                        <item>Gay liberation movement -- Canada -- History.</item>
+                    </list>
+                </keywords>
+                
+            </textClass>
+        </profileDesc>
+        
+    </teiHeader>
+    
+    <text>
+        <body>
+            
+            
+            
+            <p><title>1965</title></p>
+                
+            <div>
+                <p><date when="1965"/> Englewood Cliffs, N.J.  <persName key="#DCAPP">Daniel Cappon</persName>'s book <title level="m">Toward an Under-
+                    standing of Homosexuality</title> was published by Prentice-Hall. Cappon, a profes-
+                    sor of psychiatry at the University of Toronto, claimed that homosexuality
+                    could be "cured" and that "There are no homosexuals — only people with
+                    homosexual problems." (See also October 9,1968.)
+                </p>
+                            
+                <note><bibl>["Kameny v. Cappon?" (editorial), <title corresp="#p102" level="j">YUHA Newsletter</title>, January 1971, p. 2.]</bibl></note>
+            </div>
+
+            <div>
+                <p><date when="1965"/> 
+                    <placeName key="#LONG">Longueuil</placeName>, Que. 
+                    <persName key="#DVAN">Denis Vanier</persName>'s <title level="m">Je: poemes</title> was published by
+                Editions le Crible. It was reprinted with additions in <date when="1974">1974</date> by Editions
+                l'Aurore.
+                </p>
+                
+                <note><bibl>
+                    [<persName key="#RCHAM">Roger Chamberland</persName>, "Je et Pornographic Delicatessen," in <title level="m">Dictionnaire des oeuvres
+                littiraires du Quebec</title>, ed. <persName key="#MLEM">Maurice Lemire</persName> et al., vol. 4 (1960-69) (Montreal: Fides,
+                1984), pp. 455-58.]
+                </bibl></note>
+            </div>
+         <!--  Did I do this pseudonym correctly? -->
+            <div>
+                <p><date when="1965"/>
+                <placeName key="#MON">Montreal</placeName>  
+                    <title level="m">Journal poetique, 1964-1965: elegie pour apprendre a vivre,
+                    suivie de pieces brives</title>, by <persName key="JBAS">Jean Basile</persName> (pseud. of 
+                    <persName key="JBAS">Jean-Basile Bezroudnoff</persName>), was
+                published by Editions du jour.
+                </p>
+                
+                <note><bibl>[<persName key="#MCLE">Michel Clement</persName>, <title level="m">Dictionnaire des oeuvres
+                    littiraires du Quebec</title>, ed. <persName key="#MLEM">Maurice Lemire</persName> et al., vol. 4 (1960-69) (Montreal: Fides, 1984),
+                pp. 486-87.]</bibl></note>
+            </div>
+                        
+            <div>
+                <p><date when="1965"/>
+                    <placeName key="#MON">Montreal</placeName>
+                <persName key="#MBLA">Marie-Claire Blais</persName>'s novel <title level="m">Une saison dans la vie d'Em-
+                manuel</title> was published by Editions du jour. It garnered international acclaim
+                and was awarded both the Prix Medicis and the Prix France-Canada.
+                Translated into thirteen languages, the work was later adapted as a film.
+                </p>
+                    <!-- Sinclair - no first name? -->        
+                <note><bibl>[<persName key="#AHAY">Annette Hayward</persName>, "Une saison dans la vie d'Emmanuel" in 
+                    <title level="m">Dictionnaire des oeuvres littiraires du Quebec</title>, ed. <persName key="#MLEM">Maurice Lemire</persName> 
+                    et al., vol. 4 (1960-69) (Montreal: Fides,
+                1984), pp. 912-19; <persName key="#MKAN">Mary Kandiuk</persName>, <title level="m">French-Canadian Authors: A Bibliography of Their
+                Works and of English-Language Criticism</title> (Metuchen, N.J.: Scarecrow Press, 1990),
+                pp. 25, 36; <persName key="#SINC">Sinclair</persName>, "Un saison dans la vie d'Emmanuel," <title level="j">Arcadie</title> 
+                    (Paris), no. 156 (1966),
+                pp. 582-83.]
+                </bibl></note>
+                <media><url>http://alpha.cwrc.ca/fedora/repository/islandora:9b1fe8e2-8c0c-418c-a8fb-c84e8048a496/OBJ/FULL_SIZE.jpg</url><url>http://alpha.cwrc.ca/fedora/repository/islandora:547ea001-f5c4-4ed7-ab2a-2a033acc6155/OBJ/FULL_SIZE.jpg</url></media>
+            </div>
+            <!-- tagging Echo, american? clga? pamphlets and booklets and things that aren't journals but aren't monographs?  -->     
+            <div>
+                <p><date when="1965"/>
+                <placeName key="#TOR">Toronto</placeName> 
+                    The <orgName key="#GPC">Gay Publishing Company</orgName>, publishers of 
+                    <title corresp="#p31" level="j">Gay International</title>, printed the four-page pamphlet 
+                    "How to Handle a Federal Interrogation/If You Are Arrested" for the <orgName key="ECHO">East Coast Homophile Organizations
+                (ECHO)</orgName>, the coalition of American homophile organizations formed in
+                <date when="1963-01">January 1963</date>.
+                </p>
+                            
+                <note><bibl>["East Coast Homophile Organizations (ECHO)" vertical file, <orgName key="#CLGA">Canadian Lesbian and
+                Gay Archives</orgName>, Toronto.]
+                </bibl></note>
+            </div>
+              <!-- tagging bars and stores -->          
+            <div>
+                <p><date when="1965"/>
+                <placeName key="#TOR">Toronto</placeName> 
+                    <orgName key="#KP">Kamp Publishing Company</orgName>, publishers of <title corresp="#p97" level="j">Two</title>, 
+                    <title level="j" corresp="#p68">The Male
+                Nude</title>, and <title level="j" corresp="#p37">Gay Giggle</title>, moved from 457 Church Street to 292 Yonge Street.
+                The operation soon opened K.K. Books, which stocked the largest selection
+                of gay-oriented publications available in Canada at the time. In the early
+                days, K.K. Books was run by <persName key="#RKER">Richard Kerr</persName> (of the Music Room and the
+                Melody Room) and <persName key="#KLAU">Kurt Lauer</persName> (of the Melody Room). The bookstore
+                continued to operate into the early 1970s. (See also February 6,1966.)
+                </p>
+            <!-- pamphlets and booklets and things that aren't journals but aren't monographs?  -->       
+                
+                <note><bibl>["Have You Heard?: Another First for Toronto," <title level="j" corresp="#p43">Geo. Marshall's Queen City Gazette</title>,
+                June 1965, p. 2; <title>Lesbian and Gay Heritage of Toronto</title>, <orgName key="#CLGA">Canadian Gay Archives</orgName> Publica-
+                tion no. 5 (Toronto: CGA, 1982), p. 10.]
+                </bibl></note>
+            </div>
+                        
+            <div>
+                <p><date when="1965"/>
+                <placeName key="#VAN">Vancouver</placeName>  
+                <persName key="#PWEB">Phyllis Webb</persName>'s book of poetry <title level="m">Naked Poems</title> was
+                published by Periwinkle.
+                </p>
+                            
+                <note><bibl>[<persName key="#CFRE">Cecilia Frey</persName>, "Phyllis Webb: An Annotated Bibliography," in 
+                    <title level="m">The Annotated Bibliography of Canada's Major Authors</title>, ed. <persName key="#RLEC">Robert Lecker</persName> 
+                    and <persName key="#JDAV">Jack David</persName>, Vol. 6 (Toronto:
+                ECW Press, 1985), entries A4, D18-D23.]
+                </bibl></note>
+                <media><url>http://alpha.cwrc.ca/fedora/repository/islandora:7da01128-6109-4f53-be5d-31e62a01136c/OBJ/FULL_SIZE.jpg</url><url>http://alpha.cwrc.ca/fedora/repository/islandora:4061d831-773e-419d-8c9d-058b4ab3cace/OBJ/FULL_SIZE.jpg</url></media>
+            </div>
+
+            <div>
+                <p><date when="1965-02-06">February 6</date>  
+                    <placeName key="#MON">Montreal</placeName>  
+                    An article by <persName key="#NWIL">Norm Williams</persName> published in the
+                    <title level="j">Montreal Star</title> discussed the increasing number of homosexuals being con-
+                victed in Montreal for soliciting, obscene displays, and "acting in a manner
+                as to shock citizens." His research had been spurred by a comment made by
+                Municipal Court Judge <persName key="#PLAC">Pascal Lachapelle</persName> that homosexuality was on the rise
+                in the city. Convictions for homosexual activities had increased from 25 in
+                <date when="1960">1960</date> to 166 in <date when="1964">1964</date>. Williams also interviewed members of Montreal's
+                morality squad, who discussed gay night spots in town.
+                </p>
+                            
+                <note><bibl>[<persName key="#JCOT">Jean Cote</persName>, "L'homosexualite: les policiers de Montreal face a un probleme grandissant," 
+                    <title level="j">Le nouveau Samedi</title>, 20-26 March 1965, pp. i, 14-17; <persName key="#NWIL">Norm Williams</persName>, "Says
+                Homosexuals on Increase Here: Judge's Observation," <title level="j">Montreal Star</title>, final ed., 6
+                February 1965, p. 59.]</bibl></note>
+            </div>
+
+            <div>
+                <p><date when="1965-02-08">February 8</date>  
+                    <placeName key="#OTT">Ottawa</placeName>  
+                Five gay men and four clergymen held an informal
+                discussion with a view to forming "some type of organization to help
+                homosexuals with their spiritual problems." <persName key="#GNIC">Garrfield
+                D. Nichol</persName> (pseud, of <persName key="#GNIC">Gary
+                Nichols</persName>) of the <orgName key="#CSH">Committee on Social Hygiene</orgName> was one of the organizers
+                of the meeting. Further meetings were held on <date when="1965-03-01">March 1</date> and <date when="1965-03-29">March 29, 1965</date>,
+                and were a prelude to the formation of the <orgName key="#CCRH">Canadian Council on Religion
+                and the Homosexual</orgName>. (See also May 26,1965.)
+                </p>
+                            
+                <note><bibl>["Committee on Social Hygiene" vertical file, <orgName key="#CLGA">Canadian Lesbian and Gay Archives</orgName>,
+                Toronto.]</bibl></note>
+            </div>
+<!-- initials J.M. -->
+            <div>
+                <p><date when="1965-02-09">February 9</date>  
+                    <placeName key="#VAN">Vancouver</placeName>  
+                    Several members of <orgName key="#ASK">ASK</orgName> attended the annual
+                general meeting of the John Howard Society of British Columbia to hear Dr.
+                <persName key="#RTUR">R.E. Turner</persName>, director of the Forensic Clinic attached to the Toronto Psychiatric 
+                    Hospital, speak on the psychiatric treatment of the sexual offender. Dr.
+                Turner was later interviewed by three members of <orgName key="#ASK">ASK</orgName>.
+                </p>
+                            
+                <note><bibl>[Interview, <title level="j" corresp="#p4">ASK Newsletter</title> 2 (April 1965): 3-8; <persName>J.M.</persName>, "A Special Report: The John Howard Society and Forensic Psychiatry Facilities," <title level="j" corresp="#p4">ASK Newsletter</title> 2 (February 1965):
+                5.]</bibl></note>
+            </div>
+                        <!-- initials -->
+            <div>
+                <p><date when="1965-02-10">February 10</date>  
+                    <placeName key="#VAN">Vancouver</placeName>  
+                    <orgName key="#ASK">ASK</orgName> held a discussion group to hear 
+                    part of the CJOR radio program <emph rend="italic">Crossfire</emph> taped on <date when="1964-12-17">December 17, 1964</date>, 
+                    which featured
+                two of <orgName key="#ASK">ASK</orgName>'s members. Program host <persName key="#JCROS">Jim Crossen</persName> attended the discussion.
+                </p>
+                            
+                <note><bibl>[<persName>B.C.</persName>, "ASK at the Discussion Groups," <title level="j" corresp="#p4">ASK Newsletter</title> 
+                    2 (February 1965): 10.]
+                </bibl></note>
+            </div>
+<!-- initials -->
+            <div>
+                <p>
+                <date when="1965-02-21">February 21</date>  
+                    Seattle, Wash.  
+                    <orgName key="#ASK">ASK</orgName> held its first meeting outside Vancouver,
+                at the Friends' Center in Seattle, with guest speaker Dr. <persName key="JHAM">John Hampson</persName> of
+                the department of psychiatry. University of Washington, discussing "Homo-
+                sexuality and Psychiatry."
+                </p>
+                            
+                <note><bibl>[<persName>B.C.</persName>, "Programme Committee Annual Report," <title level="j" corresp="#p4">ASK Newsletter</title> 
+                    2 (March 1965): 13; <persName key="JHAM">John Hampson</persName>, "Homosexuality and Psychiatry," 
+                    <title level="j" corresp="#p4">ASK Newsletter</title> 2 (March 1965): 5-7.]
+                </bibl></note>
+            </div>
+
+            <div>
+                <p><date when="1965-03">March</date>  <placeName key="#TOR">Toronto</placeName>  
+                    <persName key="#ELAC">E. A. Lacey</persName>'s <title level="m">The Forms of Loss</title>, 
+                the first English-Canadian gay-identified book of poetry, was published by Muddy York Press. Poet
+                <persName key="#DLEE">Dennis Lee</persName> was one of the book's sponsors.
+                </p>
+                            
+                <note><bibl>[<persName key="#RBAT">Ronald Bates</persName>, "Books Reviewed: The Forms of Loss," 
+                    <title level="j">Canadian Forum</title>, February 1966,
+                p. 259; <persName key="#RFUL">Robert Fulford</persName>, "A Very Special Poet," <title level="j">Toronto Daily Star</title>, 
+                    night ed., 28 April 1965, p. 49; <persName key="#DLEE">Dennis Lee</persName>, "Lacey Talented," <title level="j">Varsity</title> 
+                    (Univ. of Toronto), 19 March 1965, p. 14.]
+                </bibl></note>
+            </div>
+          <!-- initials -->      
+            <div>
+                <p><date when="1965-03">March</date>  
+                    <placeName key="#VAN">Vancouver</placeName>  
+                    Membership in <orgName key="#ASK">ASK</orgName> had risen to over sixty-five, and nearly one hundred people subscribed to the 
+                    <title level="j" corresp="#p4">ASK Newsletter</title>.
+                </p>
+                
+                <note><bibl>[<persName>K.K.</persName>, "Membership Committee Annual Report," <title level="j" corresp="#p4">ASK Newsletter</title> 2 
+                    (March 1965): 13.]
+                </bibl></note>
+            </div>
+                <!-- codes for places, stores, clubs, centres -->        
+            <div>
+                <p><date when="1965-03">March</date>  
+                    <placeName key="#VAN">Vancouver</placeName>  
+                At the annual general meeting of <orgName key="#ASK">ASK</orgName> a committee was
+                formed to enquire into the feasibility of starting a lesbian/gay social centre
+                in Vancouver to be called The Circle. This would be a private social club that
+                would cooperate with <orgName key="#ASK">ASK</orgName> but be separate from it. 
+                    <orgName key="#ASK">ASK</orgName> disbanded temporarily in the summer of <date when="1965">1965</date> 
+                    but reformed in <date when="1966">1966</date> and continued towards the
+                goal of forming some sort of centre. The ASK Centre, the first community
+                social centre in Canada run by a homophile organization, opened at the end
+                of <date when="1966">1966</date>. The idea for a social group called The Circle did not disappear,
+                however. During the late 1960s and early 1970s, a non-profit homophile
+                organization called <orgName key="#TC">The Circle</orgName> was active in Vancouver under the direction
+                of <placeName key="#DBEC">Mrs. D. Beck</placeName>. It was devoted to education and personal counselling on
+                homosexuality. (See also December 31,1966.)
+                </p>
+               <!-- initials -->             
+                <note><bibl>["The Circle," <title level="j" corresp="#p4">ASK Newsletter</title> 2 (June 1965): i; "The Circle" vertical file, 
+                    <orgName key="#CLGA">Canadian Lesbian and Gay Archives</orgName>, Toronto; Q.Q., "Page 69" (column). 
+                    <title level="j" corresp="#p34">Gay Canadian</title> 1 (7
+                September 1972): 6; <persName>Q.Q.</persName>, "Page 69" (column), <title level="j">Georgia Straight</title>, 2—9 September 1970,
+                    p. 20; <persName>Q.Q.</persName>, "Page 69" (column), <title level="j">Georgia Straight</title>, 22-29 June 1972, p. 17]
+                </bibl></note>
+            </div>
+               
+            <div>
+                <p><date when="1965-05-26">May 26</date> <placeName key="#OTT">Ottawa</placeName>  
+                    <orgName key="#CCRH">The Canadian Council on Religion and the Homosex-
+                ual</orgName>, a group of clergy and laypeople, was established to "aid in public
+                education about homosexuality and the plight of the homosexual in society."
+                The group's first executive included <persName key="#PROW">Rev. Philip Rowswell</persName> (Chairman),
+                <persName key="#GNIC">Garrfield D. Nichol</persName> (pseud., of <persName key="#GNIC">Gary Nichols</persName>; Secretary), 
+                    and <persName key="#ALEB">Aurele J. Lebeau</persName> (Treasurer). <persName key="#BSOM">Bruce Somers</persName>, first president of 
+                    <orgName key="#ASK">ASK</orgName>, also helped to found the group, which sponsored discussion groups and was active until the
+                    autumn of <date when="1966">1966</date>.
+                </p>
+                            
+                <note><bibl>[Untitled article, <title level="j" corresp="#p4">ASK Newsletter</title>, May 1967, p. 2; "Canadian Council on Religion and
+                    the Homosexual" vertical file, <orgName key="#CLGA">Canadian Lesbian and Gay Archives</orgName>, Toronto; "Church
+                Council Aims to Aid Homosexuals," <title level="j">Globe and Mail</title>, metro ed., 2 June 1965, p. 9; 
+                    <persName key="GKIN">Gary Kinsman</persName>, "<title level="u">Official Discourse as Sexual Regulation: The Social Organization of the
+                Sexual Policing of Gay Men</title>" (Ph.D. dissertation. University of Toronto, 1989),
+                pp. 386—87; Gary Kinsman, <title level="m">The Regulation of Desire: Sexuality in Canada</title> (Montreal:
+                Black Rose Books, 1987), p. 153; "Tangents: Ottawa, Canada," <title level="j">Tangents</title> 1 (October
+                1965): 16.]
+                </bibl></note>
+            </div>
+                
+                <!-- is key=#STI sufficient or is it too mean? ;-)  G.N. intials -->
+                
+            <div>
+                <p><date when="1965-05-26">May 26</date>  <placeName key="#STI">Stittsville</placeName>, Ont.  
+                <orgName key="CSH">The Committee on Social Hygiene</orgName>, formed in 1963 by <persName key="#GNIC">Garrfield
+                D. Nichol</persName> (pseud, of <persName key="#GNIC">Gary Nichols</persName>), was officially disbanded so 
+                that he could become active with the newly formed <orgName key="#CCRH">The Canadian Council on Religion and the Homosexual</orgName>.
+                </p>
+                            
+                <note><bibl>[<persName key="#GNIC">G.N. (Gary Nichols)</persName>, Letter, <title level="j">Mattachine Review</title> 10 (October 1964):
+                29; "Committee on Social Hygiene" vertical file, <orgName key="#CLGA">Canadian Lesbian and Gay Archives</orgName>, Toronto.]
+                </bibl></note>
+            </div>
+ <!-- places rather than orgs -->
+            <div>
+                <p><date when="1965-06-21">June 21</date>  
+                <placeName key="#TOR">Toronto</placeName>  
+                    CBC-TV commentator <persName key="#EMCG">Ed McGibbon</persName> chaired a panel discussion of sexuality with five 
+                    lesbians during a fundraising event for Street Haven, a drop-in centre for women that had been founded at the Hotel
+                Atalanta, 109-13 Carlton Street, in <date when="1965-03">March 1965</date> by <persName key="#PWAL">Peggy Ann Walpole</persName>. A
+                number of Street Haven's clients were working-class lesbians. Three hundred
+                and seventy-five people attended the event, held at the St. James Parish Hall.
+                </p>
+                            
+                <note><bibl>[<persName key="#MFUR">Marie Furtado</persName>, "Street Haven Site of Understanding," 
+                <title level="j">Toronto Daily Star</title>, night ed., 13 March 1965, p. 57; <persName key="#DHOW">Dorothy Howarth</persName>, 
+                "Lesbians Uphold 'Love,'" <title level="j">Toronto Telegram</title>, final ed., 22 June 1965, p. 9; "Nurse Founds Haven from the 
+                Street for Prostitutes, Lesbians, Addicts," <title level="j">Globe and Mail</title>, metro ed., 21 June 1965, p. 12; "We Think We Are
+                Normal, Lesbian Panelist Says," <title level="j">Globe and Mail</title>, metro ed., 22 June 1965, p. 9.]</bibl></note>
+            </div>
+
+            <div>
+                <p><date when="1965-07-06">July 6</date>  
+                <placeName key="#VAN">Vancouver</placeName> 
+                An article entitled "Homosexuality: Changing the Laws
+                Could Raise Morality," by <persName key="#WNIC">William Nicholls</persName>, an Anglican priest and head of
+                the department of religious studies at the University of British Columbia,
+                was published in the <title level="j">Vancouver Sun</title>. Nicholls maintained that the present
+                laws regarding homosexuality were "unjust and barbaric," and that homo-
+                sexuality should be treated legally on the same basis as premarital intercourse
+                between heterosexuals.
+                </p>
+                
+                <note><bibl>[<persName key="#WNIC">William Nicholls</persName>, "Homosexuality: Changing the Laws Could Raise Morality,"
+                    <title level="j">Vancouver Sun</title>, four star ed,, 6 July 1965, p, 6.]</bibl></note>
+            </div>
+            
+            <div>
+                <p><date when="1965-08">August</date>  
+                    <placeName>Northwest Territories</placeName>  
+                <persName key="#EKLI">Everett George Klippert</persName>, thirty-nine, a mechanic living in <placeName key="#PIN">Pine Point, 
+                NWT</placeName>, was questioned by the RCMP during an investigation of an arson. Klippert, who had not been involved in the fire,
+                made a voluntary statement to the investigators that he had engaged in sexual
+                acts with males on four occasions while living in the North. A native of
+                <placeName key="#KIN">Kindersley, Sask.</placeName>, Klippert had been convicted previously 
+                    (in <placeName key="#CAL">Calgary</placeName> in
+                <date when="1960">1960</date>) of gross indecency and had been sentenced to four years in prison.
+                Released in <date when="1963">1963</date> after serving three years, Klippert moved away and eventu-
+                ally settled in Pine Point. The RCMP charged Klippert with four counts of
+                gross indecency involving non-violent acts with consenting adult males in
+                private. He appeared before Magistrate <persName key="#PPAR">P.B. Parker</persName> at 
+                    <placeName key="#HAY">Hay River</placeName>, NWT, and
+                pleaded guilty. On <date when="1965-08-24">August 24, 1965</date>, Klippert was sentenced to three years on
+                each of the four counts, to be served concurrently. The Klippert case would
+                become one of the most important criminal cases in Canadian history to deal
+                with the matter of gay sexuality, and would prompt the introduction of
+                amendments to the criminal code (Bill C-150) that came into effect in <date when="1969-08">August
+                1969</date>. (See also March 9,1966, and November 7,1967.)
+                </p>
+                
+                <note><bibl>[<persName key="#GKIN">Gary Kinsman</persName>, 
+                "<title level="u">Official Discourse as Sexual Regulation: The Social Organization of the
+                Sexual Policing of Gay Men</title>" (Ph.D. dissertation. University of Toronto, 1989),
+                pp. 161-65,422-33. 438-40; "Everett Klippert" vertical file, <orgName key="#CLGA">Canadian Lesbian and Gay
+                Archives</orgName>, Toronto.]</bibl></note>
+            </div>
+            
+            <div>
+                <p><date when="1965-09-27">September 27</date>  
+                    Cardiff, Wales  
+                    <persName key="#DSEC">David Secter</persName>'s film <emph rend="italic">Winter Kept Us Warm</emph>,
+                starring <persName key="#JLAB">John Labow</persName> and <persName key="#HTAR">Henry Tarvainen</persName>, 
+                premiered to critical acclaim at the Commonwealth Film Festival. This study of the "ambiguous" friendship
+                between two male university students had been filmed at the University of
+                Toronto by Secter, a twenty-two-year-old English major from <placeName key="#WINN">Winnipeg</placeName>.
+                This was the first feature film with a homosexual theme made in English
+                Canada.
+                </p>
+                
+                <note><bibl>[Adil., "Winter Kept Us Warm," <title level="j">Variety</title>, 15 December 1965, p. 6; 
+                <persName key="#DTUR">D.J. Turner</persName> and <persName key="#MMOR">Micheline Morisset</persName>, eds., 
+                <title level="m">Canadian Feature Film Index, 1913-1985/Index des films
+                canadiens de long mitrage</title> (Ottawa: Public Archives, National Film, Television, and
+                Sound Archives, 1987), entry 182; <persName key="#TWAU">Tom Waugh</persName>, "Uncovering a Forgotten Canadian
+                Gay Film — from 1965," <title level="j" corresp="#p10">Body Politic</title>, no. 83 (1982), p. 36; "Winter Kept Us Warm,"
+                <title level="j">Objectif 65</title>, no. 32 (1965), p. 19; "Winter Kept Us Warm," <title level="j">Variety</title>, 
+                7 February 1968, p. 22; "Winter Kept Us Warm" vertical file, <orgName key="#CLGA">Canadian Lesbian and Gay
+                Archives</orgName>, Toronto.]
+                </bibl></note>
+                <media><url>http://alpha.cwrc.ca/fedora/repository/islandora:82269474-e056-4185-9f58-cf03401ac777/OBJ/FULL_SIZE.jpg</url><url>http://alpha.cwrc.ca/fedora/repository/islandora:ed5f8734-77aa-4a3a-9885-e0ca5ec24384/OBJ/FULL_SIZE.jpg</url></media>
+            </div>
+            
+            <div>
+                <p><date when="1965-11-15">November 15</date>  
+                <placeName key="#TOR">Toronto</placeName> 
+                In the November 15 issue of <title level="j">The United Church
+                Observer</title>, Rev. <persName key="#MDIC">Mervyn Dickinson</persName>, pastoral counsellor at two United
+                Churches in Toronto, declared that the church should welcome homosexuals
+                warmly and openly into all phases of its life. Dickinson's statement that the
+                church should give its blessing to some homosexual relationships alarmed
+                some other members of Toronto's clergy.
+                </p>
+            
+                <note><bibl>["Cleric Asks Church Help Homosexuals," <title level="j">Toronto Telegram</title>,final ed., 15 November
+                1965, p. 34; <persName key="#MDIC">Mervyn Dickinson</persName>, "The Church and the Homosexual," <title level="j">The United Church
+                Observer</title>, n.s. 27, no. 16 (15 November 1965): 22-23, 26, 40; "Homosexual Marriage
+                Sick Idea, Priest Says," <title level="j">Toronto Daily Star</title>, night ed., 20 November 1965, p. 13;
+                "Minister Would 'Bless Some Homosexual Marriages,'" <title level="j">Toronto Daily Star</title>, night ed.,
+                6 November 1965, p. 36; "Tangents: Toronto," <title level="j">Tangents</title> 1 (January 1966): 15-16.]</bibl></note>
+            </div>
+          
+            <div>
+                <p>
+                <date when="1965-12-18">December 18</date>  
+                <placeName key="#TOR">Toronto</placeName>  
+                When four rowdy customers began to cause trouble at the Melody Room, manager 
+                    <persName key="#KLAU">Kurt Lauer</persName> called police for assistance.
+                They arrived and arrested Lauer, who later sued Constable <persName key="#RWIL">Russell Wilson</persName>
+                for assault and false imprisonment.
+                </p>
+                
+                <note><bibl>["False Arrest, Assault Untrue, Officer Says," <title level="j">Toronto Daily Star</title>, four star ed., 17 April
+                1968, p. 25.]</bibl></note>
+            </div>
+
+        </body>
+    </text>
+    </TEI>

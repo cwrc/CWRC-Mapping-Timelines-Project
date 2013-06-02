@@ -1,0 +1,3387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.1">
+<Document>
+<Style id="highlightPlacemark">
+<IconStyle>
+<Icon>
+<href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="normalPlacemark">
+<IconStyle>
+<color>ffffffff</color>
+<scale>0.8</scale>
+<Icon>
+<href>./img/Battle_icon.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<StyleMap id="exampleStyleMap">
+<Pair>
+<key>normal</key>
+<styleUrl>#normalPlacemark</styleUrl>
+</Pair>
+<Pair>
+<key>highlight</key>
+<styleUrl>#highlightPlacemark</styleUrl>
+</Pair>
+</StyleMap>
+<Placemark>
+<name>
+Action at Happrew
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Action_at_Happrew"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Jan 01 00:00:00 GMT 1304</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>English victory</value>
+</Data>
+<Data name="DateString">
+<value>01 January 1304</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Action_at_Happrew</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.299444444444444,55.65416666666667</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Aberdeen
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Aberdeen"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Tue Sep 13 00:00:00 GMT 1644</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Royalist Victory</value>
+</Data>
+<Data name="DateString">
+<value>13 September 1644</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Aberdeen</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.106666666666667,57.14111111111111</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Alford
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Alford"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sun Jul 02 00:00:00 GMT 1645</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Royalist Victory</value>
+</Data>
+<Data name="DateString">
+<value>02 July 1645</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Alford</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.723888888888889,57.238055555555555</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Alnwick (1093)
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Alnwick_(1093)"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sun Nov 13 00:00:00 GMT 1093</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>?</value>
+</Data>
+<Data name="DateString">
+<value>13 November 1093</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Alnwick_(1093)</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-1.7005555555555556,55.42611111111111</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Alnwick (1174)
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Alnwick_(1174)"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Fri Jul 12 00:00:00 GMT 1174</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>?</value>
+</Data>
+<Data name="DateString">
+<value>12 July 1174</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Alnwick_(1174)</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-1.7172222222222224,55.416666666666664</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Ancrum Moor
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Ancrum_Moor"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Fri Feb 27 00:00:00 GMT 1545</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive Scottish Victory</value>
+</Data>
+<Data name="DateString">
+<value>27 February 1545</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Ancrum_Moor</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.6075,55.53666666666666</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Annan
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Annan"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Dec 16 00:00:00 GMT 1332</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive Bruce loyalist victory</value>
+</Data>
+<Data name="DateString">
+<value>16 December 1332</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Annan</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.2419444444444445,54.99</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Annan Moor
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Annan_Moor"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sat Oct 21 00:00:00 GMT 1645</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>?</value>
+</Data>
+<Data name="DateString">
+<value>21 October 1645</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Annan_Moor</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.2419444444444445,54.99</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Arkinholm
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Arkinholm"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu May 01 00:00:00 GMT 1455</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Royal Victory</value>
+</Data>
+<Data name="DateString">
+<value>01 May 1455</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Arkinholm</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.0,55.15</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Auldearn
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Auldearn"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Tue May 09 00:00:00 GMT 1645</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Royalist Victory</value>
+</Data>
+<Data name="DateString">
+<value>09 May 1645</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Auldearn</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.8119444444444444,57.57638888888889</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Bannockburn
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Bannockburn"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Sun Jun 23 00:00:00 GMT 1314</begin><end>Mon Jun 24 00:00:00 GMT 1314</end></TimeSpan>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>23 June 1314</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Bannockburn</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.915,56.091944444444444</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Bauds
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Bauds"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Jan 01 00:00:00 GMT 962</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish victory.</value>
+</Data>
+<Data name="DateString">
+<value>01 January 0962</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Bauds</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.8930555555555557,57.64888888888889</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of BaugÃ©
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Baug%C3%A9"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Fri Mar 21 00:00:00 GMT 1421</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Franco-Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>21 March 1421</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Baug%C3%A9</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>0.10277777777777779,47.54361111111111</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Benburb
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Benburb"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Fri Jun 01 00:00:00 GMT 1646</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Irish Confederate victory</value>
+</Data>
+<Data name="DateString">
+<value>01 June 1646</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Benburb</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-6.746111111111111,54.411944444444444</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Boroughbridge
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Boroughbridge"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Tue Mar 16 00:00:00 GMT 1322</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Royal victory</value>
+</Data>
+<Data name="DateString">
+<value>16 March 1322</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Boroughbridge</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-1.4075,54.09777777777778</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Boroughmuir
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Boroughmuir"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sun Jul 30 00:00:00 GMT 1335</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>30 July 1335</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Boroughmuir</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.183333333333333,55.93333333333333</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Bothwell Bridge
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Bothwell_Bridge"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu Jun 22 00:00:00 GMT 1679</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Government victory</value>
+</Data>
+<Data name="DateString">
+<value>22 June 1679</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Bothwell_Bridge</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.057777777777778,55.795833333333334</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Brunanburh
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Brunanburh"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sun Jan 01 00:00:00 GMT 937</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>English victory</value>
+</Data>
+<Data name="DateString">
+<value>01 January 0937</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Brunanburh</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.9780555555555557,53.336111111111116</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Carberry Hill
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Carberry_Hill"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sun Jun 15 00:00:00 GMT 1567</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Victory for opponents of Mary, Queen of Scots</value>
+</Data>
+<Data name="DateString">
+<value>15 June 1567</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Carberry_Hill</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.049444444444444,55.94333333333333</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Carbisdale
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Carbisdale"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Apr 27 00:00:00 GMT 1650</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Covenanter Government Victory</value>
+</Data>
+<Data name="DateString">
+<value>27 April 1650</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Carbisdale</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.421111111111111,57.91611111111111</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Carham
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Carham"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Jan 01 00:00:00 GMT 1018</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>01 January 1018</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Carham</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.3208333333333333,55.636944444444445</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Clitheroe
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Clitheroe"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Fri Jun 10 00:00:00 GMT 1138</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>?</value>
+</Data>
+<Data name="DateString">
+<value>10 June 1138</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Clitheroe</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.391111111111111,53.87305555555555</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Coille Bhan
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Coille_Bhan"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Jan 01 00:00:00 GMT 1721</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Tactical government victory, as rebel forces withdrew first, unable to resist.[1]
+Strategic rebel victory as government force failed to take their lands.[1]</value>
+</Data>
+<Data name="DateString">
+<value>01 January 1721</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Coille_Bhan</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-5.45,57.38333333333333</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Connor
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Connor"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Mon Sep 01 00:00:00 GMT 1315</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish/Irish victory</value>
+</Data>
+<Data name="DateString">
+<value>01 September 1315</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Connor</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-6.22,54.809999999999995</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Cravant
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Cravant"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sat Jul 31 00:00:00 GMT 1423</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive English victory</value>
+</Data>
+<Data name="DateString">
+<value>31 July 1423</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Cravant</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>3.691666666666667,47.68388888888889</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Cromdale
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Cromdale"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Sun Apr 30 00:00:00 GMT 1690</begin><end>Mon May 01 00:00:00 GMT 1690</end></TimeSpan>
+<ExtendedData>
+<Data name="Result">
+<value>British Government (Orange Royalists) Victory</value>
+</Data>
+<Data name="DateString">
+<value>30 April 1690</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Cromdale</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.4891666666666667,57.33166666666667</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Culblean
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Culblean"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu Nov 30 00:00:00 GMT 1335</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive Bruce loyalist victory</value>
+</Data>
+<Data name="DateString">
+<value>30 November 1335</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Culblean</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.934166666666667,57.09</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Dalnaspidal
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Dalnaspidal"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sun Jul 19 00:00:00 GMT 1654</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>?</value>
+</Data>
+<Data name="DateString">
+<value>19 July 1654</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Dalnaspidal</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.223055555555556,56.831944444444446</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Dalrigh
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Dalrigh"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Jun 15 00:00:00 GMT 1306</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>MacDougall victory</value>
+</Data>
+<Data name="DateString">
+<value>15 June 1306</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Dalrigh</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.687777777777778,56.42361111111111</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Dollar
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Dollar"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sat Jan 01 00:00:00 GMT 875</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Danish victory.</value>
+</Data>
+<Data name="DateString">
+<value>01 January 0875</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Dollar</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.6680555555555556,56.1625</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Dornock
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Dornock"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu Mar 25 00:00:00 GMT 1333</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>English victory</value>
+</Data>
+<Data name="DateString">
+<value>25 March 1333</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Dornock</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.2019444444444445,54.98388888888889</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Drumclog
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Drumclog"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu Jun 01 00:00:00 GMT 1679</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Covenanter victory</value>
+</Data>
+<Data name="DateString">
+<value>01 June 1679</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Drumclog</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.184722222222223,55.63166666666667</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Dunaverty
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Dunaverty"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sat Jun 15 00:00:00 GMT 1647</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>?</value>
+</Data>
+<Data name="DateString">
+<value>15 June 1647</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Dunaverty</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-5.644722222222222,55.3075</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Dunbar (1296)
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Dunbar_(1296)"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Fri Apr 27 00:00:00 GMT 1296</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive English victory</value>
+</Data>
+<Data name="DateString">
+<value>27 April 1296</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Dunbar_(1296)</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.521111111111111,55.97694444444445</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Dunbar (1650)
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Dunbar_(1650)"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sat Sep 03 00:00:00 GMT 1650</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive English Parliamentarian victory</value>
+</Data>
+<Data name="DateString">
+<value>03 September 1650</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Dunbar_(1650)</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.513888888888889,56.0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Dunkeld
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Dunkeld"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sun Aug 21 00:00:00 GMT 1689</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish Government (Orange Royalists) Victory</value>
+</Data>
+<Data name="DateString">
+<value>21 August 1689</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Dunkeld</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.585,56.565</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Dunnichen
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Dunnichen"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sat May 20 00:00:00 GMT 685</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Pictish victory</value>
+</Data>
+<Data name="DateString">
+<value>20 May 0685</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Dunnichen</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.8052777777777775,56.62833333333333</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Duns
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Duns"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu Jan 01 00:00:00 GMT 1377</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>01 January 1377</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Duns</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.3425000000000002,55.77833333333333</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Dupplin Moor
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Dupplin_Moor"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Mon Aug 10 00:00:00 GMT 1332</begin><end>Tue Aug 11 00:00:00 GMT 1332</end></TimeSpan>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive tactical victory for Balliol</value>
+</Data>
+<Data name="DateString">
+<value>10 August 1332</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Dupplin_Moor</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.5380555555555553,56.35305555555556</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Falkirk
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Falkirk_(1298)"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Tue Jul 22 00:00:00 GMT 1298</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>English victory</value>
+</Data>
+<Data name="DateString">
+<value>22 July 1298</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Falkirk_(1298)</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.783888888888889,56.00111111111111</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Faughart
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Faughart"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sat Oct 14 00:00:00 GMT 1318</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Lordship victory</value>
+</Data>
+<Data name="DateString">
+<value>14 October 1318</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Faughart</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-6.5,53.833333333333336</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Flodden
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Flodden"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Fri Sep 09 00:00:00 GMT 1513</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive English victory</value>
+</Data>
+<Data name="DateString">
+<value>09 September 1513</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Flodden</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.1752777777777776,55.62694444444445</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Flodden Field
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Flodden_Field"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Fri Sep 09 00:00:00 GMT 1513</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive English victory</value>
+</Data>
+<Data name="DateString">
+<value>09 September 1513</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Flodden_Field</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.1752777777777776,55.62694444444445</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Frankfurt an der Oder
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Frankfurt_an_der_Oder"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sun Apr 13 00:00:00 GMT 1631</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Swedish and Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>13 April 1631</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Frankfurt_an_der_Oder</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>14.55,52.35</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Glasgow (1544)
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Glasgow_(1544)"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sun Mar 16 00:00:00 GMT 1544</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>?</value>
+</Data>
+<Data name="DateString">
+<value>16 March 1544</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Glasgow_(1544)</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.234444444444445,55.86277777777778</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Glasgow (1560)
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Glasgow_(1560)"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Mon Mar 18 00:00:00 GMT 1560</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>?</value>
+</Data>
+<Data name="DateString">
+<value>18 March 1560</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Glasgow_(1560)</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.234444444444445,55.86277777777778</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Glen Affric
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Glen_Affric"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Jan 01 00:00:00 GMT 1721</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Clan Mackenzie and Clan MacRae victory</value>
+</Data>
+<Data name="DateString">
+<value>01 January 1721</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Glen_Affric</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-5.153333333333333,57.23583333333333</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Glen Shiel
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Glen_Shiel"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sat Jun 10 00:00:00 GMT 1719</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>British government victory</value>
+</Data>
+<Data name="DateString">
+<value>10 June 1719</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Glen_Shiel</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-5.317222222222222,57.16638888888889</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Glen Trool
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Glen_Trool"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Mar 01 00:00:00 GMT 1307</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>01 March 1307</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Glen_Trool</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.486944444444444,55.09</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Glenlivet
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Glenlivet"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Mon Oct 03 00:00:00 GMT 1594</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Marquess of Huntly and Earl of Errol victory</value>
+</Data>
+<Data name="DateString">
+<value>03 October 1594</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Glenlivet</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.2511111111111113,57.348888888888894</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Haddon Rig
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Haddon_Rig"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu Aug 24 00:00:00 GMT 1542</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Significant Scottish Victory</value>
+</Data>
+<Data name="DateString">
+<value>24 August 1542</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Haddon_Rig</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.35,55.6</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Halidon Hill
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Halidon_Hill"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Mon Jul 19 00:00:00 GMT 1333</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive English victory</value>
+</Data>
+<Data name="DateString">
+<value>19 July 1333</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Halidon_Hill</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.0516666666666663,55.78583333333333</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Harlaw
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Harlaw"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Fri Jul 24 00:00:00 GMT 1411</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Tactical draw
+Strategic victory for Earl of Mar</value>
+</Data>
+<Data name="DateString">
+<value>24 July 1411</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Harlaw</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.4119444444444444,57.308055555555555</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Heavenfield
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Heavenfield"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sat Jan 01 00:00:00 GMT 634</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Northumbrian victory</value>
+</Data>
+<Data name="DateString">
+<value>01 January 0634</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Heavenfield</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.1011111111111114,54.971111111111114</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Hieton
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Hieton"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu Dec 01 00:00:00 GMT 1650</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>?</value>
+</Data>
+<Data name="DateString">
+<value>01 December 1650</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Hieton</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.038888888888889,55.776944444444446</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Humbleton Hill
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Humbleton_Hill"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu Sep 14 00:00:00 GMT 1402</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive English Victory</value>
+</Data>
+<Data name="DateString">
+<value>14 September 1402</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Humbleton_Hill</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.051944444444444,55.55888888888889</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Inverkeithing
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Inverkeithing"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu Jul 20 00:00:00 GMT 1651</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive English Parliamentarian victory</value>
+</Data>
+<Data name="DateString">
+<value>20 July 1651</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Inverkeithing</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.4130555555555553,56.025</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Inverlochy (1431)
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Inverlochy_(1431)"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sat Sep 01 00:00:00 GMT 1431</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Clan Donald victory</value>
+</Data>
+<Data name="DateString">
+<value>01 September 1431</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Inverlochy_(1431)</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-5.085,56.831388888888895</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Inverlochy (1645)
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Inverlochy_(1645)"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu Feb 02 00:00:00 GMT 1645</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Royalist Victory</value>
+</Data>
+<Data name="DateString">
+<value>02 February 1645</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Inverlochy_(1645)</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-5.0808333333333335,56.8325</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Inverurie (1308)
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Inverurie_(1308)"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu May 23 00:00:00 GMT 1308</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>victory for Robert Bruce</value>
+</Data>
+<Data name="DateString">
+<value>23 May 1308</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Inverurie_(1308)</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.3180555555555555,57.335</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Kells
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Kells"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sat Nov 01 00:00:00 GMT 1315</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish/Irish victory</value>
+</Data>
+<Data name="DateString">
+<value>01 November 1315</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Kells</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-6.878055555555556,53.72805555555556</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Killiecrankie
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Killiecrankie"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Jul 27 00:00:00 GMT 1689</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Jacobite Victory</value>
+</Data>
+<Data name="DateString">
+<value>27 July 1689</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Killiecrankie</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.796111111111111,56.753055555555555</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Kilsyth
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Kilsyth"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Tue Aug 15 00:00:00 GMT 1645</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Royalist Victory</value>
+</Data>
+<Data name="DateString">
+<value>15 August 1645</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Kilsyth</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.018888888888889,55.98416666666667</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Kringen
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Kringen"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sun Aug 26 00:00:00 GMT 1612</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Norwegian victory</value>
+</Data>
+<Data name="DateString">
+<value>26 August 1612</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Kringen</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>9.533333333333333,61.766666666666666</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Landen
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Landen"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Jul 29 00:00:00 GMT 1693</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>French victory</value>
+</Data>
+<Data name="DateString">
+<value>29 July 1693</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Landen</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>5.05,50.766666666666666</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Langside
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Langside"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu May 13 00:00:00 GMT 1568</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>victory for Regent Moray</value>
+</Data>
+<Data name="DateString">
+<value>13 May 1568</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Langside</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.270555555555555,55.82777777777778</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Largs
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Largs"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Tue Oct 02 00:00:00 GMT 1263</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>tactically inconclusive, Scottish strategic victory</value>
+</Data>
+<Data name="DateString">
+<value>02 October 1263</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Largs</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.867777777777778,55.7925</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Leuze
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Leuze"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Tue Sep 18 00:00:00 GMT 1691</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>French victory</value>
+</Data>
+<Data name="DateString">
+<value>18 September 1691</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Leuze</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>3.6166666666666667,50.6</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Linlithgow Bridge
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Linlithgow_Bridge"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Tue Sep 04 00:00:00 GMT 1526</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>?</value>
+</Data>
+<Data name="DateString">
+<value>04 September 1526</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Linlithgow_Bridge</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.6105555555555555,55.97916666666667</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Littleferry
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Littleferry"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Fri Apr 15 00:00:00 GMT 1746</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Hanoverian victory</value>
+</Data>
+<Data name="DateString">
+<value>15 April 1746</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Littleferry</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.003055555555555,57.96027777777778</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Lochmaben Fair
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Lochmaben_Fair"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu Jul 22 00:00:00 GMT 1484</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish Royalist victory</value>
+</Data>
+<Data name="DateString">
+<value>22 July 1484</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Lochmaben_Fair</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.4400000000000004,55.12888888888889</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Loudoun Hill
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Loudoun_Hill"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed May 10 00:00:00 GMT 1307</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>10 May 1307</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Loudoun_Hill</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.210555555555556,55.60916666666667</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Lumphanan
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Lumphanan"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Fri Aug 15 00:00:00 GMT 1057</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>?</value>
+</Data>
+<Data name="DateString">
+<value>15 August 1057</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Lumphanan</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.7038888888888892,57.11972222222222</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Mam Garvia
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Mam_Garvia"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Mon Jun 01 00:00:00 GMT 1187</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>?</value>
+</Data>
+<Data name="DateString">
+<value>01 June 1187</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Mam_Garvia</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.428055555555556,57.596944444444446</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Maol Ruadh
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Maol_Ruadh"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sun Aug 01 00:00:00 GMT 1688</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>MacDonald/ Cameron victory</value>
+</Data>
+<Data name="DateString">
+<value>01 August 1688</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Maol_Ruadh</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.838611111111111,56.903055555555554</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Mauchline Muir
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Mauchline_Muir"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Fri Jun 12 00:00:00 GMT 1648</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish Engagers Victory</value>
+</Data>
+<Data name="DateString">
+<value>12 June 1648</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Mauchline_Muir</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.380277777777778,55.507777777777775</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Methven
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Methven"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sun Jun 19 00:00:00 GMT 1306</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>English victory</value>
+</Data>
+<Data name="DateString">
+<value>19 June 1306</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Methven</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.5819444444444444,56.42027777777778</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Myton
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Myton"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu Sep 20 00:00:00 GMT 1319</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>20 September 1319</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Myton</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-1.3408333333333333,54.095555555555556</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Nesbit Moor (1402)
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Nesbit_Moor_(1402)"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sun Jan 01 00:00:00 GMT 1402</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive English Victory</value>
+</Data>
+<Data name="DateString">
+<value>01 January 1402</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Nesbit_Moor_(1402)</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.294722222222222,55.756388888888885</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Neville's Cross
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Neville%27s_Cross"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Tue Oct 17 00:00:00 GMT 1346</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive English victory</value>
+</Data>
+<Data name="DateString">
+<value>17 October 1346</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Neville%27s_Cross</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-1.5972222222222223,54.77611111111111</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Newburn
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Newburn"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Tue Aug 28 00:00:00 GMT 1640</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>28 August 1640</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Newburn</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-1.7430555555555556,54.981388888888894</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Old Byland
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Old_Byland"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu Oct 14 00:00:00 GMT 1322</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>14 October 1322</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Old_Byland</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-1.1588888888888889,54.22694444444445</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Otterburn
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Otterburn"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Aug 05 00:00:00 GMT 1388</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>05 August 1388</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Otterburn</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.195,55.236111111111114</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Philiphaugh
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Philiphaugh"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Sep 13 00:00:00 GMT 1645</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive Covenanter Victory</value>
+</Data>
+<Data name="DateString">
+<value>13 September 1645</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Philiphaugh</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.8858333333333333,55.53972222222222</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Pinkie Cleugh
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Pinkie_Cleugh"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sat Sep 10 00:00:00 GMT 1547</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive English victory</value>
+</Data>
+<Data name="DateString">
+<value>10 September 1547</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Pinkie_Cleugh</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.0230555555555556,55.933055555555555</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Piperdean
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Piperdean"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Mon Sep 10 00:00:00 GMT 1436</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>10 September 1436</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Piperdean</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.3016666666666663,55.92055555555555</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Preston (1648)
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Preston_(1648)"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Mon Aug 17 00:00:00 GMT 1648</begin><end>Wed Aug 19 00:00:00 GMT 1648</end></TimeSpan>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive Parliamentarian victory</value>
+</Data>
+<Data name="DateString">
+<value>17 August 1648</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Preston_(1648)</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.6794444444444445,53.75277777777778</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Red Ford
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Red_Ford"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sun Jun 15 00:00:00 GMT 1264</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Victory for Alasdair MacDubhgaill</value>
+</Data>
+<Data name="DateString">
+<value>15 June 1264</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Red_Ford</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-5.211111111111111,56.30722222222222</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Renfrew
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Renfrew"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Mon Jun 01 00:00:00 GMT 1164</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Royal Victory</value>
+</Data>
+<Data name="DateString">
+<value>01 June 1164</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Renfrew</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.401944444444445,55.861111111111114</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Rhunahaorine Moss
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Rhunahaorine_Moss"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Fri May 24 00:00:00 GMT 1647</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>?</value>
+</Data>
+<Data name="DateString">
+<value>24 May 1647</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Rhunahaorine_Moss</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-5.646111111111111,55.676944444444445</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Ronaldsway
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Ronaldsway"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Tue Oct 08 00:00:00 GMT 1275</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive Scottish victory, end of Norse Sudreyan monarchy and firm establishment of Scottish rule on the Isle of Man.[1]</value>
+</Data>
+<Data name="DateString">
+<value>08 October 1275</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Ronaldsway</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.618055555555556,54.08111111111111</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Roslin
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Roslin"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sun Feb 24 00:00:00 GMT 1303</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>24 February 1303</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Roslin</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.1638888888888888,55.855000000000004</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Rullion Green
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Rullion_Green"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sun Nov 28 00:00:00 GMT 1666</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Government victory</value>
+</Data>
+<Data name="DateString">
+<value>28 November 1666</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Rullion_Green</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.255,55.85</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Sark
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Sark"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Oct 23 00:00:00 GMT 1448</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>23 October 1448</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Sark</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.0719444444444446,54.986111111111114</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Skaithmuir
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Skaithmuir"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu Jan 01 00:00:00 GMT 1316</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>01 January 1316</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Skaithmuir</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.2530555555555556,55.68611111111111</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Skerries
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Skerries"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Mon Jan 26 00:00:00 GMT 1316</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish/Irish victory</value>
+</Data>
+<Data name="DateString">
+<value>26 January 1316</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Skerries</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-6.568611111111111,53.29805555555556</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Slioch
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Slioch"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Fri Dec 01 00:00:00 GMT 1307</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>inconclusive</value>
+</Data>
+<Data name="DateString">
+<value>01 December 1307</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Slioch</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.7311111111111113,57.43194444444444</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Solway Moss
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Solway_Moss"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Fri Nov 24 00:00:00 GMT 1542</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive English Victory</value>
+</Data>
+<Data name="DateString">
+<value>24 November 1542</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Solway_Moss</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.0258333333333334,55.01111111111111</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Stanhope Park
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Stanhope_Park"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Mon Aug 03 00:00:00 GMT 1327</begin><end>Tue Aug 04 00:00:00 GMT 1327</end></TimeSpan>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>03 August 1327</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Stanhope_Park</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.11,54.74111111111111</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Steenkerque
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Steenkerque"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sun Aug 03 00:00:00 GMT 1692</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>French victory</value>
+</Data>
+<Data name="DateString">
+<value>03 August 1692</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Steenkerque</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>4.066666666666666,50.63333333333333</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Stirling (1648)
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Stirling_(1648)"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sat Sep 12 00:00:00 GMT 1648</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Engager Victory</value>
+</Data>
+<Data name="DateString">
+<value>12 September 1648</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Stirling_(1648)</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.9461111111111116,56.12305555555555</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Stirling Bridge
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Stirling_Bridge"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Sep 11 00:00:00 GMT 1297</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>11 September 1297</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Stirling_Bridge</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.9347222222222227,56.12694444444445</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Stracathro
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Stracathro"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Apr 16 00:00:00 GMT 1130</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>16 April 1130</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Stracathro</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.655,56.74111111111111</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Teba
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Teba"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Aug 01 00:00:00 GMT 1330</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Castilian victory</value>
+</Data>
+<Data name="DateString">
+<value>01 August 1330</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Teba</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.933333333333334,36.96666666666667</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Tippermuir
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Tippermuir"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu Sep 01 00:00:00 GMT 1644</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Royalist Victory</value>
+</Data>
+<Data name="DateString">
+<value>01 September 1644</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Tippermuir</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.54,56.39555555555555</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Tullich
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Tullich"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Mon Jan 01 00:00:00 GMT 1652</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Indecisive</value>
+</Data>
+<Data name="DateString">
+<value>01 January 1652</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Tullich</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.0058333333333334,57.06388888888888</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Verneuil
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Verneuil"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu Aug 17 00:00:00 GMT 1424</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive English victory</value>
+</Data>
+<Data name="DateString">
+<value>17 August 1424</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Verneuil</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>0.928611111111111,48.739444444444445</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Walcourt
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Walcourt"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu Aug 25 00:00:00 GMT 1689</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Allied victory</value>
+</Data>
+<Data name="DateString">
+<value>25 August 1689</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Walcourt</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>4.416666666666667,50.25</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of Yeavering
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_Yeavering"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Mon Jul 22 00:00:00 GMT 1415</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>?</value>
+</Data>
+<Data name="DateString">
+<value>22 July 1415</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_Yeavering</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.112777777777778,55.566944444444445</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of the Herrings
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_the_Herrings"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sat Feb 12 00:00:00 GMT 1429</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>English victory</value>
+</Data>
+<Data name="DateString">
+<value>12 February 1429</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_the_Herrings</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>1.7330555555555556,48.059999999999995</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of the Pass of Brander
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_the_Pass_of_Brander"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Jan 01 00:00:00 GMT 1309</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Victory for Robert Bruce</value>
+</Data>
+<Data name="DateString">
+<value>01 January 1309</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_the_Pass_of_Brander</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-5.180277777777778,56.41305555555555</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of the Shirts
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_the_Shirts"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Tue Jul 01 00:00:00 GMT 1544</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Stalemate</value>
+</Data>
+<Data name="DateString">
+<value>01 July 1544</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_the_Shirts</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.818888888888889,57.030277777777776</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Battle of the Standard
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Battle_of_the_Standard"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Mon Aug 22 00:00:00 GMT 1138</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>English victory</value>
+</Data>
+<Data name="DateString">
+<value>22 August 1138</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Battle_of_the_Standard</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-1.4472222222222222,54.37361111111111</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Capture of Berwick
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Capture_of_Berwick_(1296)"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Fri Mar 30 00:00:00 GMT 1296</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>English victory</value>
+</Data>
+<Data name="DateString">
+<value>30 March 1296</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Capture_of_Berwick_(1296)</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.0069444444444446,55.77111111111111</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Capture of Berwick (1482)
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Capture_of_Berwick_(1482)"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Tue Jan 01 00:00:00 GMT 1482</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive English victory</value>
+</Data>
+<Data name="DateString">
+<value>01 January 1482</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Capture_of_Berwick_(1482)</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.0069444444444446,55.77111111111111</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Capture of Roxburgh (1460)
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Capture_of_Roxburgh_(1460)"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Tue Jan 01 00:00:00 GMT 1460</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>01 January 1460</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Capture_of_Roxburgh_(1460)</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.456666666666667,55.59638888888889</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Raid of Scone
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Raid_of_Scone"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Tue Jan 01 00:00:00 GMT 1297</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>01 January 1297</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Raid_of_Scone</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.4016666666666664,56.427499999999995</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Raid of the Redeswire
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Raid_of_the_Redeswire"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu Jul 07 00:00:00 GMT 1575</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>07 July 1575</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Raid_of_the_Redeswire</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.4780555555555557,55.35388888888889</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Siege of Carlisle
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Siege_of_Carlisle_(1315)"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Jan 01 00:00:00 GMT 1315</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive English victory</value>
+</Data>
+<Data name="DateString">
+<value>01 January 1315</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Siege_of_Carlisle_(1315)</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.933888888888889,54.894999999999996</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Siege of Carlisle (1645)
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Siege_of_Carlisle_(1645)"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sun Jun 25 00:00:00 GMT 1645</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>?</value>
+</Data>
+<Data name="DateString">
+<value>25 June 1645</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Siege_of_Carlisle_(1645)</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.933888888888889,54.894999999999996</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Siege of Haddington
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Siege_of_Haddington"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Sun Jan 01 00:00:00 GMT 1548</begin><end>Wed Jan 01 00:00:00 GMT 1550</end></TimeSpan>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish Victory: Scotland claimed back Haddington</value>
+</Data>
+<Data name="DateString">
+<value>01 January 1548</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Siege_of_Haddington</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.778888888888889,55.955555555555556</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Siege of Inverness (1649)
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Siege_of_Inverness_(1649)"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Mon Feb 22 00:00:00 GMT 1649</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Royalist victory</value>
+</Data>
+<Data name="DateString">
+<value>22 February 1649</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Siege_of_Inverness_(1649)</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-4.2252777777777775,57.47166666666667</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Siege of Leith
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Siege_of_Leith"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Mon Jan 01 00:00:00 GMT 1560</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Called off following the Treaty of Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>01 January 1560</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Siege_of_Leith</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.1719444444444442,55.973888888888894</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Siege of Namur (1695)
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Siege_of_Namur_(1695)"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Sat Jul 02 00:00:00 GMT 1695</begin><end>Thu Sep 01 00:00:00 GMT 1695</end></TimeSpan>
+<ExtendedData>
+<Data name="Result">
+<value>Allied victory</value>
+</Data>
+<Data name="DateString">
+<value>02 July 1695</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Siege_of_Namur_(1695)</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>4.866666666666667,50.46666666666667</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Siege of OrlÃ©ans
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Siege_of_Orl%C3%A9ans"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Tue Oct 12 00:00:00 GMT 1428</begin><end>Sun May 08 00:00:00 GMT 1429</end></TimeSpan>
+<ExtendedData>
+<Data name="Result">
+<value>Decisive French victory</value>
+</Data>
+<Data name="DateString">
+<value>12 October 1428</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Siege_of_Orl%C3%A9ans</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>1.9088888888888889,47.902499999999996</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Siege of Roxburgh Castle
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Siege_of_Roxburgh_Castle"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Mon Jan 01 00:00:00 GMT 1313</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish victory</value>
+</Data>
+<Data name="DateString">
+<value>01 January 1313</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Siege_of_Roxburgh_Castle</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.456944444444445,55.596111111111114</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Siege of Stirling Castle
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Sieges_of_Stirling_Castle"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Apr 01 00:00:00 GMT 1304</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>English victory</value>
+</Data>
+<Data name="DateString">
+<value>01 April 1304</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Sieges_of_Stirling_Castle</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.9466666666666668,56.12305555555555</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Siege of Stralsund (1628)
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Siege_of_Stralsund_(1628)"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Fri Aug 04 00:00:00 GMT 1628</when></TimeStamp>
+<ExtendedData>
+<Data name="Result">
+<value>Allied victory: Withdrawal of Imperial troops</value>
+</Data>
+<Data name="DateString">
+<value>04 August 1628</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Siege_of_Stralsund_(1628)</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>13.083333333333334,54.3</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Sieges of Haddington
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Sieges_of_Haddington"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Sun Jan 01 00:00:00 GMT 1548</begin><end>Wed Jan 01 00:00:00 GMT 1550</end></TimeSpan>
+<ExtendedData>
+<Data name="Result">
+<value>Scottish Victory: Scotland claimed back Haddington</value>
+</Data>
+<Data name="DateString">
+<value>01 January 1548</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Sieges_of_Haddington</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.778888888888889,55.955555555555556</coordinates>
+</Point>
+</Placemark>
+</Document>
+</kml>

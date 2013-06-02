@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.1">
+<Document>
+<Style id="highlightPlacemark">
+<IconStyle>
+<Icon>
+<href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="normalPlacemark">
+<IconStyle>
+<color>ffffffff</color>
+<scale>0.8</scale>
+<Icon>
+<href>./img/Battle_icon.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<StyleMap id="exampleStyleMap">
+<Pair>
+<key>normal</key>
+<styleUrl>#normalPlacemark</styleUrl>
+</Pair>
+<Pair>
+<key>highlight</key>
+<styleUrl>#highlightPlacemark</styleUrl>
+</Pair>
+</StyleMap>
+<Placemark>
+<name>
+Edinburgh's Mathematical Past and Future
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/tour/edinburgh-s-mathematical-past-and-future"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Wed Apr 04 14:00:00 GMT 2012</begin><end>Wed Apr 04 15:30:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>14+</value>
+</Data>
+<Data name="Price">
+<value>Free (but ticketed) Tickets can be obtained at the ICMS web site at www.icms.org.uk.</value>
+</Data>
+<Data name="EventId">
+<value>237</value>
+</Data>
+<Data name="LocationName">
+<value>International Centre for Mathematical Sciences, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Wed Apr 04</value>
+</Data>
+<Data name="TimeString">
+<value>14:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.946953,-3.186780</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/tour/edinburgh-s-mathematical-past-and-future</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.186780,55.946953</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+In the Footsteps of Giants
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/tour/in-the-footsteps-of-giants"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Wed Apr 04 19:00:00 GMT 2012</begin><end>Wed Apr 04 21:00:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>18+</value>
+</Data>
+<Data name="Price">
+<value>£10 / £8</value>
+</Data>
+<Data name="EventId">
+<value>368</value>
+</Data>
+<Data name="LocationName">
+<value>Our Dynamic Earth, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Wed Apr 04</value>
+</Data>
+<Data name="TimeString">
+<value>19:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.950512,-3.176255</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/tour/in-the-footsteps-of-giants</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.176255,55.950512</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Science and the City - Present
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/tour/science-and-the-city-present"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu Apr 12 13:00:00 GMT 2012</when></TimeStamp>
+<ExtendedData>
+<Data name="Ages">
+<value>14+</value>
+</Data>
+<Data name="Price">
+<value>£5 (£11 for all three Science and the City events) / £5 (£9 for all three Science and the City events)</value>
+</Data>
+<Data name="EventId">
+<value>246</value>
+</Data>
+<Data name="LocationName">
+<value>Royal Botanic Garden Edinburgh, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Thu Apr 12</value>
+</Data>
+<Data name="TimeString">
+<value>13:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.966106,-3.213608</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/tour/science-and-the-city-present</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.213608,55.966106</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Walking with Scientists
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/tour/walking-with-scientists"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Fri Mar 30 12:45:00 GMT 2012</begin><end>Fri Mar 30 14:45:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>14+</value>
+</Data>
+<Data name="Price">
+<value>£10 / 10</value>
+</Data>
+<Data name="EventId">
+<value>280</value>
+</Data>
+<Data name="LocationName">
+<value>Festival Theatre, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Fri Mar 30</value>
+</Data>
+<Data name="TimeString">
+<value>12:45</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.946651,-3.186322</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/tour/walking-with-scientists</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.186322,55.946651</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Walking with Scientists
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/tour/walking-with-scientists"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Thu Apr 05 12:45:00 GMT 2012</begin><end>Thu Apr 05 14:45:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>14+</value>
+</Data>
+<Data name="Price">
+<value>£10 / 10</value>
+</Data>
+<Data name="EventId">
+<value>280</value>
+</Data>
+<Data name="LocationName">
+<value>Festival Theatre, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Thu Apr 05</value>
+</Data>
+<Data name="TimeString">
+<value>12:45</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.946651,-3.186322</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/tour/walking-with-scientists</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.186322,55.946651</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Walking with Scientists
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/tour/walking-with-scientists"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Fri Apr 06 12:45:00 GMT 2012</begin><end>Fri Apr 06 14:45:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>14+</value>
+</Data>
+<Data name="Price">
+<value>£10 / 10</value>
+</Data>
+<Data name="EventId">
+<value>280</value>
+</Data>
+<Data name="LocationName">
+<value>Festival Theatre, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Fri Apr 06</value>
+</Data>
+<Data name="TimeString">
+<value>12:45</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.946651,-3.186322</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/tour/walking-with-scientists</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.186322,55.946651</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Walking with Scientists
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/tour/walking-with-scientists"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Thu Apr 12 12:45:00 GMT 2012</begin><end>Thu Apr 12 14:45:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>14+</value>
+</Data>
+<Data name="Price">
+<value>£10 / 10</value>
+</Data>
+<Data name="EventId">
+<value>280</value>
+</Data>
+<Data name="LocationName">
+<value>Festival Theatre, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Thu Apr 12</value>
+</Data>
+<Data name="TimeString">
+<value>12:45</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.946651,-3.186322</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/tour/walking-with-scientists</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.186322,55.946651</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Walking with Scientists
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/tour/walking-with-scientists"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Fri Apr 13 12:45:00 GMT 2012</begin><end>Fri Apr 13 14:45:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>14+</value>
+</Data>
+<Data name="Price">
+<value>£10 / 10</value>
+</Data>
+<Data name="EventId">
+<value>280</value>
+</Data>
+<Data name="LocationName">
+<value>Festival Theatre, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Fri Apr 13</value>
+</Data>
+<Data name="TimeString">
+<value>12:45</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.946651,-3.186322</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/tour/walking-with-scientists</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.186322,55.946651</coordinates>
+</Point>
+</Placemark>
+</Document>
+</kml>

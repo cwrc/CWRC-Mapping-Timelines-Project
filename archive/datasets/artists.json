@@ -1,0 +1,43 @@
+{
+  "start" : "1449",
+  "end" : "1494-01-11",
+  "point" : {
+	  "lat" : 43.7717,
+	  "lon" : 11.2536
+   },
+  "title": "Domenico Ghirlandaio",
+  "options" : {
+	// set the full HTML for the info window
+	"infoHtml": "<div class='custominfostyle'><b>Domenico Ghirlandaio</b> was a visual artist of some sort.</div>"
+  }
+},
+{
+  "start" : "1452",
+  "end" : "1519",
+  "point" : {
+	  "lat" : 43.8166666667,
+	  "lon" : 10.7666666667
+   },
+  "title" : "Leonardo da Vinci",
+  "options" : {
+	// load HTML from another file via AJAX
+	// Note that this may break in IE if you're running it with
+	// a local file, due to cross-site scripting restrictions
+	"infoHtml": "<iframe width='560' height='315' src='http://www.youtube.com/embed/YDBVVnWSXb0' frameborder='0' allowfullscreen></iframe><div style='height: 50px; font-size: 8pt; width: 100px'>was a prominent Italian polymath: scientist, mathematician, engineer, inventor, anatomist, painter, sculptor, architect, musician and writer. The illegitimate son of a notary, Messer Piero, and a peasant girl, Caterina, Leonardo had no surname in the modern sense, 'da Vinci' simply meaning 'of Vinci': his full birth name was 'Leonardo di ser Piero da Vinci', meaning 'Leonardo, son of (Mes)ser Piero from Vinci.</div>",
+	"theme": "red"
+  }
+},
+{
+  "start" : "1475",
+  "end" : "1564",
+  "point" : {
+	  "lat" : 43.6433,
+	  "lon" : 11.9875
+   },
+  "title" : "Michelangelo",
+  "options" : {
+	// use the default title/description info window
+	"description": "<img src='http://earthquake.usgs.gov/eqcenter/shakemap/thumbs/shakemap_sc_14420052.jpg' width='100' align='left' hspace='10'/>Renaissance Man",
+	"theme": "yellow"
+  }
+}

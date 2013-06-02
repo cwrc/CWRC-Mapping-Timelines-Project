@@ -1,0 +1,145 @@
+div, p {
+font-family: Verdana, Arial, sans-serif;
+}
+
+p.content {
+font-size: 12px;
+width: 30em;
+}
+
+div#help {
+font-size: 12px;
+width: 45em;
+padding: 1em;
+}
+
+div#timemap {
+padding: 1em;
+}
+
+div#timemap_fjz{
+padding: 1em;
+}
+
+div#timemap_ba{
+padding: 1em;
+}
+
+div#timelinecontainer_lf{
+width: 100%;
+height: 275px;
+}
+
+div#timelinecontainer_fjz{
+width: 100%;
+height: 225px;
+}
+
+div#timelinecontainer_ba{
+width: 100%;
+height: 290px;
+}
+
+div#timelinecontainer{
+width: 100%;
+height: 250px;
+}
+
+div.timeline{
+ width: 100%;
+ height: 100%;
+ font-size: 12px;
+ background: #CCCCCC;
+}
+
+
+div#mapcontainer {
+ width: 100%;
+ height: 350px;
+}
+
+div#mapcontainer_fjz {
+ width: 100%;
+ height: 370px;
+}
+
+div#mapcontainer_lf {
+ width: 100%;
+ height: 370px;
+}
+
+div#mapcontainer_ba {
+ width: 100%;
+ height: 500px;
+}
+
+div.map {
+    width: 100%;
+    height: 100%;
+    background: #EEEEEE;
+}
+
+div.infotitle {
+    font-size: 14px;
+    font-weight: bold;
+}
+div.infodescription {
+    font-size: 14px;
+    font-style: italic;
+}
+
+div.custominfostyle {
+    font-family: Georgia, Garamond, serif;
+    font-size: 1.5em;
+    font-style: italic;
+    width: 20em;
+}
+
+div#tl {
+    height:300px;
+    font-size:small;
+    background: #CCCCCC;
+}
+
+    span#activitybox { 
+        color: #000000; 
+        font-weight: bold;
+        background: #FF0000; 
+        padding: 5px;
+        margin: 4px;
+    }
+    span#filmbox { 
+        color: #000000; 
+        font-weight: bold;
+        background: #FFA500; 
+        padding: 5px;
+        margin: 4px;
+    }
+    span#showbox { 
+        color: #000000; 
+        font-weight: bold;
+        background: #FFFF00; 
+        padding: 5px;
+        margin: 4px;
+    }
+    span#talkbox { 
+        color: #000000; 
+        font-weight: bold;
+        background: #32CD32; 
+        padding: 5px;
+        margin: 4px;
+    }
+    span#tourbox { 
+        color: #000000; 
+        font-weight: bold;
+        background: #98F5FF; 
+        padding: 5px;
+        margin: 4px;
+    }
+    span#workshopbox { 
+        color: #000000; 
+        font-weight: bold;
+        background: #E066FF; 
+        padding: 5px;
+        margin: 4px;
+    }

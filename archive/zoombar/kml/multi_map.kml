@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.1">
+<Document>
+<Placemark>
+<name>
+Peter Paul Rubens
+</name>
+<description>
+</description>
+<TimeStamp><when>Fri Jun 28 00:00:00 GMT 1577</when></TimeStamp>
+<LineString>
+<tessellate>1</tessellate>
+<altitudeMode>clampToGround</altitudeMode>
+<coordinates>8.017137,50.883191,0
+6.960168,50.937554,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>
+Peter Paul Rubens
+</name>
+<description>
+</description>
+<TimeStamp><when>Wed Jan 01 00:00:00 GMT 1578</when></TimeStamp>
+<LineString>
+<tessellate>1</tessellate>
+<altitudeMode>clampToGround</altitudeMode>
+<coordinates>6.960168,50.937554,0
+4.400311,51.216777,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>
+Peter Paul Rubens
+</name>
+<description>
+</description>
+<TimeStamp><when>Fri Dec 01 00:00:00 GMT 1589</when></TimeStamp>
+<LineString>
+<tessellate>1</tessellate>
+<altitudeMode>clampToGround</altitudeMode>
+<coordinates>4.400311,51.216777,0
+12.339163,45.435683,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>
+Peter Paul Rubens
+</name>
+<description>
+</description>
+<TimeStamp><when>Sat Jan 01 00:00:00 GMT 1600</when></TimeStamp>
+<LineString>
+<tessellate>1</tessellate>
+<altitudeMode>clampToGround</altitudeMode>
+<coordinates>12.339163,45.435683,0
+10.796249,45.160526,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>
+Peter Paul Rubens
+</name>
+<description>
+</description>
+<TimeStamp><when>Mon Jan 01 00:00:00 GMT 1601</when></TimeStamp>
+<LineString>
+<tessellate>1</tessellate>
+<altitudeMode>clampToGround</altitudeMode>
+<coordinates>10.796249,45.160526,0
+4.400311,51.216777,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>
+Peter Paul Rubens
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Peter_Paul_Rubens"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Fri Jun 28 00:00:00 GMT 1577</begin><end>Wed Jan 01 00:00:00 GMT 1578</end></TimeSpan>
+<ExtendedData>
+<Data name="DateString">
+<value>28 June 1577-01 January 1578</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Peter_Paul_Rubens</value>
+</Data>
+<Data name="LocationName">
+<value>Siegen, Germany</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>8.017137,50.883191</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Peter Paul Rubens
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Peter_Paul_Rubens"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Wed Jan 01 00:00:00 GMT 1578</begin><end>Fri Dec 01 00:00:00 GMT 1589</end></TimeSpan>
+<ExtendedData>
+<Data name="DateString">
+<value>01 January 1578-01 December 1589</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Peter_Paul_Rubens</value>
+</Data>
+<Data name="LocationName">
+<value>Cologne, Germany</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>6.960168,50.937554</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Peter Paul Rubens
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Peter_Paul_Rubens"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Fri Dec 01 00:00:00 GMT 1589</begin><end>Sat Jan 01 00:00:00 GMT 1600</end></TimeSpan>
+<ExtendedData>
+<Data name="DateString">
+<value>01 December 1589-01 January 1600</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Peter_Paul_Rubens</value>
+</Data>
+<Data name="LocationName">
+<value>Antwerp, Belgium</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>4.400311,51.216777</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Peter Paul Rubens
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Peter_Paul_Rubens"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Sat Jan 01 00:00:00 GMT 1600</begin><end>Mon Jan 01 00:00:00 GMT 1601</end></TimeSpan>
+<ExtendedData>
+<Data name="DateString">
+<value>01 January 1600-01 January 1601</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Peter_Paul_Rubens</value>
+</Data>
+<Data name="LocationName">
+<value>Venice, Italy</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>12.339163,45.435683</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Peter Paul Rubens
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Peter_Paul_Rubens"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Mon Jan 01 00:00:00 GMT 1601</begin><end>Thu Jan 01 00:00:00 GMT 1609</end></TimeSpan>
+<ExtendedData>
+<Data name="DateString">
+<value>01 January 1601-01 January 1609</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Peter_Paul_Rubens</value>
+</Data>
+<Data name="LocationName">
+<value>Mantua, Italy</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>10.796249,45.160526</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Peter Paul Rubens
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Peter_Paul_Rubens"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Thu Jan 01 00:00:00 GMT 1609</begin><end>Wed May 30 00:00:00 GMT 1640</end></TimeSpan>
+<ExtendedData>
+<Data name="DateString">
+<value>01 January 1609-30 May 1640</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Peter_Paul_Rubens</value>
+</Data>
+<Data name="LocationName">
+<value>Antwerp, Belgium</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>4.400311,51.216777</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Frans Hals
+</name>
+<description>
+</description>
+<TimeStamp><when>Thu Jun 30 00:00:00 GMT 1580</when></TimeStamp>
+<LineString>
+<tessellate>1</tessellate>
+<altitudeMode>clampToGround</altitudeMode>
+<coordinates>4.400311,51.216777,0
+4.641323,52.381467,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>
+Frans Hals
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Frans_Hals"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Thu Jun 30 00:00:00 GMT 1580</begin><end>Sun Jan 01 00:00:00 GMT 1584</end></TimeSpan>
+<ExtendedData>
+<Data name="DateString">
+<value>30 June 1580-01 January 1584</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Frans_Hals</value>
+</Data>
+<Data name="LocationName">
+<value>Antwerp, Belgium</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>4.400311,51.216777</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Frans Hals
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://en.wikipedia.org/wiki/Frans_Hals"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<TimeSpan><begin>Sun Jan 01 00:00:00 GMT 1584</begin><end>Thu Aug 26 00:00:00 GMT 1666</end></TimeSpan>
+<ExtendedData>
+<Data name="DateString">
+<value>01 January 1584-26 August 1666</value>
+</Data>
+<Data name="Url">
+<value>http://en.wikipedia.org/wiki/Frans_Hals</value>
+</Data>
+<Data name="LocationName">
+<value>Haarlem, Netherlands</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>4.641323,52.381467</coordinates>
+</Point>
+</Placemark>
+</Document>
+</kml>

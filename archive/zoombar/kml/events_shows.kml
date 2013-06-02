@@ -1,0 +1,1589 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.1">
+<Document>
+<Style id="highlightPlacemark">
+<IconStyle>
+<Icon>
+<href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="normalPlacemark">
+<IconStyle>
+<color>ffffffff</color>
+<scale>0.8</scale>
+<Icon>
+<href>./img/Battle_icon.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<StyleMap id="exampleStyleMap">
+<Pair>
+<key>normal</key>
+<styleUrl>#normalPlacemark</styleUrl>
+</Pair>
+<Pair>
+<key>highlight</key>
+<styleUrl>#highlightPlacemark</styleUrl>
+</Pair>
+</StyleMap>
+<Placemark>
+<name>
+Bright Club: Bodies
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/bright-club-bodies"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Thu Apr 05 20:00:00 GMT 2012</begin><end>Thu Apr 05 21:30:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>18+</value>
+</Data>
+<Data name="Price">
+<value>£10 / £8</value>
+</Data>
+<Data name="EventId">
+<value>293</value>
+</Data>
+<Data name="LocationName">
+<value>Ghillie Dhu, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Thu Apr 05</value>
+</Data>
+<Data name="TimeString">
+<value>20:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.949921,-3.207785</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/bright-club-bodies</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.207785,55.949921</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Dr Bunhead's Bigger Bang Theory
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/dr-bunhead-s-bigger-bang-theory"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Sat Apr 07 15:00:00 GMT 2012</begin><end>Sat Apr 07 16:00:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>7+</value>
+</Data>
+<Data name="Price">
+<value>£5.50 (child), £18 (family ticket) / £4.50 (adult)</value>
+</Data>
+<Data name="EventId">
+<value>290</value>
+</Data>
+<Data name="LocationName">
+<value>George Square Theatre, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Sat Apr 07</value>
+</Data>
+<Data name="TimeString">
+<value>15:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.942753,-3.188781</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/dr-bunhead-s-bigger-bang-theory</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.188781,55.942753</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Dr Bunhead's Bigger Bang Theory
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/dr-bunhead-s-bigger-bang-theory"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Sun Apr 08 15:00:00 GMT 2012</begin><end>Sun Apr 08 16:00:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>7+</value>
+</Data>
+<Data name="Price">
+<value>£5.50 (child), £18 (family ticket) / £4.50 (adult)</value>
+</Data>
+<Data name="EventId">
+<value>290</value>
+</Data>
+<Data name="LocationName">
+<value>George Square Theatre, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Sun Apr 08</value>
+</Data>
+<Data name="TimeString">
+<value>15:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.942753,-3.188781</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/dr-bunhead-s-bigger-bang-theory</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.188781,55.942753</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Dr Bunhead's Bigger Bang Theory
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/dr-bunhead-s-bigger-bang-theory"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Mon Apr 09 11:30:00 GMT 2012</begin><end>Mon Apr 09 12:30:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>7+</value>
+</Data>
+<Data name="Price">
+<value>£5.50 (child), £18 (family ticket) / £4.50 (adult)</value>
+</Data>
+<Data name="EventId">
+<value>290</value>
+</Data>
+<Data name="LocationName">
+<value>George Square Theatre, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Mon Apr 09</value>
+</Data>
+<Data name="TimeString">
+<value>11:30</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.942753,-3.188781</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/dr-bunhead-s-bigger-bang-theory</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.188781,55.942753</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Enigma Machine
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/enigma-machine"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Sat Apr 07 13:00:00 GMT 2012</begin><end>Sat Apr 07 14:00:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>12+</value>
+</Data>
+<Data name="Price">
+<value>Free (ticket required)</value>
+</Data>
+<Data name="EventId">
+<value>312</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Scotland, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Sat Apr 07</value>
+</Data>
+<Data name="TimeString">
+<value>13:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.946991,-3.189183</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/enigma-machine</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.189183,55.946991</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Festival of the Spoken Nerd
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/festival-of-the-spoken-nerd"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Thu Apr 12 20:00:00 GMT 2012</begin><end>Thu Apr 12 23:00:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>18+</value>
+</Data>
+<Data name="Price">
+<value>£10 / £8</value>
+</Data>
+<Data name="EventId">
+<value>300</value>
+</Data>
+<Data name="LocationName">
+<value>The Jam House, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Thu Apr 12</value>
+</Data>
+<Data name="TimeString">
+<value>20:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.954868,-3.196712</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/festival-of-the-spoken-nerd</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.196712,55.954868</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Flying Start
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sat Mar 31 12:00:00 GMT 2012</when></TimeStamp>
+<ExtendedData>
+<Data name="Ages">
+<value>3+</value>
+</Data>
+<Data name="Price">
+<value>Free with admission</value>
+</Data>
+<Data name="EventId">
+<value>309</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Flight, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Sat Mar 31</value>
+</Data>
+<Data name="TimeString">
+<value>12:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.995228,-2.723450</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.723450,55.995228</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Flying Start
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sun Apr 01 12:00:00 GMT 2012</when></TimeStamp>
+<ExtendedData>
+<Data name="Ages">
+<value>3+</value>
+</Data>
+<Data name="Price">
+<value>Free with admission</value>
+</Data>
+<Data name="EventId">
+<value>309</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Flight, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Sun Apr 01</value>
+</Data>
+<Data name="TimeString">
+<value>12:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.995228,-2.723450</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.723450,55.995228</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Flying Start
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Mon Apr 02 12:00:00 GMT 2012</when></TimeStamp>
+<ExtendedData>
+<Data name="Ages">
+<value>3+</value>
+</Data>
+<Data name="Price">
+<value>Free with admission</value>
+</Data>
+<Data name="EventId">
+<value>309</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Flight, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Mon Apr 02</value>
+</Data>
+<Data name="TimeString">
+<value>12:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.995228,-2.723450</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.723450,55.995228</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Flying Start
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Tue Apr 03 12:00:00 GMT 2012</when></TimeStamp>
+<ExtendedData>
+<Data name="Ages">
+<value>3+</value>
+</Data>
+<Data name="Price">
+<value>Free with admission</value>
+</Data>
+<Data name="EventId">
+<value>309</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Flight, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Tue Apr 03</value>
+</Data>
+<Data name="TimeString">
+<value>12:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.995228,-2.723450</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.723450,55.995228</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Flying Start
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Apr 04 12:00:00 GMT 2012</when></TimeStamp>
+<ExtendedData>
+<Data name="Ages">
+<value>3+</value>
+</Data>
+<Data name="Price">
+<value>Free with admission</value>
+</Data>
+<Data name="EventId">
+<value>309</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Flight, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Wed Apr 04</value>
+</Data>
+<Data name="TimeString">
+<value>12:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.995228,-2.723450</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.723450,55.995228</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Flying Start
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu Apr 05 12:00:00 GMT 2012</when></TimeStamp>
+<ExtendedData>
+<Data name="Ages">
+<value>3+</value>
+</Data>
+<Data name="Price">
+<value>Free with admission</value>
+</Data>
+<Data name="EventId">
+<value>309</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Flight, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Thu Apr 05</value>
+</Data>
+<Data name="TimeString">
+<value>12:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.995228,-2.723450</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.723450,55.995228</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Flying Start
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Fri Apr 06 12:00:00 GMT 2012</when></TimeStamp>
+<ExtendedData>
+<Data name="Ages">
+<value>3+</value>
+</Data>
+<Data name="Price">
+<value>Free with admission</value>
+</Data>
+<Data name="EventId">
+<value>309</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Flight, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Fri Apr 06</value>
+</Data>
+<Data name="TimeString">
+<value>12:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.995228,-2.723450</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.723450,55.995228</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Flying Start
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sat Apr 07 12:00:00 GMT 2012</when></TimeStamp>
+<ExtendedData>
+<Data name="Ages">
+<value>3+</value>
+</Data>
+<Data name="Price">
+<value>Free with admission</value>
+</Data>
+<Data name="EventId">
+<value>309</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Flight, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Sat Apr 07</value>
+</Data>
+<Data name="TimeString">
+<value>12:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.995228,-2.723450</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.723450,55.995228</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Flying Start
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sun Apr 08 12:00:00 GMT 2012</when></TimeStamp>
+<ExtendedData>
+<Data name="Ages">
+<value>3+</value>
+</Data>
+<Data name="Price">
+<value>Free with admission</value>
+</Data>
+<Data name="EventId">
+<value>309</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Flight, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Sun Apr 08</value>
+</Data>
+<Data name="TimeString">
+<value>12:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.995228,-2.723450</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.723450,55.995228</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Flying Start
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Mon Apr 09 12:00:00 GMT 2012</when></TimeStamp>
+<ExtendedData>
+<Data name="Ages">
+<value>3+</value>
+</Data>
+<Data name="Price">
+<value>Free with admission</value>
+</Data>
+<Data name="EventId">
+<value>309</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Flight, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Mon Apr 09</value>
+</Data>
+<Data name="TimeString">
+<value>12:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.995228,-2.723450</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.723450,55.995228</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Flying Start
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Tue Apr 10 12:00:00 GMT 2012</when></TimeStamp>
+<ExtendedData>
+<Data name="Ages">
+<value>3+</value>
+</Data>
+<Data name="Price">
+<value>Free with admission</value>
+</Data>
+<Data name="EventId">
+<value>309</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Flight, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Tue Apr 10</value>
+</Data>
+<Data name="TimeString">
+<value>12:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.995228,-2.723450</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.723450,55.995228</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Flying Start
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Wed Apr 11 12:00:00 GMT 2012</when></TimeStamp>
+<ExtendedData>
+<Data name="Ages">
+<value>3+</value>
+</Data>
+<Data name="Price">
+<value>Free with admission</value>
+</Data>
+<Data name="EventId">
+<value>309</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Flight, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Wed Apr 11</value>
+</Data>
+<Data name="TimeString">
+<value>12:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.995228,-2.723450</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.723450,55.995228</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Flying Start
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Thu Apr 12 12:00:00 GMT 2012</when></TimeStamp>
+<ExtendedData>
+<Data name="Ages">
+<value>3+</value>
+</Data>
+<Data name="Price">
+<value>Free with admission</value>
+</Data>
+<Data name="EventId">
+<value>309</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Flight, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Thu Apr 12</value>
+</Data>
+<Data name="TimeString">
+<value>12:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.995228,-2.723450</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.723450,55.995228</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Flying Start
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Fri Apr 13 12:00:00 GMT 2012</when></TimeStamp>
+<ExtendedData>
+<Data name="Ages">
+<value>3+</value>
+</Data>
+<Data name="Price">
+<value>Free with admission</value>
+</Data>
+<Data name="EventId">
+<value>309</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Flight, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Fri Apr 13</value>
+</Data>
+<Data name="TimeString">
+<value>12:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.995228,-2.723450</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.723450,55.995228</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Flying Start
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sat Apr 14 12:00:00 GMT 2012</when></TimeStamp>
+<ExtendedData>
+<Data name="Ages">
+<value>3+</value>
+</Data>
+<Data name="Price">
+<value>Free with admission</value>
+</Data>
+<Data name="EventId">
+<value>309</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Flight, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Sat Apr 14</value>
+</Data>
+<Data name="TimeString">
+<value>12:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.995228,-2.723450</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.723450,55.995228</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Flying Start
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeStamp><when>Sun Apr 15 12:00:00 GMT 2012</when></TimeStamp>
+<ExtendedData>
+<Data name="Ages">
+<value>3+</value>
+</Data>
+<Data name="Price">
+<value>Free with admission</value>
+</Data>
+<Data name="EventId">
+<value>309</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Flight, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Sun Apr 15</value>
+</Data>
+<Data name="TimeString">
+<value>12:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.995228,-2.723450</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/flying-start</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-2.723450,55.995228</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Rocket Lolly
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/rocket-lolly"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Sun Apr 15 20:00:00 GMT 2012</begin><end>Sun Apr 15 23:00:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>18+</value>
+</Data>
+<Data name="Price">
+<value>£10 / £8</value>
+</Data>
+<Data name="EventId">
+<value>298</value>
+</Data>
+<Data name="LocationName">
+<value>Ghillie Dhu, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Sun Apr 15</value>
+</Data>
+<Data name="TimeString">
+<value>20:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.949921,-3.207785</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/rocket-lolly</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.207785,55.949921</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Starlab Planetarium
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/starlab-planetarium"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Thu Apr 05 15:00:00 GMT 2012</begin><end>Thu Apr 05 16:00:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>7+</value>
+</Data>
+<Data name="Price">
+<value>£4 (with accomanying adults0</value>
+</Data>
+<Data name="EventId">
+<value>392</value>
+</Data>
+<Data name="LocationName">
+<value>The Royal Observatory, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Thu Apr 05</value>
+</Data>
+<Data name="TimeString">
+<value>15:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.923203,-3.187862</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/starlab-planetarium</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.187862,55.923203</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Super Science City
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/super-science-city"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Thu Apr 12 11:00:00 GMT 2012</begin><end>Thu Apr 12 11:45:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>All ages</value>
+</Data>
+<Data name="Price">
+<value>Free (no ticket required)</value>
+</Data>
+<Data name="EventId">
+<value>329</value>
+</Data>
+<Data name="LocationName">
+<value>Scottish National Portrait Gallery, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Thu Apr 12</value>
+</Data>
+<Data name="TimeString">
+<value>11:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.955521,-3.193593</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/super-science-city</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.193593,55.955521</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Super Science City
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/super-science-city"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Thu Apr 12 14:00:00 GMT 2012</begin><end>Thu Apr 12 14:45:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>All ages</value>
+</Data>
+<Data name="Price">
+<value>Free (no ticket required)</value>
+</Data>
+<Data name="EventId">
+<value>329</value>
+</Data>
+<Data name="LocationName">
+<value>Scottish National Portrait Gallery, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Thu Apr 12</value>
+</Data>
+<Data name="TimeString">
+<value>14:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.955521,-3.193593</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/super-science-city</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.193593,55.955521</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Super Science City
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/super-science-city"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Fri Apr 13 11:00:00 GMT 2012</begin><end>Fri Apr 13 11:45:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>All ages</value>
+</Data>
+<Data name="Price">
+<value>Free (no ticket required)</value>
+</Data>
+<Data name="EventId">
+<value>329</value>
+</Data>
+<Data name="LocationName">
+<value>Scottish National Portrait Gallery, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Fri Apr 13</value>
+</Data>
+<Data name="TimeString">
+<value>11:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.955521,-3.193593</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/super-science-city</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.193593,55.955521</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+Super Science City
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/super-science-city"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Fri Apr 13 14:00:00 GMT 2012</begin><end>Fri Apr 13 14:45:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>All ages</value>
+</Data>
+<Data name="Price">
+<value>Free (no ticket required)</value>
+</Data>
+<Data name="EventId">
+<value>329</value>
+</Data>
+<Data name="LocationName">
+<value>Scottish National Portrait Gallery, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Fri Apr 13</value>
+</Data>
+<Data name="TimeString">
+<value>14:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.955521,-3.193593</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/super-science-city</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.193593,55.955521</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+The Chemistry Show
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/the-chemistry-show"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Sun Apr 01 11:00:00 GMT 2012</begin><end>Sun Apr 01 11:45:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>All ages</value>
+</Data>
+<Data name="Price">
+<value>Free (tickets required)</value>
+</Data>
+<Data name="EventId">
+<value>326</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Scotland, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Sun Apr 01</value>
+</Data>
+<Data name="TimeString">
+<value>11:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.946991,-3.189183</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/the-chemistry-show</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.189183,55.946991</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+The Chemistry Show
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/the-chemistry-show"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Mon Apr 02 11:00:00 GMT 2012</begin><end>Mon Apr 02 11:45:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>All ages</value>
+</Data>
+<Data name="Price">
+<value>Free (tickets required)</value>
+</Data>
+<Data name="EventId">
+<value>326</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Scotland, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Mon Apr 02</value>
+</Data>
+<Data name="TimeString">
+<value>11:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.946991,-3.189183</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/the-chemistry-show</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.189183,55.946991</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+The Chemistry Show
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/the-chemistry-show"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Tue Apr 03 11:00:00 GMT 2012</begin><end>Tue Apr 03 11:45:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>All ages</value>
+</Data>
+<Data name="Price">
+<value>Free (tickets required)</value>
+</Data>
+<Data name="EventId">
+<value>326</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Scotland, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Tue Apr 03</value>
+</Data>
+<Data name="TimeString">
+<value>11:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.946991,-3.189183</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/the-chemistry-show</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.189183,55.946991</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+The Chemistry Show
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/the-chemistry-show"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Wed Apr 04 11:00:00 GMT 2012</begin><end>Wed Apr 04 11:45:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>All ages</value>
+</Data>
+<Data name="Price">
+<value>Free (tickets required)</value>
+</Data>
+<Data name="EventId">
+<value>326</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Scotland, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Wed Apr 04</value>
+</Data>
+<Data name="TimeString">
+<value>11:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.946991,-3.189183</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/the-chemistry-show</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.189183,55.946991</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+The Chemistry Show
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/the-chemistry-show"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Thu Apr 05 11:00:00 GMT 2012</begin><end>Thu Apr 05 11:45:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>All ages</value>
+</Data>
+<Data name="Price">
+<value>Free (tickets required)</value>
+</Data>
+<Data name="EventId">
+<value>326</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Scotland, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Thu Apr 05</value>
+</Data>
+<Data name="TimeString">
+<value>11:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.946991,-3.189183</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/the-chemistry-show</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.189183,55.946991</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+The Maths Olympics
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/the-maths-olympics"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Wed Apr 11 17:30:00 GMT 2012</begin><end>Wed Apr 11 19:00:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>18+</value>
+</Data>
+<Data name="Price">
+<value>£10 / £8</value>
+</Data>
+<Data name="EventId">
+<value>305</value>
+</Data>
+<Data name="LocationName">
+<value>The Jam House, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Wed Apr 11</value>
+</Data>
+<Data name="TimeString">
+<value>17:30</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.954868,-3.196712</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/the-maths-olympics</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.196712,55.954868</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+The Senses Show
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/the-senses-show-991"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Fri Apr 06 14:00:00 GMT 2012</begin><end>Fri Apr 06 14:45:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>8+</value>
+</Data>
+<Data name="Price">
+<value>Free (tickets required)</value>
+</Data>
+<Data name="EventId">
+<value>327</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Scotland, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Fri Apr 06</value>
+</Data>
+<Data name="TimeString">
+<value>14:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.946991,-3.189183</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/the-senses-show-991</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.189183,55.946991</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+The Senses Show
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/the-senses-show-991"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Sat Apr 07 11:00:00 GMT 2012</begin><end>Sat Apr 07 11:45:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>8+</value>
+</Data>
+<Data name="Price">
+<value>Free (tickets required)</value>
+</Data>
+<Data name="EventId">
+<value>327</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Scotland, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Sat Apr 07</value>
+</Data>
+<Data name="TimeString">
+<value>11:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.946991,-3.189183</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/the-senses-show-991</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.189183,55.946991</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+The Senses Show
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/the-senses-show-991"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Mon Apr 09 14:00:00 GMT 2012</begin><end>Mon Apr 09 14:45:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>8+</value>
+</Data>
+<Data name="Price">
+<value>Free (tickets required)</value>
+</Data>
+<Data name="EventId">
+<value>327</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Scotland, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Mon Apr 09</value>
+</Data>
+<Data name="TimeString">
+<value>14:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.946991,-3.189183</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/the-senses-show-991</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.189183,55.946991</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>
+The Senses Show
+</name>
+<description>
+&lt;p&gt;
+&lt;a href="http://www.sciencefestival.co.uk/whats-on/categories/show/the-senses-show-991"&gt; more info&gt;&gt;&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
+<styleUrl>#exampleStyleMap</styleUrl>
+<TimeSpan><begin>Tue Apr 10 14:00:00 GMT 2012</begin><end>Tue Apr 10 14:45:00 GMT 2012</end></TimeSpan>
+<ExtendedData>
+<Data name="Ages">
+<value>8+</value>
+</Data>
+<Data name="Price">
+<value>Free (tickets required)</value>
+</Data>
+<Data name="EventId">
+<value>327</value>
+</Data>
+<Data name="LocationName">
+<value>National Museum of Scotland, Edinburgh</value>
+</Data>
+<Data name="DateString">
+<value>Tue Apr 10</value>
+</Data>
+<Data name="TimeString">
+<value>14:00</value>
+</Data>
+<Data name="LatLonStr">
+<value>55.946991,-3.189183</value>
+</Data>
+<Data name="Url">
+<value>http://www.sciencefestival.co.uk/whats-on/categories/show/the-senses-show-991</value>
+</Data>
+</ExtendedData>
+<Point>
+<coordinates>-3.189183,55.946991</coordinates>
+</Point>
+</Placemark>
+</Document>
+</kml>
