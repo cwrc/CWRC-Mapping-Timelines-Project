@@ -1,0 +1,83 @@
+exhibit-bundle-debug.js:Exhibit.NumericRangeFacet=function(containerElmt,uiContext){this._div=containerElmt;
+exhibit-bundle-debug.js:Exhibit.NumericRangeFacet._settingSpecs={"facetLabel":{type:"text"},"scroll":{type:"boolean",defaultValue:true},"height":{type:"text"},"interval":{type:"float",defaultValue:10},"collapsible":{type:"boolean",defaultValue:false},"collapsed":{type:"boolean",defaultValue:false}};
+exhibit-bundle-debug.js:Exhibit.NumericRangeFacet.create=function(configuration,containerElmt,uiContext){var uiContext=Exhibit.UIContext.create(configuration,uiContext);
+exhibit-bundle-debug.js:var facet=new Exhibit.NumericRangeFacet(containerElmt,uiContext);
+exhibit-bundle-debug.js:Exhibit.NumericRangeFacet._configure(facet,configuration);
+exhibit-bundle-debug.js:Exhibit.NumericRangeFacet.createFromDOM=function(configElmt,containerElmt,uiContext){var configuration=Exhibit.getConfigurationFromDOM(configElmt);
+exhibit-bundle-debug.js:var facet=new Exhibit.NumericRangeFacet(containerElmt!=null?containerElmt:configElmt,uiContext);
+exhibit-bundle-debug.js:Exhibit.SettingsUtilities.collectSettingsFromDOM(configElmt,Exhibit.NumericRangeFacet._settingSpecs,facet._settings);
+exhibit-bundle-debug.js:}}catch(e){SimileAjax.Debug.exception(e,"NumericRangeFacet: Error processing configuration of numeric range facet");
+exhibit-bundle-debug.js:}Exhibit.NumericRangeFacet._configure(facet,configuration);
+exhibit-bundle-debug.js:Exhibit.NumericRangeFacet._configure=function(facet,configuration){Exhibit.SettingsUtilities.collectSettings(configuration,Exhibit.NumericRangeFacet._settingSpecs,facet._settings);
+exhibit-bundle-debug.js:Exhibit.NumericRangeFacet.prototype.dispose=function(){this._uiContext.getCollection().removeFacet(this);
+exhibit-bundle-debug.js:Exhibit.NumericRangeFacet.prototype.hasRestrictions=function(){return this._ranges.length>0;
+exhibit-bundle-debug.js:Exhibit.NumericRangeFacet.prototype.clearAllRestrictions=function(){var restrictions=[];
+exhibit-bundle-debug.js:SimileAjax.RemoteLog.possiblyLog({facetType:"NumericRange",facetLabel:this._settings.facetLabel,operation:"clearAllRestrictions",exhibitSize:totalSize,preUpdateSize:preUpdateSize,postUpdateSize:postUpdateSize});
+exhibit-bundle-debug.js:Exhibit.NumericRangeFacet.prototype.applyRestrictions=function(restrictions){this._ranges=restrictions;
+exhibit-bundle-debug.js:SimileAjax.RemoteLog.possiblyLog({facetType:"NumericRange",facetLabel:this._settings.facetLabel,operation:"applyRestrictions",exhibitSize:totalSize,preUpdateSize:preUpdateSize,postUpdateSize:postUpdateSize});
+exhibit-bundle-debug.js:Exhibit.NumericRangeFacet.prototype.setRange=function(from,to,selected){if(selected){for(var i=0;
+exhibit-bundle-debug.js:SimileAjax.RemoteLog.possiblyLog({facetType:"NumericRange",facetLabel:this._settings.facetLabel,operation:"setRange",from:from,to:to,selected:selected,exhibitSize:totalSize,preUpdateSize:preUpdateSize,postUpdateSize:postUpdateSize});
+exhibit-bundle-debug.js:Exhibit.NumericRangeFacet.prototype.restrict=function(items){if(this._ranges.length==0){return items;
+exhibit-bundle-debug.js:Exhibit.NumericRangeFacet.prototype.update=function(items){this._dom.valuesContainer.style.display="none";
+exhibit-bundle-debug.js:Exhibit.NumericRangeFacet.prototype._reconstruct=function(items){var self=this;
+exhibit-bundle-debug.js:Exhibit.NumericRangeFacet.prototype._notifyCollection=function(){this._uiContext.getCollection().onFacetUpdated(this);
+exhibit-bundle-debug.js:Exhibit.NumericRangeFacet.prototype._initializeUI=function(){var self=this;
+exhibit-bundle-debug.js:Exhibit.NumericRangeFacet.prototype._toggleRange=function(from,to,wasSelected,singleSelection){var self=this;
+exhibit-bundle-debug.js:Exhibit.NumericRangeFacet.prototype._clearSelections=function(){var state={};
+exhibit-bundle-debug.js:Exhibit.NumericRangeFacet.prototype._buildRangeIndex=function(){if(!("_rangeIndex" in this)){var expression=this._expression;
+exhibit-bundle.js:Exhibit.NumericRangeFacet=function(C,B){this._div=C;
+exhibit-bundle.js:Exhibit.NumericRangeFacet._settingSpecs={"facetLabel":{type:"text"},"scroll":{type:"boolean",defaultValue:true},"height":{type:"text"},"interval":{type:"float",defaultValue:10},"collapsible":{type:"boolean",defaultValue:false},"collapsed":{type:"boolean",defaultValue:false}};
+exhibit-bundle.js:Exhibit.NumericRangeFacet.create=function(D,B,A){var A=Exhibit.UIContext.create(D,A);
+exhibit-bundle.js:var C=new Exhibit.NumericRangeFacet(B,A);
+exhibit-bundle.js:Exhibit.NumericRangeFacet._configure(C,D);
+exhibit-bundle.js:Exhibit.NumericRangeFacet.createFromDOM=function(E,D,A){var G=Exhibit.getConfigurationFromDOM(E);
+exhibit-bundle.js:var F=new Exhibit.NumericRangeFacet(D!=null?D:E,A);
+exhibit-bundle.js:Exhibit.SettingsUtilities.collectSettingsFromDOM(E,Exhibit.NumericRangeFacet._settingSpecs,F._settings);
+exhibit-bundle.js:}}catch(C){SimileAjax.Debug.exception(C,"NumericRangeFacet: Error processing configuration of numeric range facet");
+exhibit-bundle.js:}Exhibit.NumericRangeFacet._configure(F,G);
+exhibit-bundle.js:Exhibit.NumericRangeFacet._configure=function(D,C){Exhibit.SettingsUtilities.collectSettings(C,Exhibit.NumericRangeFacet._settingSpecs,D._settings);
+exhibit-bundle.js:Exhibit.NumericRangeFacet.prototype.dispose=function(){this._uiContext.getCollection().removeFacet(this);
+exhibit-bundle.js:Exhibit.NumericRangeFacet.prototype.hasRestrictions=function(){return this._ranges.length>0;
+exhibit-bundle.js:Exhibit.NumericRangeFacet.prototype.clearAllRestrictions=function(){var D=[];
+exhibit-bundle.js:SimileAjax.RemoteLog.possiblyLog({facetType:"NumericRange",facetLabel:this._settings.facetLabel,operation:"clearAllRestrictions",exhibitSize:B,preUpdateSize:C,postUpdateSize:A});
+exhibit-bundle.js:Exhibit.NumericRangeFacet.prototype.applyRestrictions=function(D){this._ranges=D;
+exhibit-bundle.js:SimileAjax.RemoteLog.possiblyLog({facetType:"NumericRange",facetLabel:this._settings.facetLabel,operation:"applyRestrictions",exhibitSize:B,preUpdateSize:C,postUpdateSize:A});
+exhibit-bundle.js:Exhibit.NumericRangeFacet.prototype.setRange=function(H,G,F){if(F){for(var E=0;
+exhibit-bundle.js:SimileAjax.RemoteLog.possiblyLog({facetType:"NumericRange",facetLabel:this._settings.facetLabel,operation:"setRange",from:H,to:G,selected:F,exhibitSize:B,preUpdateSize:D,postUpdateSize:A});
+exhibit-bundle.js:Exhibit.NumericRangeFacet.prototype.restrict=function(B){if(this._ranges.length==0){return B;
+exhibit-bundle.js:Exhibit.NumericRangeFacet.prototype.update=function(A){this._dom.valuesContainer.style.display="none";
+exhibit-bundle.js:Exhibit.NumericRangeFacet.prototype._reconstruct=function(K){var J=this;
+exhibit-bundle.js:Exhibit.NumericRangeFacet.prototype._notifyCollection=function(){this._uiContext.getCollection().onFacetUpdated(this);
+exhibit-bundle.js:Exhibit.NumericRangeFacet.prototype._initializeUI=function(){var A=this;
+exhibit-bundle.js:Exhibit.NumericRangeFacet.prototype._toggleRange=function(G,H,D,E){var I=this;
+exhibit-bundle.js:Exhibit.NumericRangeFacet.prototype._clearSelections=function(){var B={};
+exhibit-bundle.js:Exhibit.NumericRangeFacet.prototype._buildRangeIndex=function(){if(!("_rangeIndex" in this)){var C=this._expression;
+scripts\ui\facets\numeric-range-facet.js: *  Exhibit.NumericRangeFacet
+scripts\ui\facets\numeric-range-facet.js:Exhibit.NumericRangeFacet = function(containerElmt, uiContext) {
+scripts\ui\facets\numeric-range-facet.js:Exhibit.NumericRangeFacet._settingSpecs = {
+scripts\ui\facets\numeric-range-facet.js:Exhibit.NumericRangeFacet.create = function(configuration, containerElmt, uiContext) {
+scripts\ui\facets\numeric-range-facet.js:    var facet = new Exhibit.NumericRangeFacet(
+scripts\ui\facets\numeric-range-facet.js:    Exhibit.NumericRangeFacet._configure(facet, configuration);
+scripts\ui\facets\numeric-range-facet.js:Exhibit.NumericRangeFacet.createFromDOM = function(configElmt, containerElmt, uiContext) {
+scripts\ui\facets\numeric-range-facet.js:    var facet = new Exhibit.NumericRangeFacet(
+scripts\ui\facets\numeric-range-facet.js:    Exhibit.SettingsUtilities.collectSettingsFromDOM(configElmt, Exhibit.NumericRangeFacet._settingSpecs, facet._settings);
+scripts\ui\facets\numeric-range-facet.js:        SimileAjax.Debug.exception(e, "NumericRangeFacet: Error processing configuration of numeric range facet");
+scripts\ui\facets\numeric-range-facet.js:    Exhibit.NumericRangeFacet._configure(facet, configuration);
+scripts\ui\facets\numeric-range-facet.js:Exhibit.NumericRangeFacet._configure = function(facet, configuration) {
+scripts\ui\facets\numeric-range-facet.js:    Exhibit.SettingsUtilities.collectSettings(configuration, Exhibit.NumericRangeFacet._settingSpecs, facet._settings);
+scripts\ui\facets\numeric-range-facet.js:Exhibit.NumericRangeFacet.prototype.dispose = function() {
+scripts\ui\facets\numeric-range-facet.js:Exhibit.NumericRangeFacet.prototype.hasRestrictions = function() {
+scripts\ui\facets\numeric-range-facet.js:Exhibit.NumericRangeFacet.prototype.clearAllRestrictions = function() {
+scripts\ui\facets\numeric-range-facet.js:            facetType:"NumericRange", 
+scripts\ui\facets\numeric-range-facet.js:Exhibit.NumericRangeFacet.prototype.applyRestrictions = function(restrictions) {
+scripts\ui\facets\numeric-range-facet.js:        facetType:"NumericRange", 
+scripts\ui\facets\numeric-range-facet.js:Exhibit.NumericRangeFacet.prototype.setRange = function(from, to, selected) {
+scripts\ui\facets\numeric-range-facet.js:        facetType:"NumericRange", 
+scripts\ui\facets\numeric-range-facet.js:Exhibit.NumericRangeFacet.prototype.restrict = function(items) {
+scripts\ui\facets\numeric-range-facet.js:Exhibit.NumericRangeFacet.prototype.update = function(items) {
+scripts\ui\facets\numeric-range-facet.js:Exhibit.NumericRangeFacet.prototype._reconstruct = function(items) {
+scripts\ui\facets\numeric-range-facet.js:Exhibit.NumericRangeFacet.prototype._notifyCollection = function() {
+scripts\ui\facets\numeric-range-facet.js:Exhibit.NumericRangeFacet.prototype._initializeUI = function() {
+scripts\ui\facets\numeric-range-facet.js:Exhibit.NumericRangeFacet.prototype._toggleRange = function(from, to, wasSelected, singleSelection) {
+scripts\ui\facets\numeric-range-facet.js:Exhibit.NumericRangeFacet.prototype._clearSelections = function() {
+scripts\ui\facets\numeric-range-facet.js:Exhibit.NumericRangeFacet.prototype._buildRangeIndex = function() {

@@ -1,0 +1,10 @@
+# Old version archives
+archives/
+
+# Datasets for transformation scripts
+transformers/biblifo/
+transformers/lglc/
+transformers/orlando/
+
+# Image files (not in use currently)
+img/
