@@ -18,9 +18,9 @@ class Geonames
      */
     function __construct($db_name, $db_user, $db_pass)
     {
-        R::setup("mysql:host=localhost;dbname=$db_name", $db_user, $db_pass);
-        R::freeze(TRUE);
-        R::debug(FALSE);
+        \R::setup("mysql:host=localhost;dbname=$db_name", $db_user, $db_pass);
+        \R::freeze(TRUE);
+        \R::debug(FALSE);
     }
 
     /**
@@ -36,7 +36,7 @@ class Geonames
         }
 
         $querystr = "SELECT name, asciiname, latitude, longitude, feature_class, feature_code, country_code FROM cities WHERE asciiname Like ? LIMIT $limit";
-        $matches = R::getAll($querystr, array($query));
+        $matches = \R::getAll($querystr, array($query));
 
         // If no match found so far, broaden wild-card usage
         if (empty($matches))
@@ -61,23 +61,23 @@ class Geonames
      */
     function get_location_grain($fcl, $fcode)
     {
-            if ($fcl == 'P')
+        if ($fcl == 'P')
+        {
+            return "City";
+        }
+
+        if ($fcl == 'A')
+        {
+            if ($fcode == 'PCLI')
             {
-                return "City";
+                return "Country";
             }
-            
-            if ($fcl == 'A')
+            else 
             {
-                if ($fcode == 'PCLI')
-                {
-                    return "Country";
-                }
-                else 
-                {
-                    return "Province/State";
-                }
+                return "Province/State";
             }
-            return "Other";
+        }
+        return "Other";
     }
 
     /**
@@ -87,12 +87,12 @@ class Geonames
      */
     function get_country_name($code)
     {
-            if (trim($code) == "")
-            {
-                return;
-            }
-            $match = \R::getCell("SELECT name FROM countries WHERE alpha2_code Like '$code' LIMIT 1");
-            return $match;
+        if (trim($code) == "")
+        {
+            return;
+        }
+        $match = \R::getCell("SELECT name FROM countries WHERE alpha2_code Like '$code' LIMIT 1");
+        return $match;
     }
 
     /**
