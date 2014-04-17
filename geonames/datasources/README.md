@@ -1,7 +1,7 @@
 Importing Geonames Data Sources
 ===============================
 
-The following files have been curated from the Geonames database (latest as of April 2014). To import these data sources into your MySQL server, follow the steps outlined below.
+The following files have been curated from the Geonames database (www.geonames.org), latest as of April 2014. To import these data sources into your MySQL server, follow the steps outlined below.
 
 1) To create the necessary tables in your MySQL server, run the following SQL statements:
 
