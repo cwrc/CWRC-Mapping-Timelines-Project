@@ -3,7 +3,7 @@ Importing Geonames Data Sources
 
 The following files have been curated from the Geonames database (www.geonames.org), latest as of April 2014. To import these data sources into your MySQL server, follow the steps outlined below.
 
-1) To create the necessary tables in your MySQL server, run the following SQL statements:
+1. To create the necessary tables in your MySQL server, run the following SQL statements:
 
 ```sql	
 -- countries table
@@ -40,7 +40,7 @@ CREATE TABLE cities (
 );
 ```
 	
-2) To import them into your MySQL server, use the following commands:
+2. To import them into your MySQL server, use the following commands:
 
 ```sql
 LOAD DATA LOCAL INFILE 'countries.txt' INTO TABLE 'countries';
