@@ -8,3 +8,4 @@ transformers/orlando/
 
 # Image files (not in use currently)
 img/
+/nbproject/private/

@@ -1,3 +1,3 @@
-CWRC TimeMap v 0.0.5
+CWRC TimeMap v 0.0.6
 ====================
 

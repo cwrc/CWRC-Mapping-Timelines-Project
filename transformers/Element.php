@@ -8,7 +8,8 @@ set_time_limit(3600);
 
 class Element {
 	public $label;
-    public $longLabel;
+        public $longLabel;
+        public $asciiName;
 	public $group;
 	public $subGroup;
 	public $eventType;

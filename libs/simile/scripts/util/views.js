@@ -21,19 +21,36 @@ Exhibit.ViewUtilities.fillBubbleWithItems = function(bubbleElmt, arrayOfItemIDs,
     if (bubbleElmt == null) {
         bubbleElmt = document.createElement("div");
     }
-    
-    if (arrayOfItemIDs.length > 1) {
+	
+	if (arrayOfItemIDs.length > 1) {
         bubbleElmt.className = [ bubbleElmt.className, "exhibit-views-bubbleWithItems" ].join(" ");
         
+        var groupings = document.createElement("div");
+        groupings.setAttribute("class", "multiGroupEvents"); // @edited Styling for the grouped items for scrolling to show up
         var ul = document.createElement("ul");
         for (var i = 0; i < arrayOfItemIDs.length; i++) {
             uiContext.format(arrayOfItemIDs[i], "item", function(elmt) {
                 var li = document.createElement("li");
+                li.setAttribute("style", "margin-left: -20px;"); // @edited Bullets should be more left-ward
+                
+                // @edited Add date to the end of the grouped item titles
+                var startDate = database.getObject(arrayOfItemIDs[0], "startDate");
+                var endDate = database.getObject(arrayOfItemIDs[0], "endDate");
+                var dateAppend = " (" + startDate;
+                if (endDate != null) dateAppend += "-" + endDate;
+                dateAppend += ")";
+                elmt.innerHTML += dateAppend;
+                
                 li.appendChild(elmt);
                 ul.appendChild(li);
             });
         }
-        bubbleElmt.appendChild(ul);
+        var label = document.createElement("span");
+        label.innerHTML = database.getObject(arrayOfItemIDs[0], "location"); // @edited Show location title on top
+        label.setAttribute("style", "font-weight: bold;");
+        bubbleElmt.appendChild(label);
+        groupings.appendChild(ul);
+        bubbleElmt.appendChild(groupings);
     } else {
         var itemLensDiv = document.createElement("div");
         var itemLens = uiContext.getLensRegistry().createLens(arrayOfItemIDs[0], itemLensDiv, uiContext);

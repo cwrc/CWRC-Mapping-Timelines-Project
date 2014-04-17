@@ -64,8 +64,8 @@ body {
 }
 
 .item {
-    border: 1px solid #aaa;
-    padding: 0.3em;
+    border: 0px solid #aaa;
+    padding: 0px;
 }
 
 div.thumbnail {

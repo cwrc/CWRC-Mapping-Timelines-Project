@@ -836,7 +836,7 @@ Exhibit.MapView.prototype._showInfoWindow = function(items, pos, marker) {
     var content= this._createInfoWindow(items);
 
     var window = new google.maps.InfoWindow({
-	content: content
+		content: content
     });
     if (pos) window.setPosition(pos);
 

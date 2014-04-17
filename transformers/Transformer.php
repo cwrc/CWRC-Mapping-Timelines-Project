@@ -28,26 +28,32 @@ function processFile($dirpath, $file) {
 }
 
 function printElement($element, $multi = false) {
-    print "\n\t{";
-    print "\n\t\t\"label\": \"$element->label\",";
-    print "\n\t\t\"longLabel\": \"$element->longLabel\",";
-    print "\n\t\t\"group\": \"$element->group\",";
-    print "\n\t\t\"subGroup\": \"$element->subGroup\",";
-    print "\n\t\t\"eventType\": \"$element->eventType\",";
-    print "\n\t\t\"startDate\": \"$element->startDate\",";
-    if (isset($element->endDate)) print "\n\t\t\"endDate\": \"$element->endDate\",";
-    print "\n\t\t\"dateType\": \"$element->dateType\",";
-    if ($multi == true) print "\n\t\t\"location\": $element->location,";
-    else print "\n\t\t\"location\": \"$element->location\",";
+    print outputElement($element, $multi);
+}
+
+function outputElement($element, $multi = false) {
+    $out = "\n\t{";
+    $out .= "\n\t\t\"label\": \"$element->label\",";
+    $out .= "\n\t\t\"longLabel\": \"$element->longLabel\",";
+    $out .= "\n\t\t\"asciiName\": \"$element->asciiName\",";
+    $out .= "\n\t\t\"group\": \"$element->group\",";
+    $out .= "\n\t\t\"subGroup\": \"$element->subGroup\",";
+    $out .= "\n\t\t\"eventType\": \"$element->eventType\",";
+    $out .= "\n\t\t\"startDate\": \"$element->startDate\",";
+    if (isset($element->endDate)) $out .= "\n\t\t\"endDate\": \"$element->endDate\",";
+    $out .= "\n\t\t\"dateType\": \"$element->dateType\",";
+    if ($multi == true) $out .= "\n\t\t\"location\": $element->location,";
+    else $out .= "\n\t\t\"location\": \"$element->location\",";
     if (isset($element->latLng)) {
-        if ($multi == true) print "\n\t\t\"latLng\": $element->latLng,";
-        else print "\n\t\t\"latLng\": \"$element->latLng\",";
+        if ($multi == true) $out .= "\n\t\t\"latLng\": $element->latLng,";
+        else $out .= "\n\t\t\"latLng\": \"$element->latLng\",";
     }
-    if ($multi == true) print "\n\t\t\"locationType\": $element->locationType,";
-    else print "\n\t\t\"locationType\": \"$element->locationType\",";
-    print "\n\t\t\"pointType\": \"$element->pointType\",";
-    print "\n\t\t\"description\": \"$element->description\"";        
-    print "\n\t},";
+    if ($multi == true) $out .= "\n\t\t\"locationType\": $element->locationType,";
+    else $out .= "\n\t\t\"locationType\": \"$element->locationType\",";
+    $out .= "\n\t\t\"pointType\": \"$element->pointType\",";
+    $out .= "\n\t\t\"description\": \"$element->description\"";
+    $out .= "\n\t},";
+    return $out;
 }
 
 function getDateGrain($start, $end) {
@@ -84,10 +90,24 @@ function frenchMonthsToNum($date) {
     return $ret;
 }
 
+
+function neatTrim($str, $n, $delim='...') {
+   $len = strlen($str);
+   if ($len > $n) {
+       preg_match('/(.{' . $n . '}.*?)\b/', $str, $matches);
+       return rtrim(@$matches[1]) . $delim;
+   }
+   else {
+       return $str;
+   }
+}
+
+// Geonames online service calls (outdated, replaced with local Geonames service)
 function getGeoXML($point, $country = "") {
     $point = urlencode($point);
 
-    $url = "http://api.geonames.org/search?name_equals=$point&name_startsWith=$point&maxRows=1&username=geocwrc&orderby=relevance";
+    //$url = "http://api.geonames.org/search?name_equals=$point&name_startsWith=$point&maxRows=1&username=geocwrc&orderby=relevance";
+    $url = "http://localhost/exhibit/geonames/?query=$point";
     if ($country != "") $url .= "&countryBias=$country";
     
     $file = file_get_contents($url); // Geonames web service, full documentation at: http://www.geonames.org/export/web-services.html
@@ -129,15 +149,4 @@ function getCountry($geoxml) {
 	$n = @$name[0];
     if (isset($n)) return $n;
     else return "";
-}
-
-function neatTrim($str, $n, $delim='...') {
-   $len = strlen($str);
-   if ($len > $n) {
-       preg_match('/(.{' . $n . '}.*?)\b/', $str, $matches);
-       return rtrim($matches[1]) . $delim;
-   }
-   else {
-       return $str;
-   }
 }
