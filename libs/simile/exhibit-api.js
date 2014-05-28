@@ -186,7 +186,12 @@
         }
 
         if (useLocalResources) {
-            Exhibit.urlPrefix = "libs/simile/";
+            if (typeof Exhibit.urlPrefix == 'undefined') {
+              Exhibit.urlPrefix = "libs/simile/";
+            }
+            else {
+              Exhibit.urlPrefix = Exhibit.urlPrefix + "/libs/simile/";
+            }
         }
 
         if (Exhibit.params.locale) { // ISO-639 language codes,
@@ -270,7 +275,9 @@
         var url = useLocalResources ?
             "libs/simile/ajax/api/simile-ajax-api.js?bundle=false" :
             "libs/simile/ajax/api/simile-ajax-api.js";
-
+        if (!(typeof Exhibit_urlPrefix == 'undefined')) {
+            url = Exhibit_urlPrefix + '/' + url;
+        }
         var createScriptElement = function() {
             var script = document.createElement("script");
             script.type = "text/javascript";
