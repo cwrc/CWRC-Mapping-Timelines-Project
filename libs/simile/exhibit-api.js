@@ -163,7 +163,7 @@
                 Exhibit.error = new Error("Failed to derive URL prefix for Simile Exhibit API code files");
                 return;
             }
-            Exhibit.urlPrefix = url.substr(0, url.indexOf("exhibit-api.js"));
+            Exhibit.urlPrefix = url.substr(0, url.indexOf("libs/simile/exhibit-api.js"));
 
             SimileAjax.parseURLParameters(url, Exhibit.params, paramTypes);
         }
@@ -190,7 +190,7 @@
               Exhibit.urlPrefix = "libs/simile/";
             }
             else {
-              Exhibit.urlPrefix = Exhibit.urlPrefix + "/libs/simile/";
+              Exhibit.urlPrefix = Exhibit.urlPrefix + "libs/simile/";
             }
         }
 
@@ -276,7 +276,7 @@
             "libs/simile/ajax/api/simile-ajax-api.js?bundle=false" :
             "libs/simile/ajax/api/simile-ajax-api.js";
         if (!(typeof Exhibit_urlPrefix == 'undefined')) {
-            url = Exhibit_urlPrefix + '/' + url;
+            url = Exhibit_urlPrefix + url;
         }
         var createScriptElement = function() {
             var script = document.createElement("script");
