@@ -43,6 +43,6 @@ CREATE TABLE cities (
 2) To import them into your MySQL server, use the following commands:
 
 ```sql
-LOAD DATA LOCAL INFILE 'countries.txt' INTO TABLE 'countries';
-LOAD DATA LOCAL INFILE 'cities.txt' INTO TABLE 'cities'
+LOAD DATA LOCAL INFILE 'countries.txt' INTO TABLE countries;
+LOAD DATA LOCAL INFILE 'cities.txt' INTO TABLE cities;
 ```
