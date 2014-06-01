@@ -3,7 +3,6 @@
  * Minified Geonames service for searching city names and returning useful information such as lat, long
  *
  * @author Hamman Samuel
- * @version 20140416
  */
 
 require_once("libs/rb/rb.php");
@@ -61,23 +60,23 @@ class Geonames
      */
     function get_location_grain($fcl, $fcode)
     {
-            if ($fcl == 'P')
-            {
-                return "City";
-            }
-            
-            if ($fcl == 'A')
-            {
-                if ($fcode == 'PCLI')
-                {
-                    return "Country";
-                }
-                else 
-                {
-                    return "Province/State";
-                }
-            }
-            return "Other";
+		if ($fcl == 'P')
+		{
+			return "City";
+		}
+		
+		if ($fcl == 'A')
+		{
+			if ($fcode == 'PCLI')
+			{
+				return "Country";
+			}
+			else 
+			{
+				return "Province/State";
+			}
+		}
+		return "Other";
     }
 
     /**
@@ -87,12 +86,12 @@ class Geonames
      */
     function get_country_name($code)
     {
-            if (trim($code) == "")
-            {
-                return;
-            }
-            $match = \R::getCell("SELECT name FROM countries WHERE alpha2_code Like '$code' LIMIT 1");
-            return $match;
+		if (trim($code) == "")
+		{
+			return;
+		}
+		$match = \R::getCell("SELECT name FROM countries WHERE alpha2_code Like '$code' LIMIT 1");
+		return $match;
     }
 
     /**
