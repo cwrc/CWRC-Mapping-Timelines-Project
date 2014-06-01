@@ -2,12 +2,10 @@
 /**
  * CWRC implementation of Geonames as RESTful service
  *
- * @usage http://localhost/geonames/?query=Edmonton
+ * @usage e.g. http://localhost/exhibit/geonames/?query=edmonton
  * 
  * @param GET string query      - The name to search for
  * @param GET int max_results 	- Max number of results to return
- * @param GET string country 	- The country to bias results towards
- * @param GET string continent	- The continent to bias results towards
  * @return string array XML 	- Returned XML contains cities that match the query, and conforms with Geonames schema for seamless integration
  *
  * @author Hamman Samuel
