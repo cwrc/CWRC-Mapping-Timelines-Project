@@ -65,7 +65,6 @@ function outputElement($element, $multi = false)
     $out .= "\n\t\t\"longLabel\": \"$element->longLabel\",";
     $out .= "\n\t\t\"asciiName\": \"$element->asciiName\",";
     $out .= "\n\t\t\"group\": \"$element->group\",";
-    $out .= "\n\t\t\"subGroup\": \"$element->subGroup\",";
     $out .= "\n\t\t\"eventType\": \"$element->eventType\",";
     $out .= "\n\t\t\"startDate\": \"$element->startDate\",";
 
