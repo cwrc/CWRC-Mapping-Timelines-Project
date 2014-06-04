@@ -17,9 +17,9 @@ class Transformer
 		if ($handle = opendir($dirpath))
 		{
 			print "{\n\"items\": [";
-			while (false !== ($file = readdir($handle)))
+			while (($file = readdir($handle)) != FALSE)
 			{
-				if ('.' === $file || '..' === $file)
+				if ($file == '.' || $file == '..')
 				{
 					continue;
 				}
@@ -49,7 +49,7 @@ class Transformer
 	 * @param string $element - XML block to output
 	 * @param bool $multi - Will contain multiple items of same attribute
 	 */
-	private static function print_element($element, $multi = false)
+	private static function print_element($element, $multi = FALSE)
 	{
 		print output_element($element, $multi);
 	}
@@ -60,7 +60,7 @@ class Transformer
 	 * @param bool $multi - Will contain multiple items of same attribute
 	 * @return string - Output string
 	 */
-	public static function output_element($element, $multi = false)
+	public static function output_element($element, $multi = FALSE)
 	{
 		$out = "\n\t{";
 		$out .= "\n\t\t\"label\": \"$element->label\",";
@@ -77,7 +77,7 @@ class Transformer
 
 		$out .= "\n\t\t\"dateType\": \"$element->dateType\",";
 
-		if ($multi == true)
+		if ($multi == TRUE)
 		{
 			$out .= "\n\t\t\"location\": $element->location,";
 		}
@@ -88,7 +88,7 @@ class Transformer
 
 		if (isset($element->latLng)) 
 		{
-			if ($multi == true)
+			if ($multi == TRUE)
 			{
 				$out .= "\n\t\t\"latLng\": $element->latLng,";
 			}
@@ -98,7 +98,7 @@ class Transformer
 			}
 		}
 
-		if ($multi == true)
+		if ($multi == TRUE)
 		{
 			$out .= "\n\t\t\"locationType\": $element->locationType,";
 		}
@@ -115,18 +115,70 @@ class Transformer
 	}
 
 	/**
+	 * Parse date and return valid format
+	 * @param string $raw_date - The date to parse
+	 * @return string
+	 */
+	public static function date_parse($raw_date)
+	{
+		$date = "";
+		if ($raw_date == $date)
+		{
+			return $raw_date;	
+		}
+		
+		// Convert French names to English
+		$raw_date = self::date_language_convert($raw_date);
+		
+		$parsed = date_parse($raw_date);
+		if ($parsed == FALSE)
+		{
+			return $date;
+		}
+
+		$ret = "";
+		if ($parsed['year'] == FALSE)
+		{
+			return $ret;
+		}
+		else 
+		{
+			$ret .= $parsed['year']; 
+		}
+		
+		if ($parsed['month'] == FALSE)
+		{
+			return $ret;
+		}
+		else 
+		{
+			$ret .= "-".$parsed['month'];
+		}
+		
+		if ($parsed['day'] == FALSE)
+		{
+			return $ret;
+		}
+		else
+		{
+			$ret .= "-".$parsed['day'];
+		}
+		return $ret;
+	}
+	
+	/**
 	 * Get date granularity
 	 * @param string $start - Start date
 	 * @param string $end - End date
-	 * @return string - Year, Month, Day, Range, or N/A
+	 * @return string - Year, Month, Day, Range, or Unknown
 	 */
 	public static function get_date_grain($start, $end)
 	{
 		if ($start == "")
 		{
-			return "N/A";
+			return "Unknown";
 		}
-		if ($start !== $end && $end != "")
+		if ($start != $end && $end != "")
 		{
 			return "Range";
 		}
@@ -143,32 +195,22 @@ class Transformer
 			return "Day";
 		}
 
-		return "N/A";
+		return "Unknown";
 	}
 
 	/**
-	 * Convert French-named months to numeric value
+	 * Convert French-named dates to English ones
 	 * @param string $date - Date with French names
-	 * @return int
+	 * @return string - Names replaced
 	 */
-	public static function french_months_to_num($date)
-	{
-		$mois = array("janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre");
+	private static function date_language_convert($date)
+	{	
+		$french = array("/janvier/","/février/","/mars/","/avril/","/mai/","/juin/","/juillet/","/août/","/septembre/","/octobre/","/novembre/","/décembre/");
+		$english = array("january","february","march","april","may","june","july","august","september","october","november","december");
 		
-		$ret = 0;
-		foreach ($mois as $key=>$month)
-		{ 
-			if (preg_match("/$month/", $date) == 1)
-			{
-				$ret = $key+1;
-				if ($ret < 9)
-				{
-					$ret = "0$ret";
-				}
-				break;
-			}
-		}
-		return $ret;
+		$date = strtolower($date);
+		
+		return preg_replace($french, $english, $date);
 	}
 
 	/**
@@ -187,7 +229,7 @@ class Transformer
 	   }
 	   else 
 	   {
-		   return $str . ".";
+		   return $str;
 	   }
 	}
 }
