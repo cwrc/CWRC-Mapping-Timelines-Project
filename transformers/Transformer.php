@@ -137,7 +137,7 @@ class Transformer
 		}
 
 		$ret = "";
-		if ($parsed['year'] == FALSE)
+		if ($parsed['year'] == FALSE || $parsed['year'] > date('Y'))
 		{
 			return $ret;
 		}
@@ -165,7 +165,7 @@ class Transformer
 		}
 		return $ret;
 	}
-	
+
 	/**
 	 * Get date granularity
 	 * @param string $start - Start date
