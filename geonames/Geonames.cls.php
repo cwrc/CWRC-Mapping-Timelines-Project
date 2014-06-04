@@ -40,13 +40,13 @@ class Geonames
         // If no match found so far, broaden wild-card usage
         if (empty($matches))
         {
-            $matches = \R::getAll($querystr, array("$query%"));
+            $matches = R::getAll($querystr, array("$query%"));
         }
         
         // If no match found still, maximize wild-card usage
         if (empty($matches))
         {
-            $matches = \R::getAll($querystr, array("%$query%"));
+            $matches = R::getAll($querystr, array("%$query%"));
         }
 
         return $matches;
@@ -90,7 +90,7 @@ class Geonames
 		{
 			return;
 		}
-		$match = \R::getCell("SELECT name FROM countries WHERE alpha2_code Like '$code' LIMIT 1");
+		$match = R::getCell("SELECT name FROM countries WHERE alpha2_code Like '$code' LIMIT 1");
 		return $match;
     }
 
@@ -107,6 +107,7 @@ class Geonames
         {
             $result = (object) $result;
             $country_name = $this->get_country_name($result->country_code); // Use $result->country_code to look it up
+            $grain = $this->get_location_grain($result->feature_class, $result->feature_code);
             print "<geoname>";
             print "<name>$result->name</name>";
             print "<asciiName>$result->asciiname</asciiName>";
@@ -117,6 +118,7 @@ class Geonames
             print "<fcl>$result->feature_class</fcl>";
             print "<fcode>$result->feature_code</fcode>";
             print "<geonameid>$result->geonameid</geonameid>";
+            print "<granularity>$grain</granularity>";
             print "</geoname>";
         }
         print "</geonames>";
