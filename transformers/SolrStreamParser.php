@@ -3,7 +3,6 @@
  * Parses Solr stream for a collection and creates cached version using Plot-It schema
  * @author Hamman Samuel
  * @todo Make parser work for mixed streams with multi-collections
- * @todo French dates in Solr stream with mixed names not correct
  */
 
 include('Transformer.php');
@@ -99,12 +98,12 @@ abstract class SolrStreamParser
 			$el->label = Transformer::neat_trim($el->longLabel, 40);
 			
 			$el->group = $this->collection_name;
-			$el->eventType = $this->get_event_type(); // This function needs to be present in the actual collection implementation call
+			$el->eventType = $this->get_event_type(); // Abstract function
 			
 			$el->dateType = "Unknown";
 			if (isset($record[START_DATE][0]))
 			{
-				$el->startDate = Transformer::date_parse($record[START_DATE][0]); // #todo This contains french dates and english dates with month names
+				$el->startDate = Transformer::date_parse($record[START_DATE][0]);
 				$el->dateType = Transformer::get_date_grain($el->startDate, $el->startDate);
 			}
 
