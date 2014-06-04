@@ -1,0 +1,47 @@
+{
+	"description": "Slor sub-schema for input into Plot-It (please see www.jsonschemalint.com for JSON schema validator)",
+	"$schema": "http://json-schema.org/draft-03/schema",
+	"required": false,
+	"properties": 
+	{
+		"solr_doc": 
+		{
+			"description": "Each document or event within the stream",
+			"type": "array",
+			"required": false,
+			"properties": 
+			{
+				"cwrc_general_label_et": 
+				{
+					"description": "Title of the event",
+					"type": "string",
+					"required": true
+				},
+				"cwrc_general_place_mt": 
+				{
+					"description": "Place/location name",
+					"type": "string",
+					"required": false
+				},
+				"cwrc_general_date_ms": 
+				{
+					"description": "Date of event, presumably start date",
+					"type": "string",
+					"required": false
+				},
+				"cwrc_general_description_et": 
+				{
+					"description": "Description of event",
+					"type": "string",
+					"required": false
+				},
+				"RELS_EXT_isMemberOfCollection_uri_ms": 
+				{
+					"description": "Collection ID associated with event",
+					"type": "string",
+					"required": false
+				}
+			}
+		}
+	}
+}
