@@ -1,6 +1,9 @@
 <?php
 /**
- * Parses the Solr JSON stream and creates cached version of Plot-It JSON stream based on its schema
+ * Parses Solr stream for a collection and creates cached version using Plot-It schema
+ * @author Hamman Samuel
+ * @todo Make parser work for mixed streams with multi-collections
+ * @todo French dates in Solr stream with mixed names not correct
  */
 
 include('Transformer.php');
@@ -8,62 +11,34 @@ include('Element.php');
 include('../geonames/Geonames.cls.php');
 include('../dbconfig.php');
 
-define("MODS_RECORD", "solr_doc");
-define("MODS_PLACE", "cwrc_general_place_mt");
-define("MODS_DATE", "cwrc_general_date_ms");
-define("MODS_TITLE", "cwrc_general_label_et");
-define("MODS_DESCRIPTION", "cwrc_general_description_et");
-define("MODS_COLLECTION", "RELS_EXT_isMemberOfCollection_uri_ms");
+define("EVENT_OBJECT", "solr_doc");
+define("LOCATION_NAME", "cwrc_general_place_mt");
+define("START_DATE", "cwrc_general_date_ms");
+define("LONG_TITLE", "cwrc_general_label_et");
+define("DESCRIPTION", "cwrc_general_description_et");
 
-class SolrStreamParser
+define("CACHE_DIR", __DIR__.'/cache/');
+
+abstract class SolrStreamParser
 {
-	private $cachefile;
-	private $cachesourcefile;
-	private $localpidcache;
-	private $streamurl;
-	private $cookie;
+	private $collection_name;
+	private $solr_stream;
+	
+	abstract protected function get_event_type(); // Implementation is collection-specific
 	
 	/**
 	 * Constructor
+	 * @param string $collection_name - Name of collection in proper case, e.g. BIBLIFO
+	 * @param string $solr_stream - JSON stream retrieved using AuthStreamReader static class
 	 */
-	public function __construct($cachefile, $cachesourcefile, $localpidcache, $streamurl, $cookie)
+	public function __construct($collection_name, $solr_stream)
 	{
-		$this->cachefile = $cachefile;
-		$this->cachesourcefile = $cachesourcefile;
-		$this->localpidcache = $localpidcache;
-		$this->streamurl = $streamurl;
-		$this->cookie = $cookie;
-	}
+		$this->collection_name = $collection_name;
+		$this->solr_stream = $solr_stream;
 
-	/**
-	 * Authenticates user
-	 * @param string $url - URL to authenticate
-	 * @param string $username - Username
-	 * @param string $password - Password
-	 */
-	public function log_in($url, $username, $password)
-	{
-		$data = '{"username":"'.$username.'","password":"'.$password.'"}';
-		
-		$ch = curl_init();
-		
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
-		curl_setopt($ch, CURLOPT_COOKIEJAR, $this->cookie);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-		
-		curl_exec($ch);
-		curl_close($ch);
-	}
-
-	/**
-	 * Logs out authenticated user
-	 */
-	public function log_out()
-	{
-		unlink($this->cookie);
+		$collection_name = strtolower($collection_name);
+		$this->cache_file = CACHE_DIR.$collection_name.'.json';
+		$this->solr_cache_file = CACHE_DIR.$collection_name.'_solr.json';
 	}
 
 	/**
@@ -72,11 +47,11 @@ class SolrStreamParser
 	 */
 	public function check_cache() 
 	{
-		if (!is_readable($this->cachefile))
+		if (!is_readable($this->cache_file))
 		{
 			$this->generate_cache();
 		}
-		$contents = file_get_contents($this->cachefile);
+		$contents = file_get_contents($this->cache_file);
 		return $contents;
 	}
 
@@ -84,42 +59,22 @@ class SolrStreamParser
 	 * Checks whether the CWRC API source has been cached
 	 * @return JSON
 	 */
-	public function check_source_cache() 
+	public function check_solr_cache() 
 	{
-		if (!is_readable($this->cachesourcefile))
+		if (!is_readable($this->solr_cache_file))
 		{
-			$this->generate_cache_source();
+			$this->generate_solr_cache();
 		}
-		$contents = file_get_contents($this->cachesourcefile);
+		$contents = file_get_contents($this->solr_cache_file);
 		return $contents;
-	}
-
-	/**
-	 * Gets the data from a URL via cURL and also uses cookie for authentication
-	 * @param string $url - URL to retrieve data from
-	 * @return string 
-	 */
-	private function file_get_data($url)
-	{
-		$ch = curl_init();
-		
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_COOKIEFILE, $this->cookie);
-		
-		$data = curl_exec($ch);
-		curl_close($ch);
-		
-		return $data;
 	}
 
 	/**
 	 * Generates source cache using CWRC Public API
 	 */
-	private function generate_cache_source()
+	private function generate_solr_cache()
 	{
-		$contents = $this->file_get_data($this->streamurl);
-		file_put_contents($this->cachesourcefile, $contents);
+		file_put_contents($this->solr_cache_file, $this->solr_stream);
 	}
 
 	/**
@@ -127,8 +82,8 @@ class SolrStreamParser
 	 */
 	private function generate_cache() 
 	{
-		$contents = $this->check_source_cache();
-		$result = json_decode($contents, true);
+		$contents = $this->check_solr_cache();
+		$result = json_decode($contents, TRUE);
 		$result = $result['response']['objects'];
 		$threshold = 0;
 		$geonames = new Geonames(DBNAME, DBUSER, DBPASS);
@@ -138,33 +93,31 @@ class SolrStreamParser
 		{
 			$threshold++;        
 			$el = new Element();
-			$record = $record[MODS_RECORD];
+			$record = $record[EVENT_OBJECT];
 			
-			$el->label = $record[MODS_TITLE][0];
-			$el->label = str_replace('"', "'", $el->label);
-			$el->longLabel = neatTrim($el->label, 40);
+			$el->longLabel = str_replace('"', "'", $record[LONG_TITLE][0]);
+			$el->label = Transformer::neat_trim($el->longLabel, 40);
 			
-			$pid = $record[MODS_COLLECTION][0];
-			$el->group = $this->get_collection_name($pid);
-			$el->eventType = ""; // #todo Dynamically get event type from context, e.g. BIBLIFO = 'Biography' always
+			$el->group = $this->collection_name;
+			$el->eventType = $this->get_event_type(); // This function needs to be present in the actual collection implementation call
 			
-			if (isset($record[MODS_DATE][0]))
+			$el->dateType = "Unknown";
+			if (isset($record[START_DATE][0]))
 			{
-				$el->startDate = $record[MODS_DATE][0];
-				$el->dateType = getDateGrain($el->startDate, $el->startDate);
+				$el->startDate = Transformer::date_parse($record[START_DATE][0]); // #todo This contains french dates and english dates with month names
+				$el->dateType = Transformer::get_date_grain($el->startDate, $el->startDate);
 			}
 
-			$locgrain = "N/A";
-			$pointtype = "N/A";
-			
-			if (isset($record[MODS_PLACE][0]))
+			$locgrain = "Unknown";
+			$pointtype = "Unknown";
+			if (isset($record[LOCATION_NAME][0]))
 			{
-				$point = $record[MODS_PLACE][0];
+				$point = $record[LOCATION_NAME][0];
 				$location = $point;
 
 				$geoxml = $geonames->get_results($point, 1, '', ''); 
 				
-				if ($geoxml != null)
+				if ($geoxml != NULL)
 				{
 					$geoxml = (object) $geoxml[0];
 	
@@ -190,83 +143,20 @@ class SolrStreamParser
 			}
 			$el->locationType = $locgrain;
 			$el->pointType = $pointtype;
-			$el->description = str_replace('"', "", $record[MODS_DESCRIPTION][0]);
+			$el->description = str_replace('"', "", $record[DESCRIPTION][0]);
 			
-			$out .= outputElement($el);
+			$out .= Transformer::output_element($el);
 		}
 		$out .= "\n]\n}";
 		$this->write_cache($out);
 	}
 
 	/**
-	 * Gets collection name using PID
-	 * @param string $pid - Raw PID of collection  
-	 * @return string - Name of the collection
-	 */
-	private function get_collection_name($pid)
-	{
-		$pid = str_replace("islandora", "islandora%5C", $pid);
-		$pid = substr($pid, 12);
-		
-		// Check local repo first
-		$result = $this->get_pid_from_local_cache($pid);
-		
-		// If not found, search in CWRC
-		if ($result === "")
-		{
-			$url = "http://cwrc-dev-01.srv.ualberta.ca/islandora/rest/v1/solr/%28PID:%28$pid%29%29";
-			$info = $this->file_get_data($url);
-			$result = json_decode($info, true);
-			$result = $result['response']['objects'][0]['solr_doc']['fgs_label_s'];
-			$this->add_pid_to_local_cache($pid, $result);
-		}
-		return $result;
-	}
-	
-	/**
-	 * Adds PID and name to local cache of PIDs and names for faster processing
-	 * @param string $pid - Formatted PID of collection
-	 * @param string $name - Name of collection
-	 */
-	private function add_pid_to_local_cache($pid, $name)
-	{
-		$data = "$pid\t$name\n";
-		file_put_contents($this->localpidcache, $data, FILE_APPEND);
-	}
-	
-	/**
-	 * Gets the name of a collection using its PID from the local cache
-	 * @param string $pid - The collection PID
-	 * @return string - Name of the collection
-	 */
-	private function get_pid_from_local_cache($pid)
-	{
-		$item = "";
-		if (!is_readable($this->localpidcache))
-		{
-			return $item;
-		}
-		
-		$localcache = file_get_contents($this->localpidcache);
-		$found = stripos($localcache, $pid); // Find first occurrence of PID
-		
-		if ($found === FALSE)
-		{
-			return $item;
-		}
-		
-		$tab = stripos($localcache, "\t", $found); // Find first tab on the found line
-		$lineend = stripos($localcache, "\n", $found); // Find line end on found line
-		$item = substr($localcache, $tab + 1, ($lineend - $tab - 1)); // Name is within the tab and line end
-		return $item;
-	}
-	
-	/**
 	 * Writes cache information to server disk
-	 * @param type $content
+	 * @param string $content
 	 */
 	private function write_cache($content)
 	{
-		file_put_contents($this->cachefile, $content);
-	}
+		file_put_contents($this->cache_file, $content);
+	}	
 }
