@@ -1,5 +1,5 @@
 {
-	"description": "Plot-It schema",
+	"description": "Plot-It schema (please see www.jsonschemalint.com for JSON schema validator)",
 	"$schema": "http://json-schema.org/draft-03/schema",
 	"required": false,
 	"properties": 
