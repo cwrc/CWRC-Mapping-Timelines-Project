@@ -1,5 +1,5 @@
 {
-	"description": "CWRC TimeMap Schema v.0.2.4",
+	"description": "Plot-It schema",
 	"$schema": "http://json-schema.org/draft-03/schema",
 	"required": false,
 	"properties": 
