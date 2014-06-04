@@ -12,7 +12,6 @@ class Element
 	public $longLabel;
 	public $asciiName;
 	public $group;
-	public $subGroup;
 	public $eventType;
 	public $startDate;
 	public $endDate;
