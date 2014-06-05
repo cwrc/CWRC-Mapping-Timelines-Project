@@ -34,12 +34,12 @@ Exhibit.ViewUtilities.fillBubbleWithItems = function(bubbleElmt, arrayOfItemIDs,
                 li.setAttribute("style", "margin-left: -20px;"); // @edited Bullets should be more left-ward
                 
                 // @edited Add date to the end of the grouped item titles
-                var startDate = database.getObject(arrayOfItemIDs[i], "startDate");
+                /*var startDate = database.getObject(arrayOfItemIDs[i], "startDate");
                 var endDate = database.getObject(arrayOfItemIDs[i], "endDate");
                 var dateAppend = " (" + startDate;
                 if (endDate != null) dateAppend += "-" + endDate;
                 dateAppend += ")";
-                elmt.innerHTML += dateAppend;
+                elmt.innerHTML += dateAppend;*/
                 
                 li.appendChild(elmt);
                 ul.appendChild(li);
