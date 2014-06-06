@@ -118,7 +118,7 @@ abstract class SolrStreamParser
 					$ctry = $geonames->get_country_name($geoxml->country_code);
 					if ($ctry != "") 
 					{
-						$location = "$geoxml->asciiname, $ctry";
+						$location .= ", $ctry";
 					}
 	
 					$el->location = $location;
