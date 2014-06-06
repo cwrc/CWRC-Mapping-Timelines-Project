@@ -1,0 +1,79 @@
+
+{
+	"properties": {
+		"startDate": {
+			"valueType" : "number"
+		}
+	},
+	"items": [
+		{
+			"label": "Rocky Mountains",
+			"longLabel": "Rocky Mountains",
+			"group": "Multimedia",
+			"eventType": "Unknown",
+			"startDate": "2013-09-18",
+			"dateType": "Day",
+			"images": ["https://upload.wikimedia.org/wikipedia/commons/c/c5/Moraine_Lake_17092005.jpg"],
+			"urls": ["https://en.wikipedia.org/wiki/Rocky_Mountains"],
+			"location": "British Columbia",
+			"latLng": "54.558367,-124.259766",
+			"locationType": "Province/State",
+			"pointType": "Point",
+			"description": "Wikipedia. <i>Rocky Mountains</i>. Septemer 18, 2013"
+		},
+		{
+			"label": "Saskatchewan",
+			"longLabel": "Saskatchewan",
+			"group": "Multimedia",
+			"eventType": "Unknown",
+			"startDate": "1965-09-01",
+			"dateType": "Day",
+			"location": "Saskatchewan",
+			"polygon": "-109.951172,59.716253,0| -101.777344,59.804779,0| -101.337891,48.870135,0| -109.687500,48.812290,0| -109.951172,59.716253,0",
+			"locationType": "Province/State",
+			"pointType": "Polygon",
+			"urls": ["https://en.wikipedia.org/wiki/Saskatchewan"],
+			"description": "Wikipedia. <i>Saskatchewan</i>. September 1, 1905"
+		},
+		{
+			"label": "Camino",
+			"longLabel": "Camino",
+			"group": "Multimedia",
+			"eventType": "Unknown",
+			"startDate": "2013-09-15",
+			"dateType": "Day",
+			"polyline": "-124.259766,54.558367,0| -122.419416,37.77493,0",
+			"locationType": "Unknown",
+			"pointType": "Path",
+			"urls": ["https://en.wikipedia.org/wiki/Camino"],
+			"description": "Wikipedia. <i>Camino</i>. September 15, 2013"
+		},
+		{
+			"label": "Multiple placemarkers per event for CWRC",
+			"longLabel": "Multiple placemarkers per event for CWRC",
+			"group": "Multimedia",
+			"eventType": "Unknown",
+			"startDate": "2013-10-12",
+			"dateType": "Day",
+			"latLng": ["53.544389,-113.490927","50.454722,-104.606667"],
+			"locationType": "Unknown",
+			"pointType": "Multi-Point",
+			"description": "The Canadian Writing Research Collaboratory (CWRC) is an online project designed to enable unprecedented avenues for studying the words that most move people in and about Canada."
+		},
+		{
+			"label": "In My Shoes: Stories of Youth with LGBT Parents",
+			"longLabel": "In My Shoes: Stories of Youth with LGBT Parents",
+			"group": "Multimedia",
+			"eventType": "Unknown",
+			"startDate": "2013-04-14",
+			"dateType": "Day",
+			"videos": ["//www.youtube-nocookie.com/embed/Z9xfHqT1HEY?rel=0"],
+			"urls": ["http://www.youtube.com/watch?v=Z9xfHqT1HEY"],
+			"location": "San Francisco",
+			"latLng": "37.77493,-122.419416",
+			"locationType": "City",
+			"pointType": "Point",
+			"description": "FrameLine. <i>In My Shoes: Stories of Youth with LGBT Parents</i>. April 14, 2011"
+		},
+	]
+}
