@@ -9,15 +9,16 @@ set_time_limit(3600);
 class Element
 {
 	public $label;
-	public $longLabel;
-	public $asciiName;
+	public $long_abel;
+	public $asciiname;
 	public $group;
-	public $eventType;
-	public $startDate;
-	public $endDate;
-	public $dateType;
+	public $event_type;
+	public $start_date;
+	public $end_date;
+	public $date_type;
 	public $location;
-	public $locationType;
-	public $pointType;
+	public $lat_lng;
+	public $location_type;
+	public $point_type;
 	public $description;
 }
