@@ -64,50 +64,57 @@ class Transformer
 	{
 		$out = "\n\t{";
 		$out .= "\n\t\t\"label\": \"$element->label\",";
-		$out .= "\n\t\t\"longLabel\": \"$element->longLabel\",";
-		$out .= "\n\t\t\"asciiName\": \"$element->asciiName\",";
+		$out .= "\n\t\t\"longLabel\": \"$element->long_label\",";
+		$out .= "\n\t\t\"asciiName\": \"$element->asciiname\",";
 		$out .= "\n\t\t\"group\": \"$element->group\",";
-		$out .= "\n\t\t\"eventType\": \"$element->eventType\",";
-		$out .= "\n\t\t\"startDate\": \"$element->startDate\",";
-
-		if (isset($element->endDate))
+		$out .= "\n\t\t\"eventType\": \"$element->event_type\",";
+		
+		if ($element->start_date != "")
 		{
-			$out .= "\n\t\t\"endDate\": \"$element->endDate\",";
+			$out .= "\n\t\t\"startDate\": \"$element->start_date\",";
+		}
+		
+		if (isset($element->end_date))
+		{
+			$out .= "\n\t\t\"endDate\": \"$element->end_date\",";
 		}
 
-		$out .= "\n\t\t\"dateType\": \"$element->dateType\",";
+		$out .= "\n\t\t\"dateType\": \"$element->date_type\",";
 
-		if ($multi == TRUE)
-		{
-			$out .= "\n\t\t\"location\": $element->location,";
-		}
-		else
-		{
-			$out .= "\n\t\t\"location\": \"$element->location\",";
-		}
-
-		if (isset($element->latLng)) 
+		if ($element->location != "")
 		{
 			if ($multi == TRUE)
 			{
-				$out .= "\n\t\t\"latLng\": $element->latLng,";
+				$out .= "\n\t\t\"location\": $element->location,";
 			}
 			else
 			{
-				$out .= "\n\t\t\"latLng\": \"$element->latLng\",";
+				$out .= "\n\t\t\"location\": \"$element->location\",";
+			}
+		}
+		
+		if (isset($element->lat_lng)) 
+		{
+			if ($multi == TRUE)
+			{
+				$out .= "\n\t\t\"latLng\": $element->lat_lng,";
+			}
+			else
+			{
+				$out .= "\n\t\t\"latLng\": \"$element->lat_lng\",";
 			}
 		}
 
 		if ($multi == TRUE)
 		{
-			$out .= "\n\t\t\"locationType\": $element->locationType,";
+			$out .= "\n\t\t\"locationType\": $element->location_type,";
 		}
 		else
 		{
-			$out .= "\n\t\t\"locationType\": \"$element->locationType\",";
+			$out .= "\n\t\t\"locationType\": \"$element->location_type\",";
 		}
 
-		$out .= "\n\t\t\"pointType\": \"$element->pointType\",";
+		$out .= "\n\t\t\"pointType\": \"$element->point_type\",";
 		$out .= "\n\t\t\"description\": \"$element->description\"";
 		$out .= "\n\t},";
 
@@ -121,51 +128,75 @@ class Transformer
 	 */
 	public static function date_parse($raw_date)
 	{
-		$date = "";
-		if ($raw_date == $date)
+		if ($raw_date == "")
 		{
-			return $raw_date;	
+			return "";	
 		}
 		
 		// Convert French names to English
 		$raw_date = self::date_language_convert($raw_date);
 		
 		$parsed = date_parse($raw_date);
-		if ($parsed == FALSE)
+		
+		$ret = "";
+		if ($parsed['year'] != FALSE && ($parsed['year'] - date('Y')) <= 0)
 		{
-			return $date;
+			$ret .= $parsed['year'];
+		}
+		
+		if ($ret != "" && $parsed['month'] != FALSE)
+		{
+			$m = $parsed['month'];
+			if (strlen($m) < 2)
+			{
+				$m = "0$m";
+			}
+			$ret .= "-$m";
+		}
+		
+		if ($ret != "" && $parsed['day'] != FALSE)
+		{
+			$d = $parsed['day'];
+			if (strlen($d) < 2)
+			{
+				$d = "0$d"; 
+			}
+			$ret .= "-$d";
 		}
 
-		$ret = "";
-		if ($parsed['year'] == FALSE || $parsed['year'] > date('Y'))
+		if ($ret == "")
 		{
-			return $ret;
-		}
-		else 
-		{
-			$ret .= $parsed['year']; 
-		}
-		
-		if ($parsed['month'] == FALSE)
-		{
-			return $ret;
-		}
-		else 
-		{
-			$ret .= "-".$parsed['month'];
+			if (preg_match("/\d{4}/", $raw_date, $matches) == 1)
+			{
+				if ($matches[0] - date('Y') <= 0)
+				{
+					$ret = $matches[0];
+				}
+			}
 		}
 		
-		if ($parsed['day'] == FALSE)
-		{
-			return $ret;
-		}
-		else
-		{
-			$ret .= "-".$parsed['day'];
-		}
 		return $ret;
 	}
 
+	/** 
+	 * Extract year from date
+	 * @param string $date - Date to parse
+	 * @return string - Year
+	 */
+	public static function year_parse($date)
+	{
+		$ret = "";
+		if (preg_match("/\d{4}/", $date, $matches) == 1)
+		{
+			if ($matches[0] <= date('Y'))
+			{
+				$ret = $matches[0];
+			}
+		}
+		
+		return $ret;
+	}
+	
 	/**
 	 * Get date granularity
 	 * @param string $start - Start date
@@ -203,7 +234,7 @@ class Transformer
 	 * @param string $date - Date with French names
 	 * @return string - Names replaced
 	 */
-	private static function date_language_convert($date)
+	public static function date_language_convert($date)
 	{	
 		$french = array("/janvier/","/février/","/mars/","/avril/","/mai/","/juin/","/juillet/","/août/","/septembre/","/octobre/","/novembre/","/décembre/");
 		$english = array("january","february","march","april","may","june","july","august","september","october","november","december");
@@ -231,5 +262,52 @@ class Transformer
 	   {
 		   return $str;
 	   }
+	}
+
+	/**
+	 * Properly formats label to add identifier
+	 * Unique identifier is made with location and dates
+	 * @param string $label - Raw label
+	 * @param string $start_date - Start date
+	 * @param string $end_date - End date
+	 * @param string $location - Location
+	 * @return string - Formatted label
+	 */
+	public static function format_label($label, $start_date, $end_date, $location)
+	{
+		$start_year = Transformer::year_parse($start_date);
+		$end_year = Transformer::year_parse($end_date);
+		
+		$id = "";
+		if ($location != "")
+		{
+			$id = $location;
+		}
+	
+		if ($start_year != "")
+		{
+			if ($id == "")
+			{
+				$id .= $start_year;
+			}
+			else
+			{
+				$id .= ", $start_year";
+			}
+		} 
+		
+		if ($start_year != "" && $end_year != "" && $start_year != $end_year)
+		{
+			$id .= " to $end_year";
+		}
+		
+		if ($id == "")
+		{
+			return $label;
+		}
+		else 
+		{
+			return "$label ($id)";
+		}
 	}
 }
