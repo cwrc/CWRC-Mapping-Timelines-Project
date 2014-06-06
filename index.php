@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
 	<title>Plot-It</title>
 	<script src="libs/simile/exhibit-api.js" type="text/javascript"></script> 
 	<script src="libs/simile/extensions/map/map-extension.js" type="text/javascript"></script> 
