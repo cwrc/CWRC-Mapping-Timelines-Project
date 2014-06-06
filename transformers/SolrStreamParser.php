@@ -75,7 +75,7 @@ abstract class SolrStreamParser
 	{
 		file_put_contents($this->solr_cache_file, $this->solr_stream);
 	}
-
+	
 	/**
 	 * Generates cache of this collection 
 	 */
@@ -84,27 +84,22 @@ abstract class SolrStreamParser
 		$contents = $this->check_solr_cache();
 		$result = json_decode($contents, TRUE);
 		$result = $result['response']['objects'];
-		$threshold = 0;
 		$geonames = new Geonames(DBNAME, DBUSER, DBPASS);
 		
 		$out = "{\n\"items\": [";
 		foreach($result as $record) 
 		{
-			$threshold++;        
 			$el = new Element();
 			$record = $record[EVENT_OBJECT];
 			
-			$el->longLabel = str_replace('"', "'", $record[LONG_TITLE][0]);
-			$el->label = Transformer::neat_trim($el->longLabel, 40);
-			
 			$el->group = $this->collection_name;
-			$el->eventType = $this->get_event_type(); // Abstract function
+			$el->event_type = $this->get_event_type(); // Abstract function
 			
-			$el->dateType = "Unknown";
+			$el->date_type = "Unknown";
 			if (isset($record[START_DATE][0]))
 			{
-				$el->startDate = Transformer::date_parse($record[START_DATE][0]);
-				$el->dateType = Transformer::get_date_grain($el->startDate, $el->startDate);
+				$el->start_date = Transformer::date_parse($record[START_DATE][0]);
+				$el->date_type = Transformer::get_date_grain($el->start_date, $el->start_date);
 			}
 
 			$locgrain = "Unknown";
@@ -123,25 +118,29 @@ abstract class SolrStreamParser
 					$ctry = $geonames->get_country_name($geoxml->country_code);
 					if ($ctry != "") 
 					{
-						$location .= ", ".$ctry;
+						$location = "$geoxml->asciiname, $ctry";
 					}
 	
 					$el->location = $location;
-					$el->asciiName = $geoxml->asciiname;
+					$el->asciiname = $geoxml->asciiname;
 					$lat = $geoxml->latitude;
 					$lon = $geoxml->longitude;
 					
 					if ($lon != "" && $lat != "") 
 					{
-						$el->latLng = "$lat,$lon";
+						$el->lat_lng = "$lat,$lon";
 					}
 					
 					$pointtype = "Point";
 					$locgrain = $geonames->get_location_grain($geoxml->feature_class, $geoxml->feature_code);
 				}
 			}
-			$el->locationType = $locgrain;
-			$el->pointType = $pointtype;
+			$el->location_type = $locgrain;
+			$el->point_type = $pointtype;
+
+			$el->long_label = str_replace('"', "'", $record[LONG_TITLE][0]);
+			$el->label = Transformer::neat_trim($el->long_label, 35);
+			$el->label = Transformer::format_label($el->label, $el->start_date, $el->end_date, $el->location);
 			$el->description = str_replace('"', "", $record[DESCRIPTION][0]);
 			
 			$out .= Transformer::output_element($el);
