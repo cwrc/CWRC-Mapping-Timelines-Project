@@ -12,7 +12,9 @@
 	<link href="transformers/cache/multimedia.json" type="application/json" rel="exhibit/data" />
 	
 	<!-- Dynamic datasets -->
-	<link href="transformers/biblifo.php" type="application/json" rel="exhibit/data" />
+	<link href="./transformers/biblifo.php" type="application/json" rel="exhibit/data" />
+	<link href="./transformers/paperspeaking.php" type="application/json" rel="exhibit/data" />
+	<link href="./transformers/orlandoevents.php" type="application/json" rel="exhibit/data" />
 	
 	<link href="libs/simile/styles/common.css" type="text/css" rel="stylesheet" />
 	<link href="libs/simile/styles/styles.css" type="text/css" rel="stylesheet" />
@@ -80,15 +82,13 @@
             oldMapViewReconstruct.call(this); 
             map = this._map;
             
-            imageBounds = new google.maps.LatLngBounds
-            (
-                new google.maps.LatLng(40.69096, -146.816406),
-                new google.maps.LatLng(70.327858, -30.25)
-			);
-      
+            var swBound = new google.maps.LatLng(37.919936,-161.894531);
+			var neBound = new google.maps.LatLng(78.400771,-17.050781);
+			imageBounds = new google.maps.LatLngBounds(swBound, neBound);
+
             historicalOverlay = new google.maps.GroundOverlay
             (
-                'maps/1849_CA.png',
+                'maps/north_america_1854.png',
                 imageBounds
 			);
         }
@@ -171,7 +171,8 @@
 						</span>
 						<b><small>TITLE</small></b> <span ex:content=".longLabel"></span><br />
 						<b><small>NOTES</small></b> <span ex:content=".description"></span><br />
-						<b><small><a target="_blank" ex:if-exists=".urls" ex:href-content=".urls">MORE INFO</a></small></b>
+						<b><small><a target="_blank" ex:if-exists=".urls" ex:href-content=".urls">MORE INFO</a></small></b> 
+						<b><small><a target="_blank" ex:if-exists=".source" ex:href-content=".source">SOURCE</a></small></b>
 					</div>
 				</td>
 			</tr>
@@ -181,17 +182,17 @@
 
 		<div ex:role="coder" ex:coderClass="Color" id="event-colors">
 			<span ex:color="#f00">BIBLIFO</span>
-			<span ex:color="#0f0">LGLC</span>
+			<span ex:color="#0f0">OrlandoEvents</span>
 			<span ex:color="#00f">Multimedia</span>
-			<span ex:color="#ff0">Orlando</span>
+			<span ex:color="#ff0">PaperSpeaking</span>
 		</div>
 
 		<!-- Example for customizing icons without any data manipulations -->
 		<div ex:role="coder" ex:coderClass="Icon" id="event-icons" style="display:none;">
 			<span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=f00">BIBLIFO</span>
-			<span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=0f0">LGLC</span>
+			<span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=0f0">OrlandoEvents</span>
 			<span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=00f">Multimedia</span>
-			<span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=ff0">Orlando</span>
+			<span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=ff0">PaperSpeaking</span>
 		</div>
 
 		<!-- This sychronizes the showing of popups, i.e. if a map marker is clicked, the popup on the timeline also shows -->
@@ -246,6 +247,7 @@
 						<b><small>TITLE</small></b> <span ex:content=".longLabel"></span><br />
 						<b><small>NOTES</small></b> <span ex:content=".description"></span><br />
 						<b><small><a target="_blank" ex:if-exists=".urls" ex:href-content=".urls">MORE INFO</a></small></b>
+						<b><small><a target="_blank" ex:if-exists=".source" ex:href-content=".source">SOURCE</a></small></b>
 					</div>
 					</td>
 				</tr>

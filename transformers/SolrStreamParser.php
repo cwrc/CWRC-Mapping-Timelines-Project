@@ -11,6 +11,7 @@ include('../geonames/Geonames.cls.php');
 include('../dbconfig.php');
 
 define("EVENT_OBJECT", "solr_doc");
+define("EVENT_PID", "PID");
 define("LOCATION_NAME", "cwrc_general_place_mt");
 define("START_DATE", "cwrc_general_date_ms");
 define("LONG_TITLE", "cwrc_general_label_et");
@@ -22,6 +23,7 @@ abstract class SolrStreamParser
 {
 	private $collection_name;
 	private $solr_stream;
+	private $server_base;
 	
 	abstract protected function get_event_type(); // Implementation is collection-specific
 	
@@ -30,10 +32,11 @@ abstract class SolrStreamParser
 	 * @param string $collection_name - Name of collection in proper case, e.g. BIBLIFO
 	 * @param string $solr_stream - JSON stream retrieved using AuthStreamReader static class
 	 */
-	public function __construct($collection_name, $solr_stream)
+	public function __construct($collection_name, $solr_stream, $server_base)
 	{
 		$this->collection_name = $collection_name;
 		$this->solr_stream = $solr_stream;
+		$this->server_base = $server_base;
 
 		$collection_name = strtolower($collection_name);
 		$this->cache_file = CACHE_DIR.$collection_name.'.json';
@@ -90,6 +93,10 @@ abstract class SolrStreamParser
 		foreach($result as $record) 
 		{
 			$el = new Element();
+			
+			$el->pid = $record[EVENT_PID];
+			$el->source = "$this->server_base/islandora/object/$el->pid/";
+			
 			$record = $record[EVENT_OBJECT];
 			
 			$el->group = $this->collection_name;

@@ -63,6 +63,8 @@ class Transformer
 	public static function output_element($element, $multi = FALSE)
 	{
 		$out = "\n\t{";
+		$out .= "\n\t\t\"pid\": \"$element->pid\",";
+		$out .= "\n\t\t\"source\": \"$element->source\",";
 		$out .= "\n\t\t\"label\": \"$element->label\",";
 		$out .= "\n\t\t\"longLabel\": \"$element->long_label\",";
 		$out .= "\n\t\t\"asciiName\": \"$element->asciiname\",";
@@ -236,7 +238,7 @@ class Transformer
 	 */
 	public static function date_language_convert($date)
 	{	
-		$french = array("/janvier/","/février/","/mars/","/avril/","/mai/","/juin/","/juillet/","/août/","/septembre/","/octobre/","/novembre/","/décembre/");
+		$french = array("/janvier/","/fï¿½vrier/","/mars/","/avril/","/mai/","/juin/","/juillet/","/aoï¿½t/","/septembre/","/octobre/","/novembre/","/dï¿½cembre/");
 		$english = array("january","february","march","april","may","june","july","august","september","october","november","december");
 		
 		$date = strtolower($date);

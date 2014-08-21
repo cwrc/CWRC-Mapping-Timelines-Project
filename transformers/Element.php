@@ -8,6 +8,8 @@ set_time_limit(3600);
 
 class Element
 {
+	public $pid;
+	public $source;
 	public $label;
 	public $long_abel;
 	public $asciiname;
