@@ -82,13 +82,13 @@
             oldMapViewReconstruct.call(this); 
             map = this._map;
             
-            var swBound = new google.maps.LatLng(37.919936,-161.894531);
-			var neBound = new google.maps.LatLng(78.400771,-17.050781);
+            var swBound = new google.maps.LatLng(27.87, -181.56);
+			var neBound = new google.maps.LatLng(81.69, -17.58);
 			imageBounds = new google.maps.LatLngBounds(swBound, neBound);
 
             historicalOverlay = new google.maps.GroundOverlay
             (
-                'maps/north_america_1854.png',
+                'maps/BNA_1854.png',
                 imageBounds
 			);
         }
@@ -137,10 +137,6 @@
 			<div ex:role="facet" ex:facetClass="TextSearch"></div>
 			<div ex:role="facet" ex:expression=".startDate" ex:facetLabel="Date Slider" ex:facetClass="Slider" ex:horizontal="true" ex:precision="1" ex:histogram="true" ex:width="245px"></div>
 			<div ex:role="facet" ex:expression=".group" ex:facetLabel="Collection" ex:height="3em"></div>
-			<div ex:role="facet" ex:expression=".eventType" ex:facetLabel="Event Type" ex:height="3em"></div>
-			<div ex:role="facet" ex:expression=".locationType" ex:facetLabel="Location Granularity" ex:height="3em"></div>
-			<div ex:role="facet" ex:expression=".dateType" ex:facetLabel="Date Granularity" ex:height="3em"></div>
-			<div ex:role="facet" ex:expression=".pointType" ex:facetLabel="Point Type" ex:height="3em"></div>
 		</div>
 	</td>
 					
@@ -221,6 +217,7 @@
 		</div>
 
 		<div ex:role="viewPanel" id="mapArea">
+			<!-- Begin map popup -->
 			<!-- This controls a custom popup for the map markers. Disabling it causes the same popup to be used for both timeline and map -->
 			<div class="map-lens" ex:role="lens" style="display: none; text-align: left; overflow: auto; width: 300px; height: 100px;">
 				<table cellpadding="2" width="100%">
@@ -253,6 +250,7 @@
 				</tr>
 				</table>
 			</div>
+			<!-- End map popup -->
 									
 			<!-- Begin map control, same map can hold multiple views, only one is needed here -->
 			<div ex:role="view"
@@ -287,8 +285,8 @@
 				ex:viewClass="Tabular"
 				ex:showSummary="false"
 				ex:label="Grid View"
-				ex:columns=".longLabel, .group, .eventType, .location, .startDate, .endDate"
-				ex:columnLabels="Title, Collection, Event Type, Location, Start, End"
+				ex:columns=".longLabel, .group, .location, .startDate, .endDate"
+				ex:columnLabels="Title, Collection, Location, Start, End"
 				ex:sortAscending="true"
 				ex:sortColumn="0"
 				ex:showToolbox="true"
@@ -298,7 +296,6 @@
 				<tr>
 					<td width="50%"><span ex:content=".longLabel"></span></td>
 					<td width="10%"><span ex:content=".group"></span></td>
-					<td width="10%"><span ex:content=".eventType"></span></td>
 					<td width="10%"><span ex:content=".location"></span></td>
 					<td width="10%"><span ex:content=".startDate"></span></td>
 					<td width="10%"><span ex:content=".endDate"></span></td>
