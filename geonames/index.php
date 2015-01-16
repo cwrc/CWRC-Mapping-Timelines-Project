@@ -2,20 +2,20 @@
 /**
  * CWRC implementation of Geonames as RESTful service
  *
- * @usage e.g. http://localhost/exhibit/geonames/?query=edmonton
+ * @usage e.g. http://apps.testing.cwrc.ca/cwrc-mtp/geonames/?query=Edmonton
  * 
  * @param GET string query      - The name to search for
  * @param GET int max_results 	- Max number of results to return
  * @return string array XML 	- Returned XML contains cities that match the query, and conforms with Geonames schema for seamless integration
  *
- * @author Hamman Samuel
+ * @author Hamman Samuel <hwsamuel@ualberta.ca>
  */
  
 require_once('Geonames.cls.php');
 require_once('../dbconfig.php'); // Remember to edit this file according to your MySQL server settings
 
 // Call local Geonames service to look up and return results
-$geonames = new Geonames(DBNAME, DBUSER, DBPASS, 'places'); // Constant values are read from dbconfig.php
+$geonames = new Geonames(DBNAME, DBUSER, DBPASS, DBTABLE); // Constant values are read from dbconfig.php
 $geonames->output_as_xml($geonames->get_results(get_query(), get_max_results()));
 
 /** 
