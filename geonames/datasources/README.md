@@ -1,25 +1,12 @@
-Importing Geonames Data Sources
-===============================
+Importing Geonames Data Source
+==============================
 
-The following files have been curated from the Geonames database (www.geonames.org), latest as of April 2014. To import these data sources into your MySQL server, follow the steps outlined below.
+The 'allCountries.txt' file is from the Geonames database (www.geonames.org), latest as of January 2015, and contains all the data compiled into one file. To import this file into your MySQL server, follow the steps outlined below.
 
-1) To create the necessary tables in your MySQL server, run the following SQL statements:
+1) To create the necessary table in your MySQL server, run the following SQL statement. Note the use of MyISAM as the engine, this allows full text indexing.
 
-```sql	
--- countries table
-CREATE TABLE countries (
-	alpha2_code varchar(2) DEFAULT NULL,
-	alpha3_code varchar(3) DEFAULT NULL,
-	numeric_code int(11) DEFAULT NULL,
-	fips varchar(2) DEFAULT NULL,
-	`name` varchar(255) DEFAULT NULL,
-	continent varchar(2) DEFAULT NULL,
-	UNIQUE KEY alpha2_code_2 (alpha2_code),
-	KEY alpha2_code (alpha2_code)
-); 
-
--- cities table
-CREATE TABLE cities (
+```sql
+CREATE TABLE places (
 	geonameid int(11) DEFAULT NULL,
 	`name` varchar(200) DEFAULT NULL,
 	asciiname varchar(200) DEFAULT NULL,
@@ -30,6 +17,13 @@ CREATE TABLE cities (
 	feature_code varchar(10) DEFAULT NULL,
 	country_code char(2) DEFAULT NULL,
 	cc2 char(60) DEFAULT NULL,
+	admin1_code varchar(20),
+	admin2_code varchar(80),
+	admin3_code varchar(20),
+	admin4_code varchar(20),
+	population bigint(20),
+	elevation int(11),
+	dem int(11),
 	timezone varchar(100) DEFAULT NULL,
 	modification_date date DEFAULT NULL,
 	UNIQUE KEY geonameid (geonameid),
@@ -37,12 +31,13 @@ CREATE TABLE cities (
 	KEY asciiname (asciiname),
 	FULLTEXT KEY name_2 (`name`),
 	FULLTEXT KEY asciiname_2 (asciiname)
-);
+)
+ENGINE=MyISAM 
+DEFAULT CHARSET=utf8;
 ```
 	
-2) To import them into your MySQL server, use the following commands:
+2) To import the data in 'allCountries.txt' into your MySQL server, use the following command. Note that you may need to log in to your MySQL server by enabling the `--local-infile` tag, i.e. mysql -h localhost -u root -p --local-infile
 
 ```sql
-LOAD DATA LOCAL INFILE 'countries.txt' INTO TABLE countries;
-LOAD DATA LOCAL INFILE 'cities.txt' INTO TABLE cities;
+LOAD DATA LOCAL INFILE 'allCountries.txt' INTO TABLE places;
 ```
