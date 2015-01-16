@@ -1,5 +1,4 @@
 ## Local Geonames Service
-======================
 
 This geo-lookup service is built using data and principles from Geonames (www.geonames.org). You will need to install this service on your servers locally by using the following steps:
 
@@ -36,7 +35,6 @@ The local service will provide a smaller subset of functionalities compared with
 ```
 
 ## Importing Geonames Data Source
-==============================
 
 The 'allCountries.txt' file is from the Geonames database (www.geonames.org), latest as of January 2015, and contains all the data compiled into one file. To import this file into your MySQL server, follow the steps outlined below.
 
