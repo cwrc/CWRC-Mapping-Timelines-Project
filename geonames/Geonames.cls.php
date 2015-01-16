@@ -1,25 +1,28 @@
 <?php
 /**
- * Minified Geonames service for searching city names and returning useful information such as lat, long
+ * Geonames service for searching city names and returning useful information such as lat, long
  *
- * @author Hamman Samuel
+ * @author Hamman Samuel <hwsamuel@ualberta.ca>
  */
 
 require_once("libs/rb/rb.php");
 
 class Geonames
 {
+    private $table_name;
     /**
      * Connect to MySQL database
      * @param string $db_name - Database name
      * @param string $db_user - Username
      * @param string $db_pass - User password
+     * @param string $table_name - Name of table
      */
-    function __construct($db_name, $db_user, $db_pass)
+    function __construct($db_name, $db_user, $db_pass, $table_name)
     {
         R::setup("mysql:host=localhost;dbname=$db_name", $db_user, $db_pass);
         R::freeze(TRUE);
         R::debug(FALSE);
+        $this->table_name = $table_name;
     }
 
     /**
@@ -34,26 +37,22 @@ class Geonames
             return;
         }
 
-        $querystr = "SELECT geonameid, name, asciiname, latitude, longitude, feature_class, feature_code, country_code FROM cities WHERE asciiname Like ? LIMIT $limit";
+        // Generated query is filtering by only feature classes that are countries, cities, places, etc.
+        $querystr = "SELECT geonameid, name, asciiname, latitude, longitude, feature_class, feature_code, country_code FROM $this->table_name WHERE (asciiname Like ?) AND (feature_class = 'A' OR feature_class = 'P') LIMIT $limit";
         $matches = R::getAll($querystr, array($query));
 
-        // If no match found so far, broaden wild-card usage
-        if (empty($matches))
-        {
-            $matches = R::getAll($querystr, array("$query%"));
-        }
-        
         // If no match found still, maximize wild-card usage
         if (empty($matches))
         {
             $matches = R::getAll($querystr, array("%$query%"));
         }
-
+        
         return $matches;
     }
 
     /**
      * Get location granularity based on the feature class and feature code
+     * Documentation of codes: http://www.geonames.org/export/codes.html
      * @param string $fcl - Feature class
      * @param string $fcode - Feature code
      * @return string - City or Province/State or Country or Other
@@ -86,11 +85,12 @@ class Geonames
      */
     function get_country_name($code)
     {
-		if (trim($code) == "")
+        if (trim($code) == "")
 		{
 			return;
 		}
-		$match = R::getCell("SELECT name FROM countries WHERE alpha2_code Like '$code' LIMIT 1");
+		$qry = "SELECT asciiname FROM $this->table_name WHERE country_code = '$code' AND feature_class = 'A' AND feature_code = 'PCLI' LIMIT 1";
+		$match = R::getCell($qry);
 		return $match;
     }
 

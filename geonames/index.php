@@ -9,14 +9,13 @@
  * @return string array XML 	- Returned XML contains cities that match the query, and conforms with Geonames schema for seamless integration
  *
  * @author Hamman Samuel
- * @version 20140416
  */
  
 require_once('Geonames.cls.php');
 require_once('../dbconfig.php'); // Remember to edit this file according to your MySQL server settings
 
 // Call local Geonames service to look up and return results
-$geonames = new Geonames(DBNAME, DBUSER, DBPASS); // Constant values are read from dbconfig.php
+$geonames = new Geonames(DBNAME, DBUSER, DBPASS, 'places'); // Constant values are read from dbconfig.php
 $geonames->output_as_xml($geonames->get_results(get_query(), get_max_results()));
 
 /** 
