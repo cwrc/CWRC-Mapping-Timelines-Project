@@ -16,7 +16,7 @@ class Sample extends SolrStreamParser
 	}
 }
 
-AuthStreamReader::log_in('cookiename', 'http://auth.login.rest.api', 'username', 'passwd');
+AuthStreamReader::log_in('http://auth.login.rest.api', 'username', 'passwd');
 $contents = AuthStreamReader::file_get_contents('http://json.stream.for.collection/has.to.match.solr_schema');
 
 $sample = new Sample('SampleName', $contents, 'http://base.server.url');
