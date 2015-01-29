@@ -8,7 +8,7 @@
 include('Transformer.php');
 include('Element.php');
 include('../geonames/Geonames.cls.php');
-include('../dbconfig.php');
+include('../geonames/dbconfig.php');
 
 define("EVENT_OBJECT", "solr_doc");
 define("EVENT_PID", "PID");
@@ -87,7 +87,7 @@ abstract class SolrStreamParser
 		$contents = $this->check_solr_cache();
 		$result = json_decode($contents, TRUE);
 		$result = $result['response']['objects'];
-		$geonames = new Geonames(DBNAME, DBUSER, DBPASS);
+		$geonames = new Geonames(DBNAME, DBUSER, DBPASS, DBTABLE);
 		
 		$out = "{\n\"items\": [";
 		foreach($result as $record) 
