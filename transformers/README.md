@@ -29,7 +29,7 @@ This class is used to retrieve a data strea with authentication. Some CWRC Solr 
 
 ## Transformer
 
-This class contains helper methods for parsing data, including legacy functions for parsing XML data streams. Please see inline code documentation for more details.
+This class contains helper methods for parsing data, including legacy functions for parsing XML data streams, as the CWRC Solr services can produce XML streams as well. Please see inline code documentation for more details.
 
 ## Element
 
