@@ -10,11 +10,9 @@
     
 	<!-- Static datasets -->
 	<link href="transformers/cache/multimedia.json" type="application/json" rel="exhibit/data" />
-	
-	<!-- Dynamic datasets -->
-	<link href="./transformers/biblifo.php" type="application/json" rel="exhibit/data" />
-	<link href="./transformers/paperspeaking.php" type="application/json" rel="exhibit/data" />
-	<link href="./transformers/orlandoevents.php" type="application/json" rel="exhibit/data" />
+	<link href="transformers/cache/biblifo.json" type="application/json" rel="exhibit/data" />
+	<link href="transformers/cache/lglc.json" type="application/json" rel="exhibit/data" />
+	<link href="transformers/cache/orlando.json" type="application/json" rel="exhibit/data" />
 	
 	<link href="libs/simile/styles/common.css" type="text/css" rel="stylesheet" />
 	<link href="libs/simile/styles/styles.css" type="text/css" rel="stylesheet" />
@@ -180,7 +178,7 @@
 			<span ex:color="#f00">BIBLIFO</span>
 			<span ex:color="#0f0">OrlandoEvents</span>
 			<span ex:color="#00f">Multimedia</span>
-			<span ex:color="#ff0">PaperSpeaking</span>
+			<span ex:color="#ff0">LGLC</span>
 		</div>
 
 		<!-- Example for customizing icons without any data manipulations -->
@@ -188,7 +186,7 @@
 			<span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=f00">BIBLIFO</span>
 			<span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=0f0">OrlandoEvents</span>
 			<span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=00f">Multimedia</span>
-			<span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=ff0">PaperSpeaking</span>
+			<span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=ff0">LGLC</span>
 		</div>
 
 		<!-- This sychronizes the showing of popups, i.e. if a map marker is clicked, the popup on the timeline also shows -->
