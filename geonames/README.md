@@ -7,36 +7,6 @@ This geo-lookup service is built using data and principles from Geonames (www.ge
 3. Download the full Geonames data source at http://download.geonames.org/export/dump/allCountries.zip and unzip
 4. Import the data source to your database
 
-Once the database is ready and the PHP script files have been set, the RESTful service can be called via http://yoururl.com/?query=edmonton, e.g. http://apps.testing.cwrc.ca/cwrc-mtp/geonames/?query=Edmonton Please note that you need to update the `dbconfig.php` file to your database server configurations.
-
-The local service will provide a smaller subset of functionalities compared with the full Geonames service, thus it is intended as a Lite version. A query to the RESTful service will return fields identical to what Geonames MEDIUM style returns (Geonames web service API details here: http://www.geonames.org/export/geonames-search.html), in XML, with the addition of an _asciiName_ field. The CWRC Geonames service schema (XSD) is as follows.
-
-```xml
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="geonames">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="geoname" maxOccurs="unbounded" minOccurs="0">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element type="xs:string" name="name"/>
-              <xs:element type="xs:string" name="asciiName"/>
-              <xs:element type="xs:float" name="lat"/>
-              <xs:element type="xs:float" name="lng"/>
-              <xs:element type="xs:string" name="countryCode"/>
-              <xs:element type="xs:string" name="countryName"/>
-              <xs:element type="xs:string" name="fcl"/>
-              <xs:element type="xs:string" name="fcode"/>
-              <xs:element type="xs:string" name="geonameid"/>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-</xs:schema>
-```
-
 ## Creating the table
 
 To create the necessary table in your MySQL server, run the following SQL statement. Note the use of MyISAM as the engine, this allows full text indexing.
@@ -79,3 +49,38 @@ To import the data in 'allCountries.txt' into your MySQL server, use the followi
 ```sql
 LOAD DATA LOCAL INFILE 'allCountries.txt' INTO TABLE places;
 ```
+
+## Usage
+Once the database is ready and the PHP script files have been set, the RESTful service can be called via http://yoururl.com/?query=edmonton, e.g. http://apps.testing.cwrc.ca/cwrc-mtp/geonames/?query=Edmonton Please note that you need to update the `dbconfig.php` file to your database server configurations.
+
+The local service will provide a smaller subset of functionalities compared with the full Geonames service, thus it is intended as a Lite version. A query to the RESTful service will return fields identical to what Geonames MEDIUM style returns (Geonames web service API details here: http://www.geonames.org/export/geonames-search.html), in XML, with the addition of an _asciiName_ field. The CWRC Geonames service schema (XSD) is as follows.
+
+```xml
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="geonames">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="geoname" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="name"/>
+              <xs:element type="xs:string" name="asciiName"/>
+              <xs:element type="xs:float" name="lat"/>
+              <xs:element type="xs:float" name="lng"/>
+              <xs:element type="xs:string" name="countryCode"/>
+              <xs:element type="xs:string" name="countryName"/>
+              <xs:element type="xs:string" name="fcl"/>
+              <xs:element type="xs:string" name="fcode"/>
+              <xs:element type="xs:string" name="geonameid"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+```
+
+## RedBeanPHP
+
+The CWRC Geonames services makes use of the third-party ORM library [RedBeanPHP](http://www.redbeanphp.com/). This library makes database querying more efficient, as well as the codebase more structured. The tested version RedBeanPHP is the release as of 2012, please consult the RedBeanPHP documentation before upgrading to ensure compatibility with the tested code.
