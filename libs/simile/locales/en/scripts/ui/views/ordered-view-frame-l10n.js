@@ -10,7 +10,7 @@ if (!("l10n" in Exhibit.OrderedViewFrame)) {
 Exhibit.OrderedViewFrame.l10n.removeOrderLabel = "Remove this order";
 
 Exhibit.OrderedViewFrame.l10n.sortingControlsTemplate =
-    "sorted by: <span id='ordersSpan'></span>; <a id='thenSortByAction' href='javascript:void' class='exhibit-action' title='Further sort the items'>then by...</a>";
+    "Sorted by: <span id='ordersSpan'></span>; <a id='thenSortByAction' href='javascript:void' class='exhibit-action' title='Further sort the items'>Then by...</a>";
 
 Exhibit.OrderedViewFrame.l10n.formatSortActionTitle = function(propertyLabel, sortLabel) {
     return "Sorted by " + propertyLabel + " (" + sortLabel + ")";
@@ -19,12 +19,12 @@ Exhibit.OrderedViewFrame.l10n.formatRemoveOrderActionTitle = function(propertyLa
     return "Removed order by " + propertyLabel + " (" + sortLabel + ")";
 };
 
-Exhibit.OrderedViewFrame.l10n.groupedAsSortedOptionLabel = "grouped as sorted";
-Exhibit.OrderedViewFrame.l10n.groupAsSortedActionTitle = "group as sorted";
-Exhibit.OrderedViewFrame.l10n.ungroupAsSortedActionTitle = "ungroup as sorted";
+Exhibit.OrderedViewFrame.l10n.groupedAsSortedOptionLabel = "Grouped as sorted";
+Exhibit.OrderedViewFrame.l10n.groupAsSortedActionTitle = "Group as sorted";
+Exhibit.OrderedViewFrame.l10n.ungroupAsSortedActionTitle = "Ungroup as sorted";
 
-Exhibit.OrderedViewFrame.l10n.showAllActionTitle = "show all results";
-Exhibit.OrderedViewFrame.l10n.dontShowAllActionTitle = "show first few results";
+Exhibit.OrderedViewFrame.l10n.showAllActionTitle = "Show all results";
+Exhibit.OrderedViewFrame.l10n.dontShowAllActionTitle = "Show first few results";
 Exhibit.OrderedViewFrame.l10n.formatDontShowAll = function(limitCount) {
     return "Show only the first " + limitCount + " results";
 };

@@ -1,7 +1,8 @@
 div.exhibit-legendWidget {
     margin:         1em 0;
-    text-align:     center;
+    text-align:     left;
     line-height:    2em;
+    margin-top: -10px;
 }
 div.exhibit-legendWidget-entry {
 }
@@ -12,3 +13,4 @@ span.exhibit-legendWidget-entry-swatch {
     border:     1px solid #888;
     padding:    0px 3px;
 }
+ 

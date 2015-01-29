@@ -22,14 +22,14 @@ Exhibit.TabularView = function(containerElmt, uiContext) {
 };
 
 Exhibit.TabularView._settingSpecs = {
-    "sortAscending":        { type: "boolean", defaultValue: true },
+    "sortAscending":        { type: "boolean", defaultValue: false },
     "sortColumn":           { type: "int",     defaultValue: 0 },
     "showSummary":          { type: "boolean", defaultValue: true },
     "showToolbox":          { type: "boolean", defaultValue: true },
     "border":               { type: "int",     defaultValue: 1 },
-    "cellPadding":          { type: "int",     defaultValue: 5 },
-    "cellSpacing":          { type: "int",     defaultValue: 3 },
-    "paginate":             { type: "boolean", defaultValue: false },
+    "cellPadding":          { type: "int",     defaultValue: 0 },
+    "cellSpacing":          { type: "int",     defaultValue: 0 },
+    "paginate":             { type: "boolean", defaultValue: true },
     "pageSize":             { type: "int",     defaultValue: 20 },
     "pageWindow":           { type: "int",     defaultValue: 2 },
     "page":                 { type: "int",     defaultValue: 0 },

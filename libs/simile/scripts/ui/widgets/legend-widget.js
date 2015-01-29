@@ -21,8 +21,9 @@ Exhibit.LegendWidget = function(configuration, containerElmt, uiContext) {
     this._labelStyler = "labelStyler" in configuration ?
         configuration.labelStyler :
         Exhibit.LegendWidget._defaultColorLabelStyler;
-    
+
     this._initializeUI();
+
 };
 
 Exhibit.LegendWidget.create = function(configuration, containerElmt, uiContext) {
@@ -64,9 +65,16 @@ Exhibit.LegendWidget.prototype.addEntry = function(value, label, type) {
     type = type || 'color';
     label = (label != null) ? label.toString() : "";
     var legendDiv=this._jq.find(".exhibit-" + type + "-legend");
+    
+    // Custom code to show label above legends and only for map, not timeline
+    if (this._jq.find('#legendLabel').length == 0 && type == "color") 
+    {
+        legendDiv.append("<div id='legendLabel'>LEGEND </div>");
+    }
+    
     var marker;
 	
-    if (type == 'color') {
+        if (type == 'color') {
 		var dom = SimileAjax.DOM.createDOMFromString(
 			"span",
 			"<span id='marker'></span>\u00a0" +
@@ -91,11 +99,12 @@ Exhibit.LegendWidget.prototype.addEntry = function(value, label, type) {
 	if (type == 'icon') {
 		var dom = SimileAjax.DOM.createDOMFromString(
 			"span",
-			"<span id='marker'></span>\u00a0" +
-				"<span id='label' class='exhibit-legendWidget-entry-title'>" + 
-					label.replace(/\s+/g, "\u00a0") + 
-				"</span>" +
-				"\u00a0\u00a0 ",
+                        "",
+//			"TIMELINE<span id='marker'></span>\u00a0" +
+//				"<span id='label' class='exhibit-legendWidget-entry-title'>" + 
+//					label.replace(/\s+/g, "\u00a0") + 
+//				"</span>" +
+//				"\u00a0\u00a0 ",
 			{ marker: this._iconMarkerGenerator(value) }
 		);
 	}

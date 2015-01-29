@@ -160,7 +160,7 @@ Exhibit.TextSearchFacet.prototype.setText = function(text) {
     } else {
         this._dom.input.value = "";
     }
-    text = escapeHtmlEntities(text);
+    //text = escapeHtmlEntities(text); // This code ignores accents in location names
         
     if (text != this._text) {
         this._text = text;

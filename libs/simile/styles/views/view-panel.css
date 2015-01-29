@@ -3,19 +3,22 @@
  *==================================================
  */
 div.exhibit-viewPanel {
+    margin-top: -50px;
 }
 
 div.exhibit-viewPanel-viewSelection {
     text-align: center;
+    margin-left: -100px;
+    font-size: 11px;
+    margin-top: 37px;
+    margin-bottom: 10px;
 }
 
 span.exhibit-viewPanel-viewSelection-view {
-    text-transform: uppercase;
     cursor:         pointer;
 }
 
 span.exhibit-viewPanel-viewSelection-selectedView {
-    text-transform: uppercase;
     font-weight:    bold;
     border-bottom:  3px solid red;
 }
