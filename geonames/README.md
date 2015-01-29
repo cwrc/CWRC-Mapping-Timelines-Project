@@ -7,7 +7,7 @@ This geo-lookup service is built using data and principles from Geonames (www.ge
 3. Download the full Geonames data source at http://download.geonames.org/export/dump/allCountries.zip and unzip
 4. Import the data source to your database
 
-Once the database is ready and the PHP script files have been set, the RESTful service can be called via http://yoururl.com/?query=edmonton, e.g. http://apps.testing.cwrc.ca/cwrc-mtp/geonames/?query=Edmonton
+Once the database is ready and the PHP script files have been set, the RESTful service can be called via http://yoururl.com/?query=edmonton, e.g. http://apps.testing.cwrc.ca/cwrc-mtp/geonames/?query=Edmonton Please note that you need to update the `dbconfig.php` file to your database server configurations.
 
 The local service will provide a smaller subset of functionalities compared with the full Geonames service, thus it is intended as a Lite version. A query to the RESTful service will return fields identical to what Geonames MEDIUM style returns (Geonames web service API details here: http://www.geonames.org/export/geonames-search.html), in XML, with the addition of an _asciiName_ field. The CWRC Geonames service schema (XSD) is as follows.
 
