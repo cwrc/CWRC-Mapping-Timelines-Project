@@ -10,3 +10,7 @@
 
 # Rubymine project files
 .idea
+
+# Ruby sinatra server for testing
+Gemfile*
+faces/*
