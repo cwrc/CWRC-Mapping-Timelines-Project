@@ -93,18 +93,17 @@ Exhibit.UI.createPopupMenuDom = function (element) {
     return dom;
 };
 
-
-(function (window, undefined) {
-    var zebraStyler = function (item, database, tr) {
+var CWRC = (function (cwrc, undefined) {
+    cwrc['zebraStyler'] = function (item, database, tr) {
         if (tr.rowIndex % 2) {
             tr.style.background = '#eee';
-        }
-        else {
+        } else {
             tr.style.background = '#ccc';
         }
     };
 
-    function toggleTimeline() {
+    // TODO: if possible, merge this with toggleMap(), and pass as parameter
+    cwrc['toggleTimeline'] = function () {
         $('#timelineArea').toggle();
         if ($('#timelineToggle').text() == 'Show Timeline') {
             $('#timelineToggle').text('Hide Timeline');
@@ -112,21 +111,23 @@ Exhibit.UI.createPopupMenuDom = function (element) {
         else {
             $('#timelineToggle').text('Show Timeline');
         }
-    }
-}());
+    };
 
-(function mapExtensionOverride(window, undefined) {
-    function toggleMap() {
+    cwrc['toggleMap'] = function () {
         $('#mapArea').toggle();
-        if ($('#mapToggle').text() == 'Show Panel') {
-            $('#historicalMapToggle').show();
-            $('#mapToggle').text('Hide Panel');
+        var toggle = $('#mapToggle');
+        var historicalToggle = $('#historicalMapToggle');
+
+        if (toggle.text() == 'Show Panel') {
+            historicalToggle.show();
+            toggle.text('Hide Panel');
+        } else {
+            historicalToggle.hide();
+            toggle.text('Show Panel');
         }
-        else {
-            $('#historicalMapToggle').hide();
-            $('#mapToggle').text('Show Panel');
-        }
-    }
+    };
+
+    // ========= Map Overlay =========
 
     var map;
     var oldMapViewReconstruct = Exhibit.MapView.prototype._reconstruct;
@@ -138,30 +139,31 @@ Exhibit.UI.createPopupMenuDom = function (element) {
         var neBound = new google.maps.LatLng(81.69, -17.58);
         imageBounds = new google.maps.LatLngBounds(swBound, neBound);
 
-        historicalOverlay = new google.maps.GroundOverlay
-        (
+        historicalOverlay = new google.maps.GroundOverlay(
             'maps/BNA_1854.png',
             imageBounds
         );
     };
 
-    function addOverlay() {
+    cwrc['addOverlay'] = function () {
         historicalOverlay.setMap(map);
-    }
+    };
 
-    function removeOverlay() {
+    cwrc['removeOverlay'] = function () {
         historicalOverlay.setMap(null);
-    }
+    };
 
-    window['toggleHistoricalMap'] = function () {
+    cwrc['toggleHistoricalMap'] = function () {
         var toggle = $('#historicalMapToggle');
 
         if (toggle.text() == 'Show Historical Map') {
-            addOverlay();
+            cwrc.addOverlay();
             toggle.text('Hide Historical Map')
         } else {
-            removeOverlay();
+            cwrc.removeOverlay();
             toggle.text('Show Historical Map')
         }
-    }
-}(window));
+    };
+
+    return cwrc;
+}(CWRC || {}));
