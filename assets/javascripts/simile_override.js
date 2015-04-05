@@ -92,3 +92,42 @@ Exhibit.UI.createPopupMenuDom = function (element) {
     }};
     return dom;
 };
+
+// Overridden to get the label layer on top of the events.
+Timeline.GregorianEtherPainter.prototype.paint = function () {
+    if (this._markerLayer) {
+        this._band.removeLayerDiv(this._markerLayer);
+    }
+    this._markerLayer = this._band.createLayerDiv(150);
+    this._markerLayer.setAttribute("name", "ether-markers");
+    this._markerLayer.style.display = "none";
+    if (this._lineLayer) {
+        this._band.removeLayerDiv(this._lineLayer);
+    }
+    this._lineLayer = this._band.createLayerDiv(1);
+    this._lineLayer.setAttribute("name", "ether-lines");
+    this._lineLayer.style.display = "none";
+    var minDate = this._band.getMinDate();
+    var maxDate = this._band.getMaxDate();
+    var timeZone = this._band.getTimeZone();
+    var labeller = this._band.getLabeller();
+    SimileAjax.DateTime.roundDownToInterval(minDate, this._unit, timeZone, this._multiple, this._theme.firstDayOfWeek);
+    var p = this;
+    var incrementDate = function (date) {
+        for (var i = 0;
+             i < p._multiple;
+             i++) {
+            SimileAjax.DateTime.incrementByInterval(date, p._unit);
+        }
+    };
+    while (minDate.getTime() < maxDate.getTime()) {
+        this._intervalMarkerLayout.createIntervalMarker(minDate, labeller, this._unit, this._markerLayer, this._lineLayer);
+        incrementDate(minDate);
+    }
+    this._markerLayer.style.display = "block";
+    this._lineLayer.style.display = "block";
+
+    // added to no longer block the events layer clicks
+    this._markerLayer.parentNode.style.height = "1.5em";
+    this._markerLayer.parentNode.style.bottom = "0em";
+};
