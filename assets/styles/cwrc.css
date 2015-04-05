@@ -67,7 +67,7 @@
     margin-bottom: 0.25em;
 }
 
-/* Show/Hide each panel */
+/* Show/Hide panel buttons */
 .cwrc-hide a {
     font-weight: bold;
     color: #000;
@@ -77,4 +77,14 @@
 
 .cwrc-hide a:hover {
     text-decoration: underline;
+}
+
+/*Timeline styling*/
+.timeline-event-icon img {
+    position: relative;
+    top: -6px;
+}
+
+.timeline-event-label {
+    padding-left: 0.25em;
 }
