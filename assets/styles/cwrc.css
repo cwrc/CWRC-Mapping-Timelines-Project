@@ -85,6 +85,33 @@
     top: -6px;
 }
 
+.timeline-band-layer {
+    /* because their code only sets it for ie and moz, with prefixes. */
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+    cursor: grab;
+}
+
+.timeline-band-layer:active {
+    /* because their code doesn't seem to set it for while clicked */
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+    cursor: grabbing;
+}
+
 .timeline-event-label {
     padding-left: 0.25em;
+}
+
+.timeline-date-label {
+    box-shadow: 1px 1px 1px #666;
+    border-radius: 0 1em 1em 0;
+
+    background: #333;
+}
+
+.timeline-date-label-em {
+    line-height: 200%;
+    color: #fffee6;
+    font-weight: bold;
 }

@@ -19,6 +19,7 @@
 
     <!-- Customizations -->
     <link href="assets/styles/cwrc.css" type="text/css" rel="stylesheet"/>
+    <script src="assets/javascripts/simile_override.js" type="text/javascript"></script>
     <script src="assets/javascripts/cwrc.js" type="text/javascript"></script>
 </head>
 <body>
@@ -49,7 +50,8 @@
         <strong>Search</strong>
 
         <div ex:role="facet" ex:facetClass="TextSearch"></div>
-        <div ex:role="facet" ex:expression=".startDate" ex:facetLabel="Date Slider" ex:facetClass="Slider" ex:horizontal="true" ex:precision="1" ex:histogram="true" ex:width="245px"></div>
+        <div ex:role="facet" ex:expression=".startDate" ex:facetLabel="Date Slider" ex:facetClass="Slider"
+             ex:horizontal="true" ex:precision="1" ex:histogram="true" ex:width="245px"></div>
         <div ex:role="facet" ex:expression=".group" ex:facetLabel="Collection" ex:height="5em"></div>
     </div>
 </td>
@@ -58,13 +60,15 @@
     <div class="item" ex:role="lens" style="display: none; overflow: auto; width: 300px; height: 100px;">
 
         <!-- Begin popup. If only this is set, it will be used for the map markers too. Can be disabled for timeline, and show on map only as well -->
-        <table cellpadding="2" width="100%" style="font-size: 13px; color: #777; font-family: Arial, Tahoma, Sans-serif;">
+        <table cellpadding="2" width="100%"
+               style="font-size: 13px; color: #777; font-family: Arial, Tahoma, Sans-serif;">
             <tr>
                 <td width="1">
                     <img ex:if-exists=".images" ex:src-content=".images" width="100px"/>
                 </td>
                 <td width="1">
-                    <iframe width="150" height="150" ex:if-exists=".videos" ex:src-content=".videos" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="150" height="150" ex:if-exists=".videos" ex:src-content=".videos" frameborder="0"
+                            allowfullscreen></iframe>
                 </td>
                 <td>
                     <div>
@@ -95,7 +99,8 @@
                             <small><a target="_blank" ex:if-exists=".urls" ex:href-content=".urls">MORE INFO</a></small>
                         </b>
                         <b>
-                            <small><a target="_blank" ex:if-exists=".source" ex:href-content=".source">SOURCE</a></small>
+                            <small><a target="_blank" ex:if-exists=".source" ex:href-content=".source">SOURCE</a>
+                            </small>
                         </b>
                     </div>
                 </td>
@@ -153,14 +158,16 @@
     <div ex:role="viewPanel" id="mapArea">
         <!-- Begin map popup -->
         <!-- This controls a custom popup for the map markers. Disabling it causes the same popup to be used for both timeline and map -->
-        <div class="map-lens" ex:role="lens" style="display: none; text-align: left; overflow: auto; width: 300px; height: 100px;">
+        <div class="map-lens" ex:role="lens"
+             style="display: none; text-align: left; overflow: auto; width: 300px; height: 100px;">
             <table cellpadding="2" width="100%">
                 <tr>
                     <td width="1">
                         <img ex:if-exists=".images" ex:src-content=".images" width="100px"/>
                     </td>
                     <td width="1">
-                        <iframe width="150" height="150" ex:if-exists=".videos" ex:src-content=".videos" frameborder="0" allowfullscreen></iframe>
+                        <iframe width="150" height="150" ex:if-exists=".videos" ex:src-content=".videos" frameborder="0"
+                                allowfullscreen></iframe>
                     </td>
                     <td>
                         <div>
@@ -188,10 +195,12 @@
                                 <small>NOTES</small>
                             </b> <span ex:content=".description"></span><br/>
                             <b>
-                                <small><a target="_blank" ex:if-exists=".urls" ex:href-content=".urls">MORE INFO</a></small>
+                                <small><a target="_blank" ex:if-exists=".urls" ex:href-content=".urls">MORE INFO</a>
+                                </small>
                             </b>
                             <b>
-                                <small><a target="_blank" ex:if-exists=".source" ex:href-content=".source">SOURCE</a></small>
+                                <small><a target="_blank" ex:if-exists=".source" ex:href-content=".source">SOURCE</a>
+                                </small>
                             </b>
                         </div>
                     </td>
