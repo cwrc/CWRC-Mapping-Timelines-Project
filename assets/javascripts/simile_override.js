@@ -5,9 +5,6 @@
  * This monkeypatching is the cleanest way to separate the changes we're making from the original code.
  *
  * Each function override should have a note giving some insight into the reason for the change.
- *
- * There are also some "modules" below (eg: (function(window, undefined){...}(window))), which are for pure
- * additions, rather than transmutations, to the system.
  */
 
 // Overridden in order to move the widget
@@ -130,4 +127,34 @@ Timeline.GregorianEtherPainter.prototype.paint = function () {
     // added to no longer block the events layer clicks
     this._markerLayer.parentNode.style.height = "1.5em";
     this._markerLayer.parentNode.style.bottom = "0em";
+};
+
+// Overridden to allow scrolling past the end of the view by one half viewport.
+Timeline._Band.prototype._bounceBack = function (f) {
+    if (!this._supportsOrthogonalScrolling) {
+        return;
+    }
+
+    var target = 0;
+    if (this._viewOrthogonalOffset < 0) {
+        var orthogonalExtent = this._eventPainter.getOrthogonalExtent();
+        if (this._viewOrthogonalOffset + orthogonalExtent >= this.getViewWidth()) {
+            target = this._viewOrthogonalOffset; // I think this is the case where no movement needed - remiller
+        } else {
+            target = Math.min(0, this.getViewWidth()/2 - orthogonalExtent);
+        }
+    }
+    if (target != this._viewOrthogonalOffset) {
+        var self = this;
+        SimileAjax.Graphics.createAnimation(function (abs, diff) {
+            self._viewOrthogonalOffset = abs;
+            self._eventPainter.softPaint();
+            self._showScrollbar();
+            self._fireOnOrthogonalScroll();
+        }, this._viewOrthogonalOffset, target, 300, function () {
+            self._hideScrollbar();
+        }).run();
+    } else {
+        this._hideScrollbar();
+    }
 };
