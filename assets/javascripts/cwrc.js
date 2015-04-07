@@ -67,7 +67,7 @@ var CWRC = (function (cwrc, undefined) {
     cwrc['toggleHistoricalMap'] = function () {
         var toggle = $('#historicalMapToggle');
 
-        if (toggle.text() == 'Show Historical Map') {
+        if (toggle.text().trim().toLowerCase() == 'show historical map') {
             cwrc.addOverlay();
             toggle.text('Hide Historical Map')
         } else {

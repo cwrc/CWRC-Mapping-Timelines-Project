@@ -124,3 +124,8 @@
     color: #fffee6;
     font-weight: bold;
 }
+
+/* Adding transparency to historical map */
+.gm-style > div > div > div > div > img {
+    opacity: 0.55;
+}
