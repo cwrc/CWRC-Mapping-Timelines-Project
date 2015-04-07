@@ -315,6 +315,18 @@ Timeline._Band.prototype._bounceBack = function (f) {
 //    this._dom.setUnplottableMessage(currentSize, unplottableItems);
 //};
 
+
+//Timeline._Band.prototype.showBubbleForEvent = function (eventID) {
+//
+//    var evt = this.getEventSource().getEvent(eventID);
+//    if (evt) {
+//        var self = this;
+//        this.scrollToCenter(evt.getStart(), function () {
+//            self._eventPainter.showBubble(evt);
+//        });
+//    }
+//};
+
 // Overridden to make it search the whole stack instead of just checking the first.
 Exhibit.TimelineView.prototype._select = function (selection) {
     for (var itemNum = 0; itemNum < selection.itemIDs.length; itemNum++) {
@@ -334,13 +346,23 @@ Exhibit.TimelineView.prototype._select = function (selection) {
     }
 };
 
-//Timeline._Band.prototype.showBubbleForEvent = function (eventID) {
-//
-//    var evt = this.getEventSource().getEvent(eventID);
-//    if (evt) {
-//        var self = this;
-//        this.scrollToCenter(evt.getStart(), function () {
-//            self._eventPainter.showBubble(evt);
-//        });
-//    }
-//};
+Exhibit.ViewUtilities.openBubbleForItems = function (anchorElmt, arrayOfItemIDs, uiContext) {
+    var coords = SimileAjax.DOM.getPageCoordinates(anchorElmt);
+
+    console.log('bubble');
+    console.log(anchorElmt);
+    console.log(coords);
+    console.log(uiContext.getSetting("bubbleWidth"));
+    console.log(uiContext.getSetting("bubbleHeight"));
+
+    var bubble = SimileAjax.Graphics.createBubbleForPoint(
+            coords.left + Math.round(anchorElmt.offsetWidth / 2),
+            coords.top + Math.round(anchorElmt.offsetHeight / 2),
+        uiContext.getSetting("bubbleWidth"),
+        uiContext.getSetting("bubbleHeight")
+    );
+
+    console.log(bubble);
+
+    Exhibit.ViewUtilities.fillBubbleWithItems(bubble.content, arrayOfItemIDs, uiContext);
+};
