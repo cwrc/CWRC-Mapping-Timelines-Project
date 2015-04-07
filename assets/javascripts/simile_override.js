@@ -141,7 +141,7 @@ Timeline._Band.prototype._bounceBack = function (f) {
         if (this._viewOrthogonalOffset + orthogonalExtent >= this.getViewWidth()) {
             target = this._viewOrthogonalOffset; // I think this is the case where no movement needed - remiller
         } else {
-            target = Math.min(0, this.getViewWidth()/2 - orthogonalExtent);
+            target = Math.min(0, this.getViewWidth() / 2 - orthogonalExtent);
         }
     }
     if (target != this._viewOrthogonalOffset) {
@@ -158,3 +158,189 @@ Timeline._Band.prototype._bounceBack = function (f) {
         this._hideScrollbar();
     }
 };
+
+// TODO: Possible to override this one to make it do the custom centering that michael requested
+// Todo: we also should look into making a new HTML attribute for this.
+//Exhibit.TimelineView.prototype._reconstruct = function () {
+//    var self = this;
+//    var collection = this._uiContext.getCollection();
+//    var database = this._uiContext.getDatabase();
+//    var settings = this._settings;
+//    var accessors = this._accessors;
+//    var currentSize = collection.countRestrictedItems();
+//    var unplottableItems = [];
+//    this._dom.legendWidget.clear();
+//    this._eventSource.clear();
+//    if (currentSize > 0) {
+//        var currentSet = collection.getRestrictedItems();
+//        var hasColorKey = (this._accessors.getColorKey != null);
+//        var hasIconKey = (this._accessors.getIconKey != null && this._iconCoder != null);
+//        var hasHoverText = (this._accessors.getHoverText != null);
+//        var colorCodingFlags = {mixed: false, missing: false, others: false, keys: new Exhibit.Set()};
+//        var iconCodingFlags = {mixed: false, missing: false, others: false, keys: new Exhibit.Set()};
+//        var events = [];
+//        var addEvent = function (itemID, duration, color, icon, hoverText) {
+//            var label;
+//            accessors.getEventLabel(itemID, database, function (v) {
+//                label = v;
+//                return true;
+//            });
+//            var evt = new Timeline.DefaultEventSource.Event({id: itemID, eventID: itemID, start: duration.start, end: duration.end, instant: duration.end == null, text: label, description: "", icon: icon, color: color, textColor: color, hoverText: hoverText});
+//            evt._itemID = itemID;
+//            evt.getProperty = function (name) {
+//                return database.getObject(this._itemID, name);
+//            };
+//            evt.fillInfoBubble = function (elmt, theme, labeller) {
+//                self._fillInfoBubble(this, elmt, theme, labeller);
+//            };
+//            events.push(evt);
+//        };
+//        currentSet.visit(function (itemID) {
+//            var durations = [];
+//            self._getDuration(itemID, database, function (duration) {
+//                if ("start" in duration) {
+//                    durations.push(duration);
+//                }
+//            });
+//            if (durations.length > 0) {
+//                var color = null;
+//                var icon = null;
+//                var hoverText = null;
+//                if (hasColorKey) {
+//                    var colorKeys = new Exhibit.Set();
+//                    accessors.getColorKey(itemID, database, function (key) {
+//                        colorKeys.add(key);
+//                    });
+//                    color = self._colorCoder.translateSet(colorKeys, colorCodingFlags);
+//                }
+//                var icon = null;
+//                if (hasIconKey) {
+//                    var iconKeys = new Exhibit.Set();
+//                    accessors.getIconKey(itemID, database, function (key) {
+//                        iconKeys.add(key);
+//                    });
+//                    icon = self._iconCoder.translateSet(iconKeys, iconCodingFlags);
+//                }
+//                if (hasHoverText) {
+//                    var hoverKeys = new Exhibit.Set();
+//                    accessors.getHoverText(itemID, database, function (key) {
+//                        hoverKeys.add(key);
+//                    });
+//                    for (var i in hoverKeys._hash) {
+//                        hoverText = i;
+//                    }
+//                }
+//                for (var i = 0;
+//                     i < durations.length;
+//                     i++) {
+//                    addEvent(itemID, durations[i], color, icon, hoverText);
+//                }
+//            } else {
+//                unplottableItems.push(itemID);
+//            }
+//        });
+//        if (hasColorKey) {
+//            var legendWidget = this._dom.legendWidget;
+//            var colorCoder = this._colorCoder;
+//            var keys = colorCodingFlags.keys.toArray().sort();
+//            if (this._colorCoder._gradientPoints != null) {
+//                legendWidget.addGradient(this._colorCoder._gradientPoints);
+//            } else {
+//                for (var k = 0;
+//                     k < keys.length;
+//                     k++) {
+//                    var key = keys[k];
+//                    var color = colorCoder.translate(key);
+//                    legendWidget.addEntry(color, key);
+//                }
+//            }
+//            if (colorCodingFlags.others) {
+//                legendWidget.addEntry(colorCoder.getOthersColor(), colorCoder.getOthersLabel());
+//            }
+//            if (colorCodingFlags.mixed) {
+//                legendWidget.addEntry(colorCoder.getMixedColor(), colorCoder.getMixedLabel());
+//            }
+//            if (colorCodingFlags.missing) {
+//                legendWidget.addEntry(colorCoder.getMissingColor(), colorCoder.getMissingLabel());
+//            }
+//        }
+//        if (hasIconKey) {
+//            var legendWidget = this._dom.legendWidget;
+//            var iconCoder = this._iconCoder;
+//            var keys = iconCodingFlags.keys.toArray().sort();
+//            if (settings.iconLegendLabel != null) {
+//                legendWidget.addLegendLabel(settings.iconLegendLabel, "icon");
+//            }
+//            for (var k = 0;
+//                 k < keys.length;
+//                 k++) {
+//                var key = keys[k];
+//                var icon = iconCoder.translate(key);
+//                legendWidget.addEntry(icon, key, "icon");
+//            }
+//            if (iconCodingFlags.others) {
+//                legendWidget.addEntry(iconCoder.getOthersIcon(), iconCoder.getOthersLabel(), "icon");
+//            }
+//            if (iconCodingFlags.mixed) {
+//                legendWidget.addEntry(iconCoder.getMixedIcon(), iconCoder.getMixedLabel(), "icon");
+//            }
+//            if (iconCodingFlags.missing) {
+//                legendWidget.addEntry(iconCoder.getMissingIcon(), iconCoder.getMissingLabel(), "icon");
+//            }
+//        }
+//        var plottableSize = currentSize - unplottableItems.length;
+//        if (plottableSize > this._largestSize) {
+//            this._largestSize = plottableSize;
+//            this._reconstructTimeline(events);
+//        } else {
+//            this._eventSource.addMany(events);
+//        }
+//        var band = this._timeline.getBand(0);
+//        var centerDate = band.getCenterVisibleDate();
+//        var earliest = this._eventSource.getEarliestDate();
+//        var latest = this._eventSource.getLatestDate();
+//
+//        if (CWRC.settings.) {
+//
+//        } else {
+//            if (earliest != null && centerDate > earliest) {
+//                band.scrollToCenter(earliest);
+//            } else {
+//                if (latest != null && centerDate > latest) {
+//                    band.scrollToCenter(latest);
+//                }
+//            }
+//        }
+//    }
+//    this._dom.setUnplottableMessage(currentSize, unplottableItems);
+//};
+
+// Overridden to make it search the whole stack instead of just checking the first.
+Exhibit.TimelineView.prototype._select = function (selection) {
+    for (var itemNum = 0; itemNum < selection.itemIDs.length; itemNum++) {
+        var itemID = selection.itemIDs[itemNum];
+
+        var bandCount = this._timeline.getBandCount();
+
+        for (var i = 0; i < bandCount; i++) {
+            var band = this._timeline.getBand(i);
+            var evt = band.getEventSource().getEvent(itemID);
+
+            if (evt) {
+                band.showBubbleForEvent(itemID);
+                return;
+            }
+        }
+    }
+};
+
+//Timeline._Band.prototype.showBubbleForEvent = function (eventID) {
+//
+//    var evt = this.getEventSource().getEvent(eventID);
+//    if (evt) {
+//        var self = this;
+//        this.scrollToCenter(evt.getStart(), function () {
+//            self._eventPainter.showBubble(evt);
+//        });
+//    }
+//};
