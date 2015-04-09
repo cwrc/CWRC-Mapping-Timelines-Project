@@ -57,7 +57,11 @@
     font-size: 0.8em;
 }
 
-#sidebar > p > a {
+#sidebar > section:nth-of-type(2) {
+    margin: 0.5em 0em;
+}
+
+#sidebar > section:nth-of-type(2) > a {
     font-size: 1em;
     font-weight: bold;
     color: #000;
@@ -65,6 +69,12 @@
 
 #sidebar > section > header {
     margin-bottom: 0.25em;
+}
+
+/* historical map controls */
+#historicalOpacityControls {
+    display: block;
+    font-size: 1.5em;
 }
 
 /* Show/Hide panel buttons */
@@ -123,9 +133,4 @@
     line-height: 200%;
     color: #fffee6;
     font-weight: bold;
-}
-
-/* Adding transparency to historical map */
-.gm-style > div > div > div > div > img {
-    opacity: 0.55;
 }

@@ -50,18 +50,26 @@ var CWRC = (function (cwrc, undefined) {
         var neBound = new google.maps.LatLng(81.69, -17.58);
         imageBounds = new google.maps.LatLngBounds(swBound, neBound);
 
+//        var opts = new google.maps.GroundOverlayOptions();
+//        opts.opacity =
+
         historicalOverlay = new google.maps.GroundOverlay(
             'maps/BNA_1854.png',
-            imageBounds
+            imageBounds//,
+//            opts
         );
     };
 
     cwrc['addOverlay'] = function () {
         historicalOverlay.setMap(map);
+        cwrc.setMapOpacity();
+        document.getElementById('historicalOpacityControls').style.display = "";
     };
 
     cwrc['removeOverlay'] = function () {
         historicalOverlay.setMap(null);
+        document.getElementById('historicalOpacityControls').style.display = "none";
+
     };
 
     cwrc['toggleHistoricalMap'] = function () {
@@ -74,6 +82,12 @@ var CWRC = (function (cwrc, undefined) {
             cwrc.removeOverlay();
             toggle.text('Show Historical Map')
         }
+    };
+
+    cwrc['setMapOpacity'] = function () {
+        var slider = document.getElementById('historicalMapOpacity');
+
+        historicalOverlay.setOpacity(Number(slider.value));
     };
 
     return cwrc;

@@ -27,7 +27,7 @@
 <tr>
 <td id="sidebar">
     <header>
-        <a href="index.php">Plot-It</a>
+        <a href="/">Plot-It</a>
     </header>
 
     <div ex:role="coordinator" id="bubble-coordinator"></div>
@@ -40,11 +40,16 @@
         </p>
     </section>
 
-    <p>
+    <section>
         <a id="historicalMapToggle" href="#" onclick="CWRC.toggleHistoricalMap();">
             Show Historical Map
         </a>
-    </p>
+        <label id="historicalOpacityControls" style="display:none">
+            Opacity
+            <input id="historicalMapOpacity" type="range" min="0.0" max="1.0" step="0.05"
+                   onchange="CWRC.setMapOpacity()"/>
+        </label>
+    </section>
 
     <div id="exhibit-browse-panel">
         <strong>Search</strong>
@@ -229,7 +234,8 @@
          ex:shapeHeight="20"
          ex:bubbleWidth="310"
          ex:bubbleHeight="100"
-         ex:selectCoordinator="bubble-coordinator"> <!-- needs bubbleheight/width set, otherwise it will draw garbage -->
+         ex:selectCoordinator="bubble-coordinator">
+        <!-- needs bubbleheight/width set, otherwise it will draw garbage -->
     </div>
     <!-- End map control -->
 
