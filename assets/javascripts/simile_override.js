@@ -7,7 +7,7 @@
  * Each function override should have a note giving some insight into the reason for the change.
  */
 
-// Overridden in order to move the widget
+// Overridden in order to move the export button
 Exhibit.ToolboxWidget.prototype._onContainerMouseOver = function (evt) {
     if (!this._hovering) {
         var self = this;
@@ -16,13 +16,13 @@ Exhibit.ToolboxWidget.prototype._onContainerMouseOver = function (evt) {
         var docHeight = document.body.offsetHeight;
         var popup = document.createElement("div");
 
-        var offsetX = 100; // widget offsets
+        var offsetX = 250; // widget offsets
         var offsetY = 5;
 
         popup.className = "exhibit-toolboxWidget-popup screen";
-        popup.style.left = (coords.left + offsetX) + "px";
+//        popup.style.right = (coords.left + offsetX) + "px";
         popup.style.top = (coords.top + offsetY) + "px";
-        //        popup.style.right = (docWidth - coords.left - this._containerElmt.offsetWidth) + "px";
+                popup.style.right = (docWidth - coords.left - this._containerElmt.offsetWidth + offsetX) + "px";
 
         this._fillPopup(popup);
 
@@ -40,7 +40,7 @@ Exhibit.ToolboxWidget.prototype._onContainerMouseOver = function (evt) {
     }
 };
 
-// Overridden to move the UI element.
+// Overridden to move the export popup menu
 Exhibit.UI.createPopupMenuDom = function (element) {
     var div = document.createElement("div");
     div.className = "exhibit-menu-popup exhibit-ui-protection";
