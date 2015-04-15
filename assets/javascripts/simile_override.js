@@ -22,7 +22,7 @@ Exhibit.ToolboxWidget.prototype._onContainerMouseOver = function (evt) {
         popup.className = "exhibit-toolboxWidget-popup screen";
 //        popup.style.right = (coords.left + offsetX) + "px";
         popup.style.top = (coords.top + offsetY) + "px";
-                popup.style.right = (docWidth - coords.left - this._containerElmt.offsetWidth + offsetX) + "px";
+        popup.style.right = (docWidth - coords.left - this._containerElmt.offsetWidth + offsetX) + "px";
 
         this._fillPopup(popup);
 
@@ -345,3 +345,168 @@ Exhibit.TimelineView.prototype._select = function (selection) {
         }
     }
 };
+
+// TODO: elminiate?
+// Overrriden to change for it filters dateless elements
+//Exhibit.SliderFacet.prototype.restrict = function (items) {
+//    if (!this.hasRestrictions()) {
+//        return items;
+//    }
+//
+//    set = new Exhibit.Set();
+//
+//    if (this._expression.isPath()) {
+//        console.log('==============================Aay===================================');
+//        var path = this._expression.getPath();
+//        var database = this._uiContext.getDatabase();
+//        set = path.rangeBackward(this._range.min, this._range.max, false, items, database).values;
+//        console.log('==============================/Aay===================================');
+//    } else {
+//        console.log('Bee');
+//
+//        this._buildRangeIndex();
+//        var rangeIndex = this._rangeIndex;
+//        set = rangeIndex.getSubjectsInRange(this._range.min, this._range.max, false, null, items);
+//    }
+//
+//    if (this._showMissing) {
+//        this._cache.getItemsMissingValue(items, set);
+//    }
+//
+//    return set;
+//};
+
+//// TODO: elminiate?
+//// overridden to change the day range sliders filter elements
+//Exhibit.Expression.Path.prototype.rangeBackward = function (from, to, inclusive, filter, database) {
+//    var set = new Exhibit.Set();
+//    var valueType = "item";
+//    if (this._segments.length > 0) {
+//        var segment = this._segments[this._segments.length - 1];
+//
+//        if (segment.forward) {
+//            database.getSubjectsInRange(segment.property, from, to, inclusive, set, this._segments.length == 1 ? filter : null);
+//        } else {
+//            throw new Error("Last path of segment must be forward");
+//        }
+//
+//        for (var i = this._segments.length - 2; i >= 0; i--) {
+//            segment = this._segments[i];
+//            if (segment.forward) {
+//                set = database.getSubjectsUnion(set, segment.property, null, i == 0 ? filter : null);
+//                valueType = "item";
+//            } else {
+//                set = database.getObjectsUnion(set, segment.property, null, i == 0 ? filter : null);
+//
+//                var property = database.getProperty(segment.property);
+//                valueType = property != null ? property.getValueType() : "text";
+//            }
+//        }
+//    }
+//    return {
+//        valueType: valueType,
+//        values: set,
+//        count: set.size()
+//    };
+//};
+//
+//// TODO: eliminate?
+//// overridden to change the day range sliders filter elements
+//Exhibit.Database._RangeIndex.prototype.getSubjectsInRange = function (min, max, inclusive, set, filter) {
+//    if (!set) {
+//        set = new Exhibit.Set();
+//    }
+//
+//    var f = (filter != null) ?
+//        function (item) {
+//            if (filter.contains(item)) {
+//                set.add(item);
+//            }
+//        } :
+//        function (item) {
+//            set.add(item);
+//        };
+//
+//    this.getRange(f, min, max, inclusive);
+//
+//    return set;
+//};
+//
+//// overridden to change the day range sliders filter elements
+//Exhibit.Database._RangeIndex.prototype.getRange = function (visitor, min, max, inclusive) {
+//    var startIndex = this._indexOf(min);
+//    var pairs = this._pairs;
+//    var nPairs = pairs.length;
+//
+//    inclusive = (inclusive);
+//
+//    while (startIndex < nPairs) {
+//        var pair = pairs[startIndex++];
+//        var value = pair.value;
+//
+////        console.log(pair);
+//
+//        if (value < max || (value == max && inclusive)) {
+//            visitor(pair.item);
+//        } else {
+//            break;
+//        }
+//    }
+//};
+//
+//Exhibit.Database._RangeIndex = function(items, getter) {
+//    pairs = [];
+//
+//    console.log(getter);
+//
+//    items.visit(function(item) {
+//        getter(item, function(value) {
+//            pairs.push({ item: item, value: value });
+//        });
+//    });
+//
+//    pairs.sort(function(p1, p2) {
+//        var c = p1.value - p2.value;
+//        return (isNaN(c) === false) ? c : p1.value.localeCompare(p2.value);
+//    });
+//
+//    this._pairs = pairs;
+//};
+
+//
+//Exhibit.Database._Property.prototype._buildRangeIndex = function () {
+//    var getter;
+//    var database = this._database;
+//    var p = this._id;
+//
+//    switch (this.getValueType()) {
+//        case"date":
+//            getter = function (item, f) {
+//                database.getObjects(item, p, null, null).visit(function (value) {
+//                    if (value != null && !(value instanceof Date)) {
+//                        value = SimileAjax.DateTime.parseIso8601DateTime(value);
+//                    }
+//                    if (value instanceof Date) {
+//                        f(value.getTime());
+//                    }
+//                });
+//            };
+//            break;
+//        default:
+//            getter = function (item, f) {
+//                console.log(f);
+//
+//                database.getObjects(item, p, null, null).visit(function (value) {
+//                    var oval = value;
+//                    if (typeof value != "number") {
+//                        value = parseFloat(value);
+//                    }
+//                    if (!isNaN(value)) {
+//                        f(value);
+//                    }
+//                });
+//            };
+//            break;
+//    }
+//    this._rangeIndex = new Exhibit.Database._RangeIndex(this._database.getAllItems(), getter);
+//};
