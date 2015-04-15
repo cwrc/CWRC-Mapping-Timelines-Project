@@ -50,13 +50,9 @@ var CWRC = (function (cwrc, undefined) {
         var neBound = new google.maps.LatLng(81.69, -17.58);
         imageBounds = new google.maps.LatLngBounds(swBound, neBound);
 
-//        var opts = new google.maps.GroundOverlayOptions();
-//        opts.opacity =
-
         historicalOverlay = new google.maps.GroundOverlay(
-            'maps/BNA_1854.png',
-            imageBounds//,
-//            opts
+            'assets/images/maps/BNA_1854.png',
+            imageBounds
         );
     };
 
