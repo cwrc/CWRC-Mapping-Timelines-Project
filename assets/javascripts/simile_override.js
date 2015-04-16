@@ -190,7 +190,9 @@ Timeline.OriginalEventPainter.prototype._showBubble = function (x, y, evt) {
         selected[i].classList.remove(selectedClass);
     }
 
-    document.getElementById('label-tl-0-0-' + evt._text).classList.add(selectedClass);
+    var elementId = 'label-tl-0-0-' + evt._eventID.trim();
+    console.log(elementId);
+    document.getElementById(elementId).classList.add(selectedClass);
 
     evt.fillInfoBubble(details, this._params.theme, this._band.getLabeller());
 
@@ -199,50 +201,85 @@ Timeline.OriginalEventPainter.prototype._showBubble = function (x, y, evt) {
 };
 
 
-SimileAjax.Graphics.createBubbleForContentAndPoint = function (div, pageX, pageY, contentWidth, orientation, maxHeight) {
-    alert('wat');
-//    if (typeof contentWidth != "number") {
-//        contentWidth = 300;
-//    }
-//    if (typeof maxHeight != "number") {
-//        maxHeight = 0;
-//    }
+//Exhibit.UI.showItemInPopup = function (itemID, elmt, uiContext, opts) {
+////    SimileAjax.WindowManager.popAllLayers();
 //
-//    div.style.position = "absolute";
-//    div.style.left = "-5000px";
-//    div.style.top = "0px";
-//    div.style.width = contentWidth + "px";
-//    document.body.appendChild(div);
+////    opts = opts || {};
+////    opts.coords = opts.coords || Exhibit.UI.calculatePopupPosition(elmt);
 //
-//    window.setTimeout(function() {
-//        var width = div.scrollWidth + 10;
-//        var height = div.scrollHeight + 10;
-//        var scrollDivW = 0; // width of the possible inner container when we want vertical scrolling
-//        if (maxHeight > 0 && height > maxHeight) {
-//            height = maxHeight;
-//            scrollDivW = width - 25;
-//        }
+////    var itemLensDiv = document.createElement("div");
 //
-//        var bubble = SimileAjax.Graphics.createBubbleForPoint(pageX, pageY, width, height, orientation);
+//    var details = document.getElementById('detailsBox');
+//    details.innerHTML = '';
 //
-//        document.body.removeChild(div);
-//        div.style.position = "static";
-//        div.style.left = "";
-//        div.style.top = "";
+//    var lensOpts = {
+//        inPopup: false//,
+////        coords: opts.coords
+//    };
 //
-//        // create a scroll div if needed
-//        if (scrollDivW > 0) {
-//            var scrollDiv = document.createElement("div");
-//            div.style.width = "";
-//            scrollDiv.style.width = scrollDivW + "px";
-//            scrollDiv.appendChild(div);
-//            bubble.content.appendChild(scrollDiv);
-//        } else {
-//            div.style.width = width + "px";
-//            bubble.content.appendChild(div);
-//        }
-//    }, 200);
-};
+////    if (opts.lensType == 'normal') {
+//    lensOpts.lensTemplate = uiContext.getLensRegistry().getNormalLens(itemID, uiContext);
+////    } else if (opts.lensType == 'edit') {
+////        lensOpts.lensTemplate = uiContext.getLensRegistry().getEditLens(itemID, uiContext);
+////    } else if (opts.lensType) {
+////        SimileAjax.Debug.warn('Unknown Exhibit.UI.showItemInPopup opts.lensType: ' + opts.lensType);
+////    }
+//
+//    uiContext.getLensRegistry().createLens(itemID, details, uiContext, lensOpts);
+//
+////    SimileAjax.Graphics.createBubbleForContentAndPoint(
+////        itemLensDiv,
+////        opts.coords.x,
+////        opts.coords.y,
+////        uiContext.getSetting("bubbleWidth")
+////    );
+//};
+
+
+//SimileAjax.Graphics.createBubbleForContentAndPoint = function (div, pageX, pageY, contentWidth, orientation, maxHeight) {
+//    alert('wat');
+////    if (typeof contentWidth != "number") {
+////        contentWidth = 300;
+////    }
+////    if (typeof maxHeight != "number") {
+////        maxHeight = 0;
+////    }
+////
+////    div.style.position = "absolute";
+////    div.style.left = "-5000px";
+////    div.style.top = "0px";
+////    div.style.width = contentWidth + "px";
+////    document.body.appendChild(div);
+////
+////    window.setTimeout(function() {
+////        var width = div.scrollWidth + 10;
+////        var height = div.scrollHeight + 10;
+////        var scrollDivW = 0; // width of the possible inner container when we want vertical scrolling
+////        if (maxHeight > 0 && height > maxHeight) {
+////            height = maxHeight;
+////            scrollDivW = width - 25;
+////        }
+////
+////        var bubble = SimileAjax.Graphics.createBubbleForPoint(pageX, pageY, width, height, orientation);
+////
+////        document.body.removeChild(div);
+////        div.style.position = "static";
+////        div.style.left = "";
+////        div.style.top = "";
+////
+////        // create a scroll div if needed
+////        if (scrollDivW > 0) {
+////            var scrollDiv = document.createElement("div");
+////            div.style.width = "";
+////            scrollDiv.style.width = scrollDivW + "px";
+////            scrollDiv.appendChild(div);
+////            bubble.content.appendChild(scrollDiv);
+////        } else {
+////            div.style.width = width + "px";
+////            bubble.content.appendChild(div);
+////        }
+////    }, 200);
+//};
 
 // TODO: Possible to override this one to make it do the custom centering that michael requested
 // Todo: we also should look into making a new HTML attribute for this.

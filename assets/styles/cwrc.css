@@ -166,11 +166,29 @@
 }
 
 /* ==== MAP ====*/
-.map-lens {
-    display: none;
-    /*visibility: hidden;*/
+.gm-style-iw div div div {
+    /* Hiding simple map popups */
+    /*display: none*/
+}
+
+/*still need the multi-stack ones though*/
+.gm-style-iw .multiGroupEvents {
+    display: block;
+}
+
+div.map-lens {
     text-align: left;
     overflow: auto;
-    width: 300px;
-    height: 100px;
+    width: auto;
+    height: auto;
+}
+
+/*Hiding the close button*/
+.gm-style-iw + div {
+    display: none;
+    visibility: hidden;
+}
+
+.exhibit-focusDialog {
+    display: none;
 }
