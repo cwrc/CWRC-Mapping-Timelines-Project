@@ -47,6 +47,12 @@
 					"type": "string",
 					"required": false
 				},
+				"countryName": 
+				{
+					"description": "Country name of where the event is located",
+					"type": "string",
+					"required": false
+				},
 				"asciiName":
 				{
 					"description": "Location's alternative spelling, ignoring accents and other markings, taken from geo-web service used",
