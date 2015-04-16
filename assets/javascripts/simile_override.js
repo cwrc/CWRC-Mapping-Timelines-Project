@@ -159,6 +159,91 @@ Timeline._Band.prototype._bounceBack = function (f) {
     }
 };
 
+// Overridden to make it search the whole stack instead of just checking the first.
+Exhibit.TimelineView.prototype._select = function (selection) {
+    for (var itemNum = 0; itemNum < selection.itemIDs.length; itemNum++) {
+        var itemID = selection.itemIDs[itemNum];
+
+        var bandCount = this._timeline.getBandCount();
+
+        for (var i = 0; i < bandCount; i++) {
+            var band = this._timeline.getBand(i);
+            var evt = band.getEventSource().getEvent(itemID);
+
+            if (evt) {
+                band.showBubbleForEvent(itemID);
+                return;
+            }
+        }
+    }
+};
+
+// Overridden to get the center widget showing the timeline stuff
+Timeline.OriginalEventPainter.prototype._showBubble = function (x, y, evt) {
+    var details = document.getElementById('detailsBox');
+    details.innerHTML = '';
+
+    var selectedClass = 'timeline-selected';
+    var selected = document.getElementsByClassName(selectedClass);
+
+    for (var i = 0; i < selected.length; i++) {
+        selected[i].classList.remove(selectedClass);
+    }
+
+    document.getElementById('label-tl-0-0-' + evt._text).classList.add(selectedClass);
+
+    evt.fillInfoBubble(details, this._params.theme, this._band.getLabeller());
+
+    details.firstChild.removeAttribute('style'); // nuke their useless styling, replace with relevant stuff
+    details.firstChild.style.overflow = 'auto';
+};
+
+
+SimileAjax.Graphics.createBubbleForContentAndPoint = function (div, pageX, pageY, contentWidth, orientation, maxHeight) {
+    alert('wat');
+//    if (typeof contentWidth != "number") {
+//        contentWidth = 300;
+//    }
+//    if (typeof maxHeight != "number") {
+//        maxHeight = 0;
+//    }
+//
+//    div.style.position = "absolute";
+//    div.style.left = "-5000px";
+//    div.style.top = "0px";
+//    div.style.width = contentWidth + "px";
+//    document.body.appendChild(div);
+//
+//    window.setTimeout(function() {
+//        var width = div.scrollWidth + 10;
+//        var height = div.scrollHeight + 10;
+//        var scrollDivW = 0; // width of the possible inner container when we want vertical scrolling
+//        if (maxHeight > 0 && height > maxHeight) {
+//            height = maxHeight;
+//            scrollDivW = width - 25;
+//        }
+//
+//        var bubble = SimileAjax.Graphics.createBubbleForPoint(pageX, pageY, width, height, orientation);
+//
+//        document.body.removeChild(div);
+//        div.style.position = "static";
+//        div.style.left = "";
+//        div.style.top = "";
+//
+//        // create a scroll div if needed
+//        if (scrollDivW > 0) {
+//            var scrollDiv = document.createElement("div");
+//            div.style.width = "";
+//            scrollDiv.style.width = scrollDivW + "px";
+//            scrollDiv.appendChild(div);
+//            bubble.content.appendChild(scrollDiv);
+//        } else {
+//            div.style.width = width + "px";
+//            bubble.content.appendChild(div);
+//        }
+//    }, 200);
+};
+
 // TODO: Possible to override this one to make it do the custom centering that michael requested
 // Todo: we also should look into making a new HTML attribute for this.
 //Exhibit.TimelineView.prototype._reconstruct = function () {
@@ -327,24 +412,6 @@ Timeline._Band.prototype._bounceBack = function (f) {
 //    }
 //};
 
-// Overridden to make it search the whole stack instead of just checking the first.
-Exhibit.TimelineView.prototype._select = function (selection) {
-    for (var itemNum = 0; itemNum < selection.itemIDs.length; itemNum++) {
-        var itemID = selection.itemIDs[itemNum];
-
-        var bandCount = this._timeline.getBandCount();
-
-        for (var i = 0; i < bandCount; i++) {
-            var band = this._timeline.getBand(i);
-            var evt = band.getEventSource().getEvent(itemID);
-
-            if (evt) {
-                band.showBubbleForEvent(itemID);
-                return;
-            }
-        }
-    }
-};
 
 // TODO: elminiate?
 // Overrriden to change for it filters dateless elements
@@ -510,3 +577,5 @@ Exhibit.TimelineView.prototype._select = function (selection) {
 //    }
 //    this._rangeIndex = new Exhibit.Database._RangeIndex(this._database.getAllItems(), getter);
 //};
+
+
