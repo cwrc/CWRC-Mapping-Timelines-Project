@@ -14,3 +14,6 @@
 # Ruby sinatra server for testing
 Gemfile*
 faces/*
+
+# config file
+dbconfig.php
