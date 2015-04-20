@@ -10,6 +10,7 @@ require_once("libs/rb/rb.php");
 class Geonames
 {
     private $table_name;
+    private $table_country;
     /**
      * Connect to MySQL database
      * @param string $db_name - Database name
@@ -17,12 +18,13 @@ class Geonames
      * @param string $db_pass - User password
      * @param string $table_name - Name of table
      */
-    function __construct($db_name, $db_user, $db_pass, $table_name)
+    function __construct($db_name, $db_user, $db_pass, $table_name, $table_country)
     {
         R::setup("mysql:host=localhost;dbname=$db_name", $db_user, $db_pass);
         R::freeze(TRUE);
         R::debug(FALSE);
         $this->table_name = $table_name;
+        $this->table_country = $table_country;
     }
 
     /**
@@ -89,7 +91,7 @@ class Geonames
 		{
 			return;
 		}
-		$qry = "SELECT asciiname FROM $this->table_name WHERE country_code = '$code' AND feature_class = 'A' AND feature_code = 'PCLI' LIMIT 1";
+		$qry = "SELECT name FROM $this->table_country WHERE alpha2_code Like '$code' LIMIT 1"; 
 		$match = R::getCell($qry);
 		return $match;
     }
