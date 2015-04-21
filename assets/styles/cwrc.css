@@ -168,7 +168,7 @@
 /* ==== MAP ====*/
 .gm-style-iw div div div {
     /* Hiding simple map popups */
-    /*display: none*/
+    display: none
 }
 
 /*still need the multi-stack ones though*/
