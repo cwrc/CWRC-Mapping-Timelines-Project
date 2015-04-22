@@ -63,60 +63,44 @@
 </td>
 
 <td id="content">
-<div class="item" ex:role="lens" style="display: none; overflow: auto; width: 300px; height: 100px;">
+<div class="item" ex:role="lens" style="display: none; overflow: auto;">
     <!-- Begin popup. If only this is set, it will be used for the map markers too. Can be disabled for timeline, and show
     on map only as well-->
-    <table cellpadding="2" width="100%" style="font-size: 13px; color: #777; font-family: Arial, Tahoma, Sans-serif;">
-        <tr>
-            <td width="1">
-                <img ex:if-exists=".images" ex:src-content=".images" width="100px"/>
-            </td>
-            <td width="1">
-                <iframe width="150" height="150" ex:if-exists=".videos" ex:src-content=".videos" frameborder="0"
-                        allowfullscreen></iframe>
-            </td>
-            <td>
-                <div>
-                <span ex:if-exists=".location">
-                    <b>
-                        <small>LOCATION</small>
-                    </b>
-                    <span ex:content=".location"></span>
-                    <br/>
+    <img ex:if-exists=".images" ex:src-content=".images"/>
+    <iframe height="150" height="150" ex:if-exists=".videos" ex:src-content=".videos" frameborder="0"
+            allowfullscreen></iframe>
+    <div>
+        <header>
+            <span ex:if-exists=".startDate">
+                <span ex:content=".startDate"></span>
+                <span ex:if-exists=".endDate">
+                    to
+                    <span ex:content=".endDate"></span>
                 </span>
-                <span ex:if-exists=".startDate">
-                    <b>
-                        <small>DATE</small>
-                    </b>
-                    <span ex:content=".startDate"></span>
-                    <span ex:if-exists=".endDate">
-                        <b>
-                            <small>TO</small>
-                        </b>
-                        <span ex:content=".endDate"></span>
-                    </span>
-                    <br/>
-                </span>
-                    <b>
-                        <small>TITLE</small>
-                    </b>
-                    <span ex:content=".longLabel"></span><br/>
-                    <b>
-                        <small>NOTES</small>
-                    </b>
-                    <span ex:content=".description"></span><br/>
-                    <b>
-                        <small><a target="_blank" ex:if-exists=".urls" ex:href-content=".urls">MORE INFO</a></small>
-                    </b>
-                    <b>
-                        <small>
-                            <a target="_blank" ex:if-exists=".source" ex:href-content=".source">SOURCE</a>
-                        </small>
-                    </b>
-                </div>
-            </td>
-        </tr>
-    </table>
+            </span>
+            <span ex:if-exists=".location">
+                <span ex:content=".location"></span>
+            </span>
+        </header>
+        <section>
+            <header>
+                <span ex:content=".longLabel"></span>
+            </header>
+            <span ex:content=".description"></span>
+
+            <p>
+                <b>
+                    <a target="_blank" ex:if-exists=".urls" ex:href-content=".urls">More...</a>
+                </b>
+            </p>
+
+            <p>
+                <b>
+                    <a target="_blank" ex:if-exists=".source" ex:href-content=".source">(Source)</a>
+                </b>
+            </p>
+        </section>
+    </div>
     <!-- End timeline popup -->
 </div>
 
@@ -175,60 +159,60 @@
 <div ex:role="viewPanel" id="mapArea">
     <!-- Begin map popup -->
     <!-- This controls a custom popup for the map markers. Disabling it causes the same popup to be used for both timeline and map -->
-    <div class="map-lens" ex:role="lens">
-        <table cellpadding="2" width="100%">
-            <tr>
-                <td width="1">
-                    <img ex:if-exists=".images" ex:src-content=".images" width="100px"/>
-                </td>
-                <td width="1">
-                    <iframe width="150" height="150" ex:if-exists=".videos" ex:src-content=".videos" frameborder="0"
-                            allowfullscreen></iframe>
-                </td>
-                <td>
-                    <div>
-                        <span ex:if-exists=".location">
-                            <b>
-                                <small>LOCATION</small>
-                            </b> <span ex:content=".location"></span><br/>
-                        </span>
-                        <span ex:if-exists=".startDate">
-                            <b>
-                                <small>DATE</small>
-                            </b>
-                            <span ex:content=".startDate"></span>
-                            <span ex:if-exists=".endDate">
-                             <b>
-                                 <small>TO</small>
-                             </b> <span ex:content=".endDate"></span>
-                            </span>
-                            <br/>
-                        </span>
-                        <b>
-                            <small>TITLE</small>
-                        </b>
-                        <span ex:content=".longLabel"></span>
-                        <br/>
-                        <b>
-                            <small>NOTES</small>
-                        </b>
-                        <span ex:content=".description"></span>
-                        <br/>
-                        <b>
-                            <small>
-                                <a target="_blank" ex:if-exists=".urls" ex:href-content=".urls">MORE INFO</a>
-                            </small>
-                        </b>
-                        <b>
-                            <small>
-                                <a target="_blank" ex:if-exists=".source" ex:href-content=".source">SOURCE</a>
-                            </small>
-                        </b>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
+    <!--<div class="map-lens" ex:role="lens">-->
+    <!--<table cellpadding="2" width="100%">-->
+    <!--<tr>-->
+    <!--<td width="1">-->
+    <!--<img ex:if-exists=".images" ex:src-content=".images" width="100px"/>-->
+    <!--</td>-->
+    <!--<td width="1">-->
+    <!--<iframe width="150" height="150" ex:if-exists=".videos" ex:src-content=".videos" frameborder="0"-->
+    <!--allowfullscreen></iframe>-->
+    <!--</td>-->
+    <!--<td>-->
+    <!--<div>-->
+    <!--<span ex:if-exists=".location">-->
+    <!--<b>-->
+    <!--<small>LOCATION</small>-->
+    <!--</b> <span ex:content=".location"></span><br/>-->
+    <!--</span>-->
+    <!--<span ex:if-exists=".startDate">-->
+    <!--<b>-->
+    <!--<small>DATE</small>-->
+    <!--</b>-->
+    <!--<span ex:content=".startDate"></span>-->
+    <!--<span ex:if-exists=".endDate">-->
+    <!--<b>-->
+    <!--<small>TO</small>-->
+    <!--</b> <span ex:content=".endDate"></span>-->
+    <!--</span>-->
+    <!--<br/>-->
+    <!--</span>-->
+    <!--<b>-->
+    <!--<small>TITLE</small>-->
+    <!--</b>-->
+    <!--<span ex:content=".longLabel"></span>-->
+    <!--<br/>-->
+    <!--<b>-->
+    <!--<small>NOTES</small>-->
+    <!--</b>-->
+    <!--<span ex:content=".description"></span>-->
+    <!--<br/>-->
+    <!--<b>-->
+    <!--<small>-->
+    <!--<a target="_blank" ex:if-exists=".urls" ex:href-content=".urls">MORE INFO</a>-->
+    <!--</small>-->
+    <!--</b>-->
+    <!--<b>-->
+    <!--<small>-->
+    <!--<a target="_blank" ex:if-exists=".source" ex:href-content=".source">SOURCE</a>-->
+    <!--</small>-->
+    <!--</b>-->
+    <!--</div>-->
+    <!--</td>-->
+    <!--</tr>-->
+    <!--</table>-->
+    <!--</div>-->
     <!-- End map popup -->
 
     <!-- Begin map control, same map can hold multiple views, only one is needed here -->
