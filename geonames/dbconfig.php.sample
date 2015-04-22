@@ -14,10 +14,15 @@ if (SYSMODE === "DEV")
     define("DBNAME", "local database");
     define("DBUSER", "local user");
     define("DBPASS", "local password");    
+    define("DBTABLE", "cities");
+    define("DBTABLECOUNTRY", "countries");
+
 }
 else if (SYSMODE === "PROD")
 {
     define("DBNAME", "live database");
     define("DBUSER", "live user");
     define("DBPASS", "live password");
+    define("DBTABLE", "cities");
+    define("DBTABLECOUNTRY", "countries");
 }

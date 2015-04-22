@@ -12,10 +12,10 @@
  */
  
 require_once('Geonames.cls.php');
-require_once('dbconfig.php'); // Remember to edit this file according to your MySQL server settings
+require_once('../dbconfig.php'); // Remember to edit this file according to your MySQL server settings
 
 // Call local Geonames service to look up and return results
-$geonames = new Geonames(DBNAME, DBUSER, DBPASS, DBTABLE); // Constant values are read from dbconfig.php
+$geonames = new Geonames(DBNAME, DBUSER, DBPASS, DBTABLE, DBTABLECOUNTRY); // Constant values are read from dbconfig.php
 $geonames->output_as_xml($geonames->get_results(get_query(), get_max_results()));
 
 /** 
