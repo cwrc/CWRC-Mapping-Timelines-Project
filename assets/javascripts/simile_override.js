@@ -340,7 +340,13 @@ Exhibit.MapView.prototype._rePlotItems = function (unplottableItems) {
         }
     });
 
-    var oms = new OverlappingMarkerSpiderfier(self._map, {keepSpiderfied: true});
+    var spiderOpts = {
+        keepSpiderfied: true,
+        spiralFootSeparation: 26, // Default: 26     # magically changes spiral size
+        spiralLengthStart: 7, // 11                  # magically changes spiral size
+        spiralLengthFactor: 5.75 // 4                # magically changes spiral size
+    };
+    var spiderfy = new OverlappingMarkerSpiderfier(self._map, spiderOpts);
     var addMarkersAtLocation = function (locationData) {
 
         for (var i = 0; i < locationData.items.length; i++) {
@@ -377,7 +383,7 @@ Exhibit.MapView.prototype._rePlotItems = function (unplottableItems) {
             bounds.extend(point);
 
             var marker = Exhibit.MapView._makeMarker(point, shape, color, iconSize, icon, itemCount == 1 ? "" : itemCount.toString(), self._settings);
-            oms.addMarker(marker);
+            spiderfy.addMarker(marker);
             marker.cwrcData = [item];
 
 //          google.maps.event.addListener(marker, "click", function () {
@@ -401,7 +407,7 @@ Exhibit.MapView.prototype._rePlotItems = function (unplottableItems) {
             addMarkersAtLocation(locationToData[latlngKey]);
         }
 
-        oms.addListener('click', function (marker, event) {
+        spiderfy.addListener('click', function (marker, event) {
             self._showInfoWindow(marker.cwrcData, null, marker);
             if (self._selectListener != null) {
                 self._selectListener.fire({itemIDs: marker.cwrcData});
@@ -514,7 +520,12 @@ Exhibit.MapView.prototype._rePlotItems = function (unplottableItems) {
     this._shown = true;
 };
 
+// overridden to customize the text size and pin style
 Exhibit.MapView.makeCanvasIcon = function (width, height, color, label, iconImg, iconSize, settings) {
+//    console.log(width);
+//    console.log(height);
+
+
     var drawShadow = function (icon) {
         var width = icon.width;
         var height = icon.height;
@@ -613,7 +624,7 @@ Exhibit.MapView.makeCanvasIcon = function (width, height, color, label, iconImg,
     context.stroke();
     var shadow = drawShadow(canvas);
     if (label) {
-        context.font = "8pt Arial";
+        context.font = "10pt Arial";
         context.textBaseline = "middle";
         context.textAlign = "center";
         context.globalAlpha = 1;
@@ -621,6 +632,70 @@ Exhibit.MapView.makeCanvasIcon = function (width, height, color, label, iconImg,
         context.fillText(label, width / 2, height / 2, width / 1.4);
     }
     return{iconURL: canvas.toDataURL(), shadowURL: shadow.toDataURL()};
+};
+
+Exhibit.MapView._makeMarker = function (position, shape, color, iconSize, iconURL, label, settings) {
+    var key = "#" + shape + "#" + color + "#" + iconSize + "#" + iconURL + "#" + label;
+    var cached = Exhibit.MapView.markerCache[key];
+    if (cached && (cached.settings == settings)) {
+        return new google.maps.Marker({icon: cached.markerImage, shadow: cached.shadowImage, shape: cached.markerShape, position: position});
+    }
+    var extra = label.length;
+    var halfWidth = Math.ceil(settings.shapeWidth / 2) + extra;
+    var bodyHeight = settings.shapeHeight + 2 * extra;
+    var width = halfWidth * 2;
+    var height = bodyHeight;
+    var pin = settings.pin;
+    if (iconSize > 0) {
+        width = iconSize;
+        halfWidth = Math.ceil(iconSize / 2);
+        height = iconSize;
+        bodyHeight = iconSize;
+    }
+    var markerImage = {};
+    var markerShape = {type: "poly"};
+    var shadowImage = {};
+    if (pin) {
+        var pinHeight = settings.pinHeight;
+        var pinHalfWidth = Math.ceil(settings.pinWidth / 2);
+        height += pinHeight;
+        markerImage.anchor = new google.maps.Point(halfWidth, height);
+        shadowImage.anchor = new google.maps.Point(halfWidth, height);
+        markerShape.coords = [0, 0, 0, bodyHeight, halfWidth - pinHalfWidth, bodyHeight, halfWidth, height, halfWidth + pinHalfWidth, bodyHeight, width, bodyHeight, width, 0];
+    } else {
+        markerImage.anchor = new google.maps.Point(halfWidth, Math.ceil(height / 2));
+        shadowImage.anchor = new google.maps.Point(halfWidth, Math.ceil(height / 2));
+        markerShape.coords = [0, 0, 0, bodyHeight, width, bodyHeight, width, 0];
+    }
+    markerImage.size = new google.maps.Size(width, height);
+    shadowImage.size = new google.maps.Size(width + height / 2, height);
+    var markerPair;
+    if ((!Exhibit.MapView._hasCanvas) || (iconURL == null)) {
+        if (!Exhibit.MapView._hasCanvas) {
+            markerPair = Exhibit.MapView.makePainterIcon(width, bodyHeight, color, label, iconURL, iconSize, settings);
+        } else {
+            markerPair = Exhibit.MapView.makeCanvasIcon(width, bodyHeight, color, label, null, iconSize, settings);
+        }
+        markerImage.url = markerPair.iconURL;
+        shadowImage.url = markerPair.shadowURL;
+        cached = Exhibit.MapView.markerCache[key] = {markerImage: markerImage, shadowImage: shadowImage, markerShape: markerShape};
+        return new google.maps.Marker({icon: cached.markerImage, shadow: cached.shadowImage, shape: cached.markerShape, position: position});
+    } else {
+        var marker = Exhibit.MapView._makeMarker(position, shape, color, iconSize, null, label, settings);
+        cached = {markerImage: marker.getIcon(), shadowImage: marker.getShadow(), markerShape: marker.getShape(), settings: settings};
+        var image = new Image();
+        image.onload = function () {
+            try {
+                cached.markerImage.url = Exhibit.MapView.makeCanvasIcon(width, bodyHeight, color, label, image, iconSize, settings).iconURL;
+            } catch (e) {
+                cached.markerImage.url = Exhibit.MapView.makePainterIcon(width, bodyHeight, color, label, iconURL, iconSize, settings).iconURL;
+            }
+            Exhibit.MapView.markerCache[key] = cached;
+            marker.setIcon(cached.markerImage);
+        };
+        image.src = iconURL;
+        return marker;
+    }
 };
 
 // TODO: Possible to override this one to make it do the custom centering that michael requested
