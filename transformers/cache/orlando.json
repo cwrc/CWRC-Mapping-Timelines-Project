@@ -7558,6 +7558,6 @@
 		"locationType": ["City","City","City"],
 		"pointType": "Multi-Point",
 		"description": ""
-	},
+	}
 ]
 }

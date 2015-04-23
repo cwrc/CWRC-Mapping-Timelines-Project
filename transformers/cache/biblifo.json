@@ -6124,7 +6124,7 @@
 		"latLng": "46.81228,-71.21454",
 		"locationType": "City",
 		"pointType": "Point",
-		"description": "DESBIENS, Patrice. <i> Ici</i>. Éditions �  Mitaine. Qu&eacute;bec, Canada: 1974"
+		"description": "DESBIENS, Patrice. <i> Ici</i>. Éditions �  Mitaine. Qu&eacute;bec, Canada: 1974"
 	},
 	{
 		"label": " L'effet de la pluie pouss&eacute;e par le vent sur les b&acirc;timents",
@@ -45578,6 +45578,6 @@
 		"locationType": "N/A",
 		"pointType": "N/A",
 		"description": "SINCLAIR, Carolyn. <i> &quot;Aller vers l'autre voyager vers soi&quot;. Aspects de la qu&ecirc;te identitaire dans la po&eacute;sie de Robert Dickson</i>.   "
-	},
+	}
 ]
 }
