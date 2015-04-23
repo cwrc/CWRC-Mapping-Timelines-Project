@@ -11,6 +11,15 @@ map > header {
     text-align: center;
 }
 
+map > header > a {
+    text-decoration: none;
+}
+
+map > header > a[selected] {
+    border-bottom: 3px solid red;
+}
+
 map table {
     width: 100%;
 }
+

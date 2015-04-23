@@ -1,8 +1,16 @@
 ko.components.register('map', {
     template: '<header>\
-                    <a href="" data-bind="click: function() { setView(\'map_view\') }">Map View</a>\
-                    <a href="" data-bind="click: function() { setView(\'list_view\') }">List View</a>\
-                    <a href="" data-bind="click: function() { setView(\'table_view\') }">Grid View</a>\
+                    <a href="" data-bind="click: function() { setView(\'map_view\') }, attr:{selected: isView(\'map_view\')}">\
+                        Map View\
+                    </a>\
+                    •\
+                    <a href="" data-bind="click: function() { setView(\'list_view\') }, attr:{selected: isView(\'list_view\')}">\
+                        List View\
+                    </a>\
+                    •\
+                    <a href="" data-bind="click: function() { setView(\'table_view\') }, attr:{selected: isView(\'table_view\')}">\
+                        Grid View\
+                    </a>\
                </header>\
                <section id="map_view" data-bind="visible: isView(\'map_view\')">\
                     map\
