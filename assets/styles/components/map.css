@@ -1,0 +1,16 @@
+map {
+    display: block;
+
+    margin: 1em;
+
+    width: 100%;
+    min-height: 10em;
+}
+
+map > header {
+    text-align: center;
+}
+
+map table {
+    width: 100%;
+}
