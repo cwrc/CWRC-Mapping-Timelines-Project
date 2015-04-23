@@ -1,4 +1,6 @@
 /* Tooltip for Export button*/
+/* TODO: Determine if these are needed */
+
 .exhibit-toolboxWidget-popup {
     position: relative;
 }
@@ -39,14 +41,40 @@
     overflow: auto;
 }
 
-/* PlotIt Title */
+body {
+    margin: 0;
+
+    min-height: 100%;
+
+    font-size: 0;
+}
+
+/* ==== SIDEBAR ==== */
+#sidebar {
+    display: inline-block;
+
+    vertical-align: top;
+
+    min-height: 100%;
+    max-width: 25%;
+
+    font-size: 16px;
+    font-family: "Lucida Grande", "Tahoma", "Helvetica", "Arial", sans-serif;
+    color: #222;
+}
+
 #sidebar > header {
+    /* PlotIt Title */
+    text-align: center;
+
     font-size: 2.5em;
     text-decoration: none;
     font-weight: bold;
 }
 
 #sidebar > section {
+    padding: 0.5em;
+
     border-bottom: 1px solid black;
     padding-bottom: 1em;
 }
@@ -87,6 +115,18 @@
 
 .cwrc-hide a:hover {
     text-decoration: underline;
+}
+
+/* ===== MAIN ==== */
+main {
+    display: inline-block;
+    max-width: 75%;
+    width: 100%;
+    min-height: 100%;
+
+    background: #D8DADE;
+
+    font-size: 16px;
 }
 
 /* DETAILS BOX*/
