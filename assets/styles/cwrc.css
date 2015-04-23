@@ -117,6 +117,12 @@ body {
     text-decoration: underline;
 }
 
+#sidebar text_filter,
+#sidebar date_filter,
+#sidebar collection_filter {
+    margin-bottom: 1em;
+}
+
 /* ===== MAIN ==== */
 main {
     display: inline-block;

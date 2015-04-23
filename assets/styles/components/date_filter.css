@@ -1,4 +1,8 @@
-date_filter input{
+date_filter {
+    display: block;
+}
+
+date_filter input {
     display: block;
     width: 100%;
 }

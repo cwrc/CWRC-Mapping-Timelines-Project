@@ -1,0 +1,11 @@
+collection_filter {
+    display: block;
+}
+
+collection_filter input {
+    display: block;
+
+    width: 100%;
+
+    border-radius: 0.25em;
+}

@@ -1,0 +1,11 @@
+text_filter {
+    display: block;
+}
+
+text_filter input {
+    display: block;
+
+    width: 100%;
+
+    border-radius: 0.25em;
+}
