@@ -40,63 +40,20 @@ var CWRC = (function (cwrc, undefined) {
 
     // ========= Map Overlay =========
 
-    // todo: Merged from Michael. Remove if correct.
-//    <script type="text/javascript">
-//    var map;
-//    var oldMapViewReconstruct = Exhibit.MapView.prototype._reconstruct;
-//    Exhibit.MapView.prototype._reconstruct = function () {
-//        oldMapViewReconstruct.call(this);
-//        map = this._map;
-//        /*var imageBounds = new google.maps.LatLngBounds(
-//         new google.maps.LatLng(44.69096, -156.816406),
-//         new google.maps.LatLng(75.327858, -36.25));
-//
-//         historicalOverlay = new google.maps.GroundOverlay(
-//         'img/1854_CA.jpg',
-//         imageBounds);*/
-//
-//        imageBounds2 = new google.maps.LatLngBounds(
-//            new google.maps.LatLng(40.69096, -146.816406),
-//            new google.maps.LatLng(70.327858, -30.25));
-//
-//        historicalOverlay2 = new google.maps.GroundOverlay(
-//            'img/1849_CA.png',
-//            imageBounds2);
-//    };
-//
-//    function addOverlay() {
-//        historicalOverlay2.setMap(map);
-//    }
-//
-//    function removeOverlay() {
-//        historicalOverlay2.setMap(null);
-//    }
-//
-//    </script>
-
-
     var map;
     var oldMapViewReconstruct = Exhibit.MapView.prototype._reconstruct;
     Exhibit.MapView.prototype._reconstruct = function () {
         oldMapViewReconstruct.call(this);
         map = this._map;
 
-//        var swBound = new google.maps.LatLng(27.87, -181.56);
-//        var neBound = new google.maps.LatLng(81.69, -17.58);
-//        imageBounds = new google.maps.LatLngBounds(swBound, neBound);
-
-        imageBounds = new google.maps.LatLngBounds(
-            new google.maps.LatLng(40.69096, -146.816406),
-            new google.maps.LatLng(70.327858, -30.25));
-
-//        historicalOverlay = new google.maps.GroundOverlay(
-//            'assets/images/maps/BNA_1854.png',
-//            imageBounds
-//        );
+        var swBound = new google.maps.LatLng(27.87, -181.56);
+        var neBound = new google.maps.LatLng(81.69, -17.58);
+        imageBounds = new google.maps.LatLngBounds(swBound, neBound);
 
         historicalOverlay = new google.maps.GroundOverlay(
-            'img/1849_CA.png',
-            imageBounds);
+            'assets/images/maps/BNA_1854.png',
+            imageBounds
+        );
     };
 
     cwrc['addOverlay'] = function () {
