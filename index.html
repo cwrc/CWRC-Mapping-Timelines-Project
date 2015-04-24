@@ -9,7 +9,7 @@
     <script src="libs/simile/extensions/map/map-extension.js" type="text/javascript"></script>
     <script src="libs/simile/extensions/time/time-extension.js" type="text/javascript" type="text/javascript"></script>
 
-    <link href="datasets/digital_diversity.json" type="application/json" rel="exhibit/data" />
+    <link href="datasets/digital_diversity.json" type="application/json" rel="exhibit/data"/>
 
     <!-- Static datasets
     <link href="transformers/cache/multimedia.json" type="application/json" rel="exhibit/data"/>
@@ -50,16 +50,16 @@
     </section>
 
     <section>
-        <strong>Browsing:</strong> You can browse events via either the timeline or the map.  To browse
+        <strong>Browsing:</strong> You can browse events via either the timeline or the map. To browse
         using the timeline interface, left-click on the timeline and drag it to the right
-        to go back in time, and drag it to the left to go forward in time.  To browse using
+        to go back in time, and drag it to the left to go forward in time. To browse using
         the map interface, pan the map by left-clicking and dragging the map, and zoom in
         and out of the map by rotating the mouse wheel.
     </section>
     <section>
         <strong>Searching:</strong> Search below by typing search terms, and/or by limiting using the
-        various filters that are available.  Limiting options include date of event,
-        event type, and country.  To restart your search, click on "Reset All
+        various filters that are available. Limiting options include date of event,
+        event type, and country. To restart your search, click on "Reset All
         Filters", which will appear above the map after keywords and/or limiting filters
         have been selected.
     </section>
@@ -75,16 +75,17 @@
         </label>
     </section>
 
-    <div id="exhibit-browse-panel">
-        <strong>Search terms:</strong>
+    <section>
+        <div id="exhibit-browse-panel">
+            <strong>Search terms:</strong>
 
-        <div ex:role="facet" ex:facetClass="TextSearch"></div>
-        <div ex:role="facet" ex:expression=".startDate" ex:facetLabel="Event Date Range" ex:facetClass="Slider" ex:horizontal="true" ex:precision="1" ex:histogram="true" ex:width="285px"></div>
-        <div ex:role="facet" ex:expression=".eventType" ex:facetLabel="Event type" ex:height="3em"></div>
-        <div ex:role="facet" ex:expression=".countryName" ex:facetLabel="Country" ex:height="3em"></div>
-    </div>
-
-    <hr />
+            <div ex:role="facet" ex:facetClass="TextSearch"></div>
+            <div ex:role="facet" ex:expression=".startDate" ex:facetLabel="Event Date Range" ex:facetClass="Slider"
+                 ex:horizontal="true" ex:precision="1" ex:histogram="true" ex:width="285px"></div>
+            <div ex:role="facet" ex:expression=".eventType" ex:facetLabel="Event type" ex:height="3em"></div>
+            <div ex:role="facet" ex:expression=".countryName" ex:facetLabel="Country" ex:height="3em"></div>
+        </div>
+    </section>
 
     <section>
         <strong>Project team members:</strong> Jeffery Antoniuk, Susan Brown, Michael Brundin,
@@ -252,7 +253,7 @@
     <!-- Begin map control, same map can hold multiple views, only one is needed here -->
     <!-- Note:needs bubbleheight/width set, otherwise it will draw garbage -->
     <div ex:role="view"
-                     id="map1"
+         id="map1"
          ex:viewClass="MapView"
          ex:label="Map View"
          ex:latlng=".latLng"
