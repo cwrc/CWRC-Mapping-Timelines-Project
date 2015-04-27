@@ -224,7 +224,7 @@
 
 .timeline-selected {
     background: white;
-    border: 2px dotted blue;
+    border: 2px dotted red;
     border-radius: 0.25em;
 }
 
