@@ -216,13 +216,17 @@ Exhibit.TimelineView.prototype._select = function (selection) {
 };
 
 // overridden to use spiderfy for stacks
-Exhibit.MapView.prototype._rePlotItems = function (unplottableItems) {
+Exhibit.MapView.prototype._rePlotItems = function (unplottableItems, selected) {
     var self = this;
     var collection = this._uiContext.getCollection();
     var database = this._uiContext.getDatabase();
     var settings = this._settings;
     var accessors = this._accessors;
     var currentSet = collection.getRestrictedItems();
+
+    var exhibit = this._uiContext.getExhibit();
+
+
     var locationToData = {};
     var hasColorKey = (accessors.getColorKey != null);
     var hasSizeKey = (accessors.getSizeKey != null);
@@ -340,6 +344,7 @@ Exhibit.MapView.prototype._rePlotItems = function (unplottableItems) {
         }
     });
 
+
     var spiderOpts = {
         keepSpiderfied: true,
         spiralFootSeparation: 26, // Default: 26     # magically changes spiral size
@@ -407,13 +412,49 @@ Exhibit.MapView.prototype._rePlotItems = function (unplottableItems) {
             addMarkersAtLocation(locationToData[latlngKey]);
         }
 
+        // TODO: determine is this is the way to redraw selected marker
+//        if ("selectCoordinator" in settings) {
+//            var selectCoordinator = exhibit.getComponent(settings.selectCoordinator);
+//            if (selectCoordinator != null) {
+//                this._selectListener = selectCoordinator.addListener(function (selected) {
+//                    self._rePlotItems(unplottableItems, selected);
+//                });
+//            }
+//        }
+
         spiderfy.addListener('click', function (marker, event) {
-            self._showInfoWindow(marker.cwrcData, null, marker);
+            // TODO: examine moving this all into the _selectListener
+            // TODO: make sure it does this when clicking on a marker directly, as well as clicking on the timeline
+            // reset old marker
+            if (self.selectedMarker) {
+                self.selectedMarker.setIcon(self.oldIcon);
+            }
+
+            var position;
+            if (marker._omsData) {
+                // TODO: find a way to access this data without using the mini variable name
+                position = marker._omsData.l; // l because it's minified. This might break if they recompile differently.
+            } else {
+                position = marker.position
+            }
+            var color;
+            if (hasColorKey) {
+                color = self._colorCoder.translateSet(locationToData[position.toUrlValue()].colorKeys, colorCodingFlags);
+            }
+
+            self.oldIcon = marker.getIcon();
+
+            marker.setIcon({url: Exhibit.MapView.makeCanvasIcon(18, 18, color, '', null, 18, self._settings, true).iconURL});
+            self.selectedMarker = marker;
+
+//            self._showInfoWindow(marker.cwrcData, null, marker);
             if (self._selectListener != null) {
                 self._selectListener.fire({itemIDs: marker.cwrcData});
             }
         });
-    } catch (e) {
+    }
+    catch
+        (e) {
         alert(e);
     }
     if (hasColorKey) {
@@ -521,11 +562,7 @@ Exhibit.MapView.prototype._rePlotItems = function (unplottableItems) {
 };
 
 // overridden to customize the text size and pin style
-Exhibit.MapView.makeCanvasIcon = function (width, height, color, label, iconImg, iconSize, settings) {
-//    console.log(width);
-//    console.log(height);
-
-
+Exhibit.MapView.makeCanvasIcon = function (width, height, color, label, iconImg, iconSize, settings, isSelected) {
     var drawShadow = function (icon) {
         var width = icon.width;
         var height = icon.height;
@@ -546,7 +583,7 @@ Exhibit.MapView.makeCanvasIcon = function (width, height, color, label, iconImg,
     var pin = settings.pin;
     var pinWidth = settings.pinWidth;
     var pinHeight = settings.pinHeight;
-    var lineWidth = 1;
+    var lineWidth = isSelected ? 4 :1;
     var lineColor = settings.borderColor || "black";
     var alpha = settings.shapeAlpha;
     var bodyWidth = width - lineWidth;
@@ -619,12 +656,24 @@ Exhibit.MapView.makeCanvasIcon = function (width, height, color, label, iconImg,
         context.drawImage(iconImg, -iconImg.naturalWidth / 2, -iconImg.naturalHeight / 2);
         context.restore();
     }
-    context.strokeStyle = lineColor;
+
+    if (isSelected) {
+        context.strokeStyle = "#ff0000";
+        context.setLineDash([4, 1]);
+    } else {
+        context.strokeStyle = lineColor;
+    }
+
     context.lineWidth = lineWidth;
+
     context.stroke();
     var shadow = drawShadow(canvas);
     if (label) {
-        context.font = "10pt Arial";
+        if (isSelected) {
+            context.font = "bold 10pt Arial";
+        } else {
+            context.font = "10pt Arial";
+        }
         context.textBaseline = "middle";
         context.textAlign = "center";
         context.globalAlpha = 1;
@@ -634,7 +683,7 @@ Exhibit.MapView.makeCanvasIcon = function (width, height, color, label, iconImg,
     return{iconURL: canvas.toDataURL(), shadowURL: shadow.toDataURL()};
 };
 
-Exhibit.MapView._makeMarker = function (position, shape, color, iconSize, iconURL, label, settings) {
+Exhibit.MapView._makeMarker = function (position, shape, color, iconSize, iconURL, label, settings, isSelected) {
     var key = "#" + shape + "#" + color + "#" + iconSize + "#" + iconURL + "#" + label;
     var cached = Exhibit.MapView.markerCache[key];
     if (cached && (cached.settings == settings)) {
@@ -674,7 +723,7 @@ Exhibit.MapView._makeMarker = function (position, shape, color, iconSize, iconUR
         if (!Exhibit.MapView._hasCanvas) {
             markerPair = Exhibit.MapView.makePainterIcon(width, bodyHeight, color, label, iconURL, iconSize, settings);
         } else {
-            markerPair = Exhibit.MapView.makeCanvasIcon(width, bodyHeight, color, label, null, iconSize, settings);
+            markerPair = Exhibit.MapView.makeCanvasIcon(width, bodyHeight, color, label, null, iconSize, settings, isSelected);
         }
         markerImage.url = markerPair.iconURL;
         shadowImage.url = markerPair.shadowURL;
