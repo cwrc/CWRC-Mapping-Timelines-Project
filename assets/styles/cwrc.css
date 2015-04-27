@@ -150,11 +150,16 @@
 }
 
 #detailsBox {
-    max-height: 15em;
+    max-height: 10em;
+    height: 10em;
 
     font-size: 13px;
     color: #777;
     font-family: Arial, Tahoma, Sans-serif;
+}
+
+#detailsBox > div.item {
+    padding: 0.1em;
 }
 
 #detailsBox > div.item > div,
