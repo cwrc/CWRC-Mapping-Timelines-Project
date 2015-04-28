@@ -1,14 +1,14 @@
 ko.components.register('map', {
     template: '<header>\
-                    <a href="" data-bind="click: function() { setView(\'map_view\') }, attr:{selected: isView(\'map_view\')}">\
+                    <a href="#" data-bind="click: function() { setView(\'map_view\') }, attr:{selected: isView(\'map_view\')}">\
                         Map View\
                     </a>\
                     •\
-                    <a href="" data-bind="click: function() { setView(\'list_view\') }, attr:{selected: isView(\'list_view\')}">\
+                    <a href="#" data-bind="click: function() { setView(\'list_view\') }, attr:{selected: isView(\'list_view\')}">\
                         List View\
                     </a>\
                     •\
-                    <a href="" data-bind="click: function() { setView(\'table_view\') }, attr:{selected: isView(\'table_view\')}">\
+                    <a href="#" data-bind="click: function() { setView(\'table_view\') }, attr:{selected: isView(\'table_view\')}">\
                         Grid View\
                     </a>\
                </header>\
@@ -40,7 +40,7 @@ ko.components.register('map', {
                                 </th>\
                             </tr>\
                         </thead>\
-                        <tbody data-bind="foreach: items">\
+                        <tbody data-bind="foreach: itemsOnCurrentPage">\
                             <tr>\
                                 <td data-bind="text: $data.longLabel">\
                                 </td>\
@@ -55,13 +55,42 @@ ko.components.register('map', {
                             </tr>\
                         </tbody>\
                     </table>\
+                    <div data-bind="foreach: ko.utils.range(1, maxPageIndex)">\
+                        <a href="#" data-bind="text: $data, click: function(){ $parent.setPage($data) }"></a>\
+                    </div>\
                </section>',
 
+    // Table takes:
+    //      - pageSize: the number of items per page. Default: 10
+    // todo: - {columnlabel: columnfield}s
+    //
+    // Map takes:
+    //      -
     viewModel: function (params) {
         var self = this;
 
+        self.items = CWRC.data; // items is assumed to be a filtered list
+
+        // table state
+        self.currentPageIndex = ko.observable(1);
+        self.pageSize = params.pageSize || 20;
+        self.itemsOnCurrentPage = ko.pureComputed(function () {
+            var startIndex = self.pageSize * self.currentPageIndex();
+            return self.items.slice(startIndex, startIndex + self.pageSize);
+        });
+        self.maxPageIndex = ko.computed(function () {
+            return self.items().length / self.pageSize;
+        });
+
+        self['setPage'] = function (index) {
+            self.currentPageIndex(index);
+        };
+
+
+        // map state
+
+
         self.view = ko.observable('map_view');
-        self.items = params.items; // items is assumed to be a filtered list
 
         self['setView'] = function (name) {
             self.view(name);

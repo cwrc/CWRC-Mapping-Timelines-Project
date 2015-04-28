@@ -63,45 +63,60 @@ var CWRC = (function (cwrc, undefined) {
 //        historicalOverlay.setOpacity(Number(slider.value));
 //    };
 
+    cwrc.data = ko.observableArray();
+
+    cwrc['loadData'] = function () {
+        var dataSources = document.querySelectorAll('link[rel="cwrc/data"]');
+        var loadedData = [];
+
+        for (var i = 0; i < dataSources.length; i++) {
+            var dataSource = dataSources[i].getAttribute('href');
+
+            window.ajax('get', dataSource, null, function (result) {
+                cwrc.data(cwrc.data().concat(result.items));
+            });
+        }
+    };
+
     return cwrc;
 }(CWRC || {}));
 
 
-var CWRC = (function (cwrc, undefined) {
-    ko.bindingHandlers.dynamicHtml = {
-        init: function () {
-            // Mark this as controlling its own descendants
-            // so that KO doesn't try to double-bind on the initial load
-            return { 'controlsDescendantBindings': true };
-        },
+ko.bindingHandlers.dynamicHtml = {
+    init: function () {
+        // Mark this as controlling its own descendants
+        // so that KO doesn't try to double-bind on the initial load
+        return { 'controlsDescendantBindings': true };
+    },
 
-        update: function (element, valueAccessor, all, data, context) {
-            ko.utils.setHtml(element, valueAccessor());
+    update: function (element, valueAccessor, all, data, context) {
+        ko.utils.setHtml(element, valueAccessor());
 
-            ko.applyBindingsToDescendants(context, element);
-        }
-    };
+        ko.applyBindingsToDescendants(context, element);
+    }
+};
 
-    // To listen only for left clicks, rather than middle clicks as well.
-    ko.bindingHandlers.leftClick = {
-        update: function (element, valueAccessor, all, data, context) {
-            ko.utils.setHtml(element, valueAccessor());
+// To listen only for left clicks, rather than middle clicks as well.
+ko.bindingHandlers.leftClick = {
+    update: function (element, valueAccessor, all, data, context) {
+        ko.utils.setHtml(element, valueAccessor());
 
-            ko.applyBindingsToDescendants(context, element);
-        }
-    };
+        ko.applyBindingsToDescendants(context, element);
+    }
+};
 
-    window.addEventListener('load', function () {
-        ko.applyBindings();
-    });
+window.addEventListener('load', function () {
+    ko.applyBindings();
+});
 
-    window.addEventListener('error', function (msg, url, line, col, error) {
-        // Try-catch is needed to avoid infinite loops.
-        try {
-            window.flash('error', 'The system had an internal problem.');
-        } catch (e) {
-            return false;
-        }
-    });
-}(CWRC || {}));
+window.addEventListener('error', function (msg, url, line, col, error) {
+    // Try-catch is needed to avoid infinite loops.
+    try {
+        window.flash('error', 'The system had an internal problem.');
+    } catch (e) {
+        return false;
+    }
+});
+
+CWRC.loadData();
 

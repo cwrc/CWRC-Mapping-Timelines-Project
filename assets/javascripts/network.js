@@ -1,9 +1,8 @@
 // Communication
-(function (window, undefined) {
-    // TODO: modularize these all to depollute the global namespace
-    window.ajaxCount = 0;
+(function (network, undefined) {
+    network.ajaxCount = 0;
 
-    window.ajax = function (method, uri, data, successBlock, errorBlock) {
+    network['ajax'] = function (method, uri, data, successBlock, errorBlock) {
         var request = new XMLHttpRequest();
 
         request.onreadystatechange = function () {
@@ -37,7 +36,7 @@
         request.send(data);
     };
 
-    window.eatCookie = function (name) {
+    network['eatCookie'] = function (name) {
         var match;
 
         match = document.cookie.match(new RegExp(name + '=([^;]+)'));
@@ -46,4 +45,6 @@
             return match[1];
         }
     };
-}(window));
+
+    return network;
+}(window));     // TODO: modularize  to depollute the global namespace
