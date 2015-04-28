@@ -64,6 +64,29 @@ var CWRC = (function (cwrc, undefined) {
 //    };
 
     cwrc.data = ko.observableArray();
+    cwrc.filters = ko.observableArray();
+    cwrc.filteredData = ko.computed(function () {
+        var filteredData = cwrc.data();
+
+        for (var i = 0; i < cwrc.filters().length; i++) {
+            var filterFunc = cwrc.filters()[i];
+
+            filteredData = cwrc.select(filteredData, filterFunc);
+        }
+
+        return filteredData;
+    });
+
+    cwrc.select = function (data, filterBlock) {
+        var result = [];
+
+        for (var i = 0; i < data.length; i++) {
+            if (filterBlock(data[i]))
+                result.push(data[i]);
+        }
+
+        return result;
+    };
 
     cwrc['loadData'] = function () {
         var dataSources = document.querySelectorAll('link[rel="cwrc/data"]');
@@ -80,7 +103,6 @@ var CWRC = (function (cwrc, undefined) {
 
     return cwrc;
 }(CWRC || {}));
-
 
 ko.bindingHandlers.dynamicHtml = {
     init: function () {

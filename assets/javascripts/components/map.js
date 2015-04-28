@@ -69,14 +69,15 @@ ko.components.register('map', {
     viewModel: function (params) {
         var self = this;
 
-        self.items = CWRC.data; // items is assumed to be a filtered list
+        self.items = CWRC.filteredData; // items is assumed to be a filtered list
 
         // table state
         self.currentPageIndex = ko.observable(1);
         self.pageSize = params.pageSize || 20;
         self.itemsOnCurrentPage = ko.pureComputed(function () {
-            var startIndex = self.pageSize * self.currentPageIndex();
-            return self.items.slice(startIndex, startIndex + self.pageSize);
+            var startIndex = self.pageSize * (self.currentPageIndex() - 1);
+
+            return self.items().slice(startIndex, startIndex + self.pageSize);
         });
         self.maxPageIndex = ko.computed(function () {
             return self.items().length / self.pageSize;
