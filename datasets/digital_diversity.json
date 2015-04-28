@@ -1,0 +1,1404 @@
+{"items": [
+    {
+        "schema": "EVENT",
+        "startDate": "1986-08",
+        "latLng": ["53.48095,-2.23743"],
+        "location": ["Manchester, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "literary",
+        "label": "August 1986: Christine Brooke-Rose published with Carcanet...",
+        "description": "<p>Christine Brooke-Rose published with Carcanet Press of Manchester her extraordinary Xorandor, a computer novel, not just about computers but partly written in programming language.<\/p><p> Written entirely in dialogue and transcripts of conversations, the story often uses tag-names to encode its sentences or phrases in a manner imitative of electronic encoding. A twin brother and sister discover a sentient, radioactive, computer-stone from a silicon civilization, which they name Xorandor. They then save the day by neutralizing Xorandor's offspring [who], because of a programming defect defined as a syntax error, turns terrorist . . . and threatens to turn into a nuclear bomb. In a society where literature and philosophy are obsolete, the twins find the process of narrating difficult, but they learn to speak a slang based on electronic and computer words (e.g., diodic for super), and struggle with the difficulties of storytelling (dictating into a pocket computer) which seems harder than to make up the most complex program. The girl twin ponders: If the storytellers are characters THEN their confusion is part of their characters ENDIF. Inversely IF the characters are the storytellers THEN the confusion is part of the story ENDIF. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1990-07",
+        "latLng": ["53.48095,-2.23743"],
+        "location": ["Manchester, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "literary",
+        "label": "July 1990: Christine Brooke-Rose published with Carcanet...",
+        "description": "<p>Christine Brooke-Rose published with Carcanet Press of Manchester a post-electronic novel, Verbivore (meaning word-eater, on the analogy of herbivore): it is a sequel to her previous novel, Xorandor. The two together are probably her best-known work.<\/p><p> Twenty-three years after the events related in Xorandor, there are verbivorous creatures feeding on our broadcast words and getting so overloaded they demolish all our systems. This unrecognized electro-magnetic disruption therefore causes all telecommunication to fail, forcing people to return to print-based communication and long-distance communication by means of letters. Lorna Sage hailed this novel as science fiction of the subversive sort. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2000-07",
+        "latLng": ["52.2,0.11667"],
+        "location": ["Cambridge, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "literary",
+        "label": "July 2000: Jeanette Winterson won her case against Cambridge...",
+        "description": "<p>Jeanette Winterson won her case against Cambridge academic Mark Hogarth, who had registered her name as a web domain (with each of the available suffixes; http://www.jeanettewinterson.com, .org, and .web) in the hope that she would be willing to buy back her right to it at the price of three per cent of her literary earnings for the year 1999.<\/p><p> ICANN (the Internet Corporation for Assigned Names and Numbers) ruled that her name constituted a trademark, and ordered the domain names handed back to her. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2000-09-07",
+        "latLng": ["51.50853,-0.12574"],
+        "location": ["London, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "literary",
+        "label": "7 September 2000: English writer Jeanette Winterson published...",
+        "description": "<p>English writer Jeanette Winterson published in London, England, The PowerBook, a text which physically resembles a Macintosh computer. The form of the title is one aspect of the book's mimicry of computer terms and electronic conventions.<\/p><p> The story, however, is very like that repeatedly found in Winterson's other fiction, being one of adulterous bisexual love. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2005-08-03",
+        "latLng": ["51.50583,-3.57722"],
+        "location": ["Bridgend, Wales"],
+        "countryName": ["United Kingdom"],
+        "eventType": "literary",
+        "label": "3 August 2005: In The Democratic Genre: Fan Fiction in a...",
+        "description": "<p>In The Democratic Genre: Fan Fiction in a Literary Context (published by Poetry Wales Press at Bridgend in Powys, with a cover showing a computer mouse), Welsh poet Sheenagh Pugh set out to show how this new genre has evolved and developed.<\/p><p> The book's frame of reference runs from Icelandic sagas to the X-Files, and deals with sequels, prequels,and re-writings. It presents the digital as one key element in the mechanisms for participation and support of fan fiction. It is in the days of widespread literacy, internet access and participatory culture that authors may have to come to terms with seeing [their] characters slip away from them and lead a life of their own. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2006",
+        "latLng": ["55.95206,-3.19648"],
+        "location": ["Edinburgh, Scotland"],
+        "countryName": ["United Kingdom"],
+        "eventType": "literary",
+        "label": "2006: Phoebe Anna Traquair's exquisite illustrated...",
+        "description": "<p>Phoebe Anna Traquair's exquisite illustrated manuscript of Elizabeth Barrett Browning's Sonnets from the Portuguese, one of the treasures of the EdinburghNational Library of Scotland, was posted online at http://www.nls.uk/traquair/index.html).<\/p><p> The website includes a digital facsimile of the manuscript with zoom-and-pan images, commentaries by Elizabeth Cumming, and notes on further resources. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2008-03-12",
+        "latLng": [],
+        "location": [],
+        "countryName": [],
+        "eventType": "social",
+        "label": "12 March 2008: The first World Day against Cyber Censorship...",
+        "description": "<p>The first World Day against Cyber Censorship was instituted by Journalists Without Frontiers and Amnesty International. It has since become an annual event, and each year a Netizen prize is awarded to some defender of online freedom of expression, whether an individual or group internet user, blogger, or cyber-dissident.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2009-04",
+        "latLng": [],
+        "location": [],
+        "countryName": [],
+        "eventType": "literary",
+        "label": "April 2009: Jeanette Winterson's website received an...",
+        "description": "<p>Jeanette Winterson's website received an unsolicited testimonial from Terence Blacker writing in The Author. It was, he wrote, teeming with surprises, and debating chambers full of her readers and fans chatting about Jeanette. It is like a well-run country, whose monarch makes occasional pronouncements, the import and content of which are then busily deconstructed and discussed by her subjects.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2009-09",
+        "latLng": [],
+        "location": [],
+        "countryName": [],
+        "eventType": "literary",
+        "label": "September 2009: In the run-up to publication of a futuristic,...",
+        "description": "<p>In the run-up to publication of a futuristic, dystopian novel, The Year of the Flood (the second in her MaddAdam trilogy), Canadian author Margaret Atwood took full advantage of the resources for publicity newly offered online through social media like Twitter.<\/p><p> She opened an interactive website on her new book, designed especially for the environmental activists who are many of the book's subjects and hopefully of its readers. Persuaded to have a Twitter feed, she set up an account and acquired thousands of Twitter followers, whom she calls a playful but also a helpful group. An early one among them posted: I love it when old ladies blog. Following a rousing event with actors and singers in a church at the Edinburgh International Book Festival, Atwood tweeted about the event's success. The Year of the Flood was early available as an e-book as well as on paper. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2010",
+        "latLng": [],
+        "location": [],
+        "countryName": [],
+        "eventType": "literary",
+        "label": "2010: Work began on the Digital Miscellanies Index,...",
+        "description": "<p>Work began on the Digital Miscellanies Index, which will make available the contents of more than 1500 poetic miscellanies or anthologies published over the course of the eighteenth century, showcas[ing] the enormous diversity of literary culture in this period in English, way beyond the names familiar to literary history.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2010-03-11",
+        "latLng": ["32,53"],
+        "location": ["Iran"],
+        "countryName": ["Iran"],
+        "eventType": "political",
+        "label": "11 March 2010: On the annual World Day against Cyber Censorship...",
+        "description": "<p>On the annual World Day against Cyber Censorship the first annual Netizen prize was awarded by Journalists without Frontiers, backed by Google, to Parvin Ardalan and the activists running the Iranian women's rights website entitled Change for Equality.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2010",
+        "latLng": ["35.02107,135.75385"],
+        "location": ["Kyoto, Japan"],
+        "countryName": ["Japan"],
+        "eventType": "social",
+        "label": "2010: The first International Conference on Culture...",
+        "description": "<p>The first International Conference on Culture and Computing was held at Kyoto University, Japan.<\/p><p> This annual conference was established this year. It was held again in Kyoto in 2011, and after that was to be held in each even-numbered year in a different host city. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2011",
+        "latLng": [],
+        "location": [],
+        "countryName": [],
+        "eventType": "social",
+        "label": "2011: Wikimedia revealed that its parent the volunteer...",
+        "description": "<p>Wikimedia revealed that its parent the volunteer digital encyclopedia Wikipedia has a serious gender gap. Less than 13% of its contributors were then female.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2011-04",
+        "latLng": [],
+        "location": [],
+        "countryName": [],
+        "eventType": "literary",
+        "label": "April 2011: The British Library paid over £30,000 for...",
+        "description": "<p>The British Library paid over £30,000 for English poet Wendy Cope's archive, comprising not only papers, but electronic texts: a server hosting Cope's email correspondence.<\/p><p> A library official pointed out the particular value of this kind of archive (likely to become increasingly recognised in the future), in which each item comes with its date and often its place in the sequence. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2011-06-15",
+        "latLng": ["51.50853,-0.12574"],
+        "location": ["London, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "social",
+        "label": "15 June 2011: The Visual Arts Data Service (VADS) released...",
+        "description": "<p>The Visual Arts Data Service (VADS) released a digitized version of documents, photos, banners, and personal mementoes from the struggle of British women for suffrage, housed at the Women&apos;s Library and the British parliamentary archives.<\/p><p> Eight items from this collection were selected as one of twenty archival collections to represent the UK in the UNESCO Memory of the World Register. These items run from the suffrage petition drafted by Barbara Leigh Smith Bodichon, Jessie Boucherett, and Emily Davies, and presented to parliament by John Stuart Mill on 7 June 1866, to a letter from the Prime Minister to Millicent Fawcett as leader of the National Union of Women&apos;s Suffrage Societies, congratulating her on the passing of the Representation of the People Act which gave some British women the vote on 6 February 1918. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2012",
+        "latLng": ["30.29365,120.16142"],
+        "location": ["Hangzhou, China"],
+        "countryName": ["China"],
+        "eventType": "social",
+        "label": "2012: Culture and Computing 2012, the second International...",
+        "description": "<p>Culture and Computing 2012, the second International Conference on Culture and Computing was held at Hangzhou, China.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2012-03",
+        "latLng": [],
+        "location": [],
+        "countryName": [],
+        "eventType": "literary",
+        "label": "March 2012: Margaret Atwood published her speculative-fiction...",
+        "description": "<p>Margaret Atwood published her speculative-fiction novella I'm Starved for You, not on paper but electronically, through the digital publisher Byliner Fiction. It began the series Positron, which ended with The Heart Goes Last in June 2013.<\/p><p> Positron features a dysfunctional society much like that of Atwood's print trilogy MaddAdam: mass unemployment, starvation, street violence. Aritha Van Herk wrote that Atwood sets up a completely plausible universe, as seamless as a stocking, and shockingly believable. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2012-03-12",
+        "latLng": ["35,38"],
+        "location": ["Syria"],
+        "countryName": ["Syria"],
+        "eventType": "political",
+        "label": "12 March 2012: On the World Day against Cyber Censorship...",
+        "description": "<p>On the World Day against Cyber Censorship the annual Netizen prize was awarded to Mazen Darwish, representing the volunteer journalists and activists of the media centre of the Syrian Local Coordination Committees.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2012-10",
+        "latLng": [],
+        "location": [],
+        "countryName": [],
+        "eventType": "literary",
+        "label": "October 2012: Digital entrepreneur Martha Lane Fox was...",
+        "description": "<p>Digital entrepreneur Martha Lane Fox was one of a group of private supporters who saved the British prize for women's fiction formerly known as the Orange Prize after the cellphone company Orange withdrew its support.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2012-10-24",
+        "latLng": [],
+        "location": [],
+        "countryName": [],
+        "eventType": "literary",
+        "label": "24 October 2012: Margaret Atwood collaborated with British...",
+        "description": "<p>Margaret Atwood collaborated with British writer Naomi Alderson on The Happy Zombie Sunrise Home, whose serial digital publication began on this date on Wattpad.<\/p><p> By 2014 this had 1.1 million reads. One reader comment said: Seems like not many women write in this genre. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2013-03-12",
+        "latLng": ["16.16667,107.83333"],
+        "location": ["Vietnam"],
+        "countryName": ["Vietnam"],
+        "eventType": "political",
+        "label": "12 March 2013: On the World Day against Cyber Censorship...",
+        "description": "<p>On the World Day against Cyber Censorship the annual Netizen prize was awarded to Vietnamese blogger Huynh Ngoc Chenh.<\/p><p> http://en.rsf.org/reporters-without-borders-awards-07-03-2013,44178.html <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2013-01",
+        "latLng": [],
+        "location": [],
+        "countryName": [],
+        "eventType": "literary",
+        "label": "January 2013: The Stainforth Library of Women's Writing...",
+        "description": "<p>The Stainforth Library of Women's Writing Project at University of Colorado Boulder officially began production, with graduate students doing transcription and data entry and transcription, supported initially by a grant from the CU President's Fund for the Humanities.<\/p><p> The Rev. Francis John Stainforth, who died in 1866, was a London curate who delighted in collecting books written by or relating to women; he aimed to secure not only every book [except novels, which he excluded], but every edition of such books. Though exhaustiveness eluded him, he amassed an astonishing collection of 6,000 books. The Stainforth Project is now identifying stray copies (the bulk of the collection is in the British Library) and digitizing his catalogue of the 6,000 books he owned (ranging in date from the sixteenth century to the 1860s) and the wish-list from which he would cross off titles as he acquired them. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2014-02",
+        "latLng": ["40.656719,-74.007380"],
+        "location": ["Eyebeam Art and Technology Center, New York City, USA"],
+        "countryName": ["United States"],
+        "eventType": "literary",
+        "label": "February 2014: A group calling itself Art+Feminism organized...",
+        "description": "<p>A group calling itself Art+Feminism organized a Wikipedia edit-a-thon at the Eyebeam Art and Technology Center in New York City. More than 30 satellite events were organized in Australia, Canada, Italy, the Netherlands, the United Kingdom and the United States.<\/p><p> The campaign attracted an estimated 600 participants, resulting in more than 100 new Wikipedia articles focused on women and the arts. Feminist organizations have continued to hold Edit-a-thons, for instance on International Women's Day 2015. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2015-03",
+        "latLng": ["51.50853,-0.12574"],
+        "location": ["London, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "political",
+        "label": "March 2015: The Victoria and Albert Museum in London,...",
+        "description": "<p>The Victoria and Albert Museum in London, England, announced that Ways to be Secret, a forthcoming display of hi-tech devices bearing on privacy, would feature a smashed MacBook Air and Western Digital hard drive which were used by NSA whistle-blower Edward Snowden to store top-secret leaked documents.<\/p><p> This laptop and hard drive came into possession of the Guardian newspaper. They were destroyed by angle grinders and drills, on orders from the British prime minister and in the presence of representatives of GCHQ (Government Communications Headquarters, the British organization for intelligence and security): a purely symbolic destruction, since everyone involved knew that the relevant data was also stored elsewhere. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2015-03",
+        "latLng": [],
+        "location": [],
+        "countryName": [],
+        "eventType": "literary",
+        "label": "March 2015: Margaret Atwood (who was one of the earliest...",
+        "description": "<p>Margaret Atwood (who was one of the earliest authors on social media) had 178,734 likes on Facebook and 698K followers on Twitter.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2015-05-27",
+        "latLng": ["51.50853,-0.12574"],
+        "location": ["London, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "literary",
+        "label": "27 May 2015: Susan Hockey will herself deliver the inaugural...",
+        "description": "<p>Susan Hockey will herself deliver the inaugural Susan Hockey Lecture in Digital Humanities at the University College, London, England, Centre for Digital Humanities (founded in 2010) on the topic of Digital Humanities: Perspectives on Past, Present and Future.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1815-12-10",
+        "latLng": ["51.50853,-0.12574"],
+        "location": ["London, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "literary",
+        "label": "10 December 1815: (Augusta) Ada Byron, only legitimate child...",
+        "description": "<p>(Augusta) Ada Byron, only legitimate child of the poet Byron, later a remarkable mathematician and computing pioneer, was born at 13 Piccadilly Terrace, London.<\/p><p> The name under which she has become famous is her married name: Ada King, Countess of Lovelace. Her famous father vanished from her life when she was a baby. Her mother was a harsh parent, but had mathematical interests. The young Ada was particularly interested in things mechanical, fascinated as an adolescent by flying machines and astronomy. She was tutored and mentored by mathematicians William Frend and Mary Somerville. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1833-06-05",
+        "latLng": ["51.50853,-0.12574"],
+        "location": ["London, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "literary",
+        "label": "5 June 1833: Seventeen-year-old (Augusta) Ada Byron, later...",
+        "description": "<p>Seventeen-year-old (Augusta) Ada Byron, later Countess of Lovelace, first met the inventor Charles Babbage, whose early computer she later became the first to program. He was struck by her ability, and dubbed her the Enchantress of Numbers.<\/p><p> It was then a little over ten years since Babbage had completed the first version of his Difference Engine for mechanized calculation. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1852-11-27",
+        "latLng": ["51.50853,-0.12574"],
+        "location": ["London, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "literary",
+        "label": "27 November 1852: (Augusta) Ada Byron, mathematician and computer...",
+        "description": "<p>(Augusta) Ada Byron, mathematician and computer pioneer, died in London from cancer of the uterus.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1843-08",
+        "latLng": [],
+        "location": [],
+        "countryName": [],
+        "eventType": "literary",
+        "label": "August 1843: Augusta Ada Byron, Countess of Lovelace,...",
+        "description": "<p>Augusta Ada Byron, Countess of Lovelace, published A Sketch of the Analytical Engine, in which her translation from Luigi Menabrea's work on Charles Babbage's Analytical Engine becomes the centre of seven brief technical essays (numbered A-G) which triple the length of the original.<\/p><p> Her authorship was not revealed until 1848. Her work, often considered the earliest example of computer programming, was addressed both to scientific experts and the interested public. She set out to promote the engine (which, she said, was to analysis what Babbage's earlier Difference Engine had been to arithmetic) by adding to Menabrea's account of its mechanism her own analysis of its legislative features, concepts inherent in the engine, its mathematical principles, and even musings on the future. A later pioneer programmer, Alan Turing, praised the prophetic insight of the Sketch, and a post-digital commentator wrote: Therein, a century before its time, is the concept of a general-purpose digital computer, developed to an amazing degree of sophistication. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1990-09-01",
+        "latLng": ["51.50853,-0.12574"],
+        "location": ["England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "literary",
+        "label": "1 September 1990: William Gibson and Bruce Sterling published...",
+        "description": "<p>William Gibson and Bruce Sterling published The Difference Engine, a historical novel set in an alternative or counter-factual Victorian England which has fully developed and embraced the proto-computers built by Charles Babbage and explained by Ada Byron, Countess of Lovelace.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1993-04-13",
+        "latLng": ["51.50853,-0.12574"],
+        "location": ["London, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "literary",
+        "label": "13 April 1993: Tom Stoppard's Arcadia, a play whose action...",
+        "description": "<p>Tom Stoppard's Arcadia, a play whose action takes in in both the early nineteenth century and the present day, opened at the National Theatre in London. One of its nineteenth-century characters, the teenage Thomasina, who is interested in topics like algorithms and entropy, is based on Ada Byron, Countess of Lovelace.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1842-10",
+        "latLng": ["47.00016,8.01427"],
+        "location": ["Switzerland"],
+        "countryName": ["Switzerland"],
+        "eventType": "literary",
+        "label": "October 1842: A journal in Switzerland published an article...",
+        "description": "<p>A journal in Switzerland published an article by Italian mathematician Luigi Menabrea which gave a brief account of the technical aspects of Charles Babbage's Analytical Engine (successor to the Difference Engine).<\/p><p> Menabrea had heard Babbage speak about his designs for this device at Turin in Italy in 1840. His article became the basis for Ada Byron's far more comprehensive account of the Analytical Engine. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1997-09-10",
+        "latLng": ["43.70011,-79.4163"],
+        "location": ["Toronto, Canada"],
+        "countryName": ["Canada"],
+        "eventType": "literary",
+        "label": "10 September 1997: The movie Conceiving Ada was first seen at...",
+        "description": "<p>The movie Conceiving Ada was first seen at the Toronto International Film Festival.. It features a modern computer genius, Emmy Coer, who makes contact with Ada Byron, Countess of Lovelace, by developing a scientifically improbable method of direct communication with the past by tapping into undying information waves<\/p><p> For this film Lynn Hershman Leeson pioneered the use of digital sets. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1994",
+        "latLng": ["41.30815,-72.92816"],
+        "location": ["New Haven, USA"],
+        "countryName": ["United States"],
+        "eventType": "literary",
+        "label": "1994: The Ada Project (TAP), a clearinghouse for...",
+        "description": "<p>The Ada Project (TAP), a clearinghouse for information and resources related to women in computing, was founded at Yale University and named in honour of Ada Byron, Countess of Lovelace.<\/p><p> It is maintained by volunteers at Women@SCS, an organization at Carnegie Mellon University. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1980",
+        "latLng": ["38.89511,-77.03637"],
+        "location": ["Washington, USA"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "1980: The US Department of Defense named a programming...",
+        "description": "<p>The US Department of Defense named a programming language Ada in honour of Ada Byron, Countess of Lovelace.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2009-03-24",
+        "latLng": [],
+        "location": [],
+        "countryName": [],
+        "eventType": "literary",
+        "label": "24 March 2009: The first Ada Lovelace Day was celebrated...",
+        "description": "<p>The first Ada Lovelace Day was celebrated in Britain with a blog about women in technology. Nearly 2,000 people each blogged about a character they particularly admired.<\/p><p> For this day Sydney Padua launched her popular webcomic, Thrilling Adventures of Lovelace and Babbage, which has just now (23 April 2015) become a printed book. Ada Lovelace Day became an annual commemoration. The first live event was held in 2011 (by which time the date had shifted to 7 October) at 5 Southampton Street , London. The annual date finally settled arbitrarily at 13 October. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2013-10",
+        "latLng": ["40.74399,-74.03236"],
+        "location": ["Hoboken, USA"],
+        "countryName": ["United States"],
+        "eventType": "literary",
+        "label": "October 2013: A conference on the achievements and legacies...",
+        "description": "<p>A conference on the achievements and legacies of Ada Byron, Countess of Lovelace, was held at the Stevens Institute of Technology at Hoboken, New Jersey.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1994-01",
+        "latLng": ["53.55014,-113.46871"],
+        "location": ["Edmonton, Canada"],
+        "countryName": ["Canada"],
+        "eventType": "literary",
+        "label": "January 1994: The Orlando Project team at the University...",
+        "description": "<p>The Orlando Project team at the University of Alberta, led by Patricia Clements, submitted a Letter of Intent to SSHRCC and began work on an application for a Major Collaborative Research Initiatives grant.<\/p><p> In 1995 Clements, as Project Director, was awarded an MCRI grant of $1.6M Canadian. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1995-04",
+        "latLng": ["53.55014,-113.46871"],
+        "location": ["Edmonton, Canada"],
+        "countryName": ["Canada"],
+        "eventType": "literary",
+        "label": "Spring 1995: The Orlando Project team at the University...",
+        "description": "<p>The Orlando Project team at the University of Alberta, led by Patricia Clements, began the work of document analysis, producing the DTDs (document type definitions or tagsets, later schemas) that would structure the information in the Orlando textbase.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1997-09-11",
+        "latLng": ["53.55014,-113.46871"],
+        "location": ["Edmonton, Canada"],
+        "countryName": ["Canada"],
+        "eventType": "literary",
+        "label": "11 September 1997: The Orlando Project's conference Women and...",
+        "description": "<p>The Orlando Project's conference Women and Literary History conference opened at the University of Alberta. It ran until 13 September.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2006-06-07",
+        "latLng": ["43.54594,-80.25599"],
+        "location": ["Guelph, Canada"],
+        "countryName": ["Canada"],
+        "eventType": "literary",
+        "label": "7 June 2006: The Orlando Project team celebrated the publication...",
+        "description": "<p>The Orlando Project team celebrated the publication of the digital textbase Orlando: Women's Writing in the British Isles from the Beginnings to the Present by Cambridge University Press with a video link between its two work centres at the Universities of Alberta and Guelph.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2006-05-31",
+        "latLng": ["43.70011,-79.4163"],
+        "location": ["Toronto, Canada"],
+        "countryName": ["Canada"],
+        "eventType": "literary",
+        "label": "31 May 2006: Susan Brown, Patricia Clements, and Isobel...",
+        "description": "<p>Susan Brown, Patricia Clements, and Isobel Grundy, the three principals in the Orlando Project, were presented at York University, Toronto, with the Award for Outstanding Achievement, Computing in the Arts and Humanities, from the Society for Digital Humanities / Sociétó pour l'étude des médias interactifs (SDH/SEMI).<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2013-09",
+        "latLng": [],
+        "location": [],
+        "countryName": [],
+        "eventType": "social",
+        "label": "September 2013: The Orlando Project opened a Facebook and...",
+        "description": "<p>The Orlando Project opened a Facebook and a Twitter account, primarily to publicize the textbase, Orlando: Women's Writing in the British Isles from the Beginnings to the Present.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1791-12-26",
+        "latLng": ["51.50853,-0.12574"],
+        "location": ["London, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "literary",
+        "label": "26 December 1791: Charles Babbage, mathematician and computer...",
+        "description": "<p>Charles Babbage, mathematician and computer pioneer, was born, probably at his father's house in what is now Walworth Road in South London.<\/p><p> Babbage became an intellectual outsider, admiring Napoleonic France and missing out on an Honours degree at Cambridge because he chose to defend in debate the proposition that God was a material agent. He was a polymath who published on astronomy, barometric observation, calculating machines, chess, ciphers, geology, lighthouses, proportion of babies born of each sex, solar eclipses, statistics, and submarines. He is best known for his Difference Engine and Analytical Engine, the latter something approaching quite closely to the modern computer. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1871-10-18",
+        "latLng": ["51.50853,-0.12574"],
+        "location": ["London, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "social",
+        "label": "18 October 1871: Mathematician, scientist, and computer pioneer...",
+        "description": "<p>Mathematician, scientist, and computer pioneer Charles Babbage died of kidney disease at his house, 1 Dorset Street, Manchester Square, London.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2014-02",
+        "latLng": ["52.957284,-1.156192"],
+        "location": ["Nottingham Women's Centre, Nottingham, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "literary",
+        "label": "February 2014: The Feminist Libraries and Archives Network...",
+        "description": "<p>The Feminist Libraries and Archives Network was set up, outcome of the first Feminist Libraries and Archives Gathering. This was held at Nottingham Women's Centre in partnership with individuals and institutions from London, Glasgow, Wales, Turkey, and Japan.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2015-04-07",
+        "latLng": ["54.75844,-2.69531"],
+        "location": ["UK"],
+        "countryName": ["United Kingdom"],
+        "eventType": "social",
+        "label": "7 April 2015: The BBC broadcast in Britain a radio comedy...",
+        "description": "<p>The BBC broadcast in Britain a radio comedy by Jonathan Myerson, Do You Know Who Wrote This? in which a young mother's wish for the truth behind some malicious social-media comments unleashes something called the Veracity Virus, which deletes all digital untruths or inaccuracies and tells the truth about pseudonymous identities.<\/p><p> Wikipedia is shrunk to a fraction of its size by the disappearance of all inaccuracies. Social media are radically reduced without the untrue bits, and the unmasking of trolls and bullies destroys innumerable teenage friendships and media celebs' reputations. Share prices, government, national finances all totter until the internet is restored to its normal proportions of truth and lies. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1999-11",
+        "latLng": ["-14.33333,28.5"],
+        "location": ["Zambia"],
+        "countryName": ["Zambia"],
+        "eventType": "social",
+        "label": "November 1999: The African Digital Library (ADL) was established...",
+        "description": "<p>The African Digital Library (ADL) was established as a collection of electronic books (eBooks) that can be accessed and used free-of-charge by any person living [or using a computer] on the African continent. Its email address is in Zambia.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2012-03",
+        "latLng": ["-1.94995,30.05885"],
+        "location": ["Kigali, Rwanda"],
+        "countryName": ["Rwanda"],
+        "eventType": "social",
+        "label": "March 2012: The National University of Ruanda opened...",
+        "description": "<p>The National University of Ruanda opened its first computer lab to a group of twenty students in Kigali, Rwanda. This vocational training program, the first of its kind in Africa, provides students with the skills necessary to work at a world-class level in any area of the digital media industry.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1998",
+        "latLng": ["51.50853,-0.12574"],
+        "location": ["England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "literary",
+        "label": "1998: Irish poet Catherine Byron was commissioned...",
+        "description": "<p>Irish poet Catherine Byron was commissioned by the Poetry Society for posting on the trAce Archive, as an exploration of the creative potential of writing for and with the Net, a long poem in four parts (full title, The Renderers, in the Vale of the Rivet Tas, South Norfolk). Painter and printmaker Eileen Coxon contributed monoprints, sketchbooks, and title painting.<\/p><p> Byron set out to eliminate text, with its inbuilt hierarchies and linearity, as an entry point and to make the reader happen on each section by chance, like a game or a puzzle. Each stanza appears printed on a background (viewed one by one, and every one different) made up of scanned, calligraphy, printed fonts, sketches, or handwriting. The reader is thus forced into creative interaction with the artwork. The trAce Archive preserves work by the trAce Online Writing Centre, which was active from 1995 to 2005. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1995",
+        "latLng": [],
+        "location": [],
+        "countryName": [],
+        "eventType": "literary",
+        "label": "1995: The trAce Online Writing Centre was founded...",
+        "description": "<p>The trAce Online Writing Centre was founded as an international writing community using the internet as both medium and raw material. Its website evolved its own distinctive artistic ecology in works now preserved in the trAce Archive.<\/p><p> The trAce Online Writing Centre was active until 2005. trAce Archive was commissioned by NESTA, the British National Endowment for Science, Technology and the Arts, as a collaboration between Nottingham Trent University and De Montfort University, and is still hosted by the former. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1822-05",
+        "latLng": ["51.50853,-0.12574"],
+        "location": ["London, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "political",
+        "label": "May 1822: By May 1822, in London, England, Charles...",
+        "description": "<p>By May 1822, in London, England, Charles Babbage had developed a prototype of his Difference Engine, a machine for calculating values of logarithms and trigonometric functions.<\/p><p> Although the government provided £17,000 of funding for work on the Difference Engine, Babbage was plagued by delays and difficulties with the engineers implementing his design. He eventually abandoned this unsatisfactory machine in order to develop a general-purpose computer known as the Analytical Engine. In 1991 the London Science Museum followed Babbage's designs and constructed a working Difference Engine accurate to 31 digits. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1947",
+        "latLng": ["40.71427,-74.00597"],
+        "location": ["New York City, USA"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "1947: The first transistor was produced in New...",
+        "description": "<p>The first transistor was produced in New York City, rendering vacuum tubes obsolete in computer construction. This transition was of great importance in enabling the manufacture of smaller and less fragile computers.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1969",
+        "latLng": ["39.76,-98.5"],
+        "location": ["USA"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "1969: ARPANET, the Internet's precursor, was constructed...",
+        "description": "<p>ARPANET, the Internet's precursor, was constructed in the United States, connecting computers between four universities: University of California, Los Angeles; Stanford University; University of California, Santa Barbara; and the University of Utah.<\/p><p> The network made its controversial debut in 1975 when the American government was rumoured to be using ARPANET to hide its files on political activists. Though this story proved untrue, it left most of the public now aware of ARPANET's existence. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1991",
+        "latLng": ["46.20222,6.14569"],
+        "location": ["Geneva, Switzerland"],
+        "countryName": ["Switzerland"],
+        "eventType": "social",
+        "label": "1991: Tim Berners-Lee, while working at CERN in...",
+        "description": "<p>Tim Berners-Lee, while working at CERN in Geneva, reported his developed the World Wide Web (WWW) for efficient information retrieval.<\/p><p> The WWW has become so ubiquitous that it is often, mistakenly, thought of as synonymous with the Internet; however, the WWW is one application based on the broader structure of the Internet. Berners-Lee allowed the general Internet community free access to the WWW, which promoted its rapid expansion and adoption. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1945",
+        "latLng": ["42.37843,-71.11644"],
+        "location": ["Harvard University, Cambridge, USA"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "1945: Grace Brewster Hopper coined the term bug...",
+        "description": "<p>Grace Brewster Hopper coined the term bug to describe a computer glitch when her team at Harvard University discovered a moth caught in the circuitry of a malfunctioning computer.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2010-09-23",
+        "latLng": ["51.50853,-0.12574"],
+        "location": ["London, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "literary",
+        "label": "23 September 2010: The British edition appeared of US author...",
+        "description": "<p>The British edition appeared of US author Jonathan Franzen's latest novel, Freedom. Within a couple of weeks the edition had to be pulped by the publisher, Harper/Collins in London, England. <\/p><p> Someone in the office of Harper/Collins had made a computing error, and what was printed in thousands of copies was not the final version but an earlier draft, full of spelling and grammatical mistakes and lacking small but vital revisions. Harper/Collins offered free replacement of defective copies. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1945-07",
+        "latLng": ["42.35843,-71.05977"],
+        "location": ["Boston, USA"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "July 1945: Vannevar Bush's article on information theory...",
+        "description": "<p>Vannevar Bush's article on information theory entitled As We May Think was published in Atlantic Monthly (located in Boston, Massachusetts).<\/p><p> Bush's idea of the memex was foundational in the theoretical development of the Internet. The memex was a manner of organizing documented knowledge in such a way that information would be readily accessible, and the connections between various elements would be apparent. Bush, a scientist and adviser to President Roosevelt, was also certain that computers would play a major role in this network of knowledge, although he was not sure how. Eight years earlier, H. G. Wells had toured the United States to raise funds for his World Brain project, which proposed a networked Encyclopedia. World War II prevented Wells from pursuing his project further. Wells did have lunch with President Roosevelt during this tour, but it is not known whether his thinking had any influence on that of Bush. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1943-12",
+        "latLng": ["51.99649,-0.74256"],
+        "location": ["Bletchley Park, Bletchley, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "social",
+        "label": "December 1943: The first electronic decryption device, the...",
+        "description": "<p>The first electronic decryption device, the Colossus, was working in prototype. In February 1944, it was in use at the Government Code and Cypher School at Bletchley Park in England to decipher coded German messages during World War Two.<\/p><p> Alan Turing, who had already cracked several uncrackable codes since the war began, was a leader among the many involved in developing this first completely electronic computer. The Colossus was invaluable in the war effort: in June 1944 it cracked the Fish encryption system used for Hitler's strategic communications. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1979",
+        "latLng": ["37.44188,-122.14302"],
+        "location": ["Palo Alto, USA"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "1979: Working at Xerox PARC in Palo Alto, California,...",
+        "description": "<p>Working at Xerox PARC in Palo Alto, California, Lynn Conway radically simplified microchip design, permitting huge advances in engineering.<\/p><p> In 1999 the transgendered Conway revealed that as Robert Sanders (a pseudonym used to protect her family), she had also in the early 1960s contributed a major breakthrough in the development of supercomputers at IBM, paving the way for faster chips such as the Intel® Pentium®. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1977-04-16",
+        "latLng": ["37.38522,-122.11413"],
+        "location": ["Los Altos, USA"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "16 April 1977: Only a year after the release of Apple I,...",
+        "description": "<p>Only a year after the release of Apple I, Steve Wozniak and Steve Jobs of Apple Computer (located at that time in Los Altos, California) launched the Apple II, one of the first successful and popular personal computers. A20 <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2001-01-15",
+        "latLng": ["32.71533,-117.15726"],
+        "location": ["San Diego, USA"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "15 January 2001: Jimmy Wales co-founded with Larry Sanger...",
+        "description": "<p>Jimmy Wales co-founded with Larry Sanger a free, online, user-generated encyclopedia, and named it Wikipedia, launching the new online encylopedia on a server located in San Diego, California. It arose from a free, online, but edited encyclopedia, Nupedia, which Wales had launched in 2000, with Sanger as editor-in-chief.<\/p><p> Within its first year the digital do-it-yourself encyclopedia had acquired 20,000 articles and 200 regular volunteer contributors. By early 2004 it had 188,000 articles (nearly four times as many as the one-volume, edited and printed Columbia Encyclopedia). By 2006 it had 895,000, or more than twice as many as the multi-volume Encyclopedia Britannica, 1989 edition, and significantly more than the next edition of 2007. Though anyone can contribute, or revise, a Wikipedia entry, regular staff check for and remove obscenity or obviously slanted content; protocols are in place to prevent contradictory revision and re-revision of controversial entries. According to David Runciman reviewing Andrew Lih's The Wikipedia Revolution, 2009, the general tendency of Wikipedia articles is to improve in accuracy rather than to deteriorate through the gradual process of revision by all comers. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1980",
+        "latLng": ["34.26945,-118.78148"],
+        "location": ["Simi Valley, USA"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "1980: Roberta Williams authored and designed the...",
+        "description": "<p>Roberta Williams authored and designed the first graphics-based computer game, the hugely successful Mystery House, released by On-Line Systems located in Simi Valley, California.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1975-01",
+        "latLng": ["39.76,-98.5"],
+        "location": ["USA"],
+        "countryName": ["United States"],
+        "eventType": "literary",
+        "label": "January 1975: The first home computer appeared on the market...",
+        "description": "<p>The first home computer appeared on the market in the United States: the MITS Altair 8800, selling at ?395 in the form of a kit for home assembly.<\/p><p> This machine took the form of a box whose front side was a control panel: it had no screen. By the year 2004 home computers offered approximately one million times its amount of memory. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2007-01",
+        "latLng": ["36.17497,-115.13722"],
+        "location": ["Las Vegas, USA"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "January 2007: The iPhone, launched by Apple at the Consumer...",
+        "description": "<p>The iPhone, launched by Apple at the Consumer Electronics Show in Las Vegas combined a mobile phone with touch-screen, web browser, camera, and MP3 player.<\/p><p> The iPhone was not expected to be available until the summer, would cost close to ?600, and had not been independently tested. Nevertheless Apple shares at once leaped by eight per cent. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2007-12-10",
+        "latLng": ["59.33258,18.0649"],
+        "location": ["Stockholm, Sweden"],
+        "countryName": ["Sweden"],
+        "eventType": "social",
+        "label": "10 December 2007: The Nobel Prize for physics was awarded in...",
+        "description": "<p>The Nobel Prize for physics was awarded in Stockholm, Sweden, to Albert Fert of France and Peter Grünberg of Germany for discovering the quantum mechanical effect of giant magnetoresistance (the basis of the smaller laptop and the iPod).<\/p><p> Their discovery allows huge amounts of data to be pushed into ever-smaller spaces. 31 <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2006",
+        "latLng": ["51.50853,-0.12574"],
+        "location": ["London, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "literary",
+        "label": "2006: Naomi Alderman won the Orange Prize for her...",
+        "description": "<p>Naomi Alderman won the Orange Prize for her first novel, Disobedience, set in the North London Orthodox Jewish community.<\/p><p> She is known to a wider audience as lead author on an alternative-reality computer game entitled Perplex City, put out by the company Mind Candy, which ran for two and a half years (at a time when the longest run by a similar game was six months). <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1962-05-01",
+        "latLng": ["43.70229,-72.28954"],
+        "location": ["Dartmouth College, Hanover"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "1 May 1962: Dartmouth College in Hanover, New Hampshire,...",
+        "description": "<p>Dartmouth College in Hanover, New Hampshire, launched the simple computer programming, BASIC, or Beginner's All-purpose Symbolic Instruction Code. 1 May 2014 <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1958-11-24",
+        "latLng": ["51.48911,-0.1975"],
+        "location": ["Earl's Court Exhibition Centre, London, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "political",
+        "label": "24 November 1958: The world's first large exhibition of electronic...",
+        "description": "<p>The world's first large exhibition of electronic computers was held at Earl's Court Exhibition Centre, London.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1834-09",
+        "latLng": ["51.50853,-0.12574"],
+        "location": ["London, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "social",
+        "label": "Autumn 1834: In autumn 1834 in London, England, Charles...",
+        "description": "<p>In autumn 1834 in London, England, Charles Babbage envisioned the Analytical Engine or calculating machine, an advance on his previous work on the Difference Engine and precursor to the modern computer.<\/p><p> Using punch cards, the Analytical Engine he designed could carry out any combination of arithmetic operations and algebraic functions. Although he was hampered by lack of funding to build his elaborate invention, as well as the fact that the precision milling and machinery necessary for some of its parts simply did not yet exist, 633 Babbage continued to refine and modify his ideas of the Analytical Engine until his death in 1871. On the strength of her analysis of its potential applications, Augusta Ada Byron has been hailed as the first computer programmer. Using Babbage's plans and current machining technology, IBM recently constructed the Analytical Engine. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1985-11-11",
+        "latLng": ["54.75844,-2.69531"],
+        "location": ["UK"],
+        "countryName": ["United Kingdom"],
+        "eventType": "social",
+        "label": "11 November 1985: The Data Protection Act (1984) came into...",
+        "description": "<p>The Data Protection Act (1984) came into effect in Britain, requiring 400,000 computer users to register . . . to protect individuals from the misuse of personal data stored on computer.<\/p><p> In March 1986 it became possible for aggrieved individuals to seek compensation through the courts for loss or distress caused by such records. In November 1987 people acquired the right of access to personal information about themselves, if electronically stored. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1984-07-01",
+        "latLng": ["40.71427,-74.00597"],
+        "location": ["New York City, USA"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "1 July 1984: The term cyberspace was coined by William...",
+        "description": "<p>The term cyberspace was coined by William Gibson in his novel Neuromancer, published by Ace Books of New York City.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1988-11-02",
+        "latLng": [
+            "39.76,-98.5",
+            "42.35954,-71.09172"
+        ],
+        "location": [
+            "USA",
+            "Massachussets Institute of Technology, Cambridge, USA"
+        ],
+        "countryName": [
+            "United States",
+            "United States"
+        ],
+        "eventType": "social",
+        "label": "2 November 1988: Robert Morris, an American graduate student...",
+        "description": "<p>Robert Morris, an American graduate student at Cornell University, released the first hostile Internet worm from an MIT computer in Cambridge, Massachussets, which disabled several thousand university, military, and corporate computers within an hour after its release.<\/p><p> For an act that exposed potential risks of relying on the Internet, Morris received three years probation, ?10,000 in fines, and community service. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1976-04",
+        "latLng": ["37.44188,-122.14302"],
+        "location": ["Palo Alto, USA"],
+        "countryName": ["United States"],
+        "eventType": "literary",
+        "label": "April 1976: The home computer Apple I made its debut...",
+        "description": "<p>The home computer Apple I made its debut at the Homebrew Computer Club in Palo Alto, California. Designed by Steve Wozniak, it was mounted on a wooden stand, its component parts not covered but visible.<\/p><p> This was the first product of Apple Computers, founded by Steve Jobs and Wozniak (known as Woz) the same year. The company logo, an apple with a single bite out of it, suggests approval of Eve's sin in eating of the Tree of Knowledge. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1948-06-21",
+        "latLng": ["53.46686,-2.23388"],
+        "location": ["University of Manchester, Manchester, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "social",
+        "label": "21 June 1948: Developed at the University of Manchester,...",
+        "description": "<p>Developed at the University of Manchester, the Small-Scale Experimental Machine, also known as the Manchester Baby Machine, became the first computer able to store and recall programmes.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1983-01",
+        "latLng": ["40.71427,-74.00597"],
+        "location": ["New York City, USA"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "January 1983: Time Magazine (based in New York City) named...",
+        "description": "<p>Time Magazine (based in New York City) named the personal computer as its Man of the Year for 1982.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1946-02-16",
+        "latLng": ["39.95095,-75.19351"],
+        "location": ["University of Pennsylvania, Philadelphia, USA"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "16 February 1946: ENIAC (Electronic Numerical Integrator and...",
+        "description": "<p>ENIAC (Electronic Numerical Integrator and Computer), the world's first large-scale electronic computer, was unveiled at the Moore School of Engineering at the University of Pennsylvania, Philadelphia, Pennsylvania.<\/p><p> ENIAC's completion and its massive size provoked widespread public and scientific interest in computers as a thinking tool. Among the staff developing ENIAC were six women who calculated artillery firing tables during World War II. During the war, Kathleen McNulty, Frances Bilas, Betty Jean Jennings, Elizabeth Snyder, Ruth Lichterman, and Marilyn Wescoff held the official job title of Computer. This project marks a turning point in the etymology of computer. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1975-02",
+        "latLng": ["42.35843,-71.05977"],
+        "location": ["Boston, USA"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "February 1975: In Boston, Massachusetts, Bill Gates and...",
+        "description": "<p>In Boston, Massachusetts, Bill Gates and Paul Allen developed the BASIC programming system for the Altair 8800.<\/p><p> The licensing of this product provided the capital foundation for Microsoft. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1984-01-22",
+        "latLng": ["40.71427,-74.00597"],
+        "location": ["New York City, USA"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "22 January 1984: \"1984,\" a commercial, directed by Ridley...",
+        "description": "<p>\"1984,\" a commercial, directed by Ridley Scott and produced by Fairbanks Films of New York City, and aired during the broadcasting of the Super Bowl (US football championships), announced Apple Computers' release of the Macintosh computer.<\/p><p> Directly referencing George Orwell's 1984, the commercial (the only one to advertise the Mac) was an immediate aesthetic success, as was its product. The new machine was the first personal computer to feature a mouse, and a graphical user interface (GUI) which became the current standard in human-computer interface. The Macintosh followed Apple's first graphical-interface computer, the Lisa, which was launched in January 1983 with a price-tag of almost a thousand dollars, and failed to capture a market. The Mac was less successful commercially than critically; however, it set a new benchmark for the design and usability of computers. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1972",
+        "latLng": ["42.3751,-71.10561"],
+        "location": ["Cambridge, USA"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "1972: E-mail, based on programmes developed by...",
+        "description": "<p>E-mail, based on programmes developed by Ray Tomlinson of Bolt, Beranek and Newman (now BBN Technologies) of Cambridge, Massachusetts, was incorporated into ARPAnet. Tomlinson inaugurated the name-and-domain name convention, which, despite contentions, became widely adopted in the eighties as e-mail use proliferated.<\/p><p> This is not to be confused with the first message sent across the internet, which occurred three years earlier, when communication was established between the first two nodes of the Internet at UCLA and Stanford University in California. Although this first communication resulted in the Stanford computer crashing, it marked the first time two physically separate computers communicated and established the possibility for e-mail. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1958",
+        "latLng": ["40.69538,-74.40098"],
+        "location": ["Murray Hill, USA"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "1958: Researchers at Bell Laboratories in Murray...",
+        "description": "<p>Researchers at Bell Laboratories in Murray Hill, New Jersey, developed the modem, permitting computers to take advantage of pre-existing telephone infrastructure for establishing networks.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1983-01-01",
+        "latLng": ["39.76,-98.5"],
+        "location": ["USA"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "1 January 1983: ARPANET in the United States officially became...",
+        "description": "<p>ARPANET in the United States officially became the Internet, as all members adopted a single protocol.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1998",
+        "latLng": [],
+        "location": [],
+        "countryName": [],
+        "eventType": "social",
+        "label": "1998: Extensible Markup Language (XML) (an application...",
+        "description": "<p>Extensible Markup Language (XML) (an application of SGML) was introduced for more flexibility in encoding written texts on the World Wide Web. The standard Web language, Hypertext Markup Language (HTML), was specialized for hypertext links and simple documents but insufficient for many more complex purposes.<\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2005-08",
+        "latLng": ["37.38605,-122.08385"],
+        "location": ["Mountain View, USA"],
+        "countryName": ["United States"],
+        "eventType": "literary",
+        "label": "August 2005: Google's (headquartered in Mountain View,...",
+        "description": "<p>Google's (headquartered in Mountain View, California) plans for massive digitization of printed books for reading online were temporarily halted by threats of litigation in the USA.<\/p><p> Google had in fact two projects. Print Publisher would scan current books, with permission from publishers and authors; this aroused mixed reactions, with academic publishers on the whole more positive about the idea than trade publishers. Print Library would digitize collections of entire libraries (the Bodleian as well as several US collections). In both cases extracts would be made available from books in copyright under the US concept of fair use or the British concept of fair dealing. Books out of copyright would be available in their entirety. Related schemes were already in operation by Amazon and in contemplation by Microsoft. Both projects, for current and for out-of-copyright books, ultimately came together in Google Books. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1975-06-21",
+        "latLng": ["37.44188,-122.14302"],
+        "location": ["Palo Alto, USA"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "21 June 1975: Stephen Wozniak, in the course of designing...",
+        "description": "<p>Stephen Wozniak, in the course of designing what became the Apple I for what became the company Apple Computers (located in Palo Alto, California), first typed a character on a keyboard and saw it appear on a screen.<\/p><p> Before this, said Woz years later, computers did not possess keyboards or screens. Afterwards, things were different. Apple Computers was launched, with its first machine, the following year. <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1937-12",
+        "latLng": ["42.03471,-93.61994"],
+        "location": ["Ames, USA"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "December 1937: US physicist John Atanasoff, a professor...",
+        "description": "<p>US physicist John Atanasoff, a professor at Iowa State College in Ames, Iowa, after years of working on machines to facilitate elaborate calculations, had a brainwave which enabled him successfully to build a desk-size electronic calculating machine (not strictly a computer, since it was not programmable). 38 <\/p><p> He and Clifford Berry then took two years to build the machine. Their employer, Iowa State College, did not think it worth a patent application. Meanwhile John Mauchly of the University of Pennsylvania met Atanasoff, discussed his design, and with the help of a partner, J. Presper Eckert, built and patented an electronic brain called the Eniac, and launched the world's first computer company. A long legal battle about patents followed, which Jane Smiley has made the basis of a book: The Man Who Invented the Computer: The Biography of John Atasanoff, Digital Pioneer, 2011. 38-9 <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "1998-09-27",
+        "latLng": ["37.45383,-122.18219"],
+        "location": ["Menlo Park, USA"],
+        "countryName": ["United States"],
+        "eventType": "social",
+        "label": "27 September 1998: The electronic search engine Google was launched,...",
+        "description": "<p>The electronic search engine Google was launched, with the company being initially located in Menlo Park, California. It quickly grew to dominate its market, so that googling became the term for making any Internet search. 27 September 2012 <\/p><p> It was not until later that simple delivery of search results on computer became targeted and customized. 27 September 2012 <\/p>"
+    },
+    {
+        "schema": "EVENT",
+        "startDate": "2013-06-10",
+        "latLng": ["20.75028,-156.50028"],
+        "location": ["Hawaii, USA"],
+        "countryName": ["United States"],
+        "eventType": "political",
+        "label": "10 June 2013: The Guardian newspaper revealed the identity...",
+        "description": "<p>The Guardian newspaper revealed the identity of Edward Snowden, former CIA and National Security Agency employee and computer programmer working in Hawaii, who had leaked or made publicly available a huge number of NSA confidential documents about its spying on private citizens. <\/p><p> Snowden claimed that these documents about surveillance, especially of Internet activity, represented an existential threat to democracy and that their disclosure was legitimately in the public interest. On 1 May this year he left Hawaii, where he was working, for Hong Kong. Accused of various offences including theft of government property, he then left Hong Kong in order not to be extradited back to the USA, and travelled to Moscow, supposedly en route for Ecuador, which had offered him asylum. In mid-2014 he remained in Russia, regarded as a hero by some and a traitor by others, while public debate continued to rage both about what Snowden has called the largest program of suspicionless surveillance in human history, and about the extent of damage, if any, inflicted by Snowden on his country. <\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1949",
+        "latLng": ["40.71427,-74.00597"],
+        "location": ["New York"],
+        "countryName": ["United States"],
+        "eventType": "biographical",
+        "label": "Index Thomisticus Begun",
+        "description": "<p>Roberto Busa, an Italian Jesuit priest, convinced IBMto sponsor the Index Thomisticus, an experiment in linguistic automation - performing text searches within the vast corpus of work by Thomas Aquinas, who was the subject of Busa's research. Busa is known as the First Pioneer of Humanities Computing. He actually began work on the Index Thomisticus in 1974 and completed the 56 printed volumes in 1980.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1963",
+        "latLng": ["52.203,0.12"],
+        "location": ["University of Cambridge"],
+        "countryName": ["United Kingdom"],
+        "eventType": "bibliographical",
+        "label": "The Centre for Literary and Linguistic Computing was Founded",
+        "description": "<p>Professor Roy Wisbey founded the Centre for Literary and Linguistic Computing to bolster his research into Early Middle High German texts.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1964",
+        "latLng": ["37.42716,-122.17024"],
+        "location": ["Stanford University "],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "Federalist Papers Investigated",
+        "description": "<p>Frederick Mosteller and David L. Wallace used meticulous computer - statistical methods to conclude that James Madison was the author of the famously disputed twelve articles of the Federalist Papers. According to Susan Hockey, it was the most influential in-depth computer based authorship investigation to date.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1964-09-09",
+        "endDate": "1964-09-11",
+        "latLng": ["40.71427,-74.00597"],
+        "location": ["New York"],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "First IBM Literary Data Processing Conference was Held",
+        "description": "<p>IBM brought together scholars and enthusiasts for the first conference on what would come to be called Humanities Computing or Digital Humanities as a discipline. This conference was chaired by Jess. B. Bessinger of New York University and Stephen M. Parrishof Cornell University. One of the purposes of the conference was to publicize the collaboration between IBM and Father Roberto Busa.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1965",
+        "latLng": ["28.44184,-109.85181"],
+        "location": ["University of Cardiff"],
+        "countryName": ["Mexico"],
+        "eventType": "bibliographical",
+        "label": "COCOA Concordance Program Was Invented",
+        "description": "<p>The COCOA Concordance Program was invented as a joint venture between the University of Cardiff and the Atlas Computer Laboratory . It was a considered a powerful, highly flexible program of 400 punched cards, which allowed punched card computers to produce keyword-in-context concordances and word-frequency profiles for texts.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1964",
+        "latLng": ["41.01871,-73.91708"],
+        "location": ["New York "],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "IBM Conference Proceedings Published",
+        "description": "<p>The proceedings from the first IBM Literary Data Processing Conference were published by the IBM Data Processing Division.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1966",
+        "latLng": ["40.73639,-73.81833"],
+        "location": ["Queen's College, City University of New York "],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "The First Humanities Computing Journal was Founded",
+        "description": "<p>The first journal on Humanities Computing was launched, edited by Joseph Rabin. It was called Computers and the Humanities. This journal remained the official journal of the Association for Computers and Humanities, until 2005 when it was renamed Language Resources and Evaluation. <\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1970",
+        "latLng": ["52.203,0.12"],
+        "location": ["University of Cambridge"],
+        "countryName": ["United Kingdom"],
+        "eventType": "bibliographical",
+        "label": "First Conference of the ALLC/ACH",
+        "description": "<p>A joint conference on the emerging field of Humanities Computing was held at the University of Cambridge. This was a collaborative endeavour between the two bodies that would subsequently become the Association for Linguistic and Literary ComputingALLC and the Association for Computing and the HumanitiesACH.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1971",
+        "latLng": ["40.03948,-88.27755"],
+        "location": ["University of Illinois, Urbana-Champaign "],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "Project Gutenberg was Launched",
+        "description": "<p>Project Gutenberg was founded by Michael S. Hart, as a project to make and distribute ebooks to as many people as possible. Project Gutenberg is a volunteer effort to digitize and archive the world's cultural works. It is for human users only, and blocks the access of automated tools.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1973",
+        "latLng": ["51.511499,-0.116016"],
+        "location": ["King's College, London"],
+        "countryName": ["United Kingdom"],
+        "eventType": "bibliographical",
+        "label": "The Association for Literary and Linguistic Computing was Founded",
+        "description": "<p>The ALLC had its genesis in the 1970 conference on Humanities Computing at the University of Cambridge, which continued to be held at universities around the United Kingdom. The conferences resulted in several distinguished studies being produced, and the decision was taken at a meeting in King's College, London, to create the ALLC. The association went on to produce its own Bulletin three times per annum. By 1986, the ALLC had a journal: Literary and Linguistic Computing.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1976",
+        "latLng": ["51.75222,-1.25596"],
+        "location": ["Oxford, England"],
+        "countryName": ["United Kingdom"],
+        "eventType": "bibliographical",
+        "label": "Oxford Text Archive OTA Established",
+        "description": "<p>Oxford Text Archive (OTA) Established<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1978",
+        "latLng": [],
+        "location": [],
+        "countryName": [],
+        "eventType": "bibliographical",
+        "label": "The Association for Computers and the Humanities was founded",
+        "description": "<p>The Association for Computers and the Humanities grew out of the development of a biannual conference series that began in the mid-1970s in North America, then called the International Conference on Computing in the Humanities.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1978",
+        "latLng": ["48.42029,9.94615"],
+        "location": ["University of Tübingen"],
+        "countryName": ["Germany"],
+        "eventType": "bibliographical",
+        "label": "TUSTEP Was Launched",
+        "description": "<p>Under the direction of Wilhelm Ott, the University of Tübingen Computing Center, in collaboration with many other humanities projects, launched the Tübingen System of Text Processing Programs (TUSTEP), a project it had begun in 1966. It is a toolbox of several program modules to enable the processing of scholarly textual data. Today, TUSTEP is used in at least a hundred universities and research institutions.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1982",
+        "latLng": ["51.756801,-1.254749"],
+        "location": ["University of Oxford"],
+        "countryName": ["United Kingdom"],
+        "eventType": "bibliographical",
+        "label": "Oxford Concordance Program OCP was Launched",
+        "description": "<p>The Oxford Concordance Program replaced the COCOA Concordance Program which was launched at Oxford University in 1965.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1986",
+        "latLng": ["46.20222,6.14569"],
+        "location": ["Geneva "],
+        "countryName": ["Switzerland"],
+        "eventType": "bibliographical",
+        "label": "Standard Generalized Markup Language Was Published",
+        "description": "<p>The International Standardization Organization (ISO) published Standard Generalized Markup Language (SGML), a flexible system for defining a markup scheme. It is able to analyze many types of text on both a structural and an interpretive level, and is able to handle metadata as well as data.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1986",
+        "endDate": "1989",
+        "latLng": ["43.66219,-79.3942"],
+        "location": ["University of Toronto"],
+        "countryName": ["Canada"],
+        "eventType": "bibliographical",
+        "label": "TEXT ANALYSIS COMPUTING TOOLS TACT SYSTEM DEVELOPED",
+        "description": "<p>A team of programmers, designers and scholars from IBM and the University of Toronto developed the Text Analysis Computing Tools (TACT) system. It is considered a historically important text-development tool in the field of digital humanities. TACT was designed to run on MS-DOS and permitted inquiry on text databases in European languages.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1994-05",
+        "latLng": ["41.70037,-73.92097"],
+        "location": ["Poughkeepsie, New York "],
+        "countryName": ["United States"],
+        "eventType": "biographical",
+        "label": "The First Version of Text Encoding Initiative TEI Guidelines was Published",
+        "description": "<p>The first full version of the Text Encoding Initiative (TEI) Guidelines for Electronic Text Encoding and Interchange was published. It came about after Nancy Ide of the Association for Computers and the Humanities organized an invitational meeting to try to invent a standard encoding scheme for all humanities electronic texts.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1987",
+        "latLng": ["51.511499,-0.116016"],
+        "location": ["King's College, London"],
+        "countryName": ["United Kingdom"],
+        "eventType": "bibliographical",
+        "label": "Humanist International Online Seminar Founded",
+        "description": "<p>Humanist, an international electronic seminar (not to be confused with The Humanist, a journal of philosophical humanism), was launched in May 1987 as a far-reaching forum for people interested in computing and the humanities to discuss their issues and ideas. It has developed into a thriving exchange on digital humanties. Its aim is to provide a forum for the discussion of intellectual, scholarly, pedagogical and social issues and for the exchange of information among participants. The editor of the seminar Humanist is Robert Busa prize-winner Willard McCarty.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1987-02",
+        "latLng": ["-32.8818,151.6846"],
+        "location": ["University of Newcastle, Australia"],
+        "countryName": ["Australia"],
+        "eventType": "bibliographical",
+        "label": "Jane Austen Stylometrics Study Published",
+        "description": "<p>John Burrows, pioneer in the field of Stylometrics, published Computation into Criticism: A Study of Jane Austen's Novels and an Experiment in Method. His research, carried out at the University of Newcastle, Australia, and elsewhere, was to look at Austen's creation of idiolects for her characters: the way that the incidence of small, insignificant words varied from one character to another in her books.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1987",
+        "latLng": ["40.24579,-111.65103"],
+        "location": ["Brigham Young University "],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "WordCruncher Version 4.1 Released",
+        "description": "<p> WordCruncher was a microcomputer text-indexing and retrieval system developed by Brigham Young University. It employed the speed of the newly introduced microcomputer to analyse large bodies of text. The contemporarpresent-day version of WordCruncher allows the addition of such tags as parts of speech and definitions. It also allows for graphics, and hyperlinks to text or multimedia files. Users are also able to furnish a number of reports including vocabulary dispersion and usage, and frequency distribution.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1995",
+        "latLng": ["38.91706,-77.00025"],
+        "location": ["Washington, DC"],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "NAP Made Material Available Through Open Access Format",
+        "description": "<p>The National Academies Press became the first self-sustaining publisher to make its material available online through the Open Access format. By 1997, 1,000reports were available online for free, as digital sequential page images. The NAP became known for wide experimentation with free open access.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1991",
+        "latLng": ["37.25022,-119.75126"],
+        "location": ["California "],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "First Volume of Unicode Standard Was Published",
+        "description": "<p>The first Unicode Standard was published. The name Unicode is derived from three main goals: that it be universal (addressing the needs of as many of the world's languages as possible), uniformed (fixed-width codes for adequate access) and unique (bit sequence has only one interpretation into character codes).<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1991",
+        "latLng": ["37.25022,-119.75126"],
+        "location": ["California"],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "Unicode Consortium Incorporated",
+        "description": "<p>What had begun in 1987as an exploration between engineers from Xerox and Apple, to develop a universal character encoding system, became a reality in 1991, with the incorporation of the Unicode Consortium, a company whose purpose was to standardize, extend and promote the Unicode character encoding, a fixed-width, 16-bit character encoding for over 60,000 graphic characters. The statement of purpose has since been amended to reflect that Unicodehas extended beyond 16-bit character encoding. <\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1992",
+        "latLng": ["37.25022,-119.75126"],
+        "location": ["California "],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "Second Volume of Unicode Standard Was Published",
+        "description": "<p>The second version of Unicode, Version 1.0.1 was published. This version covered Han ideographs.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1993",
+        "latLng": ["39.32898,-76.62057"],
+        "location": ["Johns Hopkins University, Baltimore, Maryland"],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "Project Muse was Founded",
+        "description": "<p>Project Muse was founded as a collaboration between two institutions at the Johns Hopkins University: Johns Hopkins University Press and the Milton S. Eisenhower Library. It is an online database now containing more than 300,000 peer-reviewed academic journals and more than 700,000 chapters of electronic books. Project Muse provides access to digital humanities and social sciences content from 200 university presses and scholarly organizations.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1993",
+        "endDate": "2008",
+        "latLng": ["38.03561,-78.50329"],
+        "location": ["University of Virginia"],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "Rossetti Archive Was Launched",
+        "description": ""
+    },
+    {
+        "schema": "event",
+        "startDate": "1994",
+        "latLng": ["38.985,-76.93639"],
+        "location": ["University of Maryland"],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "Dickinson Electronic Archive (DEI) Was Founded",
+        "description": "<p>The Dickinson Electronic Archive (DEI) was founded by Martha Nell Smith, an Emily Dickinson scholar and professor, using the collections at Amherst College. This digital archive is devoted to the study of Emily Dickinson, her writing practices, writings directly influencing her work, and critical and creative writings generated by her work. It was the first online repository of its kind.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1996",
+        "latLng": ["37.77493,-122.41942"],
+        "location": ["San Francisco, California"],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "The Internet Archive Was Founded",
+        "description": "<p>Brewster Kahle, a computer engineer and internet entrepreneur, founded the Internet Archive, a non-profit digital library that provides free public access to collections of digitized materials, including websites, music, moving images, software and nearly three million public-domain books. The mission of the Internet Archive is universal access to all knowledge. It also says on its website that it is working to prevent the Internet and other born-digital materials from disappearing into the past.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1996",
+        "latLng": ["38.03561,-78.50329"],
+        "location": ["University of Virginia"],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "The Thomas MacGreevy Archive Was Founded",
+        "description": "<p>This archive focuses on publishing the works, and examining the life and relationships, of the Irish poet and critic Thomas MacGreevy, an eminent figure in Irish literary modernism. The Thomas MacGreevy Archive now has available, for browsing and searching, more than 400 texts and articles by and about MacGreevy. It offers access to many of his books and articles that had gone out of print. It is published by the Institute for Advanced Technology in the Humanities at the University of Virginia, and supported by the University of Maryland Libraries.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1996",
+        "latLng": ["35.91014,-79.04862"],
+        "location": ["University of North Carolina "],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "William Blake Archive Was Founded",
+        "description": "<p>The William Blake Archive made available digital imprints of the poetry and accompanying illustrations of the Romantic-era painter, poet, printmaker, and visionary radical William Blake. The Archive, sponsored by the Library of Congress, makes available to users in one place Blake's works from many physical collections. This archive (editors Morris Eaves and Morton Paley) was made possible, according to its website, because of several key factors: a mature body of Blake scholarship had developed, the first trustworthy history of his book-production had been published, and competent technological advances had reached the stage where such a grand digital humanities project would not quickly become obsolescent.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1998",
+        "latLng": ["47.53333,21.63333"],
+        "location": ["Debrecen, Hungary"],
+        "countryName": ["Hungary"],
+        "eventType": "bibliographical",
+        "label": "First Roberto Busa Prize Was Awarded",
+        "description": "<p>The Roberto Busa Prize was first awarded to its namesake, Father Roberto Busa, in recognition of his pioneering work in humanities computing. The prize is awarded triennially, and is administered by the Alliance of Digital Humanities Organisations (ADHO). It recognizes outstanding lifetime achievements in the application of information and communications technologies to humanities research.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "1998",
+        "latLng": ["38.91706,-77.00025"],
+        "location": ["Washington DC"],
+        "countryName": ["United States"],
+        "eventType": "biographical",
+        "label": "Openbook Finetuned",
+        "description": "<p>The navigational tool used by the National Academies Press NAP, Openbook was finetuned to allow users online to do chapter-, page- and whole-book searches of book page images. This functionality preceded Amazon's Look Inside and Google's BookSearch by a number of years.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "2000",
+        "latLng": ["51.524561,-0.134051"],
+        "location": ["University College London"],
+        "countryName": ["United Kingdom"],
+        "eventType": "bibliographical",
+        "label": "Digital Egypt for Universities Launched",
+        "description": "<p>Digital Egypt for Universities, an exploration of the culture and artefacts of ancient Egypt developed at University College, London, was launched as an interactive online archive, a learning and teaching tool for higher education, intended to assist teaching acrosss all disciplines.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "2001",
+        "latLng": ["43.70011,-79.4163"],
+        "location": ["Toronto, Canada"],
+        "countryName": ["Canada"],
+        "eventType": "bibliographical",
+        "label": "Creative Commons Licensing Organization Formed",
+        "description": "<p>Creative Commons was launched as a non-profit licensing organization for owners of any kind of creative and/or intellectual material. It is a free service that allows creators to grant legal authorization to others to use their work, and also to dictate how and to what extent their material is used. The licenses supplied by Creative Commons are not substitutions for copyright laws and regulations, but are meant to work alongside them. <\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "2001",
+        "latLng": ["43.00035,-75.4999"],
+        "location": ["New York, United States "],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "Second Roberto Busa Prize Awarded",
+        "description": "<p>The second Busa Prize was awarded to John Burrows, Emeritus Professor of English at the University of Newcastle, Australia for outstanding lifetime achievements in the application of information and communications technologies to humanities research. The award recognized his work on Stylometrics, in particular, the publication of Computation into Criticism: A Study of Jane Austen's Novels and an Experiment in Method, 1987.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "2004",
+        "latLng": ["50.11552,8.68417"],
+        "location": ["Frankfurt, Germany "],
+        "countryName": ["Germany"],
+        "eventType": "bibliographical",
+        "label": "Google Print Launched",
+        "description": "<p>The concept which soon became Google Books was first presented at the Frankfurt Book Fair by Google as Google Print. Two months later Google announced the Google Print Library Project, which expanded Google Print into a colloboration with several top university libraries, to digitize millions of books.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "2004",
+        "latLng": ["57.70716,11.96679"],
+        "location": ["Goteburg, Sweden"],
+        "countryName": ["Sweden"],
+        "eventType": "bibliographical",
+        "label": "Third Roberto Busa Prize Awarded",
+        "description": "<p>The third Busa Prize was awarded to Susan Hockey from the UK, who as Director of the Canadian Institute for Research Computing in the Arts (CIRCA) at the University of Alberta, 1997-1999, was a key member of Orlando Project team. The Roberto Busa Prize (named after Father Roberto Busa and administered by the Alliance of Digital Humanities Organisations), is awarded triennially to recognize outstanding lifetime achievements in the application of information and communications technologies to humanities research.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "2005",
+        "latLng": ["48.43294,-123.3693"],
+        "location": ["Victoria, Canada "],
+        "countryName": ["Canada"],
+        "eventType": "bibliographical",
+        "label": "Alliance of Digital Humanities Organizations (ADHO) Formed",
+        "description": "<p>The Alliance of Digital Humanities Organizations was given its operating mandate. This organization now oversees the annual Digital Humanities conference which was formerly the joint ALLC/ACH conference, administers the Roberto Busa award for contribution to humanities computing, and produces several peer-reviewed journals including its print journal, Literary and Linguistic Computing. The move towards the creation of such an umbrella organization was begun in 2002 in Tübingen, Germany..<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "2005",
+        "latLng": ["42.81687,-1.64323"],
+        "location": ["Universidad de Navarra, Spain"],
+        "countryName": ["Spain"],
+        "eventType": "bibliographical",
+        "label": "Index Thomisticus Launched Online",
+        "description": "<p>Father Roberto Busa's laboriously and meticulously indexed digital volumes of the works of Saint Thomas Aquinas were launched online as Index Thomisticus, sponsored by the Fundación Tomás de Aquino and CAEL.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "2005",
+        "latLng": ["45.50884,-73.58781"],
+        "location": ["Montreal, Canada "],
+        "countryName": ["Canada"],
+        "eventType": "bibliographical",
+        "label": "LibriVox Founded",
+        "description": "<p>LibriVox was founded with the aim of making all books in the public domain available, for free, in audio format on the internet. Hugh McGuire, a writer and web developer from Montreal, began LibriVox after being inspired by A. K. M Adam's audio volunteer project. LibriVox is of obvious use to blind people. It is run by volunteers, and uses Project Gutenberg's online digital library of free public-access books as its source material. The audio files created are hosted by theInternet Archive.Disability<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "2005",
+        "latLng": ["51.50853,-0.12574"],
+        "location": ["London, UK "],
+        "countryName": ["United Kingdom"],
+        "eventType": "bibliographical",
+        "label": "Perplex City Was Launched",
+        "description": "<p>The alternate-reality game or ARG Perplex City was launched by a London-based development team called Mind Candy. The lead writer on the game was Naomi Alderman, a British author and novelist who is now Professor of Creative Writing at Bath Spa University. The game marked a first for the use of ARG, as it encouraged players to buy the cards to solve the puzzles, though this was not necessary to progress through the game. In addition, this game ran for months, as opposed to the typical two-month life-span of most ARG games or promotions. Nevertheless the developers at Mind Candy announced in June 2007 that the second season of Perplex City had been put on hold indefinitely.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "2007",
+        "latLng": ["47.60621,-122.33207"],
+        "location": ["Seattle, Washington "],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "First Amazon Kindle Released",
+        "description": "<p>Amazon, the online retail giant, released its first electronic book reader, the Kindle, which at that time gave consumers access to some 88,000 digital titles. In 2015 Amazon's digital store consists of more than 3.2 million titles. The Kindle has been reintroduced to market in various new designs since then, and is still the leading e-book reader.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "2007",
+        "latLng": ["40.10891,-83.75407"],
+        "location": ["Urbana-Champaign, Illinois, USA"],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "Fourth Roberto Busa Prize Awarded",
+        "description": "<p>The fourth Busa Prize was awarded to Wilhelm Ott of the University of Tübingen in Germany, for his pioneering work with the TUSTEP program, designed to process text data in the humanities. The Roberto Busa Prize is awarded triennially, and is administered by the Alliance of Digital Humanities Organisations (ADHO). It recognizes outstanding lifetime achievements in the application of information and communications technologies to humanities research.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "2008",
+        "latLng": ["52.07667,4.29861"],
+        "location": ["Koninklijke Bibliotheek, Netherlands"],
+        "countryName": ["Netherlands"],
+        "eventType": "bibliographical",
+        "label": "EUROPEANA.EU Was Launched",
+        "description": "<p>Europeana.eu is an Internet gateway to many official websites about European history, culture, and luminaries. Its genesis was a letter sent by President of France Jacques Chirac and many European premiers to the President of the European Commission, José Manuel Durao Barroso, recommending the formation of a virtual European library. The project gives users access to many kinds of cultural heritage organizations: museums, libraries, archives, audiovisual collections, etc. It allows users to navigate the more than 10.5 million digitized items in various ways. In 2011 the portal's capabilities were expanded to include a translation tool, and the ability to be transferred to other websites, such as Wikipedia, for more information. The governing body of Europeana is the Europeana Foundation, which is located in The Hague. <\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "2008",
+        "latLng": ["39.77643,-86.18527"],
+        "location": ["University of Indianapolis"],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "The Hathi Trust Founded",
+        "description": "<p>The HathiTrust is a digital repository of millions of books online, the product of a large-scale partnership with sixty research libraries across Europe, the United States and Canada, Google Books and the Internet Archive. The repository gives a user access to over 10 million titles, a quarter of which are public-domain books. <\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "2009",
+        "latLng": ["43.00035,-75.4999"],
+        "location": ["New York"],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "iPhone-Created Art Piece on New Yorker Cover",
+        "description": "<p>Artist Jorge Colombo, used his iPhone to fingerpaint an entire scene of Times Square, and subsequently had this entry selected to grace the cover of the June 2009 issue of the New Yorkermagazine. It was the first time that an illustration from such a medium had been selected. He used the Apple software program Brushes and took only about one hour to complete his illustration.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "2010",
+        "latLng": ["57.16418,-2.10123"],
+        "location": ["King's College. London"],
+        "countryName": ["United Kingdom"],
+        "eventType": "bibliographical",
+        "label": "Fifth Busa Prize Awarded",
+        "description": "<p>The fifth Robert Busa prize was awarded to Joseph Raben, of Queen's College, City University of New York. He was the founder, in 1966, of the first journal in Humanities Computing in 1966.The Roberto Busa Prize is awarded triennially, and is administered by the Alliance of Digital Humanities Organisations (ADHO). It recognizes outstanding lifetime achievements in the application of information and communications technologies to humanities research.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "2011",
+        "latLng": ["45.66019,8.79164"],
+        "location": ["Gallarate, Italy"],
+        "countryName": ["Italy"],
+        "eventType": "biographical",
+        "label": "Death of Father Roberto Busa",
+        "description": "<p>Father Roberto Busa, who is regarded as the father of humanities computing because of the early work in linguistic automation that he inititated with IBM in 1949, died at the age of ninety-eight. At the time of his death, he was working on a new method for automatic translation from one language to another.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "2013",
+        "latLng": ["40.84083,-96.65529"],
+        "location": ["University of Nebraska-Lincoln "],
+        "countryName": ["United States"],
+        "eventType": "bibliographical",
+        "label": "Sixth Roberto Busa Prize Was Awarded",
+        "description": "<p>The sixth Roberto Busa Prize was awarded to Willard McCarty, Professor of Humanities Computing at King's College London, founder of the Humanist Online Seminar, and a pioneer in humanities computing. The Roberto Busa Prize is administered by the Alliance of Digital Humanities Organisations (ADHO), and is awarded triennially to recognize outstanding lifetime achievements in the application of information and communications technologies to humanities research.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "2015",
+        "latLng": ["41.74066,-71.30866"],
+        "location": ["Barrington, Rhode Island "],
+        "countryName": ["United States"],
+        "eventType": "biographical",
+        "label": "Death of Joseph Raben",
+        "description": "<p>Joseph Raben, the founder of the first journal of humanities computing, Computers and the Humanities died. His innovative publication provided a platform for younger scholars in humanities computing to publish and discuss their work. He received the Roberto Busa Prize for his foundational work in humanities computing in 2010. At the time of his death, he was writing a book entitled Shelley in the Digital Age.<\/p>"
+    }
+]}
