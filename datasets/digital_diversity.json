@@ -482,12 +482,12 @@
     {
         "schema": "EVENT",
         "startDate": "1999-11",
-        "latLng": ["-14.33333,28.5"],
-        "location": ["Zambia"],
-        "countryName": ["Zambia"],
+        "latLng": ["-29,24"],
+        "location": ["South Africa"],
+        "countryName": ["South Africa"],
         "eventType": "social",
         "label": "November 1999: The African Digital Library (ADL) was established...",
-        "description": "<p>The African Digital Library (ADL) was established as a collection of electronic books (eBooks) that can be accessed and used free-of-charge by any person living [or using a computer] on the African continent. Its email address is in Zambia.<\/p>"
+        "description": "<p>The African Digital Library (ADL) was established as a collection of electronic books (eBooks) that can be accessed and used free-of-charge by any person living [or using a computer] on the African continent. Its email address is in South Africa.<\/p>"
     },
     {
         "schema": "EVENT",
@@ -942,9 +942,9 @@
     {
         "schema": "event",
         "startDate": "1965",
-        "latLng": ["28.44184,-109.85181"],
+        "latLng": ["34.08563,-105.76221"],
         "location": ["University of Cardiff"],
-        "countryName": ["Mexico"],
+        "countryName": ["United States"],
         "eventType": "bibliographical",
         "label": "COCOA Concordance Program Was Invented",
         "description": "<p>The COCOA Concordance Program was invented as a joint venture between the University of Cardiff and the Atlas Computer Laboratory . It was a considered a powerful, highly flexible program of 400 punched cards, which allowed punched card computers to produce keyword-in-context concordances and word-frequency profiles for texts.<\/p>"
@@ -1314,12 +1314,22 @@
     {
         "schema": "event",
         "startDate": "2007",
+        "latLng": ["40.71427,-74.00597"],
+        "location": ["New York City "],
+        "countryName": ["United States"],
+        "eventType": "biographical",
+        "label": "Jezebel, a popular culture blog was created",
+        "description": "<p>Anna Holmes, a journalist and magazine writer from California, was recruited by Gawker Media to create a postfeminist, women's interest blog, one of the company's very popular social media offerings. Jezebel has been described as agirly website that transformed the female-centered Internet with humor, critique of traditional women's media, and a hefty dose of feminism. Very popular features include Photoshop of Horrors which exposes popular magazines' egregious attempts to alter the images of female popstars, and Crap Email from a DudeorCEFAD, a feature that highlights cynical/offensive/humorous dating correspondence from males.<\/p>"
+    },
+    {
+        "schema": "event",
+        "startDate": "2007",
         "latLng": ["47.60621,-122.33207"],
-        "location": ["Seattle, Washington "],
+        "location": ["Seattle, Washington"],
         "countryName": ["United States"],
         "eventType": "bibliographical",
         "label": "First Amazon Kindle Released",
-        "description": "<p>Amazon, the online retail giant, released its first electronic book reader, the Kindle, which at that time gave consumers access to some 88,000 digital titles. In 2015 Amazon's digital store consists of more than 3.2 million titles. The Kindle has been reintroduced to market in various new designs since then, and is still the leading e-book reader.<\/p>"
+        "description": "<p>Amazon, the online retail giant, released its first electronic book reader, the Kindle, which at that time gave consumers access to some 88,000 digital titles. In 2015 Amazon's digital store consists of more than 3.2 million titles. The Kindle has been reintroduced to market in various new designs since then, and is still the leading e-book reader. <\/p>"
     },
     {
         "schema": "event",
