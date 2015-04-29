@@ -16,20 +16,38 @@ ko.components.register('map', {
             center: CWRC.Transform.parseLatLng(params.center || '49.8994, -97.1392'), // default to winnipeg
             zoom: params.zoom || 4
         };
+
         // using ID will obviously limit to one map per page, which works for now
         self.map = new google.maps.Map(document.getElementById('map_canvas'),
             mapOptions);
 
+        self['buildMarkers'] = function (item) {
+            if (!item.latLng)
+                return [];
 
-        // switcher state
-        self.view = ko.observable('map_view');
+            var positions = typeof item.latLng == 'string' ? [item.latLng] : item.latLng;
+            var itemMarkers = [];
 
-        self['setView'] = function (name) {
-            self.view(name);
+            for (var i = 0; i < positions.length; i++) {
+                opts = {position: CWRC.Transform.parseLatLng(positions[i]), map: self.map};
+
+                itemMarkers.push(new google.maps.Marker(opts));
+            }
+
+            return itemMarkers;
         };
 
-        self['isView'] = function (name) {
-            return self.view() == name;
-        };
+        self.markers = ko.computed(function () {
+            var markers = [];
+            var item;
+            var opts;
+
+            for (var i = 0; i < self.items().length; i++) {
+                item = self.items()[i];
+                markers.concat(self.buildMarkers(item));
+            }
+
+            return markers;
+        });
     }
 });

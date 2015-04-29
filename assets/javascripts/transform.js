@@ -74,8 +74,10 @@ window.CWRC.Transform = (function (transform, undefined) {
     transform['parseLatLng'] = function (string) {
         var parts = string.split(',');
 
-        return {lat: Number(parts[0].trim()),
-            lng: Number(parts[1].trim()) }
+        return new google.maps.LatLng(Number(parts[0].trim()), Number(parts[1].trim()));
+
+//        return {lat: Number(parts[0].trim()),
+//            lng: Number(parts[1].trim()) }
     };
 
     return transform;
