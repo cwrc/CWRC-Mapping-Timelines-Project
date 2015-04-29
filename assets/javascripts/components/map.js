@@ -1,5 +1,9 @@
 ko.components.register('map', {
-    template: '<div id="map_canvas" data-bind="visible: isView(\'map_view\')">\
+    template: '<div>\
+                    <span data-bind="text: items().length - markers().length"></span>\
+                    cannot not be plotted\
+               </div>\
+               <div id="map_canvas">\
                </div>',
 
     // Map takes:
@@ -44,8 +48,10 @@ ko.components.register('map', {
 
             for (var i = 0; i < self.items().length; i++) {
                 item = self.items()[i];
-                markers.concat(self.buildMarkers(item));
+                markers = markers.concat(self.buildMarkers(item));
             }
+
+            console.log(markers.length);
 
             return markers;
         });
