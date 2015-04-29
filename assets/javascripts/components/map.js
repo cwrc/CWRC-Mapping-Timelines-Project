@@ -25,6 +25,13 @@ ko.components.register('map', {
         self.map = new google.maps.Map(document.getElementById('map_canvas'),
             mapOptions);
 
+        self.spiderfier = new OverlappingMarkerSpiderfier(self.map, {
+            keepSpiderfied: true,
+            spiralFootSeparation: 26, // Default: 26     # magically changes spiral size
+            spiralLengthStart: 7, // 11                  # magically changes spiral size
+            spiralLengthFactor: 5.75 // 4                # magically changes spiral size
+        });
+
         self['buildMarkers'] = function (item) {
             if (!item.latLng)
                 return [];
@@ -33,9 +40,14 @@ ko.components.register('map', {
             var itemMarkers = [];
 
             for (var i = 0; i < positions.length; i++) {
-                opts = {position: CWRC.Transform.parseLatLng(positions[i]), map: self.map};
+                var marker = new google.maps.Marker({
+                    position: CWRC.Transform.parseLatLng(positions[i]),
+                    map: self.map
+                });
 
-                itemMarkers.push(new google.maps.Marker(opts));
+                itemMarkers.push(marker);
+
+                self.spiderfier.addMarker(marker);
             }
 
             return itemMarkers;
@@ -51,9 +63,12 @@ ko.components.register('map', {
                 markers = markers.concat(self.buildMarkers(item));
             }
 
-            console.log(markers.length);
-
             return markers;
+        });
+
+        self.spiderfier.addListener('click', function (marker, event) {
+            //TODO: set the global selection
+            alert('not implemented');
         });
     }
 });
