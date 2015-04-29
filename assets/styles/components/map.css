@@ -18,8 +18,3 @@ map > header > a {
 map > header > a[selected] {
     border-bottom: 3px solid red;
 }
-
-map table {
-    width: 100%;
-}
-

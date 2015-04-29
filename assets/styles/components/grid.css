@@ -1,0 +1,13 @@
+grid {
+    display: block;
+
+    margin: 1em;
+
+    width: 100%;
+    min-height: 10em;
+}
+
+grid table {
+    width: 100%;
+}
+
