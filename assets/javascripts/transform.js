@@ -75,9 +75,6 @@ window.CWRC.Transform = (function (transform, undefined) {
         var parts = string.split(',');
 
         return new google.maps.LatLng(Number(parts[0].trim()), Number(parts[1].trim()));
-
-//        return {lat: Number(parts[0].trim()),
-//            lng: Number(parts[1].trim()) }
     };
 
     return transform;

@@ -1,7 +1,7 @@
 ko.components.register('map', {
     template: '<div>\
-                    <span data-bind="text: items().length - markers().length"></span>\
-                    cannot not be plotted\
+                    <span data-bind="text: unplottable"></span>\
+                    cannot be plotted\
                </div>\
                <div id="map_canvas">\
                </div>',
@@ -14,8 +14,6 @@ ko.components.register('map', {
         var self = this;
 
         // map state
-        self.items = CWRC.filteredData; // items is assumed to be a filtered list
-
         var mapOptions = {
             center: CWRC.Transform.parseLatLng(params.center || '49.8994, -97.1392'), // default to winnipeg
             zoom: params.zoom || 4
@@ -32,12 +30,12 @@ ko.components.register('map', {
             spiralLengthFactor: 5.75 // 4                # magically changes spiral size
         });
 
-        self['buildMarkers'] = function (item) {
+        self['buildMarkersForItem'] = function (item) {
             if (!item.latLng)
                 return [];
 
             var positions = typeof item.latLng == 'string' ? [item.latLng] : item.latLng;
-            var itemMarkers = [];
+            var created = [];
 
             for (var i = 0; i < positions.length; i++) {
                 var marker = new google.maps.Marker({
@@ -45,30 +43,67 @@ ko.components.register('map', {
                     map: self.map
                 });
 
-                itemMarkers.push(marker);
+                created.push(marker);
 
                 self.spiderfier.addMarker(marker);
+
+                marker.item = item;
             }
 
-            return itemMarkers;
+            return created;
         };
-
-        self.markers = ko.computed(function () {
-            var markers = [];
-            var item;
-            var opts;
-
-            for (var i = 0; i < self.items().length; i++) {
-                item = self.items()[i];
-                markers = markers.concat(self.buildMarkers(item));
-            }
-
-            return markers;
-        });
 
         self.spiderfier.addListener('click', function (marker, event) {
             //TODO: set the global selection
-            alert('not implemented');
+//            alert('not implemented');
+            console.log('marker');
+            console.log(marker);
+            console.log('marker.item');
+            console.log(marker.item);
+        });
+
+        self.itemToMarkers = ko.computed(function () {
+            var itemToMarkers = {};
+
+            for (var i = 0; i < CWRC.rawData().length; i++) {
+                var item = CWRC.rawData()[i];
+                itemToMarkers[ko.toJSON(item)] = self.buildMarkersForItem(item);
+            }
+
+            return itemToMarkers;
+        });
+
+        self.visibleMarkers = ko.computed(function () {
+            var visibleItem;
+            var visibleMarkers = [];
+
+            for (var i = 0; i < CWRC.filteredData().length; i++) {
+                visibleItem = CWRC.filteredData()[i];
+                var markers = self.itemToMarkers()[ko.toJSON(visibleItem)];
+
+                visibleMarkers = visibleMarkers.concat(markers);
+            }
+
+            return visibleMarkers;
+        });
+
+        CWRC.filteredData.subscribe(function () {
+            var index;
+            var allMarkers = self.spiderfier.getMarkers();
+
+            for (index = 0; index < allMarkers.length; index++) {
+                allMarkers[index].setVisible(false);
+            }
+
+            for (index = 0; index < self.visibleMarkers().length; index++) {
+                var visibleMarker = self.visibleMarkers()[index];
+
+                visibleMarker.setVisible(true);
+            }
+        });
+
+        self.unplottable = ko.computed(function () {
+            return CWRC.filteredData().length - self.visibleMarkers().length; // TODO: count the number of visible markers
         });
     }
 });

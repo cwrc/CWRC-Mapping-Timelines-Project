@@ -63,11 +63,11 @@ var CWRC = (function (cwrc, undefined) {
 //        historicalOverlay.setOpacity(Number(slider.value));
 //    };
 
-    cwrc.data = ko.observableArray();
+    cwrc.rawData = ko.observableArray();
     cwrc.filters = ko.observableArray();
     cwrc.filteredData = ko.computed({
         read: function () {
-            var filteredData = cwrc.data();
+            var filteredData = cwrc.rawData();
 
             for (var i = 0; i < cwrc.filters().length; i++) {
                 var filterFunc = cwrc.filters()[i];
@@ -98,7 +98,7 @@ var CWRC = (function (cwrc, undefined) {
             var dataSource = dataSources[i].getAttribute('href');
 
             CWRC.Network.ajax('get', dataSource, null, function (result) {
-                cwrc.data(cwrc.data().concat(result.items));
+                cwrc.rawData(cwrc.rawData().concat(result.items));
             });
         }
     };
