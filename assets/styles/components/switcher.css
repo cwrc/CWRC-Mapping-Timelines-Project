@@ -1,0 +1,20 @@
+switcher {
+    display: block;
+
+    margin: 1em 0em;
+
+    width: 100%;
+    min-height: 10em;
+}
+
+switcher > header {
+    text-align: center;
+}
+
+switcher > header > a {
+    text-decoration: none;
+}
+
+switcher > header > a[selected] {
+    border-bottom: 3px solid red;
+}
