@@ -1,7 +1,7 @@
 map {
     display: block;
 
-    margin: 1em;
+    margin: 1em 0em;
 
     width: 100%;
     min-height: 10em;
@@ -17,4 +17,9 @@ map > header > a {
 
 map > header > a[selected] {
     border-bottom: 3px solid red;
+}
+
+map #map_view {
+    width: 100%;
+    height: 100%;
 }

@@ -1,8 +1,10 @@
+window.CWRC = window.CWRC || {};
+
 // transformations
-(function (window, undefined) {
+window.CWRC.Transform = (function (transform, undefined) {
     // TODO: modularize these all to depollute the global namespace
 
-    window.humanDate = function (stamp) {
+    transform['humanDate'] = function (stamp) {
         if (!stamp)
             return null;
 
@@ -19,7 +21,7 @@
         }
     };
 
-    window.humanDateTime = function (stamp) {
+    transform['humanDateTime'] = function (stamp) {
         if (!stamp)
             return null;
 
@@ -28,7 +30,7 @@
 
         if (date.toLocaleDateString() == now.toLocaleDateString()) { // same day?
             // IE8 doesn't suppport:
-            // date.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
+            // date.toLocalewindowTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
             return 'Today, ' + date.getHours() + ":" +
                 ('0' + date.getMinutes()).slice(-2);
         } else {
@@ -36,18 +38,11 @@
         }
     };
 
-    window.desymbol = function (sym) {
+    transform['desymbol'] = function (sym) {
         return sym.replace('_', ' ');
     };
 
-    window.toYesNo = function (value) {
-        if (value)
-            return "Yes";
-        else
-            return "No";
-    };
-
-    window.deserializeSearch = function () {
+    transform['deserializeSearch'] = function () {
         var pairs = location.search.substring(1, location.search.length).split("&");
         var params = {};
 
@@ -62,7 +57,7 @@
         return params
     };
 
-    window.serializeSearch = function (paramHash) {
+    transform['serializeSearch'] = function (paramHash) {
         var params = [];
 
         for (param in paramHash) {
@@ -75,4 +70,13 @@
 
         return (serialized ? "?" : "") + serialized;
     };
-}(window));
+
+    transform['parseLatLng'] = function (string) {
+        var parts = string.split(',');
+
+        return {lat: Number(parts[0].trim()),
+            lng: Number(parts[1].trim()) }
+    };
+
+    return transform;
+}(CWRC.Transform || {}));

@@ -65,17 +65,19 @@ var CWRC = (function (cwrc, undefined) {
 
     cwrc.data = ko.observableArray();
     cwrc.filters = ko.observableArray();
-    cwrc.filteredData = ko.computed(function () {
-        var filteredData = cwrc.data();
+    cwrc.filteredData = ko.computed({
+        read: function () {
+            var filteredData = cwrc.data();
 
-        for (var i = 0; i < cwrc.filters().length; i++) {
-            var filterFunc = cwrc.filters()[i];
+            for (var i = 0; i < cwrc.filters().length; i++) {
+                var filterFunc = cwrc.filters()[i];
 
-            filteredData = cwrc.select(filteredData, filterFunc);
-        }
+                filteredData = cwrc.select(filteredData, filterFunc);
+            }
 
-        return filteredData;
-    });
+            return filteredData;
+        },
+        deferEvaluation: true});
 
     cwrc.select = function (data, filterBlock) {
         var result = [];
@@ -95,7 +97,7 @@ var CWRC = (function (cwrc, undefined) {
         for (var i = 0; i < dataSources.length; i++) {
             var dataSource = dataSources[i].getAttribute('href');
 
-            window.ajax('get', dataSource, null, function (result) {
+            CWRC.Network.ajax('get', dataSource, null, function (result) {
                 cwrc.data(cwrc.data().concat(result.items));
             });
         }

@@ -1,5 +1,7 @@
+window.CWRC = window.CWRC || {};
+
 // Communication
-(function (network, undefined) {
+CWRC.Network = (function (network, undefined) {
     network.ajaxCount = 0;
 
     network['ajax'] = function (method, uri, data, successBlock, errorBlock) {
@@ -47,4 +49,4 @@
     };
 
     return network;
-}(window));     // TODO: modularize  to depollute the global namespace
+}(CWRC.Network || {}));     // TODO: modularize  to depollute the global namespace

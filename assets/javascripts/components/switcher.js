@@ -42,8 +42,8 @@ ko.components.register('map', {
         self.items = CWRC.filteredData; // items is assumed to be a filtered list
 
         var mapOptions = {
-            center: CWRC.Transform.parseLatLng(params.center || '49.8994, -97.1392'), // default to winnipeg
-            zoom: params.zoom || 4
+            center: { lat: params.center.lat, lng: params.center.lng},
+            zoom: 8
         };
         // using ID will obviously limit to one map per page, which works for now
         self.map = new google.maps.Map(document.getElementById('map_view'),
