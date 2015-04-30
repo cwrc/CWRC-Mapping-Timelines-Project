@@ -7,7 +7,8 @@ ko.components.register('map', {
                </div>',
 
     // Map takes:
-    //      -
+    //    - zoom: Zoom level as an integer number. Default: 4
+    //    - center: LatLng coordinates as a string. Default: '49.8994, -97.1392' (Winnipeg)
     // TODO: handle: pins, polygons, polylines
     // TODO: make it take the ID of a div that holds the marker templates. it should force-hide that div, or maybe abduct it as the legend?
     // TODO: redraw the curently selected pin and the old pin
@@ -55,7 +56,7 @@ ko.components.register('map', {
         };
 
         self.spiderfier.addListener('click', function (marker, event) {
-           CWRC.selected(marker.item);
+            CWRC.selected(marker.item);
         });
 
         self.itemToMarkers = ko.computed(function () {
