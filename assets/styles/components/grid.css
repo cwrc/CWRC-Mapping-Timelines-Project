@@ -22,3 +22,8 @@ grid table tbody tr:nth-of-type(odd) {
 grid table tbody td {
     min-width: 6em;
 }
+
+grid a[selected]{
+    font-weight: bold;
+    text-decoration: none;
+}

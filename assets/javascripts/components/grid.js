@@ -35,9 +35,23 @@ ko.components.register('grid', {
                         </tr>\
                     </tbody>\
                </table>\
-               <div data-bind="foreach: ko.utils.range(1, maxPageIndex)">\
-                    <a href="#" data-bind="text: $data, click: function(){ $parent.setPage($data) }"></a>\
-               </div>',
+               <section>\
+                   <span data-bind="visible: isFarAway(1)">\
+                        <a href="#" data-bind="text: 1, click: function(){ setPage(1) }, attr: {selected: currentPageIndex() == 1}"></a>\
+                        <span data-bind="visible: isFarAway(2)">\
+                            ...\
+                        </span>\
+                   </span>\
+                   <span data-bind="foreach: pageNeighbourhood">\
+                        <a href="#" data-bind="text: $data, click: function(){ $parent.setPage($data) }, attr: {selected: $parent.currentPageIndex() == $data}"></a>\
+                   </span>\
+                   <span data-bind="visible: isFarAway(maxPageIndex())">\
+                        <span data-bind="visible: isFarAway(maxPageIndex() - 1)">\
+                            ...\
+                        </span>\
+                        <a href="#" data-bind="text: maxPageIndex, click: function(){ setPage(maxPageIndex()) }, attr: {selected: currentPageIndex() == maxPageIndex()}"></a>\
+                   </span>\
+               </section>',
 
     // Table takes:
     //      - pageSize: the number of items per page. Default: 10
@@ -57,11 +71,23 @@ ko.components.register('grid', {
         });
 
         self.maxPageIndex = ko.computed(function () {
-            return self.items().length / self.pageSize;
+            return Math.ceil(self.items().length / self.pageSize);
+        });
+
+        self.pageNeighbourhoodDistance = 1;
+        self.pageNeighbourhood = ko.computed(function () {
+            var low = Math.max(1, self.currentPageIndex() - self.pageNeighbourhoodDistance);
+            var high = Math.min(self.maxPageIndex(), self.currentPageIndex() + self.pageNeighbourhoodDistance);
+
+            return ko.utils.range(low, high);
         });
 
         self['setPage'] = function (index) {
             self.currentPageIndex(index);
         };
+
+        self['isFarAway'] = function (pageIndex) {
+            return self.pageNeighbourhood().indexOf(pageIndex) < 0
+        }
     }
 });
