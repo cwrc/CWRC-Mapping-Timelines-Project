@@ -3,6 +3,11 @@ map #map_canvas {
     height: 100%;
 }
 
-map > section {
+map > section div {
     display: inline-block;
+
+}
+
+map > section header {
+    text-transform: uppercase;
 }

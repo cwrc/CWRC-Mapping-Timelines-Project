@@ -1,23 +1,34 @@
 ko.components.register('map', {
     template: '<section>\
-                    <a id="historicalMapToggle" href="#" data-bind="click: toggleHistoricalMap">\
-                        Show Historical Map\
-                    </a>\
-                    <label id="historicalOpacityControls" data-bind="visible: showHistoricalMap">\
-                        Opacity\
-                        <input id="historicalMapOpacity" type="range" min="0.0" max="1.0" step="0.05"\
-                                data-bind="value: historicalMapOpacity"/>\
-                    </label>\
-               </section>\
-               <section>\
-                    <span data-bind="text: unplottable"></span>\
-                    out of\
-                    <span data-bind="text: CWRC.rawData().length"></span>\
-                    cannot be plotted\
+                    <div>\
+                        <a id="historicalMapToggle" href="#" data-bind="click: toggleHistoricalMap">\
+                            Show Historical Map\
+                        </a>\
+                        <label id="historicalOpacityControls" data-bind="visible: showHistoricalMap">\
+                            Opacity\
+                            <input id="historicalMapOpacity" type="range" min="0.0" max="1.0" step="0.05"\
+                                    data-bind="value: historicalMapOpacity"/>\
+                        </label>\
+                    </div>\
+                    <div>\
+                        <span data-bind="text: unplottable"></span>\
+                        out of\
+                        <span data-bind="text: CWRC.rawData().length"></span>\
+                        cannot be plotted\
+                    </div>\
                </section>\
                <!-- identifying by ID does limit to one map per page, but that works for now -->\
                <div id="map_canvas">\
-               </div>',
+               </div>\
+               <section data-bind="visible: colorKey">\
+                    <header>Legend</header>\
+                    <!-- ko foreach: colorPairs() -->\
+                        <div>\
+                            <img data-bind="src: $data.icon"></span>\
+                            <span data-bind="text: $data.name"></span>\
+                        </div>\
+                    <!-- /ko -->\
+               </section>',
 
     // Map takes:
     //    - zoom: Zoom level as an integer number. Default: 4
@@ -34,7 +45,7 @@ ko.components.register('map', {
         // === MAP STATE ===
         self.colorKey = params.colorKey;
         self.colorMap = params.colors || {};
-        self.colorMap._default = "#999";
+        self.colorMap.Default = "#999";
 
         self.map = new google.maps.Map(document.getElementById('map_canvas'), {
             center: CWRC.Transform.parseLatLng(params.center || '49.8994, -97.1392'), // default to winnipeg
@@ -74,6 +85,19 @@ ko.components.register('map', {
         self.historicalMapOpacity.subscribe(function (opacity) {
             self.historicalOverlay.setOpacity(Number(opacity));
         });
+
+        self['colorPairs'] = function () {
+            var colorPairs = [];
+
+            for (var field in self.colorMap) {
+                colorPairs.push({
+                        name: field,
+                        icon: window.createMarkerIcon(14, 14, self.colorMap[field], "", {shape: "circle"}).url}
+                )
+            }
+
+            return colorPairs;
+        };
 
         self['buildMarkersForItem'] = function (item) {
             if (!item.latLng)
@@ -223,8 +247,8 @@ window.createMarkerIcon = function (width, height, color, label, settings, isSel
     };
     // TODO: check all these
     var pin = true; //settings.pin;
-    var pinWidth = width / 2; // settings.pinWidth;
-    var pinHeight = height / 2; // settings.pinHeight;
+    var pinWidth = width / 3; // settings.pinWidth;
+    var pinHeight = height / 3; // settings.pinHeight;
     var lineWidth = isSelected ? 4 : 1;
     var lineColor = settings.borderColor || "black";
     var alpha = 1.0; //settings.shapeAlpha;
