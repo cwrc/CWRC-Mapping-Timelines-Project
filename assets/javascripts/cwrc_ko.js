@@ -5,15 +5,6 @@
  * additions, rather than transmutations, to the system.
  */
 var CWRC = (function (cwrc, undefined) {
-    // TODO: move this to a CSS rule
-    cwrc['zebraStyler'] = function (item, database, tr) {
-        if (tr.rowIndex % 2) {
-            tr.style.background = '#eee';
-        } else {
-            tr.style.background = '#ccc';
-        }
-    };
-
     // ========= Map Overlay =========
     cwrc.rawData = ko.observableArray();
     cwrc.filters = ko.observableArray();

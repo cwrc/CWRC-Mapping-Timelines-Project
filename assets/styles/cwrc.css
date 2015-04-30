@@ -234,6 +234,7 @@ main {
 }
 
 /* ==== MAP ====*/
+/* todo: eliminate */
 .gm-style-iw div div div {
     /* Hiding simple map popups */
     display: none

@@ -1,7 +1,7 @@
 grid {
     display: block;
 
-    margin: 1em;
+    /*margin: 1em;*/
 
     width: 100%;
     min-height: 10em;
@@ -11,3 +11,14 @@ grid table {
     width: 100%;
 }
 
+grid table tbody tr:nth-of-type(even) {
+    background: #eee;
+}
+
+grid table tbody tr:nth-of-type(odd) {
+    background: #ccc;
+}
+
+grid table tbody td {
+    min-width: 6em;
+}
