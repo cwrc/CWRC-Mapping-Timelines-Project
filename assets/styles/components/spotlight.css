@@ -3,13 +3,18 @@ spotlight > section {
     margin: 1em 0;
 
     min-height: 5em;
-    max-height: 20em;
+    max-height: 10em;
+    height: 10em;
 
     overflow: auto;
 
     border: 1px solid #738699;
     border-radius: 0.25em;
     background: white;
+
+    font-size: 13px;
+    color: #777;
+    font-family: Arial, Tahoma, Sans-serif;
 }
 
 spotlight > section .placeholder {

@@ -1,19 +1,22 @@
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, user-scalable=yes">
 
-    <title>Plot-It</title>
+    <title>Digital Diversity 2015: Writing | Feminism | Culture</title>
     <script src="libs/simile/exhibit-api.js" type="text/javascript"></script>
     <script src="libs/simile/extensions/map/map-extension.js" type="text/javascript"></script>
     <script src="libs/simile/extensions/time/time-extension.js" type="text/javascript" type="text/javascript"></script>
 
-    <!-- Static datasets -->
+    <link href="datasets/digital_diversity.json" type="application/json" rel="exhibit/data"/>
+
+    <!-- Static datasets
     <link href="transformers/cache/multimedia.json" type="application/json" rel="exhibit/data"/>
     <link href="transformers/cache/biblifo.json" type="application/json" rel="exhibit/data"/>
     <link href="transformers/cache/lglc.json" type="application/json" rel="exhibit/data"/>
     <link href="transformers/cache/orlando.json" type="application/json" rel="exhibit/data"/>
-
+    -->
 
     <link href="libs/simile/styles/common.css" type="text/css" rel="stylesheet"/>
     <link href="libs/simile/styles/styles.css" type="text/css" rel="stylesheet"/>
@@ -30,17 +33,39 @@
 <tr>
 <td id="sidebar">
     <header>
-        <a href="/">Plot-It</a>
+        <a href="/">Digital Diversity 2015</a>
+        <header>
+            Writing | Feminism | Culture
+        </header>
     </header>
 
     <div ex:role="coordinator" id="bubble-coordinator"></div>
 
     <section>
-        <header>How to use search</header>
-        <p>
-            Search below by choosing a facet or typing keywords. To restart your search, click on "Reset all Filters"
-            above the map.
-        </p>
+        Created for 
+        <a href="http://digitaldiversity2015.org/" target="_blank">
+            Digital Diversity 2015
+        </a>
+        , 7&ndash;9 May 2015, Edmonton, Alberta, Canada
+    </section>
+
+    <section>
+        <strong>Browsing:</strong> You can browse events via either the timeline or the map. To browse
+        using the timeline interface, left-click on the timeline and drag it to the right
+        to go back in time, and drag it to the left to go forward in time. To browse using
+        the map interface, pan the map by left-clicking and dragging the map, and zoom in
+        and out of the map by rotating the mouse wheel.
+    </section>
+    <section>
+        <strong>Searching:</strong> Search below by typing search terms, and/or by limiting using the
+        various filters that are available. Limiting options include date of event,
+        event type, and country. To restart your search, click on "Reset All
+        Filters", which will appear above the map after keywords and/or limiting filters
+        have been selected.
+    </section>
+
+    <section>
+        <a id="help" href="http://cwrc.ca/Plot-It_Documentation" target="_blank">Help...</a>
     </section>
 
     <section>
@@ -54,14 +79,22 @@
         </label>
     </section>
 
-    <div id="exhibit-browse-panel">
-        <strong>Search</strong>
+    <section>
+        <div id="exhibit-browse-panel">
+            <strong>Search terms:</strong>
 
-        <div ex:role="facet" ex:facetClass="TextSearch"></div>
-        <div ex:role="facet" ex:expression=".startDate" ex:facetLabel="Date Slider" ex:facetClass="Slider"
-             ex:horizontal="true" ex:precision="1" ex:histogram="true" ex:width="245px"></div>
-        <div ex:role="facet" ex:expression=".group" ex:facetLabel="Collection" ex:height="5em"></div>
-    </div>
+            <div ex:role="facet" ex:facetClass="TextSearch"></div>
+            <div ex:role="facet" ex:expression=".startDate" ex:facetLabel="Event Date Range" ex:facetClass="Slider"
+                 ex:horizontal="true" ex:precision="1" ex:histogram="true" ex:width="285px"></div>
+            <div ex:role="facet" ex:expression=".eventType" ex:facetLabel="Event type" ex:height="3em"></div>
+            <div ex:role="facet" ex:expression=".countryName" ex:facetLabel="Country" ex:height="3em"></div>
+        </div>
+    </section>
+
+    <section>
+        <strong>Project team members:</strong> Jeffery Antoniuk, Susan Brown, Michael Brundin,
+        Lisa Dublin, Isobel Grundy, Kathryn Holland, Mihaela Ilovan, Robin Miller, and Hamman Samuel
+    </section>
 </td>
 
 <td id="content">
@@ -107,18 +140,22 @@
 </div>
 
 <div ex:role="coder" ex:coderClass="Color" id="event-colors">
-    <span ex:color="#f00">BIBLIFO</span>
-    <span ex:color="#0f0">OrlandoEvents</span>
-    <span ex:color="#00f">Multimedia</span>
-    <span ex:color="#ff0">LGLC</span>
+    <span ex:color="#22E">bibliographical</span>
+    <span ex:color="#274">biographical</span>
+    <span ex:color="#00f">cultural</span>
+    <span ex:color="#ff0">literary</span>
+    <span ex:color="#000">political</span>
+    <span ex:color="#0ff">social</span>
 </div>
 
 <!-- Example for customizing icons without any data manipulations -->
 <div ex:role="coder" ex:coderClass="Icon" id="event-icons" style="display:none;">
-    <span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=f00">BIBLIFO</span>
-    <span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=0f0">OrlandoEvents</span>
-    <span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=00f">Multimedia</span>
-    <span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=ff0">LGLC</span>
+    <span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=22E">bibliographical</span>
+    <span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=274">biographical</span>
+    <span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=00f">cultural</span>
+    <span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=ff0">literary</span>
+    <span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=000">political</span>
+    <span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=0ff">social</span>
 </div>
 
 <!-- This sychronizes the showing of popups, i.e. if a map marker is clicked, the popup on the timeline also shows -->
@@ -138,9 +175,9 @@
      ex:end=".endDate"
      ex:bubbleWidth="350"
      ex:topBandPixelsPerUnit="400"
-     ex:showSummary="true"
+     ex:showSummary="false"
      ex:iconCoder="event-icons"
-     ex:iconKey=".group"
+     ex:iconKey=".eventType"
      ex:timelineHeight="170"
      ex:selectCoordinator="bubble-coordinator">
 </div>
@@ -218,7 +255,9 @@
     <!-- End map popup -->
 
     <!-- Begin map control, same map can hold multiple views, only one is needed here -->
+    <!-- Note:needs bubbleheight/width set, otherwise it will draw garbage -->
     <div ex:role="view"
+         id="map1"
          ex:viewClass="MapView"
          ex:label="Map View"
          ex:latlng=".latLng"
@@ -228,45 +267,53 @@
          ex:polyline=".polyline"
          ex:opacity="0.5"
          ex:borderWidth="4"
-         ex:showSummary="false"
-         ex:center="38.479394673276445, -115.361328125"
-         ex:zoom="3"
+         ex:center="30, 0"
+         ex:zoom="2"
          ex:colorCoder="event-colors"
-         ex:colorKey=".group"
+         ex:colorKey=".eventType"
          ex:shapeWidth="18"
          ex:shapeHeight="18"
          ex:bubbleWidth="310"
          ex:bubbleHeight="100"
          ex:selectCoordinator="bubble-coordinator">
-        <!-- needs bubbleheight/width set, otherwise it will draw garbage -->
+        <!--ex:showSummary="false"-->
     </div>
     <!-- End map control -->
 
     <!-- Begin data details -->
     <div ex:role="view"
-         ex:showSummary="true"
-         ex:label="List View">
+         ex:viewClass=""
+         ex:label="List View"
+         ex:columns=".label, .eventType, .startDate, .location, .countryName"
+         ex:columnLabels="Label, Type, Date, Location, Country"
+         ex:sortAscending="true">
+
+        <table style="display: none;">
+            <tr>
+                <td><b ex:content=".label"></b></td>
+                <td><span ex:content=".eventType"></span></td>
+                <td><span ex:content=".startDate"></span></td>
+                <td><span ex:content=".location"></span></td>
+                <td><span ex:content=".countryName"></span></td>
+            </tr>
+        </table>
     </div>
 
     <!-- Begin tabular details -->
     <div ex:role="view"
          ex:viewClass="Tabular"
-         ex:showSummary="false"
          ex:label="Grid View"
-         ex:columns=".longLabel, .group, .location, .startDate, .endDate"
-         ex:columnLabels="Title, Collection, Location, Start, End"
+         ex:columns=".label, .eventType, .startDate, .location, .countryName"
+         ex:columnLabels="Label, Type, Date, Location, Country"
          ex:sortAscending="true"
-         ex:sortColumn="0"
-         ex:showToolbox="true"
          ex:rowStyler="CWRC.zebraStyler">
-
-        <table border="0" style="display: none;">
+        <table style="display: none;">
             <tr>
-                <td width="50%"><span ex:content=".longLabel"></span></td>
-                <td width="10%"><span ex:content=".group"></span></td>
-                <td width="10%"><span ex:content=".location"></span></td>
-                <td width="10%"><span ex:content=".startDate"></span></td>
-                <td width="10%"><span ex:content=".endDate"></span></td>
+                <td><strong ex:content=".label"></strong></td>
+                <td><span ex:content=".eventType"></span></td>
+                <td><span ex:content=".startDate"></span></td>
+                <td><span ex:content=".location"></span></td>
+                <td><span ex:content=".countryName"></span></td>
             </tr>
         </table>
     </div>
@@ -276,4 +323,3 @@
 </table>
 </body>
 </html>
-

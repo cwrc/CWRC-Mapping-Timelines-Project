@@ -65,7 +65,6 @@ var CWRC = (function (cwrc, undefined) {
     cwrc['removeOverlay'] = function () {
         historicalOverlay.setMap(null);
         document.getElementById('historicalOpacityControls').style.display = "none";
-
     };
 
     cwrc['toggleHistoricalMap'] = function () {

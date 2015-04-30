@@ -5,7 +5,6 @@ ko.components.register('spotlight', {
                     </p>\
                </section>\
                <section data-bind="if: selected() != null, visible: selected() != null">\
-                    <!-- TODO: this -->\
                     <img data-bind="visible: selected().images, attr: {src: selected().images}"/>\
                     <iframe height="150" height="150" allowfullscreen=true data-bind="visible: selected().videos, attr: {src: selected().videos}">\
                     </iframe>\
@@ -36,7 +35,6 @@ ko.components.register('spotlight', {
                         </section>\
                     </div>\
                </section>',
-// selected().startDate
 
     // TODO: simplify API by removing selected() and dynamically finding the field
     // TODO: provide an HREF binding for links, src binding for images/iframes

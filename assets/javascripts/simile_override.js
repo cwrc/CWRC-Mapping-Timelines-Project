@@ -215,6 +215,72 @@ Exhibit.TimelineView.prototype._select = function (selection) {
     }
 };
 
+Exhibit.MapView.prototype._markersToDefaultIcons = {};
+Exhibit.MapView.prototype._selectedMarkers = [];
+Exhibit.MapView.prototype._itemIDToMarkers = {};
+
+
+Exhibit.MapView.prototype._select = function (selection, ignorePan) {
+    var self = this;
+    var selectedID = selection.itemIDs[0];
+    var newSelectedMarkers = self._itemIDToMarkers[selectedID];
+    var hasColorKey = (this._accessors.getColorKey != null);
+    var database = this._uiContext.getDatabase();
+
+    // resetting the PREVIOUS markers
+    for (var j = 0; j < self._selectedMarkers.length; j++) {
+        var selectedMarker = self._selectedMarkers[j];
+
+        selectedMarker.setIcon(self._markersToDefaultIcons[selectedMarker]);
+        selectedMarker.setZIndex(null);
+    }
+
+    self._selectedMarkers = [];
+    self._markersToDefaultIcons = {};
+
+    // can't select what isn't there. Some events have no map stuff.
+    if (!newSelectedMarkers)
+        return;
+
+    // out of loop to pan to final one afterward
+    // panning to last (rather than pan/zoom to fit all) is easier for now
+    var position;
+
+    for (var i = 0; i < newSelectedMarkers.length; i++) {
+        var marker = newSelectedMarkers[i];
+
+        if (marker._omsData) {
+            // TODO: find a way to access this data without using the mini variable name
+            position = marker._omsData.l; // l because it's minified. This might break if they recompile differently.
+        } else {
+            position = marker.position
+        }
+        var color;
+
+        if (hasColorKey) {
+            var colorKeys = new Exhibit.Set();
+            var colorCodingFlags = {mixed: false, missing: false, others: false, keys: new Exhibit.Set()};
+
+            this._accessors.getColorKey(selectedID, database, function (v) {
+                colorKeys.add(v);
+            });
+            color = self._colorCoder.translateSet(colorKeys, colorCodingFlags);
+            color = self._colorCoder.translateSet(colorKeys, colorCodingFlags);
+        }
+
+        self._markersToDefaultIcons[marker] = marker.getIcon();
+
+        // now redraw the newly selected ones
+        marker.setIcon({url: Exhibit.MapView.makeCanvasIcon(18, 18, color, '', null, 18, self._settings, true).iconURL});
+        marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
+        self._selectedMarkers.push(marker);
+    }
+
+    if (!ignorePan) {
+        self._map.panTo(position);
+    }
+};
+
 // overridden to use spiderfy for stacks
 Exhibit.MapView.prototype._rePlotItems = function (unplottableItems) {
     var self = this;
@@ -223,6 +289,10 @@ Exhibit.MapView.prototype._rePlotItems = function (unplottableItems) {
     var settings = this._settings;
     var accessors = this._accessors;
     var currentSet = collection.getRestrictedItems();
+
+    var exhibit = this._uiContext.getExhibit();
+
+
     var locationToData = {};
     var hasColorKey = (accessors.getColorKey != null);
     var hasSizeKey = (accessors.getSizeKey != null);
@@ -340,6 +410,7 @@ Exhibit.MapView.prototype._rePlotItems = function (unplottableItems) {
         }
     });
 
+
     var spiderOpts = {
         keepSpiderfied: true,
         spiralFootSeparation: 26, // Default: 26     # magically changes spiral size
@@ -395,11 +466,18 @@ Exhibit.MapView.prototype._rePlotItems = function (unplottableItems) {
 
             marker.setMap(self._map);
             self._overlays.push(marker);
-            for (var x = 0;
-                 x < locationData.items.length;
-                 x++) {
-                self._itemIDToMarker[locationData.items[x]] = marker;
+
+
+            if (self._itemIDToMarkers[item]) {
+                self._itemIDToMarkers[item].push(marker);
+            } else {
+                self._itemIDToMarkers[item] = [marker];
             }
+
+
+//            for (var x = 0; x < locationData.items.length; x++) {
+//                self._itemIDToMarker[locationData.items[x]] = marker;
+//            }
         }
     };
     try {
@@ -408,9 +486,12 @@ Exhibit.MapView.prototype._rePlotItems = function (unplottableItems) {
         }
 
         spiderfy.addListener('click', function (marker, event) {
-            self._showInfoWindow(marker.cwrcData, null, marker);
+//            self._showInfoWindow(marker.cwrcData, null, marker);
             if (self._selectListener != null) {
-                self._selectListener.fire({itemIDs: marker.cwrcData});
+                var selectData = {itemIDs: marker.cwrcData};
+
+                self._selectListener.fire(selectData);
+                self._select(selectData, true);
             }
         });
     } catch (e) {
@@ -521,11 +602,7 @@ Exhibit.MapView.prototype._rePlotItems = function (unplottableItems) {
 };
 
 // overridden to customize the text size and pin style
-Exhibit.MapView.makeCanvasIcon = function (width, height, color, label, iconImg, iconSize, settings) {
-//    console.log(width);
-//    console.log(height);
-
-
+Exhibit.MapView.makeCanvasIcon = function (width, height, color, label, iconImg, iconSize, settings, isSelected) {
     var drawShadow = function (icon) {
         var width = icon.width;
         var height = icon.height;
@@ -546,7 +623,7 @@ Exhibit.MapView.makeCanvasIcon = function (width, height, color, label, iconImg,
     var pin = settings.pin;
     var pinWidth = settings.pinWidth;
     var pinHeight = settings.pinHeight;
-    var lineWidth = 1;
+    var lineWidth = isSelected ? 4 : 1;
     var lineColor = settings.borderColor || "black";
     var alpha = settings.shapeAlpha;
     var bodyWidth = width - lineWidth;
@@ -556,6 +633,9 @@ Exhibit.MapView.makeCanvasIcon = function (width, height, color, label, iconImg,
     var canvas = document.createElement("canvas");
     canvas.width = width;
     canvas.height = markerHeight;
+    if (isSelected)
+        canvas.z_index = 999;
+
     var context = canvas.getContext("2d");
     context.clearRect(0, 0, width, markerHeight);
     context.beginPath();
@@ -619,12 +699,24 @@ Exhibit.MapView.makeCanvasIcon = function (width, height, color, label, iconImg,
         context.drawImage(iconImg, -iconImg.naturalWidth / 2, -iconImg.naturalHeight / 2);
         context.restore();
     }
-    context.strokeStyle = lineColor;
+
+    if (isSelected) {
+        context.strokeStyle = "#ff0000";
+        context.setLineDash([4, 1]);
+    } else {
+        context.strokeStyle = lineColor;
+    }
+
     context.lineWidth = lineWidth;
+
     context.stroke();
     var shadow = drawShadow(canvas);
     if (label) {
-        context.font = "10pt Arial";
+        if (isSelected) {
+            context.font = "bold 10pt Arial";
+        } else {
+            context.font = "10pt Arial";
+        }
         context.textBaseline = "middle";
         context.textAlign = "center";
         context.globalAlpha = 1;
@@ -634,11 +726,17 @@ Exhibit.MapView.makeCanvasIcon = function (width, height, color, label, iconImg,
     return{iconURL: canvas.toDataURL(), shadowURL: shadow.toDataURL()};
 };
 
-Exhibit.MapView._makeMarker = function (position, shape, color, iconSize, iconURL, label, settings) {
+Exhibit.MapView._makeMarker = function (position, shape, color, iconSize, iconURL, label, settings, isSelected) {
     var key = "#" + shape + "#" + color + "#" + iconSize + "#" + iconURL + "#" + label;
     var cached = Exhibit.MapView.markerCache[key];
     if (cached && (cached.settings == settings)) {
-        return new google.maps.Marker({icon: cached.markerImage, shadow: cached.shadowImage, shape: cached.markerShape, position: position});
+        return new google.maps.Marker({
+            icon: cached.markerImage,
+            shadow: cached.shadowImage,
+            shape: cached.markerShape,
+            position: position,
+            optimized: false
+        });
     }
     var extra = label.length;
     var halfWidth = Math.ceil(settings.shapeWidth / 2) + extra;
@@ -674,12 +772,19 @@ Exhibit.MapView._makeMarker = function (position, shape, color, iconSize, iconUR
         if (!Exhibit.MapView._hasCanvas) {
             markerPair = Exhibit.MapView.makePainterIcon(width, bodyHeight, color, label, iconURL, iconSize, settings);
         } else {
-            markerPair = Exhibit.MapView.makeCanvasIcon(width, bodyHeight, color, label, null, iconSize, settings);
+            markerPair = Exhibit.MapView.makeCanvasIcon(width, bodyHeight, color, label, null, iconSize, settings, isSelected);
         }
         markerImage.url = markerPair.iconURL;
         shadowImage.url = markerPair.shadowURL;
         cached = Exhibit.MapView.markerCache[key] = {markerImage: markerImage, shadowImage: shadowImage, markerShape: markerShape};
-        return new google.maps.Marker({icon: cached.markerImage, shadow: cached.shadowImage, shape: cached.markerShape, position: position});
+        return new google.maps.Marker(
+            {
+                icon: cached.markerImage,
+                shadow: cached.shadowImage,
+                shape: cached.markerShape,
+                position: position,
+                optimized: false
+            });
     } else {
         var marker = Exhibit.MapView._makeMarker(position, shape, color, iconSize, null, label, settings);
         cached = {markerImage: marker.getIcon(), shadowImage: marker.getShadow(), markerShape: marker.getShape(), settings: settings};
@@ -865,171 +970,3 @@ Exhibit.MapView._makeMarker = function (position, shape, color, iconSize, iconUR
 //        });
 //    }
 //};
-
-
-// TODO: elminiate?
-// Overrriden to change for it filters dateless elements
-//Exhibit.SliderFacet.prototype.restrict = function (items) {
-//    if (!this.hasRestrictions()) {
-//        return items;
-//    }
-//
-//    set = new Exhibit.Set();
-//
-//    if (this._expression.isPath()) {
-//        console.log('==============================Aay===================================');
-//        var path = this._expression.getPath();
-//        var database = this._uiContext.getDatabase();
-//        set = path.rangeBackward(this._range.min, this._range.max, false, items, database).values;
-//        console.log('==============================/Aay===================================');
-//    } else {
-//        console.log('Bee');
-//
-//        this._buildRangeIndex();
-//        var rangeIndex = this._rangeIndex;
-//        set = rangeIndex.getSubjectsInRange(this._range.min, this._range.max, false, null, items);
-//    }
-//
-//    if (this._showMissing) {
-//        this._cache.getItemsMissingValue(items, set);
-//    }
-//
-//    return set;
-//};
-
-//// TODO: elminiate?
-//// overridden to change the day range sliders filter elements
-//Exhibit.Expression.Path.prototype.rangeBackward = function (from, to, inclusive, filter, database) {
-//    var set = new Exhibit.Set();
-//    var valueType = "item";
-//    if (this._segments.length > 0) {
-//        var segment = this._segments[this._segments.length - 1];
-//
-//        if (segment.forward) {
-//            database.getSubjectsInRange(segment.property, from, to, inclusive, set, this._segments.length == 1 ? filter : null);
-//        } else {
-//            throw new Error("Last path of segment must be forward");
-//        }
-//
-//        for (var i = this._segments.length - 2; i >= 0; i--) {
-//            segment = this._segments[i];
-//            if (segment.forward) {
-//                set = database.getSubjectsUnion(set, segment.property, null, i == 0 ? filter : null);
-//                valueType = "item";
-//            } else {
-//                set = database.getObjectsUnion(set, segment.property, null, i == 0 ? filter : null);
-//
-//                var property = database.getProperty(segment.property);
-//                valueType = property != null ? property.getValueType() : "text";
-//            }
-//        }
-//    }
-//    return {
-//        valueType: valueType,
-//        values: set,
-//        count: set.size()
-//    };
-//};
-//
-//// TODO: eliminate?
-//// overridden to change the day range sliders filter elements
-//Exhibit.Database._RangeIndex.prototype.getSubjectsInRange = function (min, max, inclusive, set, filter) {
-//    if (!set) {
-//        set = new Exhibit.Set();
-//    }
-//
-//    var f = (filter != null) ?
-//        function (item) {
-//            if (filter.contains(item)) {
-//                set.add(item);
-//            }
-//        } :
-//        function (item) {
-//            set.add(item);
-//        };
-//
-//    this.getRange(f, min, max, inclusive);
-//
-//    return set;
-//};
-//
-//// overridden to change the day range sliders filter elements
-//Exhibit.Database._RangeIndex.prototype.getRange = function (visitor, min, max, inclusive) {
-//    var startIndex = this._indexOf(min);
-//    var pairs = this._pairs;
-//    var nPairs = pairs.length;
-//
-//    inclusive = (inclusive);
-//
-//    while (startIndex < nPairs) {
-//        var pair = pairs[startIndex++];
-//        var value = pair.value;
-//
-////        console.log(pair);
-//
-//        if (value < max || (value == max && inclusive)) {
-//            visitor(pair.item);
-//        } else {
-//            break;
-//        }
-//    }
-//};
-//
-//Exhibit.Database._RangeIndex = function(items, getter) {
-//    pairs = [];
-//
-//    console.log(getter);
-//
-//    items.visit(function(item) {
-//        getter(item, function(value) {
-//            pairs.push({ item: item, value: value });
-//        });
-//    });
-//
-//    pairs.sort(function(p1, p2) {
-//        var c = p1.value - p2.value;
-//        return (isNaN(c) === false) ? c : p1.value.localeCompare(p2.value);
-//    });
-//
-//    this._pairs = pairs;
-//};
-
-//
-//Exhibit.Database._Property.prototype._buildRangeIndex = function () {
-//    var getter;
-//    var database = this._database;
-//    var p = this._id;
-//
-//    switch (this.getValueType()) {
-//        case"date":
-//            getter = function (item, f) {
-//                database.getObjects(item, p, null, null).visit(function (value) {
-//                    if (value != null && !(value instanceof Date)) {
-//                        value = SimileAjax.DateTime.parseIso8601DateTime(value);
-//                    }
-//                    if (value instanceof Date) {
-//                        f(value.getTime());
-//                    }
-//                });
-//            };
-//            break;
-//        default:
-//            getter = function (item, f) {
-//                console.log(f);
-//
-//                database.getObjects(item, p, null, null).visit(function (value) {
-//                    var oval = value;
-//                    if (typeof value != "number") {
-//                        value = parseFloat(value);
-//                    }
-//                    if (!isNaN(value)) {
-//                        f(value);
-//                    }
-//                });
-//            };
-//            break;
-//    }
-//    this._rangeIndex = new Exhibit.Database._RangeIndex(this._database.getAllItems(), getter);
-//};
-
-
