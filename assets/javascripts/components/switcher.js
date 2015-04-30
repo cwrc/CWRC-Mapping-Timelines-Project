@@ -15,8 +15,8 @@ ko.components.register('switcher', {
                <section id="map_view" data-bind="visible: isView(\'map_view\')">\
                     <map params="center: \'38.479394673276445, -115.361328125\',\
                                     zoom: 3,\
-                                    colorCoder: \'event-colors\',\
-                                    colorKey: \'.group\',\
+                                    colorKey: \'group\',\
+                                    colors: {BIBLIFO: \'#f00\', Multimedia: \'#0f0\', OrlandoEvents: \'#00f\', LGLC: \'#ff0\'},\
                                     opacity: \'0.5\',\
                                     markerWidth: 18,\
                                     markerHeight: 18">\

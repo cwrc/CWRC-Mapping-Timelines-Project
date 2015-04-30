@@ -9,6 +9,9 @@ ko.components.register('map', {
     // Map takes:
     //    - zoom: Zoom level as an integer number. Default: 4
     //    - center: LatLng coordinates as a string. Default: '49.8994, -97.1392' (Winnipeg)
+    //    - colorKey: The data label to group by colour
+    //    - colors: The mapping between values and their color. Keys are case-sensitive.
+    //                    eg. { orlandoProject: "#33ff00", multimedia: "blue"}
     // TODO: handle: pins, polygons, polylines
     // TODO: make it take the ID of a div that holds the marker templates. it should force-hide that div, or maybe abduct it as the legend?
     // TODO: redraw the curently selected pin and the old pin
@@ -20,6 +23,11 @@ ko.components.register('map', {
             center: CWRC.Transform.parseLatLng(params.center || '49.8994, -97.1392'), // default to winnipeg
             zoom: params.zoom || 4
         };
+
+        self.colorKey = params.colorKey;
+        self.colorMap = params.colors || {};
+
+        self.colorMap._default = "#999";
 
         // using ID will obviously limit to one map per page, which works for now
         self.map = new google.maps.Map(document.getElementById('map_canvas'),
@@ -40,10 +48,13 @@ ko.components.register('map', {
             var created = [];
 
             for (var i = 0; i < positions.length; i++) {
+                var label = ""; // TODO: set the label to denote the # of colocated markers
+                var color = self.colorMap[item[self.colorKey]] || self.colorMap._default;
+
                 var marker = new google.maps.Marker({
                     position: CWRC.Transform.parseLatLng(positions[i]),
                     map: self.map,
-                    icon: window.createMarkerIcon(18, 18, "#555", "2", null, 50, {shape: "circle"}, false)
+                    icon: window.createMarkerIcon(18, 18, color, label, {shape: "circle"})
                 });
 
                 created.push(marker);
@@ -110,7 +121,6 @@ ko.components.register('map', {
         CWRC.selected.subscribe(function () {
             var selectedItem = CWRC.selected();
             var newSelectedMarkers = self.itemToMarkers()[ko.toJSON(selectedItem)];
-//            var hasColorKey = (this._accessors.getColorKey != null); // TODO :colours
 
             // resetting the PREVIOUS markers
             for (var j = 0; j < self._selectedMarkers.length; j++) {
@@ -138,24 +148,12 @@ ko.components.register('map', {
                     position = marker.position
                 }
 
-                // TODO: colour
-//                var color;
-//
-//                if (hasColorKey) {
-//                    var colorKeys = new Exhibit.Set();
-//                    var colorCodingFlags = {mixed: false, missing: false, others: false, keys: new Exhibit.Set()};
-//
-//                    this._accessors.getColorKey(selectedID, database, function (v) {
-//                        colorKeys.add(v);
-//                    });
-//                    color = self._colorCoder.translateSet(colorKeys, colorCodingFlags);
-//                    color = self._colorCoder.translateSet(colorKeys, colorCodingFlags);
-//                }
+                var color = self.colorMap[selectedItem[self.colorKey]] || self.colorMap._default;
 
                 self._markersToDefaultIcons[marker] = marker.getIcon();
 
                 // now redraw the newly selected ones
-                marker.setIcon(window.createMarkerIcon(18, 18, "#aaa", "", null, 50, {shape: "circle"}, true));
+                marker.setIcon(window.createMarkerIcon(18, 18, color, "", {shape: "circle"}, true));
                 marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
                 self._selectedMarkers.push(marker);
             }
@@ -168,7 +166,7 @@ ko.components.register('map', {
 });
 
 // TODO: extract to a helper lib
-window.createMarkerIcon = function (width, height, color, label, iconImg, iconSize, settings, isSelected) {
+window.createMarkerIcon = function (width, height, color, label, settings, isSelected) {
     // TODO: might be faster to store in a hash, if possible
 
     var drawShadow = function (icon) {
