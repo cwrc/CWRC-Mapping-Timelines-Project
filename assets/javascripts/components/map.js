@@ -1,8 +1,21 @@
 ko.components.register('map', {
-    template: '<div>\
+    template: '<section>\
+                    <a id="historicalMapToggle" href="#" data-bind="click: toggleHistoricalMap">\
+                        Show Historical Map\
+                    </a>\
+                    <label id="historicalOpacityControls" data-bind="visible: showHistoricalMap">\
+                        Opacity\
+                        <input id="historicalMapOpacity" type="range" min="0.0" max="1.0" step="0.05"\
+                                data-bind="value: historicalMapOpacity"/>\
+                    </label>\
+               </section>\
+               <section>\
                     <span data-bind="text: unplottable"></span>\
+                    out of\
+                    <span data-bind="text: CWRC.rawData().length"></span>\
                     cannot be plotted\
-               </div>\
+               </section>\
+               <!-- identifying by ID does limit to one map per page, but that works for now -->\
                <div id="map_canvas">\
                </div>',
 
@@ -18,26 +31,48 @@ ko.components.register('map', {
     viewModel: function (params) {
         var self = this;
 
-        // map state
-        var mapOptions = {
-            center: CWRC.Transform.parseLatLng(params.center || '49.8994, -97.1392'), // default to winnipeg
-            zoom: params.zoom || 4
-        };
-
+        // === MAP STATE ===
         self.colorKey = params.colorKey;
         self.colorMap = params.colors || {};
-
         self.colorMap._default = "#999";
 
-        // using ID will obviously limit to one map per page, which works for now
-        self.map = new google.maps.Map(document.getElementById('map_canvas'),
-            mapOptions);
+        self.map = new google.maps.Map(document.getElementById('map_canvas'), {
+            center: CWRC.Transform.parseLatLng(params.center || '49.8994, -97.1392'), // default to winnipeg
+            zoom: params.zoom || 4
+        });
 
         self.spiderfier = new OverlappingMarkerSpiderfier(self.map, {
-            keepSpiderfied: true,
-            spiralFootSeparation: 26, // Default: 26     # magically changes spiral size
-            spiralLengthStart: 7, // 11                  # magically changes spiral size
-            spiralLengthFactor: 5.75 // 4                # magically changes spiral size
+            keepSpiderfied: true,     // stay open, even if a pin is selected
+            spiralFootSeparation: 26, // Default: 26     # These three params will all magically change
+            spiralLengthStart: 7,     // 11              # spiral size, and are freakishly
+            spiralLengthFactor: 5.75  // 4               # interdependant. Good luck playing with them.
+        });
+
+        var swBound = new google.maps.LatLng(27.87, -181.56);
+        var neBound = new google.maps.LatLng(81.69, -17.58);
+        self.showHistoricalMap = ko.observable(false);
+        self.historicalMapOpacity = ko.observable(0.6);
+        self.historicalOverlay = new google.maps.GroundOverlay(
+            'assets/images/maps/BNA_1854.png',
+            new google.maps.LatLngBounds(swBound, neBound),
+            {opacity: self.historicalMapOpacity()}
+        );
+
+        // === MAP BEHAVIOUR ===
+        self['toggleHistoricalMap'] = function () {
+            self.showHistoricalMap(!self.showHistoricalMap());
+        };
+
+        self.showHistoricalMap.subscribe(function (isShown) {
+            if (isShown) {
+                self.historicalOverlay.setMap(self.map);
+            } else {
+                self.historicalOverlay.setMap(null);
+            }
+        });
+
+        self.historicalMapOpacity.subscribe(function (opacity) {
+            self.historicalOverlay.setOpacity(Number(opacity));
         });
 
         self['buildMarkersForItem'] = function (item) {

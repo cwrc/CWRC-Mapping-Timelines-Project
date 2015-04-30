@@ -15,54 +15,6 @@ var CWRC = (function (cwrc, undefined) {
     };
 
     // ========= Map Overlay =========
-
-
-    // TODO: reenable the historical overlay
-//    var map;
-//    var oldMapViewReconstruct = Exhibit.MapView.prototype._reconstruct;
-//    Exhibit.MapView.prototype._reconstruct = function () {
-//        oldMapViewReconstruct.call(this);
-//        map = this._map;
-//
-//        var swBound = new google.maps.LatLng(27.87, -181.56);
-//        var neBound = new google.maps.LatLng(81.69, -17.58);
-//        imageBounds = new google.maps.LatLngBounds(swBound, neBound);
-//
-//        historicalOverlay = new google.maps.GroundOverlay(
-//            'assets/images/maps/BNA_1854.png',
-//            imageBounds
-//        );
-//    };
-//
-//    cwrc['addOverlay'] = function () {
-//        historicalOverlay.setMap(map);
-//        cwrc.setMapOpacity();
-//        document.getElementById('historicalOpacityControls').style.display = "";
-//    };
-//
-//    cwrc['removeOverlay'] = function () {
-//        historicalOverlay.setMap(null);
-//        document.getElementById('historicalOpacityControls').style.display = "none";
-//    };
-//
-//    cwrc['toggleHistoricalMap'] = function () {
-//        var toggle = $('#historicalMapToggle');
-//
-//        if (toggle.text().trim().toLowerCase() == 'show historical map') {
-//            cwrc.addOverlay();
-//            toggle.text('Hide Historical Map')
-//        } else {
-//            cwrc.removeOverlay();
-//            toggle.text('Show Historical Map')
-//        }
-//    };
-//
-//    cwrc['setMapOpacity'] = function () {
-//        var slider = document.getElementById('historicalMapOpacity');
-//
-//        historicalOverlay.setOpacity(Number(slider.value));
-//    };
-
     cwrc.rawData = ko.observableArray();
     cwrc.filters = ko.observableArray();
     cwrc.filteredData = ko.computed({
