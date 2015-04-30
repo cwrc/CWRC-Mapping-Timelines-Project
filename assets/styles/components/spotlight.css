@@ -40,6 +40,10 @@ spotlight > section > iframe {
     max-height: 100%;
 }
 
+spotlight > section > iframe {
+    border: none;
+}
+
 spotlight > section > img {
     max-height: 10em;
     max-width: 33%;

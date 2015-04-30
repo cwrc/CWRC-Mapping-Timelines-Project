@@ -5,8 +5,8 @@ ko.components.register('spotlight', {
                     </p>\
                </section>\
                <section data-bind="if: selected() != null, visible: selected() != null">\
-                    <img data-bind="visible: selected().images, attr: {src: selected().images}"/>\
-                    <iframe height="150" height="150" allowfullscreen=true data-bind="visible: selected().videos, attr: {src: selected().videos}">\
+                    <img data-bind="visible: selected().images, src: selected().images"/>\
+                    <iframe height="150" height="150" allowfullscreen=true data-bind="visible: selected().videos, src: selected().videos">\
                     </iframe>\
                     <div>\
                         <header>\
@@ -27,10 +27,10 @@ ko.components.register('spotlight', {
                             </header>\
                             <span data-bind="html: selected().description"></span>\
                             <p data-bind="if: selected().urls">\
-                                <a target="_blank" data-bind="attr:{ href: selected().urls }">More...</a>\
+                                <a target="_blank" data-bind="href: selected().urls">More...</a>\
                             </p>\
                             <p data-bind="if: selected().source">\
-                                <a target="_blank" data-bind="attr:{ href: selected().source}">(Source)</a>\
+                                <a target="_blank" data-bind="href: selected().source">(Source)</a>\
                             </p>\
                         </section>\
                     </div>\
