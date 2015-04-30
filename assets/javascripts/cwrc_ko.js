@@ -79,7 +79,9 @@ var CWRC = (function (cwrc, undefined) {
         },
         deferEvaluation: true});
 
-    cwrc.select = function (data, filterBlock) {
+    cwrc.selected = ko.observable();
+
+    cwrc['select'] = function (data, filterBlock) {
         var result = [];
 
         for (var i = 0; i < data.length; i++) {

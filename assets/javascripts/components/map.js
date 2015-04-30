@@ -10,6 +10,7 @@ ko.components.register('map', {
     //      -
     // TODO: handle: pins, polygons, polylines
     // TODO: make it take the ID of a div that holds the marker templates. it should force-hide that div, or maybe abduct it as the legend?
+    // TODO: redraw the curently selected pin and the old pin
     viewModel: function (params) {
         var self = this;
 
@@ -54,12 +55,7 @@ ko.components.register('map', {
         };
 
         self.spiderfier.addListener('click', function (marker, event) {
-            //TODO: set the global selection
-//            alert('not implemented');
-            console.log('marker');
-            console.log(marker);
-            console.log('marker.item');
-            console.log(marker.item);
+           CWRC.selected(marker.item);
         });
 
         self.itemToMarkers = ko.computed(function () {
@@ -103,7 +99,7 @@ ko.components.register('map', {
         });
 
         self.unplottable = ko.computed(function () {
-            return CWRC.filteredData().length - self.visibleMarkers().length; // TODO: count the number of visible markers
+            return CWRC.filteredData().length - self.visibleMarkers().length;
         });
     }
 });
