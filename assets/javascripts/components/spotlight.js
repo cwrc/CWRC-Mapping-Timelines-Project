@@ -6,7 +6,7 @@ ko.components.register('spotlight', {
                </section>\
                <section data-bind="if: selected() != null, visible: selected() != null">\
                     <img data-bind="visible: selected().images, src: selected().images"/>\
-                    <iframe height="150" height="150" allowfullscreen=true data-bind="visible: selected().videos, src: selected().videos">\
+                    <iframe allowfullscreen=true data-bind="visible: selected().videos, src: selected().videos">\
                     </iframe>\
                     <div>\
                         <header>\
@@ -37,16 +37,11 @@ ko.components.register('spotlight', {
                </section>',
 
     // TODO: simplify API by removing selected() and dynamically finding the field
-    // TODO: provide an HREF binding for links, src binding for images/iframes
     // TODO: may want to see if we can fail noisier. Academics won't check the console.
     viewModel: function () {
         var self = this;
 
         // switcher state
         self.selected = CWRC.selected;
-
-        self['has'] = function (field) {
-            return !!self.selected()[field];
-        }
     }
 });

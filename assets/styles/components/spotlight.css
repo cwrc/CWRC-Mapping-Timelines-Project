@@ -10,6 +10,9 @@ spotlight > section {
 
     border: 1px solid #738699;
     border-radius: 0.25em;
+
+    padding: 0.25em;
+
     background: white;
 
     font-size: 13px;
@@ -42,6 +45,7 @@ spotlight > section > iframe {
 
 spotlight > section > iframe {
     border: none;
+    max-width: 30em;
 }
 
 spotlight > section > img {
