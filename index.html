@@ -124,6 +124,13 @@
             <span ex:content=".description"></span>
 
             <p>
+                <span ex:if-exists=".citations">
+                    <b>Source:</b>
+                    <span ex:content=".citations"></span>
+                </span>
+            </p>
+            
+            <p>
                 <b>
                     <a target="_blank" ex:if-exists=".urls" ex:href-content=".urls">More...</a>
                 </b>
