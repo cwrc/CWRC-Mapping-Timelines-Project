@@ -1070,7 +1070,7 @@
         "eventType": "biographical",
         "label": "Index Thomisticus Begun",
         "description": "<p>Roberto Busa, an Italian Jesuit priest, convinced IBMto sponsor the Index Thomisticus, an experiment in linguistic automation - performing text searches within the vast corpus of work by Thomas Aquinas, who was the subject of Busa's research. Busa is known as the First Pioneer of Humanities Computing. He actually began work on the Index Thomisticus in 1974 and completed the 56 printed volumes in 1980.<\/p>",
-        "citations": "<div>www.digitalhumanities.org <\/div>"
+        "citations": "<div>www.digitalhumanities.org/companion <\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1093,7 +1093,7 @@
         "eventType": "bibliographical",
         "label": "Federalist Papers Investigated",
         "description": "<p>Frederick Mosteller and David L. Wallace used meticulous computer - statistical methods to conclude that James Madison was the author of the famously disputed twelve articles of the Federalist Papers. According to Susan Hockey, it was the most influential in-depth computer based authorship investigation to date.<\/p>",
-        "citations": "<div>www.digitalhumanities.org<\/div>"
+        "citations": "<div>www.digitalhumanities.org/companion<\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1106,7 +1106,7 @@
         "eventType": "bibliographical",
         "label": "First IBM Literary Data Processing Conference was Held",
         "description": "<p>IBM brought together scholars and enthusiasts for the first conference on what would come to be called Humanities Computing or Digital Humanities as a discipline. This conference was chaired by Jess. B. Bessinger of New York University and Stephen M. Parrishof Cornell University. One of the purposes of the conference was to publicize the collaboration between IBM and Father Roberto Busa.<\/p>",
-        "citations": "<div>historyofinformation.com <\/div><div>digitalhumanities.org<\/div>"
+        "citations": "<div>historyofinformation.com <\/div><div>digitalhumanities.org/companion<\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1118,7 +1118,7 @@
         "eventType": "bibliographical",
         "label": "COCOA Concordance Program Was Invented",
         "description": "<p>The COCOA Concordance Program was invented as a joint venture between the University of Cardiff and the Atlas Computer Laboratory . It was a considered a powerful, highly flexible program of 400 punched cards, which allowed punched card computers to produce keyword-in-context concordances and word-frequency profiles for texts.<\/p>",
-        "citations": "<div>www.digitalhumanities.org<\/div>"
+        "citations": "<div>www.digitalhumanities.org/companion<\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1130,7 +1130,7 @@
         "eventType": "bibliographical",
         "label": "IBM Conference Proceedings Published",
         "description": "<p>The proceedings from the first IBM Literary Data Processing Conference were published by the IBM Data Processing Division.<\/p>",
-        "citations": "<div>www.digitalhumanities.org<\/div>"
+        "citations": "<div>www.digitalhumanities.org/companion<\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1142,7 +1142,7 @@
         "eventType": "bibliographical",
         "label": "The First Humanities Computing Journal was Founded",
         "description": "<p>The first journal on Humanities Computing was launched, edited by Joseph Rabin. It was called Computers and the Humanities. This journal remained the official journal of the Association for Computers and Humanities, until 2005 when it was renamed Language Resources and Evaluation. <\/p>",
-        "citations": "<div>www.digitalhumanities.org <\/div>"
+        "citations": "<div>www.digitalhumanities.org/companion <\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1154,7 +1154,7 @@
         "eventType": "bibliographical",
         "label": "First Conference of the ALLC/ACH",
         "description": "<p>A joint conference on the emerging field of Humanities Computing was held at the University of Cambridge. This was a collaborative endeavour between the two bodies that would subsequently become the Association for Linguistic and Literary ComputingALLC and the Association for Computing and the HumanitiesACH.<\/p>",
-        "citations": "<div>www.historyofinformation.com<\/div><div>digitalhumanities.org<\/div>"
+        "citations": "<div>www.historyofinformation.com<\/div><div>digitalhumanities.org/companion<\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1178,7 +1178,7 @@
         "eventType": "bibliographical",
         "label": "The Association for Literary and Linguistic Computing was Founded",
         "description": "<p>The ALLC had its genesis in the 1970 conference on Humanities Computing at the University of Cambridge, which continued to be held at universities around the United Kingdom. The conferences resulted in several distinguished studies being produced, and the decision was taken at a meeting in King's College, London, to create the ALLC. The association went on to produce its own Bulletin three times per annum. By 1986, the ALLC had a journal: Literary and Linguistic Computing.<\/p>",
-        "citations": "<div>www.digitalhumanities.org<\/div>"
+        "citations": "<div>www.digitalhumanities.org/companion<\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1202,7 +1202,7 @@
         "eventType": "bibliographical",
         "label": "The Association for Computers and the Humanities was founded",
         "description": "<p>The Association for Computers and the Humanities grew out of the development of a biannual conference series that began in the mid-1970s in North America, then called the International Conference on Computing in the Humanities.<\/p>",
-        "citations": "<div>www.digitalhumanities.org<\/div>"
+        "citations": "<div>www.digitalhumanities.org/companion<\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1214,7 +1214,7 @@
         "eventType": "bibliographical",
         "label": "TUSTEP Was Launched",
         "description": "<p>Under the direction of Wilhelm Ott, the University of Tübingen Computing Center, in collaboration with many other humanities projects, launched the Tübingen System of Text Processing Programs (TUSTEP), a project it had begun in 1966. It is a toolbox of several program modules to enable the processing of scholarly textual data. Today, TUSTEP is used in at least a hundred universities and research institutions.<\/p>",
-        "citations": "<div>www.digitalmedievalist.org/wiki/index.php/TUSTEP_(TUebingen_System_of_TExt_processing_Programs)<\/div><div>www.digitalhumanities.org<\/div>"
+        "citations": "<div>www.digitalmedievalist.org/wiki/index.php/TUSTEP_(TUebingen_System_of_TExt_processing_Programs)<\/div><div>www.digitalhumanities.org/companion<\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1238,7 +1238,7 @@
         "eventType": "bibliographical",
         "label": "Standard Generalized Markup Language Was Published",
         "description": "<p>The International Standardization Organization (ISO) published Standard Generalized Markup Language (SGML), a flexible system for defining a markup scheme. It is able to analyze many types of text on both a structural and an interpretive level, and is able to handle metadata as well as data.<\/p>",
-        "citations": "<div>digitalhumanities.org<\/div><div>en.wikipedia.org/wiki/Standard_Generalized_Markup_Language<\/div>"
+        "citations": "<div>digitalhumanities.org/companion<\/div><div>en.wikipedia.org/wiki/Standard_Generalized_Markup_Language<\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1251,7 +1251,7 @@
         "eventType": "bibliographical",
         "label": "TEXT ANALYSIS COMPUTING TOOLS TACT SYSTEM DEVELOPED",
         "description": "<p>A team of programmers, designers and scholars from IBM and the University of Toronto developed the Text Analysis Computing Tools (TACT) system. It is considered a historically important text-development tool in the field of digital humanities. TACT was designed to run on MS-DOS and permitted inquiry on text databases in European languages.<\/p>",
-        "citations": "<div>digitalhumanities.org <\/div><div>projects.chass.utoronto.ca/tact/<\/div>"
+        "citations": "<div>digitalhumanities.org/companion <\/div><div>projects.chass.utoronto.ca/tact/<\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1263,7 +1263,7 @@
         "eventType": "biographical",
         "label": "The First Version of Text Encoding Initiative TEI Guidelines was Published",
         "description": "<p>The first full version of the Text Encoding Initiative (TEI) Guidelines for Electronic Text Encoding and Interchange was published. It came about after Nancy Ide of the Association for Computers and the Humanities organized an invitational meeting to try to invent a standard encoding scheme for all humanities electronic texts.<\/p>",
-        "citations": "<div>www.digitalhumanities.org<\/div>"
+        "citations": "<div>www.digitalhumanities.org/companion<\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1275,7 +1275,7 @@
         "eventType": "bibliographical",
         "label": "Humanist International Online Seminar Founded",
         "description": "<p>Humanist, an international electronic seminar (not to be confused with The Humanist, a journal of philosophical humanism), was launched in May 1987 as a far-reaching forum for people interested in computing and the humanities to discuss their issues and ideas. It has developed into a thriving exchange on digital humanties. Its aim is to provide a forum for the discussion of intellectual, scholarly, pedagogical and social issues and for the exchange of information among participants. The editor of the seminar Humanist is Robert Busa prize-winner Willard McCarty.<\/p>",
-        "citations": "<div>dhhumanist.org <\/div><div>digitalhumanities.org<\/div>"
+        "citations": "<div>dhhumanist.org <\/div><div>digitalhumanities.org/companion<\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1287,7 +1287,7 @@
         "eventType": "bibliographical",
         "label": "Jane Austen Stylometrics Study Published",
         "description": "<p>John Burrows, pioneer in the field of Stylometrics, published Computation into Criticism: A Study of Jane Austen's Novels and an Experiment in Method. His research, carried out at the University of Newcastle, Australia, and elsewhere, was to look at Austen's creation of idiolects for her characters: the way that the incidence of small, insignificant words varied from one character to another in her books.<\/p>",
-        "citations": "<div>digitalhumanities.org<\/div>"
+        "citations": "<div>digitalhumanities.org/companion<\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1371,7 +1371,7 @@
         "countryName": ["United States"],
         "eventType": "bibliographical",
         "label": "Rossetti Archive Was Launched",
-        "description": "",
+        "description": " <p>The Rossetti Archive, general editor Jerome McGann, is a hypermedia archive of all of the works of Dante Gabriel Rossetti, the prolific painter, designer, writer and translator whose work dominated the second half of the nineteenth century in Great Britain. It was launched in 1993 and by 2008 had completed its objective to \"provide students and scholars with access to all of DGR's pictorial and textual works and to a large contextual corpus of materials\". The archive presents all of Rossetti's known documents, pictures, sketches, manuscripts, proofs and drawings in high-quality digital images (his sister-poet Christina Rossetti appears only as a minor supporting figure), and its contents are encoded for structured search and analysis. In addition, it offers a substantial amount of critical material and commentary on Rossetti&apos;s primary works. The Rossetti Archive is sponsored in part by the National Endowment for the Humanities and the Andrew W. Mellon Foundation.<\/p>",
         "citations": "<div>rossettiarchive.org/index.html<\/div>"
     },
     {
@@ -1420,7 +1420,7 @@
         "eventType": "bibliographical",
         "label": "William Blake Archive Was Founded",
         "description": "<p>The William Blake Archive made available digital imprints of the poetry and accompanying illustrations of the Romantic-era painter, poet, printmaker, and visionary radical William Blake. The Archive, sponsored by the Library of Congress, makes available to users in one place Blake's works from many physical collections. This archive (editors Morris Eaves and Morton Paley) was made possible, according to its website, because of several key factors: a mature body of Blake scholarship had developed, the first trustworthy history of his book-production had been published, and competent technological advances had reached the stage where such a grand digital humanities project would not quickly become obsolescent.<\/p>",
-        "citations": "<div>blakearchive.org/blake/public/about/plan/index.html <\/div><div>digitalhumanities.org<\/div>"
+        "citations": "<div>blakearchive.org/blake/public/about/plan/index.html <\/div><div>digitalhumanities.org/companion<\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1432,7 +1432,7 @@
         "eventType": "bibliographical",
         "label": "First Roberto Busa Prize Was Awarded",
         "description": "<p>The Roberto Busa Prize was first awarded to its namesake, Father Roberto Busa, in recognition of his pioneering work in humanities computing. The prize is awarded triennially, and is administered by the Alliance of Digital Humanities Organisations (ADHO). It recognizes outstanding lifetime achievements in the application of information and communications technologies to humanities research.<\/p>",
-        "citations": "<div>adho.org/awards/roberto-busa-prize<\/div><div>digitalhumanities.org<\/div>"
+        "citations": "<div>adho.org/awards/roberto-busa-prize<\/div><div>digitalhumanities.org/companion<\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1480,7 +1480,7 @@
         "eventType": "bibliographical",
         "label": "Second Roberto Busa Prize Awarded",
         "description": "<p>The second Busa Prize was awarded to John Burrows, Emeritus Professor of English at the University of Newcastle, Australia for outstanding lifetime achievements in the application of information and communications technologies to humanities research. The award recognized his work on Stylometrics, in particular, the publication of Computation into Criticism: A Study of Jane Austen's Novels and an Experiment in Method, 1987.<\/p>",
-        "citations": "<div>digitalhumanities.org<\/div><div>adho.org<\/div>"
+        "citations": "<div>digitalhumanities.org/companion<\/div><div>adho.org<\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1504,7 +1504,7 @@
         "eventType": "bibliographical",
         "label": "Third Roberto Busa Prize Awarded",
         "description": "<p>The third Busa Prize was awarded to Susan Hockey from the UK, who as Director of the Canadian Institute for Research Computing in the Arts (CIRCA) at the University of Alberta, 1997-1999, was a key member of Orlando Project team. The Roberto Busa Prize (named after Father Roberto Busa and administered by the Alliance of Digital Humanities Organisations), is awarded triennially to recognize outstanding lifetime achievements in the application of information and communications technologies to humanities research.<\/p>",
-        "citations": "<div>digitalhumanities.org<\/div><div>adho.org<\/div>"
+        "citations": "<div>digitalhumanities.org/companion<\/div><div>adho.org<\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1516,7 +1516,7 @@
         "eventType": "bibliographical",
         "label": "Alliance of Digital Humanities Organizations (ADHO) Formed",
         "description": "<p>The Alliance of Digital Humanities Organizations was given its operating mandate. This organization now oversees the annual Digital Humanities conference which was formerly the joint ALLC/ACH conference, administers the Roberto Busa award for contribution to humanities computing, and produces several peer-reviewed journals including its print journal, Literary and Linguistic Computing. The move towards the creation of such an umbrella organization was begun in 2002 in Tübingen, Germany..<\/p>",
-        "citations": "<div>digitalhumanities.org <\/div><div>wikipedia.org<\/div>"
+        "citations": "<div>digitalhumanities.org/companion <\/div><div>wikipedia.org<\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1623,7 +1623,7 @@
         "eventType": "bibliographical",
         "label": "iPhone-Created Art Piece on New Yorker Cover",
         "description": "<p>Artist Jorge Colombo, used his iPhone to fingerpaint an entire scene of Times Square, and subsequently had this entry selected to grace the cover of the June 2009 issue of the New Yorkermagazine. It was the first time that an illustration from such a medium had been selected. He used the Apple software program Brushes and took only about one hour to complete his illustration.<\/p>",
-        "citations": "<div>gizmodo.com/5268926/june-1st-new-yorker-cover-drawn-entirely-on-the-iphone<\/div><div>digitalhumanities.org<\/div>"
+        "citations": "<div>gizmodo.com/5268926/june-1st-new-yorker-cover-drawn-entirely-on-the-iphone<\/div><div>digitalhumanities.org/companion<\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1635,7 +1635,7 @@
         "eventType": "bibliographical",
         "label": "Fifth Busa Prize Awarded",
         "description": "<p>The fifth Robert Busa prize was awarded to Joseph Raben, of Queen's College, City University of New York. He was the founder, in 1966, of the first journal in Humanities Computing in 1966.The Roberto Busa Prize is awarded triennially, and is administered by the Alliance of Digital Humanities Organisations (ADHO). It recognizes outstanding lifetime achievements in the application of information and communications technologies to humanities research.<\/p>",
-        "citations": "<div>adho.org/awards/roberto-busa-prize/recipients <\/div><div>www.digitalhumanities.org<\/div>"
+        "citations": "<div>adho.org/awards/roberto-busa-prize/recipients <\/div><div>www.digitalhumanities.org/companion<\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1647,7 +1647,7 @@
         "eventType": "biographical",
         "label": "Death of Father Roberto Busa",
         "description": "<p>Father Roberto Busa, who is regarded as the father of humanities computing because of the early work in linguistic automation that he inititated with IBM in 1949, died at the age of ninety-eight. At the time of his death, he was working on a new method for automatic translation from one language to another.<\/p>",
-        "citations": "<div>vaticaninsider.lastampa.it/en/documents/detail/articolo/web-busa-6893<\/div><div>digitalhumanities.org<\/div>"
+        "citations": "<div>vaticaninsider.lastampa.it/en/documents/detail/articolo/web-busa-6893<\/div><div>digitalhumanities.org/companion<\/div>"
     },
     {
         "schemaType": "TEI",
