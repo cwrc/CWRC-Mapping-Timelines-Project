@@ -51,7 +51,7 @@ timeline > section > div.canvas > div.row {
     overflow: hidden;
 }
 
-timeline > section > div.canvas > div.row > div.event {
+timeline > section > div.canvas > div.row > .event {
     display: inline-block;
     position: absolute;
     vertical-align: top;
@@ -68,10 +68,10 @@ timeline > section > div.canvas > div.row > div.event {
     text-overflow: ellipsis;
 }
 
-timeline > section > div.canvas > div.row > div.event > span:first-of-type:after{
+timeline > section > div.canvas > div.row > .event > span:first-of-type:after{
     content: ":";
 }
 
-timeline > section > div.canvas > div.row > div.event > span{
+timeline > section > div.canvas > div.row > .event > span{
     margin-left: 0.25em;
 }

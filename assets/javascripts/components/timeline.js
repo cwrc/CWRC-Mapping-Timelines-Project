@@ -7,11 +7,12 @@ ko.components.register('timeline', {
                     </div>\
                     <div class="canvas" data-bind="foreach: timelineRows, style: {width: canvasWidth }">\
                         <div class="row" data-bind="foreach: $data">\
-                            <div class="event" data-bind="style: {left: $data.xPos, width: $data.width, \
-                                                                color: $data.endDate ? \'red\' : \'black\'  }">\
+                            <a href="#" class="event" data-bind="style: {left: $data.xPos, width: $data.width,\
+                                                                         color: $data.endDate ? \'red\' : \'black\'},\
+                                                                 click: function(){ CWRC.selected($data) }">\
                                 <span data-bind="text: $data.startDate"></span>\
                                 <span data-bind="html: $data.label"></span>\
-                            </div>\
+                            </a>\
                         </div>\
                     </div>\
                     \
