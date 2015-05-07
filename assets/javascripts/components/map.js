@@ -11,10 +11,12 @@ ko.components.register('map', {
                         </label>\
                     </div>\
                     <div>\
+                        <!--TODO: this\
                         <span data-bind="text: unplottable"></span>\
                         out of\
-                        <span data-bind="text: CWRC.rawData().length"></span>\
+                        <span data-bind="text: allMarkers().length"></span>\
                         cannot be plotted\
+                        -->\
                     </div>\
                </section>\
                <!-- identifying by ID does limit to one map per page, but that works for now -->\
@@ -141,39 +143,63 @@ ko.components.register('map', {
             return itemToMarkers;
         });
 
+        self.allMarkers = function () {
+            var allMarkers = [];
+            var itemToMarkers = self.itemToMarkers();
+
+            for (var item in itemToMarkers) {
+                if (itemToMarkers.hasOwnProperty(item)) {
+                    var markers = self.itemToMarkers()[ko.toJSON(item)];
+
+                    allMarkers = allMarkers.concat(markers);
+                }
+            }
+
+            return allMarkers;
+        };
+
         self.visibleMarkers = ko.computed(function () {
             var visibleItem;
-            var visibleMarkers = [];
-
-            for (var i = 0; i < CWRC.filteredData().length; i++) {
-                visibleItem = CWRC.filteredData()[i];
-                var markers = self.itemToMarkers()[ko.toJSON(visibleItem)];
-
-                visibleMarkers = visibleMarkers.concat(markers);
-            }
-
-            return visibleMarkers;
-        });
-
-        CWRC.filteredData.subscribe(function () {
+//            var visibleMarkers = [];
             var index;
-            var allMarkers = self.spiderfier.getMarkers();
+
+            var allMarkers = self.allMarkers();
+
+            console.log('set visisble')
+            console.log(allMarkers)
 
             for (index = 0; index < allMarkers.length; index++) {
-                allMarkers[index].setVisible(false);
+                var marker = allMarkers[index];
+
+                if (marker)
+                    marker.setVisible(false);
             }
 
-            for (index = 0; index < self.visibleMarkers().length; index++) {
-                var visibleMarker = self.visibleMarkers()[index];
+            console.log(self.itemToMarkers())
+            console.log(Object.keys(self.itemToMarkers()).length)
 
-                console.log(index)
+            for (index = 0; index < CWRC.filteredData().length; index++) {
+                visibleItem = CWRC.filteredData()[index];
+                var markers = self.itemToMarkers()[ko.toJSON(visibleItem)];
 
-                visibleMarker.setVisible(true);
+
+//                visibleMarkers = visibleMarkers.concat(markers);
+                if (markers) {
+                    for (var j = 0; j < markers.length; j++) {
+                        var visibleMarker = markers[j];
+
+//                console.log(index)
+
+                        if (visibleMarker)
+                            visibleMarker.setVisible(true);
+                    }
+                }
             }
         });
 
         self.unplottable = ko.computed(function () {
-            return CWRC.filteredData().length - self.visibleMarkers().length;
+            // TODO: reenable this
+            return 'x';//CWRC.filteredData().length - self.visibleMarkers().length;
         });
 
         self._markersToDefaultIcons = {};
