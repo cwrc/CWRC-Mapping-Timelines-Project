@@ -403,7 +403,7 @@
         "location": ["Toronto, Canada"],
         "countryName": ["Canada"],
         "eventType": "literary",
-        "label": "10 September 1997: The movie <i>Conceiving Ada<\/i>...",
+        "label": "10 September 1997: The movie <i>Conceiving...",
         "description": "<p>The movie <i>Conceiving Ada<\/i> was first seen at the Toronto International Film Festival.. It features a modern computer genius, Emmy Coer, who makes contact with Ada Byron, Countess of Lovelace, by developing a scientifically improbable method of direct communication with the past by tapping into undying information waves<\/p><p> For this film Lynn Hershman Leeson pioneered the use of digital sets. <\/p>"
     },
     {
@@ -918,7 +918,7 @@
         "location": ["New York City, USA"],
         "countryName": ["United States"],
         "eventType": "social",
-        "label": "January 1983: <i>Time<\/i> Magazine...",
+        "label": "January 1983: <i>Time<\/i>...",
         "description": "<p><i>Time<\/i> Magazine (based in New York City) named the personal computer as its Man of the Year for 1982.<\/p>",
         "citations": "<div><a target='_blank' href='http://orlando.cambridge.org/protected/wheel?f=frame&bi_id=28928'>Campbell-Kelly and Aspray 1<\/a><\/div>"
     },
@@ -1112,9 +1112,9 @@
         "schemaType": "TEI",
         "schema": "event",
         "startDate": "1965",
-        "latLng": ["28.44184,-109.85181"],
+        "latLng": ["34.08563,-105.76221"],
         "location": ["University of Cardiff"],
-        "countryName": ["Mexico"],
+        "countryName": ["United States"],
         "eventType": "bibliographical",
         "label": "COCOA Concordance Program Was Invented",
         "description": "<p>The COCOA Concordance Program was invented as a joint venture between the University of Cardiff and the Atlas Computer Laboratory . It was a considered a powerful, highly flexible program of 400 punched cards, which allowed punched card computers to produce keyword-in-context concordances and word-frequency profiles for texts.<\/p>",
@@ -1371,7 +1371,7 @@
         "countryName": ["United States"],
         "eventType": "bibliographical",
         "label": "Rossetti Archive Was Launched",
-        "description": " <p>The Rossetti Archive, general editor Jerome McGann, is a hypermedia archive of all of the works of Dante Gabriel Rossetti, the prolific painter, designer, writer and translator whose work dominated the second half of the nineteenth century in Great Britain. It was launched in 1993 and by 2008 had completed its objective to \"provide students and scholars with access to all of DGR's pictorial and textual works and to a large contextual corpus of materials\". The archive presents all of Rossetti's known documents, pictures, sketches, manuscripts, proofs and drawings in high-quality digital images (his sister-poet Christina Rossetti appears only as a minor supporting figure), and its contents are encoded for structured search and analysis. In addition, it offers a substantial amount of critical material and commentary on Rossetti&apos;s primary works. The Rossetti Archive is sponsored in part by the National Endowment for the Humanities and the Andrew W. Mellon Foundation.<\/p>",
+        "description": "<p>The Rossetti Archive, general editor Jerome McGann, is a hypermedia archive of all of the works of Dante Gabriel Rossetti, the prolific painter, designer, writer and translator whose work dominated the second half of the nineteenth century in Great Britain. It was launched in 1993 and by 2008 had completed its objective to provide students and scholars with access to all of DGR's pictorial and textual works and to a large contextual corpus of materials. The archive presents all of Rossetti's known documents, pictures, sketches, manuscripts, proofs and drawings in high-quality digital images (his sister-poet Christina Rossetti appears only as a minor supporting figure), and its contents are encoded for structured search and analysis. In addition, it offers a substantial amount of critical material and commentary on Rossetti's primary works. The Rossetti Archive is sponsored in part by the National Endowment for the Humanities and the Andrew W. Mellon Foundation.<\/p>",
         "citations": "<div>rossettiarchive.org/index.html<\/div>"
     },
     {
@@ -1514,9 +1514,9 @@
         "location": ["Victoria, Canada"],
         "countryName": ["Canada"],
         "eventType": "bibliographical",
-        "label": "Alliance of Digital Humanities Organizations (ADHO) Formed",
+        "label": "Alliance of Digital Humanities Organizations (ADHO) formed",
         "description": "<p>The Alliance of Digital Humanities Organizations was given its operating mandate. This organization now oversees the annual Digital Humanities conference which was formerly the joint ALLC/ACH conference, administers the Roberto Busa award for contribution to humanities computing, and produces several peer-reviewed journals including its print journal, Literary and Linguistic Computing. The move towards the creation of such an umbrella organization was begun in 2002 in Tübingen, Germany..<\/p>",
-        "citations": "<div>digitalhumanities.org/companion <\/div><div>wikipedia.org<\/div>"
+        "citations": "<div>adho.org <\/div>"
     },
     {
         "schemaType": "TEI",
@@ -1617,6 +1617,18 @@
         "schemaType": "TEI",
         "schema": "event",
         "startDate": "2009",
+        "latLng": ["43.70011,-79.4163"],
+        "location": ["Toronto "],
+        "countryName": ["Canada"],
+        "eventType": "cultural",
+        "label": "The Feminist Frequency website and non-profit was founded by York University student Anita Sarkeesian. ",
+        "description": "<p>Sarkeesian sought to create an outlet for feminist media critique of female roles in popular narratives. The site has since been at the forefront of controvery surrounding misogyny in video games, as well as addressing topics such as online gender harassment, the Bechdel test in Hollywood movies, and female roles in the vampire genre.<\/p>",
+        "citations": "<div> <\/div><div>Wikipedia: <\/div>"
+    },
+    {
+        "schemaType": "TEI",
+        "schema": "event",
+        "startDate": "2009",
         "latLng": ["43.00035,-75.4999"],
         "location": ["New York"],
         "countryName": ["United States"],
@@ -1660,6 +1672,18 @@
         "label": "Sixth Roberto Busa Prize Was Awarded",
         "description": "<p>The sixth Roberto Busa Prize was awarded to Willard McCarty, Professor of Humanities Computing at King's College London, founder of the Humanist Online Seminar, and a pioneer in humanities computing. The Roberto Busa Prize is administered by the Alliance of Digital Humanities Organisations (ADHO), and is awarded triennially to recognize outstanding lifetime achievements in the application of information and communications technologies to humanities research.<\/p>",
         "citations": "<div>www.adho.org<\/div>"
+    },
+    {
+        "schemaType": "TEI",
+        "schema": "event",
+        "startDate": "2010-06-31",
+        "latLng": ["16.77348,-3.00742"],
+        "location": ["location of the event"],
+        "countryName": ["Mali"],
+        "eventType": "biographical",
+        "label": "Label/title of the event",
+        "description": "<p>Description of the event (optional)<\/p>",
+        "citations": "<div>Source of event description and/or note <\/div>"
     },
     {
         "schemaType": "TEI",
