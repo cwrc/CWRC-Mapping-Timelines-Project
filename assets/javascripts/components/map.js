@@ -101,6 +101,8 @@ ko.components.register('map', {
             return colorPairs;
         };
 
+        self.markerCount = 0;
+
         self['buildMarkersForItem'] = function (item) {
             if (!item.latLng)
                 return [];
@@ -119,6 +121,8 @@ ko.components.register('map', {
                 });
 
                 created.push(marker);
+
+                self.markerCount++;
 
                 self.spiderfier.addMarker(marker);
 
@@ -143,55 +147,32 @@ ko.components.register('map', {
             return itemToMarkers;
         });
 
-        self.allMarkers = function () {
-            var allMarkers = [];
+        self.visibleMarkers = ko.computed(function () {
+            var index;
+            var j;
+
             var itemToMarkers = self.itemToMarkers();
 
-            for (var item in itemToMarkers) {
-                if (itemToMarkers.hasOwnProperty(item)) {
-                    var markers = self.itemToMarkers()[ko.toJSON(item)];
+            var markers;
+            var marker;
 
-                    allMarkers = allMarkers.concat(markers);
-                }
-            }
-
-            return allMarkers;
-        };
-
-        self.visibleMarkers = ko.computed(function () {
-            var visibleItem;
-//            var visibleMarkers = [];
-            var index;
-
-            var allMarkers = self.allMarkers();
-
-            console.log('set visisble')
-            console.log(allMarkers)
+            var allMarkers = self.spiderfier.getMarkers();
 
             for (index = 0; index < allMarkers.length; index++) {
                 var marker = allMarkers[index];
 
-                if (marker)
-                    marker.setVisible(false);
+                marker.setVisible(false);
             }
 
-            console.log(self.itemToMarkers())
-            console.log(Object.keys(self.itemToMarkers()).length)
-
             for (index = 0; index < CWRC.filteredData().length; index++) {
-                visibleItem = CWRC.filteredData()[index];
-                var markers = self.itemToMarkers()[ko.toJSON(visibleItem)];
+                var visibleItem = CWRC.filteredData()[index];
+                markers = self.itemToMarkers()[ko.toJSON(visibleItem)];
 
-
-//                visibleMarkers = visibleMarkers.concat(markers);
                 if (markers) {
-                    for (var j = 0; j < markers.length; j++) {
-                        var visibleMarker = markers[j];
+                    for (j = 0; j < markers.length; j++) {
+                        marker = markers[j];
 
-//                console.log(index)
-
-                        if (visibleMarker)
-                            visibleMarker.setVisible(true);
+                        marker.setVisible(true);
                     }
                 }
             }
