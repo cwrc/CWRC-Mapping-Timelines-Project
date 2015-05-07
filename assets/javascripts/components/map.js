@@ -166,6 +166,8 @@ ko.components.register('map', {
             for (index = 0; index < self.visibleMarkers().length; index++) {
                 var visibleMarker = self.visibleMarkers()[index];
 
+                console.log(index)
+
                 visibleMarker.setVisible(true);
             }
         });
@@ -217,7 +219,7 @@ ko.components.register('map', {
                 self._selectedMarkers.push(marker);
             }
 
-            if (!self.map.getBounds().contains(position)) {
+            if (position && !self.map.getBounds().contains(position)) {
                 self.map.panTo(position);
             }
         });
