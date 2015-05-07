@@ -29,13 +29,13 @@ timeline > section > div.labels > div:nth-of-type(odd) {
     background: #ccc;
 }
 
-timeline > section > div.canvas {
+timeline > section > div {
     cursor: -moz-grab;
     cursor: -webkit-grab;
     cursor: grab;
 }
 
-timeline > section > div.canvas:active {
+timeline > section > div:active {
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
     cursor: grabbing;
