@@ -22,11 +22,11 @@ ko.components.register('grid', {
                     </thead>\
                     <tbody data-bind="foreach: itemsOnCurrentPage">\
                         <tr>\
-                            <td data-bind="text: $data.longLabel">\
+                            <td data-bind="html: $data.longLabel">\
                             </td>\
-                            <td data-bind="text: $data.group">\
+                            <td data-bind="html: $data.group">\
                             </td>\
-                            <td data-bind="text: $data.location">\
+                            <td data-bind="html: $data.location">\
                             </td>\
                             <td data-bind="text: $data.startDate">\
                             </td>\
