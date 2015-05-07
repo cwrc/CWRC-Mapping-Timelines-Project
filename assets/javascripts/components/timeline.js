@@ -1,5 +1,5 @@
 ko.components.register('timeline', {
-    template: '<section data-bind="event:{mousemove: pan}">\
+    template: '<section id="timeline-section" data-bind="event:{mousemove: pan}">\
                     <div class="labels" data-bind="foreach: years, style: {width: canvasWidth }">\
                         <div data-bind="text: $data, \
                         style: { width: $parent.labelSize - $parent.lineThickness, \
@@ -15,7 +15,6 @@ ko.components.register('timeline', {
                             </a>\
                         </div>\
                     </div>\
-                    \
                </section>',
     viewModel: function () {
         var self = this;
@@ -139,20 +138,15 @@ ko.components.register('timeline', {
         });
 
         self['pan'] = function (model, mouseEvent) {
-            if (mouseEvent.which != 1)
+            var button = typeof mouseEvent.buttons !== 'undefined' ? mouseEvent.buttons : mouseEvent.which;
+
+            if (button != 1)
                 return;
 
-            var src;
-            for (var i = 0; i < mouseEvent.path.length; i++) {
-                src = mouseEvent.path[i];
+            var src = document.getElementById('timeline-section');
 
-                if (src.nodeName == 'SECTION') {
-                    break;
-                }
-            }
-
-            src.scrollTop -= event.movementY;
-            src.scrollLeft -= event.movementX;
+            src.scrollTop -= mouseEvent.movementY || mouseEvent.mozMovementY;
+            src.scrollLeft -= mouseEvent.movementX || mouseEvent.mozMovementX;
         }
     }
 });
