@@ -23,7 +23,7 @@ ko.components.register('spotlight', {
                         </header>\
                         <section>\
                             <header>\
-                                <span data-bind="text: selected().longLabel"></span>\
+                                <span data-bind="html: selected().longLabel"></span>\
                             </header>\
                             <span data-bind="html: selected().description"></span>\
                             <p data-bind="if: selected().urls">\
