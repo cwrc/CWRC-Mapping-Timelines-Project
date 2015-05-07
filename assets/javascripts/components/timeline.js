@@ -1,5 +1,5 @@
 ko.components.register('timeline', {
-    template: '<section>\
+    template: '<section data-bind="event:{mousemove: pan}">\
                     <div class="labels" data-bind="foreach: years, style: {width: canvasWidth }">\
                         <div data-bind="text: $data, \
                         style: { width: $parent.labelSize - $parent.lineThickness, \
@@ -136,5 +136,22 @@ ko.components.register('timeline', {
                 return timespan * self.pixelsPerMs; // gives px width
             }
         });
+
+        self['pan'] = function (model, mouseEvent) {
+            if (mouseEvent.which != 1)
+                return;
+
+            var src;
+            for (var i = 0; i < mouseEvent.path.length; i++) {
+                src = mouseEvent.path[i];
+
+                if (src.nodeName == 'SECTION') {
+                    break;
+                }
+            }
+
+            src.scrollTop -= event.movementY;
+            src.scrollLeft -= event.movementX;
+        }
     }
 });
