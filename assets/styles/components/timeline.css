@@ -1,0 +1,77 @@
+timeline {
+    display: block;
+
+    height: 15em;
+}
+
+timeline > section {
+    height: 100%;
+
+    overflow: auto;
+
+    background: #ccc;
+}
+
+timeline > section > div.labels {
+    height: 1em;
+
+    background: white;
+}
+
+timeline > section > div.labels > div {
+    display: table-cell;
+
+    border-left-color: black;
+    border-left-style: solid;
+}
+
+timeline > section > div.labels > div:nth-of-type(odd) {
+    background: #ccc;
+}
+
+timeline > section > div.canvas {
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+    cursor: grab;
+}
+
+timeline > section > div.canvas:active {
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+    cursor: grabbing;
+}
+
+timeline > section > div.canvas > div.row {
+    position: relative; /* to give a new origin for children  */
+
+    margin: 0.25em 0;
+
+    height: 1.5em;
+
+    overflow: hidden;
+}
+
+timeline > section > div.canvas > div.row > div.event {
+    display: inline-block;
+    position: absolute;
+    vertical-align: top;
+
+    border-radius: 0.5em;
+
+    padding: 0.25em 0;
+
+    overflow: hidden;
+
+    background: rgba(204, 238, 204, 0.35);
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+timeline > section > div.canvas > div.row > div.event > span:first-of-type:after{
+    content: ":";
+}
+
+timeline > section > div.canvas > div.row > div.event > span{
+    margin-left: 0.25em;
+}
