@@ -106,6 +106,7 @@
             allowfullscreen></iframe>
     <div>
         <header>
+            <span ex:content=".label"></span><br />
             <span ex:if-exists=".startDate">
                 <span ex:content=".startDate"></span>
                 <span ex:if-exists=".endDate">
@@ -122,20 +123,23 @@
                 <span ex:content=".longLabel"></span>
             </header>
             <span ex:content=".description"></span>
-
             <p>
                 <span ex:if-exists=".citations">
-                    <b>Source:</b>
+                    Source(s):
                     <span ex:content=".citations"></span>
                 </span>
             </p>
-            
+            <p>
+                <span ex:if-exists=".contributors">
+                    Contributed by:
+                    <span ex:content=".contributors"></span>
+                </span>
+            </p>
             <p>
                 <b>
                     <a target="_blank" ex:if-exists=".urls" ex:href-content=".urls">More...</a>
                 </b>
             </p>
-
             <p>
                 <b>
                     <a target="_blank" ex:if-exists=".source" ex:href-content=".source">(Source)</a>
