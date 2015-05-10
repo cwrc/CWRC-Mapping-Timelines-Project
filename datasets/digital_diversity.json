@@ -770,8 +770,12 @@
         "eventType": "literary",
         "label": "January 1975: The first home computer appeared on the market...",
         "description": "<p>The first home computer appeared on the market in the United States: the MITS Altair 8800, selling at $395 in the form of a kit for home assembly.<\/p><p> This machine took the form of a box whose front side was a control panel: it had no screen. By the year 2004 home computers offered approximately one million times its amount of memory. <\/p>",
+<<<<<<< Updated upstream
         "citations": "<div><a target='_blank' href='http://orlando.cambridge.org/protected/wheel?f=frame&bi_id=28565'>Glancey G12<\/a><\/div>",
         "contributors": "<div>Canadian Writing Research Collaboratory<\/div>"
+=======
+        "citations": "<div><a target='_blank' href='http://orlando.cambridge.org/protected/wheel?f=frame&bi_id=28565'>Glancey G12<\/a><\/div>"
+>>>>>>> Stashed changes
     },
     {
         "schemaType": "Orlando / CWRC",
@@ -782,8 +786,12 @@
         "eventType": "social",
         "label": "January 2007: The iPhone, launched by Apple at the Consumer...",
         "description": "<p>The iPhone, launched by Apple at the Consumer Electronics Show in Las Vegas combined a mobile phone with touch-screen, web browser, camera, and MP3 player.<\/p><p> The iPhone was not expected to be available until the summer, would cost close to $600, and had not been independently tested. Nevertheless Apple shares at once leaped by eight per cent. <\/p>",
+<<<<<<< Updated upstream
         "citations": "<div><a target='_blank' href='http://orlando.cambridge.org/protected/wheel?f=frame&bi_id=46866'>Tenner 33<\/a><\/div>",
         "contributors": "<div>Canadian Writing Research Collaboratory<\/div>"
+=======
+        "citations": "<div><a target='_blank' href='http://orlando.cambridge.org/protected/wheel?f=frame&bi_id=46866'>Tenner 33<\/a><\/div>"
+>>>>>>> Stashed changes
     },
     {
         "schemaType": "Orlando / CWRC",
@@ -876,8 +884,12 @@
         "eventType": "social",
         "label": "2 November 1988: Robert Morris, an American graduate student...",
         "description": "<p>Robert Morris, an American graduate student at Cornell University, released the first hostile Internet worm from an MIT computer in Cambridge, Massachussets, which disabled several thousand university, military, and corporate computers within an hour after its release.<\/p><p> For an act that exposed potential risks of relying on the Internet, Morris received three years probation, $10,000 in fines, and community service. <\/p>",
+<<<<<<< Updated upstream
         "citations": "<div><a target='_blank' href='http://orlando.cambridge.org/protected/wheel?f=frame&bi_id=29287'>Moschovitis 136-7<\/a><\/div>",
         "contributors": "<div>Canadian Writing Research Collaboratory<\/div>"
+=======
+        "citations": "<div><a target='_blank' href='http://orlando.cambridge.org/protected/wheel?f=frame&bi_id=29287'>Moschovitis 136-7<\/a><\/div>"
+>>>>>>> Stashed changes
     },
     {
         "schemaType": "Orlando / CWRC",
