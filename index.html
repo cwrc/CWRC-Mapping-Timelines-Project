@@ -84,10 +84,11 @@
             <strong>Search terms:</strong>
 
             <div ex:role="facet" ex:facetClass="TextSearch"></div>
-            <div ex:role="facet" ex:expression=".startDate" ex:facetLabel="Event Date Range" ex:facetClass="Slider"
+            <div ex:role="facet" ex:expression=".startDate" ex:facetLabel="Event date range" ex:facetClass="Slider"
                  ex:horizontal="true" ex:precision="1" ex:histogram="true" ex:width="285px"></div>
             <div ex:role="facet" ex:expression=".eventType" ex:facetLabel="Event type" ex:height="3em"></div>
             <div ex:role="facet" ex:expression=".countryName" ex:facetLabel="Country" ex:height="3em"></div>
+            <div ex:role="facet" ex:expression=".schemaType" ex:facetLabel="XML schema type" ex:height="3em"></div>
         </div>
     </section>
 
@@ -114,6 +115,7 @@
                     <span ex:content=".endDate"></span>
                 </span>
             </span>
+            <span ex:if-exists=".startDate" and ex:if-exists=".location">|</span>
             <span ex:if-exists=".location">
                 <span ex:content=".location"></span>
             </span>
