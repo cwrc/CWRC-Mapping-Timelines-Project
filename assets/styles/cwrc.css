@@ -198,7 +198,7 @@
 }
 
 #detailsBox > div.item > div > header > span:first-of-type:after {
-    content: '-'
+    content: ''
 }
 
 #detailsBox > div.item > div > header > span:last-of-type:after {
