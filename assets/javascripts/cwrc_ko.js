@@ -24,6 +24,13 @@ var CWRC = (function (cwrc, undefined) {
 
     cwrc.selected = ko.observable();
 
+    /**
+     * Filters the given data array by the given block.
+     *
+     * @param data An array of objects to be filtered.
+     * @param filterBlock A functon that receives a datum and returns true if it meets the filtering criteria
+     * @returns {Array}
+     */
     cwrc['select'] = function (data, filterBlock) {
         var result = [];
 
@@ -46,6 +53,35 @@ var CWRC = (function (cwrc, undefined) {
                 cwrc.rawData(cwrc.rawData().concat(result.items));
             });
         }
+    };
+
+    /**
+     * Accepts any of:
+     *   1. date string (eg. "January 1, 2015");
+     *   2. event (ie. from the database, not UI event); or
+     *   3. Date object;
+     * and converts it into a Unix Epoch timestamp.  If the given object is an event, it will convert the startDate.
+     *
+     * @param data
+     * @returns {number} timestamp
+     */
+    cwrc['toStamp'] = function (data) {
+        if (data && data.startDate)     // event objects need coersion
+            data = data.startDate;
+
+        return (new Date(data)).getTime();
+    };
+
+    cwrc.toMillisec = function (unit) {
+        var conversionChart = {
+            minute: 60 * 1000,
+            hour: 3600 * 1000,
+            day: 86400 * 1000,
+            month: 86400 * 31 * 1000,
+            year: 31536000 * 1000
+        };
+
+        return conversionChart[unit];
     };
 
     return cwrc;
