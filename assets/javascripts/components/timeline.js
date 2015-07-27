@@ -1,5 +1,5 @@
 ko.components.register('timeline', {
-    template: '<section id="timeline-section" data-bind="event:{mousemove: pan}">\
+    template: '<section id="timeline-section" data-bind="event:{mousedown: dragOn}">\
                     <div class="labels" data-bind="foreach: years, style: {width: canvasWidth }">\
                         <div data-bind="text: $data, \
                         style: { width: $parent.labelSize - $parent.lineThickness, \
@@ -18,6 +18,8 @@ ko.components.register('timeline', {
                </section>',
     viewModel: function () {
         var self = this;
+
+        self.previousDragEvent = ko.observable();
 
         self.lineThickness = 1; // in px
 
@@ -89,30 +91,29 @@ ko.components.register('timeline', {
         });
 
         self.timelineRows = ko.computed(function () {
-            var rows = [];
-            var events = self.events();
+            var beyond, event, eventIndex, startStamp, endStamp, duration, rows, events, cutoff, rowIndex;
 
-            var cutoff;
-            var rowIndex = -1;
+            events = self.events();
+            rows = [];
+            rowIndex = -1;
 
             while (events.length > 0) {
-                var beyond = cutoff > self.toStamp(events[events.length - 1]);
+                beyond = cutoff > self.toStamp(events[events.length - 1]);
 
                 if (typeof cutoff === 'undefined' || beyond) {
                     cutoff = self.toStamp(events[0]);
                     rows[++rowIndex] = [];
                 }
 
-                var event;
-                var eventIndex = self.eventIndexAfter(cutoff, events);
+                eventIndex = self.eventIndexAfter(cutoff, events);
 
                 event = events.splice(eventIndex, 1)[0];
 
-                var startStamp = self.toStamp(event.startDate);
-                var endStamp = self.toStamp(event.endDate) || startStamp;
+                startStamp = self.toStamp(event.startDate);
+                endStamp = self.toStamp(event.endDate) || startStamp;
 
                 // duration can be artificially set to labelsize to ensure there's enough room for a label
-                var duration = Math.max(Math.abs(endStamp - startStamp), self.toMs(self.labelSize));
+                duration = Math.max(Math.abs(endStamp - startStamp), self.toMs(self.labelSize));
 
                 event.xPos = self.toPixels(startStamp - self.earliestDate);
                 event.width = self.toPixels(duration);
@@ -137,16 +138,27 @@ ko.components.register('timeline', {
             }
         });
 
-        self['pan'] = function (model, mouseEvent) {
-            var button = typeof mouseEvent.buttons !== 'undefined' ? mouseEvent.buttons : mouseEvent.which;
+        self['dragOn'] = function (element, event) {
+            self.previousDragEvent(event);
+        };
 
-            if (button != 1)
+        window.addEventListener('mouseup', function (mouseEvent) {
+            self.previousDragEvent(null);
+        });
+
+        window.addEventListener('mousemove', function (mouseEvent) {
+            var src;
+
+            if (!self.previousDragEvent())
                 return;
 
-            var src = document.getElementById('timeline-section');
+            src = document.getElementById('timeline-section');
 
-            src.scrollTop -= mouseEvent.movementY || mouseEvent.mozMovementY;
-            src.scrollLeft -= mouseEvent.movementX || mouseEvent.mozMovementX;
-        }
+            // would've used even.movementX, but at this time it does not exist in Firefox.
+            src.scrollTop -= mouseEvent.screenY - self.previousDragEvent().screenY;
+            src.scrollLeft -= mouseEvent.screenX - self.previousDragEvent().screenX;
+
+            self.previousDragEvent(mouseEvent);
+        });
     }
 });
