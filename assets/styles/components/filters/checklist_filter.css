@@ -1,8 +1,8 @@
-collection_filter {
+checklist_filter {
     display: block;
 }
 
-collection_filter input {
+checklist_filter label {
     display: block;
 
     width: 100%;

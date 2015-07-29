@@ -23,6 +23,7 @@ ko.components.register('text_filter', {
         };
 
         self['fireFilter'] = function () {
+            // Using timeouts to throttle the filtering, otherwise it becomes sluggish
             if (self.timer)
                 window.clearTimeout(self.timer);
 
