@@ -2,10 +2,24 @@ checklist_filter {
     display: block;
 }
 
+checklist_filter input {
+    margin-right: 0em;
+}
+
 checklist_filter label {
-    display: block;
-
-    width: 100%;
-
     border-radius: 0.25em;
+}
+
+checklist_filter > div > label {
+    display: block;
+}
+
+checklist_filter header {
+    position: relative;
+}
+
+checklist_filter header label {
+    position: absolute;
+    top: 0em;
+    right: 0em;
 }

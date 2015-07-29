@@ -1,49 +1,62 @@
 ko.components.register('checklist_filter', {
-    template: '<header data-bind="text: label"></header>\
-               <div data-bind="foreach: Object.keys(eventValuesToSelected())">\
+    template: '<header>\
+                    <span data-bind="text: label"></span>\
                     <label>\
-                        <input type="checkbox" placeholder="eg. Rocky Mountains" data-bind="attr: {value: $data}, checked: $parent.eventValuesToSelected()[$data]"/>\
-                        <span data-bind="text: $data"></span>\
+                        <input type="checkbox" title="Select All/None" data-bind="checked: checkAll"/>\
+                        All\
                     </label>\
+               </header>\
+               <div data-bind="foreach: eventValues">\
+                    <div>\
+                         <label>\
+                              <input type="checkbox" data-bind="checkedValue: $data, checked: $parent.selectedEventValues"/>\
+                              <span data-bind="text: $data"></span>\
+                         </label>\
+                    </div>\
                </div>',
+
 
     // TODO: include counts? ie. the number of each value that exist?
     viewModel: function (params) {
         var self = this;
 
         self.label = params['label'] || 'Property';
+
         self.eventFieldName = params['field'] || alert('Error. Please provide "field" parameter to checklist facet.')
 
-        self.eventValuesToSelected = ko.computed(function () {
-            var data, event, eventValue, valuesToSelected;
+        self.selectedEventValues = ko.observableArray();
+        self.eventValues = ko.computed(function () {
+            var data, event, uniqueEventValues;
 
             data = CWRC.rawData(); // TODO: should this be filtered data? ie. should it redraw the widgets to exclude impossible selections?
-            valuesToSelected = Object.create(null);
+            uniqueEventValues = Object.create(null);
 
             for (var i = 0; i < data.length; i++) {
                 event = data[i];
 
-                eventValue = event[self.eventFieldName];
-
-                valuesToSelected[eventValue] = ko.observable(true);
-
-//                pointsToCounts[dataPoint] = (pointsToCounts[dataPoint] || 0) + 1;
+                uniqueEventValues[event[self.eventFieldName]] = true;
             }
 
-            return valuesToSelected;
+            self.selectedEventValues(Object.keys(uniqueEventValues));
+
+            return Object.keys(uniqueEventValues);
+        });
+
+        self.checkAll = ko.pureComputed({
+            read: function () {
+                // Comparing length is quick and is accurate if only items from the
+                // main array are added to the selected array.
+                return self.selectedEventValues().length === self.eventValues().length;
+            },
+            write: function (value) {
+                self.selectedEventValues(value ? self.eventValues().slice(0) : []);
+            }
         });
 
         self['filter'] = function (event) {
-            var eventValuesToSelected = self.eventValuesToSelected();
+            var eventValue;
 
-            for (var dataPoint in eventValuesToSelected) {
-                var isSelected = eventValuesToSelected[dataPoint]();
-
-                if (isSelected && event[self.eventFieldName] === dataPoint)
-                    return true;
-            }
-
-            return false;
+            return self.selectedEventValues.indexOf(event[self.eventFieldName]) >= 0;
         };
 
         CWRC.filters.push(self['filter']);
