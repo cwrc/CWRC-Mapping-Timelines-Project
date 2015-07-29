@@ -1,10 +1,13 @@
 ko.components.register('date_filter', {
-    template: '<div ><!--TODO: histogram, probably KO component-->\
+    template: '<header data-bind="text: label"></header>\
+               <div ><!--TODO: histogram, probably KO component-->\
                </div>\
                <div id="time_filter" type="range" ></div>',
 
     viewModel: function (params) {
         var self = this;
+
+        self.label = params['label'] || 'Date Range';
 
         var slider = document.getElementById('time_filter');
 

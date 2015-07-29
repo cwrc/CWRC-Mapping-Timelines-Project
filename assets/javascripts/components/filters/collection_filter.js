@@ -1,8 +1,8 @@
 ko.components.register('checklist_filter', {
-    template: '<div data-bind="foreach: Object.keys(dataPointsToSelected())">\
+    template: '<div data-bind="foreach: Object.keys(eventValuesToSelected())">\
                     <label>\
+                        <input type="checkbox" placeholder="eg. Rocky Mountains" data-bind="attr: {value: $data}, checked: $parent.eventValuesToSelected()[$data]"/>\
                         <span data-bind="text: $data"></span>\
-                        <input type="checkbox" placeholder="eg. Rocky Mountains" data-bind="attr: {value: $data}, checked: $parent.dataPointsToSelected()[$data]"/>\
                     </label>\
                </div>',
 
@@ -10,33 +10,34 @@ ko.components.register('checklist_filter', {
     viewModel: function (params) {
         var self = this;
 
-        self.fieldName = params['field'] || alert('Error. Please provide "field" parameter to checklist facet.')
-//        self.selectedDataPoints = ko.observableArray();
+        self.eventFieldName = params['field'] || alert('Error. Please provide "field" parameter to checklist facet.')
 
-        self.dataPointsToSelected = ko.computed(function () {
-            var data, dataPoint, pointsToSelected;
+        self.eventValuesToSelected = ko.computed(function () {
+            var data, event, eventValue, valuesToSelected;
 
-            data = CWRC.rawData();
-            pointsToSelected = Object.create(null);
+            data = CWRC.rawData(); // TODO: should this be filtered data? ie. should it redraw the widgets to exclude impossible selections?
+            valuesToSelected = Object.create(null);
 
             for (var i = 0; i < data.length; i++) {
-                dataPoint = data[i][self.fieldName];
+                event = data[i];
 
-                pointsToSelected[dataPoint] = ko.observable(true);
+                eventValue = event[self.eventFieldName];
+
+                valuesToSelected[eventValue] = ko.observable(true);
 
 //                pointsToCounts[dataPoint] = (pointsToCounts[dataPoint] || 0) + 1;
             }
 
-            return pointsToSelected;
+            return valuesToSelected;
         });
 
         self['filter'] = function (event) {
-            var dataPointsToSelected = self.dataPointsToSelected();
+            var eventValuesToSelected = self.eventValuesToSelected();
 
-            for (var dataPoint in dataPointsToSelected) {
-                var isSelected = dataPointsToSelected[dataPoint]();
+            for (var dataPoint in eventValuesToSelected) {
+                var isSelected = eventValuesToSelected[dataPoint]();
 
-                if (isSelected && event[self.fieldName] === dataPoint)
+                if (isSelected && event[self.eventFieldName] === dataPoint)
                     return true;
             }
 

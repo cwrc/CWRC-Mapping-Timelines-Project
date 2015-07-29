@@ -1,12 +1,12 @@
 ko.components.register('text_filter', {
     template: '<header>Search</header>\
-               <input type="search" placeholder="eg. Rocky Mountains" data-bind="value: filterText, valueUpdate:\'keyup\', event: {keyup: fireFilter}"/>',
+               <input type="search" placeholder="eg. Rocky Mountains" data-bind="textInput: filterText"/>',
 
     viewModel: function (params) {
         var self = this;
 
-        self.timer = null;
-        self.filterText = ko.observable();
+        // Using timeouts to throttle the filtering, otherwise it becomes sluggish
+        self.filterText = ko.observable('').extend({method: 'notifyWhenChangesStop', rateLimit: 300 });
 
         self['filter'] = function (item) {
             var filterText = self.filterText().toLowerCase();
@@ -22,16 +22,6 @@ ko.components.register('text_filter', {
             return false;
         };
 
-        self['fireFilter'] = function () {
-            // Using timeouts to throttle the filtering, otherwise it becomes sluggish
-            if (self.timer)
-                window.clearTimeout(self.timer);
-
-            self.timer = window.setTimeout(function () {
-                CWRC.filters.push(self['filter']);
-            }, 250);
-
-            return true; // return true to do the default action
-        };
+        CWRC.filters.push(self['filter']);
     }
 });

@@ -8,19 +8,17 @@ var CWRC = (function (cwrc, undefined) {
     // ========= Map Overlay =========
     cwrc.rawData = ko.observableArray();
     cwrc.filters = ko.observableArray();
-    cwrc.filteredData = ko.computed({
-        read: function () {
-            var filteredData = cwrc.rawData();
+    cwrc.filteredData = ko.computed(function () {
+        var filteredData = cwrc.rawData();
 
-            for (var i = 0; i < cwrc.filters().length; i++) {
-                var filterFunc = cwrc.filters()[i];
+        for (var i = 0; i < cwrc.filters().length; i++) {
+            var filterFunc = cwrc.filters()[i];
 
-                filteredData = cwrc.select(filteredData, filterFunc);
-            }
+            filteredData = cwrc.select(filteredData, filterFunc);
+        }
 
-            return filteredData;
-        },
-        deferEvaluation: true});
+        return filteredData;
+    }).extend({method: 'notifyWhenChangesStop', rateLimit: 150 });
 
     cwrc.selected = ko.observable();
 
@@ -43,14 +41,22 @@ var CWRC = (function (cwrc, undefined) {
     };
 
     cwrc['loadData'] = function () {
-        var dataSources = document.querySelectorAll('link[rel="cwrc/data"]');
-        var loadedData = [];
+        var dataSources, dataSource, loadedData, flattenedData, finishLoading;
+
+        dataSources = document.querySelectorAll('link[rel="cwrc/data"]');
+        loadedData = [];
 
         for (var i = 0; i < dataSources.length; i++) {
-            var dataSource = dataSources[i].getAttribute('href');
+            dataSource = dataSources[i].getAttribute('href');
 
             CWRC.Network.ajax('get', dataSource, null, function (result) {
-                cwrc.rawData(cwrc.rawData().concat(result.items));
+                loadedData.push(result.items);
+
+                // if this is the last one, we can finish loading.
+                if (loadedData.length >= dataSources.length) {
+                    flattenedData = [].concat.apply([], loadedData);
+                    cwrc.rawData(flattenedData);
+                }
             });
         }
     };

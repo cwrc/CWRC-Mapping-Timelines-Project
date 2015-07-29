@@ -9,3 +9,13 @@ text_filter input {
 
     border-radius: 0.25em;
 }
+
+/* Hide the placeholder text on focus, because users expect this behaviour, and it is nonstandard.  */
+input:focus::-webkit-input-placeholder,
+input:focus:-moz-placeholder, /* Firefox 18- */
+input:focus::-moz-placeholder, /* Firefox 19+ */
+input:focus:-ms-input-placeholder,
+input:focus:input-placeholder,
+input:focus:placeholder {
+    color: transparent;
+}
