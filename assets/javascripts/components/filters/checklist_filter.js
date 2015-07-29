@@ -11,12 +11,11 @@ ko.components.register('checklist_filter', {
                          <label>\
                               <input type="checkbox" data-bind="checkedValue: $data, checked: $parent.selectedEventValues"/>\
                               <span data-bind="text: $data"></span>\
+                              <span>(<span data-bind="text: $parent.eventValueCounts[$data]"></span>)<span>\
                          </label>\
                     </div>\
                </div>',
 
-
-    // TODO: include counts? ie. the number of each value that exist?
     viewModel: function (params) {
         var self = this;
 
@@ -25,8 +24,9 @@ ko.components.register('checklist_filter', {
         self.eventFieldName = params['field'] || alert('Error. Please provide "field" parameter to checklist facet.')
 
         self.selectedEventValues = ko.observableArray();
+        self.eventValueCounts = Object.create(null);
         self.eventValues = ko.computed(function () {
-            var data, event, uniqueEventValues;
+            var data, event, eventValue, uniqueEventValues;
 
             data = CWRC.rawData(); // TODO: should this be filtered data? ie. should it redraw the widgets to exclude impossible selections?
             uniqueEventValues = Object.create(null);
@@ -34,12 +34,17 @@ ko.components.register('checklist_filter', {
             for (var i = 0; i < data.length; i++) {
                 event = data[i];
 
-                uniqueEventValues[event[self.eventFieldName]] = true;
+                eventValue = event[self.eventFieldName]
+
+                uniqueEventValues[eventValue] = true;
+
+                self.eventValueCounts[eventValue] = self.eventValueCounts[eventValue] + 1 || 1;
             }
 
             self.selectedEventValues(Object.keys(uniqueEventValues));
 
-            return Object.keys(uniqueEventValues);
+
+            return Object.keys(uniqueEventValues).sort();
         });
 
         self.checkAll = ko.pureComputed({

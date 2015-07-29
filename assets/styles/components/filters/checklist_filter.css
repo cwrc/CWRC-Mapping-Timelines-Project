@@ -1,5 +1,6 @@
 checklist_filter {
     display: block;
+    margin-bottom: 1em;
 }
 
 checklist_filter input {
@@ -12,6 +13,11 @@ checklist_filter label {
 
 checklist_filter > div > label {
     display: block;
+}
+
+checklist_filter div label > span:last-of-type {
+    font-size: 0.8em;
+    color: darkgrey;
 }
 
 checklist_filter header {
