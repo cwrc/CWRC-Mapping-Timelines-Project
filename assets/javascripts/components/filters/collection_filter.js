@@ -1,5 +1,6 @@
 ko.components.register('checklist_filter', {
-    template: '<div data-bind="foreach: Object.keys(eventValuesToSelected())">\
+    template: '<header data-bind="text: label"></header>\
+               <div data-bind="foreach: Object.keys(eventValuesToSelected())">\
                     <label>\
                         <input type="checkbox" placeholder="eg. Rocky Mountains" data-bind="attr: {value: $data}, checked: $parent.eventValuesToSelected()[$data]"/>\
                         <span data-bind="text: $data"></span>\
@@ -10,6 +11,7 @@ ko.components.register('checklist_filter', {
     viewModel: function (params) {
         var self = this;
 
+        self.label = params['label'] || 'Property';
         self.eventFieldName = params['field'] || alert('Error. Please provide "field" parameter to checklist facet.')
 
         self.eventValuesToSelected = ko.computed(function () {
