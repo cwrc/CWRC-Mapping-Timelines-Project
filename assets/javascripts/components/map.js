@@ -164,6 +164,8 @@ ko.components.register('map', {
                 marker.setVisible(false);
             }
 
+            console.log(CWRC.filteredData().length)
+
             for (index = 0; index < CWRC.filteredData().length; index++) {
                 var visibleItem = CWRC.filteredData()[index];
                 markers = self.itemToMarkers()[ko.toJSON(visibleItem)];

@@ -93,11 +93,15 @@ ko.components.register('date_filter', {
         });
 
         self['filter'] = function (item) {
-            var startStamp = CWRC.toStamp(item.startDate);
-            var endStamp = CWRC.toStamp(item.endDate);
+            if (item.startDate || item.endDate) {
+                var startStamp = CWRC.toStamp(item.startDate);
+                var endStamp = CWRC.toStamp(item.endDate);
 
-            return startStamp >= self.rangeMin() && startStamp <= self.rangeMax()
-                || endStamp >= self.rangeMin() && endStamp <= self.rangeMax()
+                return startStamp >= self.rangeMin() && startStamp <= self.rangeMax()
+                    || endStamp >= self.rangeMin() && endStamp <= self.rangeMax()
+            } else {
+                return true; // this filter doesn't apply if there is no date data
+            }
         };
 
         CWRC.filters.push(self['filter']);

@@ -135,6 +135,11 @@ ko.components.register('timeline', {
             self.previousDragEvent(event);
         };
 
+        self.unplottable = ko.computed(function () {
+            // TODO: reenable this
+            return 'x';//CWRC.filteredData().length - self.visibleMarkers().length;
+        });
+
         // Note: These are on window rather than the component so that dragging doesn't cut off when the
         // mouse leaves the widget. This is Google Maps behaviour adopted for consistency.
         window.addEventListener('mouseup', function (mouseEvent) {
