@@ -9,32 +9,98 @@ ko.components.register('date_filter', {
 
         self.label = params['label'] || 'Date Range';
 
-        var slider = document.getElementById('time_filter');
+        self.rangeMin = ko.observable();
+        self.rangeMax = ko.observable();
 
-        // TODO: actually set these to the real time ranges
-        // TODO: actually use this to set some values for filtering.
-        noUiSlider.create(slider, {
-            start: [0, 100],
-            connect: true,
-            range: {
-                'min': 0,
-                'max': 100
-            }
+        // TODO: there's a lot to DRY between this and Timeline.
+        self.timedEvents = ko.pureComputed(function () {
+            var events, timeDiff;
+
+            // fetch only the data that have non-null start dates, sort by start date.
+            events = CWRC.select(CWRC.rawData(), function (item) { // TODO: is filtered in timeline; pretty much only diff
+                return item.startDate;
+            }).sort(function (a, b) {
+                timeDiff = CWRC.toStamp(a) - CWRC.toStamp(b);
+
+                if (timeDiff == 0)
+                    return a.label.localeCompare(b.label); // break ties alphabetically for determinism
+                else
+                    return timeDiff;
+            });
+
+            return events;
         });
 
-        self.dismissable = ko.observable(params.dismissable || false);
+        self.earliestDate = ko.pureComputed(function () {
+            var firstEvent = self.timedEvents()[0];
 
-        self.notices = params.notices || ko.observableArray([]);
-        self.warnings = params.warnings || ko.observableArray([]);
-        self.errors = params.errors || ko.observableArray([]);
+            return firstEvent ? new Date(firstEvent.startDate) : new Date();
+        });
 
-        // the text below the warnings, describing it
-        self.warningFlavour = ko.observable(params.warningFlavour);
+        self.latestDate = ko.pureComputed(function () {
+            var sortedEvents = self.timedEvents();
+            var lastEvent = sortedEvents[sortedEvents.length - 1];
 
-        self.hasMessages = function () {
-            return self.notices().length > 0 ||
-                self.warnings().length > 0 ||
-                self.errors().length > 0;
-        }
+            return lastEvent ? new Date(lastEvent.endDate || lastEvent.startDate) : new Date();
+        });
+
+        // Tried with subscribe, but it ends up out of order. Making a computed fixes the order problem.
+        self.sliderElement = ko.computed(function () {
+            var sliderElement = document.getElementById('time_filter');
+
+            if (sliderElement.noUiSlider) {
+                sliderElement.noUiSlider.destroy();
+            }
+
+            var earliestDate = self.earliestDate();
+            var latestDate = self.latestDate();
+
+            self.rangeMin(earliestDate.getTime());
+            self.rangeMax(latestDate.getTime());
+
+            var sliderSettings = {
+                start: [earliestDate.getTime(), latestDate.getTime()],
+                connect: true,
+                margin: 1, // no closer than 1 together
+                step: 1, // snap to 1-unit increments
+                range: {
+                    min: self.rangeMin(),
+                    max: self.rangeMax()
+                },
+                pips: {
+                    mode: 'positions',
+                    values: [0, 20, 40, 60, 80, 100],
+                    density: 2,
+                    format: {
+                        to: function (value) {
+                            return new Date(value).getFullYear().toString();
+                        },
+                        from: function (value) {
+                            return value.getTime();
+                        }
+                    }
+                }
+            };
+
+            noUiSlider.create(sliderElement, sliderSettings);
+
+            sliderElement.noUiSlider.on('set', function (value) {
+                self.rangeMin(parseInt(value[0]));
+                self.rangeMax(parseInt(value[1]));
+            });
+
+            return sliderElement;
+        });
+
+        self['filter'] = function (item) {
+            var startStamp = CWRC.toStamp(item.startDate);
+            var endStamp = CWRC.toStamp(item.endDate);
+
+            return startStamp >= self.rangeMin() && startStamp <= self.rangeMax()
+                || endStamp >= self.rangeMin() && endStamp <= self.rangeMax()
+        };
+
+        CWRC.filters.push(self['filter']);
     }
-});
+})
+;

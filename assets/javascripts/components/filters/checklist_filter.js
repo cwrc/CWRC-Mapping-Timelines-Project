@@ -54,6 +54,7 @@ ko.components.register('checklist_filter', {
                 return self.selectedEventValues().length === self.eventValues().length;
             },
             write: function (value) {
+                // TODO: don't allow de-selecting. It's a mutual exlusive.
                 self.selectedEventValues(value ? self.eventValues().slice(0) : []);
             }
         });

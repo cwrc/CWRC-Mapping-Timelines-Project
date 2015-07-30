@@ -62,6 +62,15 @@ var CWRC = (function (cwrc, undefined) {
     };
 
     /**
+     * Returns all events that have a timestamp associated, sorted by start time.
+     */
+
+
+    cwrc.timespan = ko.pureComputed(function () {
+        return ko.utils.range(CWRC.earliestDate().getUTCFullYear(), CWRC.latestDate().getUTCFullYear() - 1);
+    });
+
+    /**
      * Accepts any of:
      *   1. date string (eg. "January 1, 2015");
      *   2. event (ie. from the database, not UI event); or

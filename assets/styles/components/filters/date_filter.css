@@ -6,3 +6,8 @@ date_filter input {
     display: block;
     width: 100%;
 }
+
+date_filter #time_filter {
+    margin: 0.5em;
+    margin-bottom: 4em;
+}
