@@ -1,8 +1,12 @@
 ko.components.register('date_filter', {
-    template: '<header data-bind="text: label"></header>\
+    template: '<header>\
+                    <span data-bind="text: label">\
+                    </span>\
+                    <a href="#" data-bind="click: function(){ enabled(!enabled()) }, text: enableText"></a>\
+               </header>\
                <div ><!--TODO: histogram, probably KO component-->\
                </div>\
-               <div id="time_filter" type="range" ></div>',
+               <div id="time_filter"></div>',
 
     viewModel: function (params) {
         var self = this;
@@ -15,6 +19,16 @@ ko.components.register('date_filter', {
         self.enabled = ko.observable(true);
         self.enableText = ko.pureComputed(function () {
             return self.enabled() ? 'disable' : 'enable';
+        });
+
+        // Not sure why, but we can't do the normal KO thing here. Possible that the slider library overwrites the node
+        self.enabled.subscribe(function (newValue) {
+            var sliderElement = document.getElementById('time_filter');
+
+            if (!newValue)
+                sliderElement.setAttribute('disabled', true);
+            else
+                sliderElement.removeAttribute('disabled');
         });
 
         // TODO: there's a lot to DRY between this and Timeline.
@@ -102,6 +116,9 @@ ko.components.register('date_filter', {
         });
 
         self['filter'] = function (item) {
+            if (!self.enabled())
+                return true;
+
             if (item.startDate || item.endDate) {
                 var startStamp = CWRC.toStamp(item.startDate);
                 var endStamp = CWRC.toStamp(item.endDate);
