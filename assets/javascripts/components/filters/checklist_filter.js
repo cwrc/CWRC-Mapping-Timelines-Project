@@ -1,15 +1,18 @@
 ko.components.register('checklist_filter', {
     template: '<header>\
                     <span data-bind="text: label"></span>\
+                    <a href="#" data-bind="click: function(){ enabled(!enabled()) }, text: enableText"></a>\
                     <label>\
-                        <input type="checkbox" title="Select All/None" data-bind="checked: checkAll"/>\
+                        <input type="checkbox" title="Select All/None" data-bind="checked: checkAll, enable: enabled"/>\
                         All\
                     </label>\
                </header>\
-               <div data-bind="foreach: eventValues">\
+               <div data-bind="visible: enabled, foreach: eventValues">\
                     <div>\
                          <label>\
-                              <input type="checkbox" data-bind="checkedValue: $data, checked: $parent.selectedEventValues"/>\
+                              <input type="checkbox" data-bind="checkedValue: $data, \
+                                                                checked: $parent.selectedEventValues, \
+                                                                enable: $parent.enabled"/>\
                               <span data-bind="text: $data"></span>\
                               <span>(<span data-bind="text: $parent.eventValueCounts[$data]"></span>)<span>\
                          </label>\
@@ -28,6 +31,11 @@ ko.components.register('checklist_filter', {
         self.eventFieldName = params['field'] || alert('Error. Please provide "field" parameter to checklist facet.')
 
         self.label = params['label'] || ('Property: ' + self.eventFieldName);
+
+        self.enabled = ko.observable(true);
+        self.enableText = ko.pureComputed(function () {
+            return self.enabled() ? 'disable' : 'enable';
+        });
 
         self.selectedEventValues = ko.observableArray();
         self.eventValueCounts = Object.create(null);
@@ -68,7 +76,11 @@ ko.components.register('checklist_filter', {
         self['filter'] = function (event) {
             var eventValue;
 
-            return self.selectedEventValues.indexOf(event[self.eventFieldName]) >= 0;
+            if (self.enabled())
+                return self.selectedEventValues.indexOf(event[self.eventFieldName]) >= 0;
+            else {
+                return true;
+            }
         };
 
         CWRC.filters.push(self['filter']);
