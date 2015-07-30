@@ -113,9 +113,6 @@ ko.components.register('timeline', {
                     width: toPixels(duration)
                 };
 
-//                event.xPos = toPixels(startStamp - CWRC.toStamp(self.earliestDate()));
-//                event.width = toPixels(duration);
-
                 cutoff = startStamp + duration;
 
                 rows[rowIndex].push(event);
