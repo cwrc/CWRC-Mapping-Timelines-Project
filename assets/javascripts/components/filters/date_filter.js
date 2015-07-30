@@ -2,7 +2,7 @@ ko.components.register('date_filter', {
     template: '<header>\
                     <span data-bind="text: label">\
                     </span>\
-                    <a href="#" data-bind="click: function(){ enabled(!enabled()) }, text: enableText"></a>\
+                    (<a href="#" data-bind="click: function(){ enabled(!enabled()) }, text: enableText"></a>)\
                </header>\
                <div ><!--TODO: histogram, probably KO component-->\
                </div>\
@@ -18,7 +18,7 @@ ko.components.register('date_filter', {
 
         self.enabled = ko.observable(true);
         self.enableText = ko.pureComputed(function () {
-            return self.enabled() ? 'disable' : 'enable';
+            return self.enabled() ? 'on' : 'off';
         });
 
         // Not sure why, but we can't do the normal KO thing here. Possible that the slider library overwrites the node

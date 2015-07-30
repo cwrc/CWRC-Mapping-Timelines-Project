@@ -1,7 +1,7 @@
 ko.components.register('text_filter', {
     template: '<header>\
                     Search\
-                    <a href="#" data-bind="click: function(){ enabled(!enabled()) }, text: enableText"></a>\
+                    (<a href="#" data-bind="click: function(){ enabled(!enabled()) }, text: enableText"></a>)\
                </header>\
                <input type="search" placeholder="eg. Rocky Mountains" data-bind="textInput: filterText, enable: enabled"/>',
 
@@ -10,7 +10,7 @@ ko.components.register('text_filter', {
 
         self.enabled = ko.observable(true);
         self.enableText = ko.pureComputed(function () {
-            return self.enabled() ? 'disable' : 'enable';
+            return self.enabled() ? 'on' : 'off';
         });
 
         // Using timeouts to throttle the filtering, otherwise it becomes sluggish

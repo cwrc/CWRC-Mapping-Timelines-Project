@@ -1,7 +1,7 @@
 ko.components.register('checklist_filter', {
     template: '<header>\
                     <span data-bind="text: label"></span>\
-                    <a href="#" data-bind="click: function(){ enabled(!enabled()) }, text: enableText"></a>\
+                    (<a href="#" data-bind="click: function(){ enabled(!enabled()) }, text: enableText"></a>)\
                     <label>\
                         <input type="checkbox" title="Select All/None" data-bind="checked: checkAll, enable: enabled"/>\
                         All\
@@ -34,7 +34,7 @@ ko.components.register('checklist_filter', {
 
         self.enabled = ko.observable(true);
         self.enableText = ko.pureComputed(function () {
-            return self.enabled() ? 'disable' : 'enable';
+            return self.enabled() ? 'on' : 'off';
         });
 
         self.selectedEventValues = ko.observableArray();
