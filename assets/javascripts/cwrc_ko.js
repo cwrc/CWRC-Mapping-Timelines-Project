@@ -8,7 +8,7 @@ var CWRC = (function (cwrc, undefined) {
     // ========= Map Overlay =========
     cwrc.rawData = ko.observableArray();
     cwrc.filters = ko.observableArray();
-    cwrc.filteredData = ko.computed(function () {
+    cwrc.filteredData = ko.pureComputed(function () {
         var filteredData = cwrc.rawData();
 
         for (var i = 0; i < cwrc.filters().length; i++) {
@@ -18,7 +18,7 @@ var CWRC = (function (cwrc, undefined) {
         }
 
         return filteredData;
-    }).extend({method: 'notifyWhenChangesStop', rateLimit: 150 });
+    });//.extend({method: 'notifyWhenChangesStop', rateLimit: 150 });
 
     cwrc.selected = ko.observable();
 

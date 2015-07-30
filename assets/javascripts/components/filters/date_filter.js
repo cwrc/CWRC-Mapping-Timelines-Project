@@ -89,6 +89,10 @@ ko.components.register('date_filter', {
                 self.rangeMax(parseInt(value[1]));
             });
 
+            sliderElement.noUiSlider.set(
+                [self.rangeMin(earliestStamp), self.rangeMax(latestStamp)]
+            );
+
             return sliderElement;
         });
 

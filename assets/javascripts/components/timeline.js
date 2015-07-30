@@ -116,9 +116,8 @@ ko.components.register('timeline', {
         });
 
         self.canvasWidth = ko.computed(function () {
-            var events, timespan, startStamp, endStamp;
+            var timespan, startStamp, endStamp;
 
-            events = self.events();
             startStamp = CWRC.toStamp(self.earliestDate());
             endStamp = CWRC.toStamp(self.latestDate());
 
