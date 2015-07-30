@@ -7,8 +7,11 @@ ko.components.register('timeline', {
                     </div>\
                     <div class="canvas" data-bind="foreach: timelineRows, style: {width: canvasWidth }">\
                         <div class="row" data-bind="foreach: $data">\
-                            <a href="#" class="event" data-bind="style: {left: $data.xPos, width: $data.width,\
-                                                                         color: $data.endDate ? \'red\' : \'black\'},\
+                            <a href="#" class="event" data-bind="style: {\
+                                                                            left: $parents[1].getPinInfo($data).xPos, \
+                                                                            width: $parents[1].getPinInfo($data).width,\
+                                                                            color: $data.endDate ? \'red\' : \'black\'\
+                                                                        },\
                                                                  click: function(){ CWRC.selected($data) }">\
                                 <span data-bind="text: $data.startDate"></span>\
                                 <span data-bind="html: $data.label"></span>\
@@ -25,6 +28,7 @@ ko.components.register('timeline', {
 
         self.pixelsPerMs = 1 / CWRC.toMillisec('day');
         self.labelSize = CWRC.toMillisec('year') * self.pixelsPerMs; // px
+        self.eventsToPinInfos = Object.create(null);
 
         // full filtered events, sorted by
         self.events = ko.computed(function () {
@@ -104,8 +108,13 @@ ko.components.register('timeline', {
                 // duration can be artificially set to labelsize to ensure there's enough room for a label
                 duration = Math.max(Math.abs(endStamp - startStamp), toMilliSecs(self.labelSize));
 
-                event.xPos = toPixels(startStamp - CWRC.toStamp(self.earliestDate()));
-                event.width = toPixels(duration);
+                self.eventsToPinInfos[ko.toJSON(event)] = {
+                    xPos: toPixels(startStamp - CWRC.toStamp(self.earliestDate())),
+                    width: toPixels(duration)
+                };
+
+//                event.xPos = toPixels(startStamp - CWRC.toStamp(self.earliestDate()));
+//                event.width = toPixels(duration);
 
                 cutoff = startStamp + duration;
 
@@ -132,6 +141,10 @@ ko.components.register('timeline', {
 
         self['dragStart'] = function (element, event) {
             self.previousDragEvent(event);
+        };
+
+        self['getPinInfo'] = function (item) {
+            return self.eventsToPinInfos[ko.toJSON(item)];
         };
 
         self.unplottable = ko.computed(function () {

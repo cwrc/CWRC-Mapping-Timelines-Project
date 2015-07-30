@@ -136,7 +136,7 @@ ko.components.register('map', {
             CWRC.selected(marker.item);
         });
 
-        self.itemToMarkers = ko.computed(function () {
+        self.itemToMarkers = ko.pureComputed(function () {
             var itemToMarkers = {};
 
             for (var i = 0; i < CWRC.rawData().length; i++) {
@@ -148,23 +148,17 @@ ko.components.register('map', {
         });
 
         self.visibleMarkers = ko.computed(function () {
-            var index;
-            var j;
+            var allMarkers, markers, marker, index, j, visibleData;
 
-            var itemToMarkers = self.itemToMarkers();
-
-            var markers;
-            var marker;
-
-            var allMarkers = self.spiderfier.getMarkers();
+            allMarkers = self.spiderfier.getMarkers();
 
             for (index = 0; index < allMarkers.length; index++) {
-                var marker = allMarkers[index];
+                marker = allMarkers[index];
 
                 marker.setVisible(false);
             }
 
-            var visibleData = CWRC.filteredData();
+            visibleData = CWRC.filteredData();
 
             for (index = 0; index < visibleData.length; index++) {
                 var visibleItem = visibleData[index];
