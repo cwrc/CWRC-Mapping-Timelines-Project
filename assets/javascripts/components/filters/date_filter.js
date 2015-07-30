@@ -52,20 +52,20 @@ ko.components.register('date_filter', {
                 sliderElement.noUiSlider.destroy();
             }
 
-            var earliestDate = self.earliestDate();
-            var latestDate = self.latestDate();
+            var earliestStamp = self.earliestDate().getTime();
+            var latestStamp = self.latestDate().getTime();
 
-            self.rangeMin(earliestDate.getTime());
-            self.rangeMax(latestDate.getTime());
+//            self.rangeMin(earliestStamp);
+//            self.rangeMax(latestStamp);
 
             var sliderSettings = {
-                start: [earliestDate.getTime(), latestDate.getTime()],
+                start: [earliestStamp, latestStamp], //[self.rangeMin(), self.rangeMax()],
                 connect: true,
                 margin: 1, // no closer than 1 together
                 step: 1, // snap to 1-unit increments
                 range: {
-                    min: self.rangeMin(),
-                    max: self.rangeMax()
+                    min: earliestStamp, //self.rangeMin(),
+                    max: latestStamp //self.rangeMax()
                 },
                 pips: {
                     mode: 'positions',
