@@ -16,12 +16,18 @@ ko.components.register('checklist_filter', {
                     </div>\
                </div>',
 
+    /**
+     * Parameters:
+     * * field: The name of the object field to filter by
+     * * label: The label to display (optional)
+     * @param params
+     */
     viewModel: function (params) {
         var self = this;
 
-        self.label = params['label'] || 'Property';
-
         self.eventFieldName = params['field'] || alert('Error. Please provide "field" parameter to checklist facet.')
+
+        self.label = params['label'] || ('Property: ' + self.eventFieldName);
 
         self.selectedEventValues = ko.observableArray();
         self.eventValueCounts = Object.create(null);
