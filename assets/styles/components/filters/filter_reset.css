@@ -1,0 +1,11 @@
+filter_reset {
+    display: block;
+}
+
+filter_reset input {
+    display: block;
+
+    width: 100%;
+
+    border-radius: 0.25em;
+}

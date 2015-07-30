@@ -83,6 +83,10 @@ ko.components.register('checklist_filter', {
             }
         };
 
+        self['reset'] = function () {
+            self.checkAll(true);
+        };
+
         CWRC.filters.push(self['filter']);
     }
 });

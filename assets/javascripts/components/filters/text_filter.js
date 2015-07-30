@@ -26,6 +26,10 @@ ko.components.register('text_filter', {
         // Using timeouts to throttle the filtering, otherwise it becomes sluggish
         self.filterText = ko.observable('').extend({method: 'notifyWhenChangesStop', rateLimit: 300 });
 
+        self['reset'] = function () {
+            self.filterText('');
+        };
+
         self['filter'] = function (item) {
             if (!self.enabled())
                 return true;

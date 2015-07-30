@@ -41,7 +41,7 @@ ko.components.register('date_filter', {
             var events, timeDiff;
 
             // fetch only the data that have non-null start dates, sort by start date.
-            events = CWRC.select(CWRC.rawData(), function (item) { // TODO: is filtered in timeline; pretty much only diff
+            events = CWRC.select(CWRC.rawData(), function (item) { // TODO: <- filteredData in timeline; pretty much only diff
                 return item.startDate;
             }).sort(function (a, b) {
                 timeDiff = CWRC.toStamp(a) - CWRC.toStamp(b);
@@ -76,11 +76,9 @@ ko.components.register('date_filter', {
                 sliderElement.noUiSlider.destroy();
             }
 
+            // TODO: can refactor this out.
             var earliestStamp = self.earliestDate().getTime();
             var latestStamp = self.latestDate().getTime();
-
-//            self.rangeMin(earliestStamp);
-//            self.rangeMax(latestStamp);
 
             var sliderSettings = {
                 start: [earliestStamp, latestStamp], //[self.rangeMin(), self.rangeMax()],
@@ -133,6 +131,15 @@ ko.components.register('date_filter', {
             } else {
                 return true; // this filter doesn't apply if there is no date data
             }
+        };
+
+        self['reset'] = function () {
+            var sliderElement = document.getElementById('time_filter');
+
+            var earliestStamp = self.earliestDate().getTime();
+            var latestStamp = self.latestDate().getTime();
+
+            sliderElement.noUiSlider.set([earliestStamp, latestStamp]);
         };
 
         CWRC.filters.push(self['filter']);
