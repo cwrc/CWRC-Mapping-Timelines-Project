@@ -55,6 +55,12 @@ var CWRC = (function (cwrc, undefined) {
                 // if this is the last one, we can finish loading.
                 if (loadedData.length >= dataSources.length) {
                     flattenedData = [].concat.apply([], loadedData);
+
+                    // Freezing all data to avoid any modifications by widgets, plus this is a read-only tool.
+                    flattenedData.forEach(function (item) {
+                        Object.freeze(item);
+                    });
+
                     cwrc.rawData(flattenedData);
                 }
             });
