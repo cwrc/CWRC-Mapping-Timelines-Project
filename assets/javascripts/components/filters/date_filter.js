@@ -8,6 +8,11 @@ ko.components.register('date_filter', {
                </div>\
                <div id="time_filter"></div>',
 
+    /**
+     * Parameters:
+     * * label: The label to display (optional)
+     * @param params
+     */
     viewModel: function (params) {
         var self = this;
 
