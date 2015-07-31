@@ -13,16 +13,18 @@ timeline > section {
 }
 
 timeline > section > div.labels {
-    height: 1em;
+    position: relative;
 
-    background: white;
+    height: 1em;
 }
 
 timeline > section > div.labels > div {
-    display: table-cell;
+    position: absolute; /* Must absolute, otherwise time drift will occur (leap years) */
 
     border-left-color: black;
     border-left-style: solid;
+
+    background: white;
 }
 
 timeline > section > div.labels > div:nth-of-type(odd) {
@@ -73,10 +75,10 @@ timeline > section > div.canvas > div.row > .event {
     text-overflow: ellipsis;
 }
 
-timeline > section > div.canvas > div.row > .event > span:first-of-type:after{
+timeline > section > div.canvas > div.row > .event > span:first-of-type:after {
     content: ":";
 }
 
-timeline > section > div.canvas > div.row > .event > span{
+timeline > section > div.canvas > div.row > .event > span {
     margin-left: 0.25em;
 }

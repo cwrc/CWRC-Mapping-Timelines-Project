@@ -1,9 +1,12 @@
 ko.components.register('timeline', {
     template: '<section id="timeline-section" data-bind="event:{mousedown: dragStart}">\
                     <div class="labels" data-bind="foreach: years, style: {width: canvasWidth }">\
-                        <div data-bind="text: $data, style: { \
-                                                            width: $parent.labelSize - $parent.lineThickness, \
-                                     \'border-left-width\': $parent.lineThickness }"></div>\
+                        <div data-bind="text: $data, \
+                                        style: { \
+                                                 left: $parent.labelPosition($data),\
+                                                 width: $parent.labelSize - $parent.lineThickness, \
+                                                \'border-left-width\': $parent.lineThickness \
+                                        }"></div>\
                     </div>\
                     <div class="canvas" data-bind="foreach: timelineRows, style: {width: canvasWidth }">\
                         <div class="row" data-bind="foreach: $data">\
@@ -66,6 +69,14 @@ ko.components.register('timeline', {
             return ko.utils.range(self.earliestDate().getUTCFullYear(), self.latestDate().getUTCFullYear());
         });
 
+        self['toPixels'] = function (stamp) {
+            return stamp * self.pixelsPerMs;
+        };
+
+        self['originStamp'] = function () {
+            return CWRC.toStamp(self.years()[0].toString());
+        };
+
         self.timelineRows = ko.computed(function () {
             var startStamp, endStamp, duration, rows, events, cutoff, rowIndex, toMilliSecs, toPixels, nextEventIndex;
 
@@ -84,9 +95,7 @@ ko.components.register('timeline', {
                 return pixels / self.pixelsPerMs;
             };
 
-            toPixels = function (stamp) {
-                return stamp * self.pixelsPerMs;
-            };
+            toPixels = self.toPixels;
 
             while (events.length > 0) {
                 var event, eventIndex, beyond;
@@ -108,13 +117,8 @@ ko.components.register('timeline', {
                 // duration can be artificially set to labelsize to ensure there's enough room for a label
                 duration = Math.max(Math.abs(endStamp - startStamp), toMilliSecs(self.labelSize));
 
-                toPixels(startStamp - CWRC.toStamp(self.years()[0].toString()));
-                toPixels(startStamp - CWRC.toStamp(self.earliestDate().getUTCFullYear()));
-                toPixels(startStamp - CWRC.toStamp(self.earliestDate()));
-
-
                 self.eventsToPinInfos[ko.toJSON(event)] = {
-                    xPos: toPixels(startStamp - CWRC.toStamp(self.years()[0].toString())),
+                    xPos: toPixels(startStamp - self.originStamp()),
                     width: toPixels(duration)
                 };
 
@@ -143,6 +147,10 @@ ko.components.register('timeline', {
 
         self['dragStart'] = function (element, event) {
             self.previousDragEvent(event);
+        };
+
+        self['labelPosition'] = function (year) {
+            return self.toPixels(CWRC.toStamp(year.toString()) - self.originStamp())
         };
 
         self['getPinInfo'] = function (item) {
