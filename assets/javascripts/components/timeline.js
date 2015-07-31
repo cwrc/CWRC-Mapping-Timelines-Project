@@ -63,7 +63,7 @@ ko.components.register('timeline', {
         });
 
         self.years = ko.computed(function () {
-            return ko.utils.range(self.earliestDate().getUTCFullYear(), self.latestDate().getUTCFullYear() - 1);
+            return ko.utils.range(self.earliestDate().getUTCFullYear(), self.latestDate().getUTCFullYear());
         });
 
         self.timelineRows = ko.computed(function () {
@@ -108,8 +108,13 @@ ko.components.register('timeline', {
                 // duration can be artificially set to labelsize to ensure there's enough room for a label
                 duration = Math.max(Math.abs(endStamp - startStamp), toMilliSecs(self.labelSize));
 
+                toPixels(startStamp - CWRC.toStamp(self.years()[0].toString()));
+                toPixels(startStamp - CWRC.toStamp(self.earliestDate().getUTCFullYear()));
+                toPixels(startStamp - CWRC.toStamp(self.earliestDate()));
+
+
                 self.eventsToPinInfos[ko.toJSON(event)] = {
-                    xPos: toPixels(startStamp - CWRC.toStamp(self.earliestDate())),
+                    xPos: toPixels(startStamp - CWRC.toStamp(self.years()[0].toString())),
                     width: toPixels(duration)
                 };
 
