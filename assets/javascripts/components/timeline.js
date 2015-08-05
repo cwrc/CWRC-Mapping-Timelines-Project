@@ -1,6 +1,12 @@
 ko.components.register('timeline', {
-    template: '<a href="#" data-bind="click: function(){isVisible(!isVisible())}, text: visibleText"></a>\
-                <section id="timeline-section" data-bind="visible: isVisible, event:{mousedown: dragStart}">\
+    template: '<section>\
+                    <a href="#" data-bind="click: function(){isVisible(!isVisible())}, text: visibleText"></a>\
+                    <div>\
+                        <span data-bind="text: unplottableCount"></span> of <span data-bind="text: CWRC.rawData().length"></span>\
+                        lack time data\
+                    </div>\
+               </section>\
+                <section id="timeline-viewport" data-bind="visible: isVisible, event:{mousedown: dragStart}">\
                     <div class="labels" data-bind="foreach: years, style: {width: canvasWidth }">\
                         <div data-bind="text: $data, \
                                         style: { \
@@ -28,7 +34,7 @@ ko.components.register('timeline', {
 
         self.isVisible = ko.observable(true);
         self.visibleText = ko.computed(function () {
-            return self.isVisible() ? 'Hide Timeline' : 'Show Timeline';
+            return self.isVisible() ? 'Hide' : 'Show';
         });
 
         self.previousDragEvent = ko.observable();
@@ -39,7 +45,7 @@ ko.components.register('timeline', {
         self.labelSize = CWRC.toMillisec('year') * self.pixelsPerMs; // px
         self.eventsToPinInfos = Object.create(null);
 
-        // full filtered events, sorted by
+        // full filtered events, sorted by start
         self.events = ko.computed(function () {
             var events, timeDiff;
 
@@ -163,9 +169,10 @@ ko.components.register('timeline', {
             return self.eventsToPinInfos[ko.toJSON(item)];
         };
 
-        self.unplottable = ko.computed(function () {
-            // TODO: reenable this
-            return 'x';//CWRC.filteredData().length - self.visibleMarkers().length;
+        self.unplottableCount = ko.pureComputed(function () {
+            return CWRC.rawData().length - CWRC.select(CWRC.rawData(), function (item) {
+                return item.startDate;
+            }).length;
         });
 
         // Note: These are on window rather than the component so that dragging doesn't cut off when the
@@ -180,7 +187,7 @@ ko.components.register('timeline', {
             if (!self.previousDragEvent())
                 return;
 
-            src = document.getElementById('timeline-section');
+            src = document.getElementById('timeline-viewport');
 
             // would've used even.movementX, but at this time it does not exist in Firefox.
             src.scrollTop -= mouseEvent.screenY - self.previousDragEvent().screenY;

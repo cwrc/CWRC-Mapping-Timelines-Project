@@ -2,7 +2,14 @@ timeline {
     display: block;
 }
 
-timeline > section {
+timeline > section:first-of-type div {
+    display: inline-block;
+
+    position: absolute;
+    right: 0em;
+}
+
+timeline #timeline-viewport {
     height: 15em;
 
     overflow: auto;
@@ -10,13 +17,13 @@ timeline > section {
     background: #ccc;
 }
 
-timeline > section > div.labels {
+timeline #timeline-viewport > div.labels {
     position: relative;
 
     height: 1em;
 }
 
-timeline > section > div.labels > div {
+timeline #timeline-viewport > div.labels > div {
     position: absolute; /* Must absolute, otherwise time drift will occur (leap years) */
 
     border-left-color: black;
@@ -25,11 +32,11 @@ timeline > section > div.labels > div {
     background: white;
 }
 
-timeline > section > div.labels > div:nth-of-type(odd) {
+timeline #timeline-viewport > div.labels > div:nth-of-type(odd) {
     background: #ccc;
 }
 
-timeline > section {
+timeline #timeline-viewport {
     cursor: -moz-grab;
     cursor: -webkit-grab;
     cursor: grab;
@@ -40,13 +47,13 @@ timeline > section {
     user-select: none;
 }
 
-timeline > section:active {
+timeline #timeline-viewport:active {
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
     cursor: grabbing;
 }
 
-timeline > section > div.canvas > div.row {
+timeline #timeline-viewport > div.canvas > div.row {
     position: relative; /* to give a new origin for children  */
 
     margin: 0.25em 0;
@@ -56,7 +63,7 @@ timeline > section > div.canvas > div.row {
     overflow: hidden;
 }
 
-timeline > section > div.canvas > div.row > .event {
+timeline #timeline-viewport > div.canvas > div.row > .event {
     display: inline-block;
     position: absolute;
     vertical-align: top;
@@ -73,10 +80,10 @@ timeline > section > div.canvas > div.row > .event {
     text-overflow: ellipsis;
 }
 
-timeline > section > div.canvas > div.row > .event > span:first-of-type:after {
+timeline #timeline-viewport > div.canvas > div.row > .event > span:first-of-type:after {
     content: ":";
 }
 
-timeline > section > div.canvas > div.row > .event > span {
+timeline #timeline-viewport > div.canvas > div.row > .event > span {
     margin-left: 0.25em;
 }

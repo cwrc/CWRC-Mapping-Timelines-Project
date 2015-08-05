@@ -81,7 +81,7 @@ ko.components.register('map', {
 
         self.isVisible = ko.observable(true);
         self.visibleText = ko.computed(function () {
-            return self.isVisible() ? 'Hide Timeline' : 'Show Timeline';
+            return self.isVisible() ? 'Hide' : 'Show';
         });
 
         // === MAP BEHAVIOUR ===
