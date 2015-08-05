@@ -7,14 +7,14 @@ ko.components.register('checklist_filter', {
                         All\
                     </label>\
                </header>\
-               <div data-bind="visible: enabled, foreach: eventValues">\
+               <div data-bind="visible: enabled, foreach: Object.keys(rawEventValuesToCounts()).sort()">\
                     <div>\
                          <label>\
                               <input type="checkbox" data-bind="checkedValue: $data, \
                                                                 checked: $parent.selectedEventValues, \
                                                                 enable: $parent.enabled"/>\
                               <span data-bind="text: $data"></span>\
-                              <span>(<span data-bind="text: $parent.eventValueCounts[$data]"></span>)<span>\
+                              <span>(<span data-bind="text: $parent.filteredEventValuesToCounts()[$data] || 0"></span>/<span data-bind="text: $parent.rawEventValuesToCounts()[$data]"></span>)<span>\
                          </label>\
                     </div>\
                </div>',
@@ -38,41 +38,51 @@ ko.components.register('checklist_filter', {
         });
 
         self.selectedEventValues = ko.observableArray();
-        self.eventValueCounts = Object.create(null);
-        self.eventValues = ko.computed(function () {
-            var data, event, eventValue, uniqueEventValues;
 
-            data = CWRC.rawData(); // TODO: should this be filtered data? ie. should it redraw the widgets to exclude impossible selections?
-            uniqueEventValues = Object.create(null);
+        self['countData'] = function (dataList) {
+            var eventValue, eventValuesToCounts, observable;
 
-            for (var i = 0; i < data.length; i++) {
-                event = data[i];
+            eventValuesToCounts = Object.create(null);
 
-                eventValue = event[self.eventFieldName]
+            dataList.forEach(function (event) {
+                eventValue = event[self.eventFieldName];
 
-                uniqueEventValues[eventValue] = true;
+                observable = eventValuesToCounts[eventValue];
 
-                self.eventValueCounts[eventValue] = self.eventValueCounts[eventValue] + 1 || 1;
-            }
+                // only assign a new observable if one is missing
+                if (!observable)
+                    eventValuesToCounts[eventValue] = observable = ko.observable(0);
 
-            self.selectedEventValues(Object.keys(uniqueEventValues));
+                observable(observable() + 1);
+            });
 
+            return eventValuesToCounts;
+        };
 
-            return Object.keys(uniqueEventValues).sort();
+        self.filteredEventValuesToCounts = ko.pureComputed(function () {
+            return self.countData(CWRC.filteredData());
+        });
+
+        self.rawEventValuesToCounts = ko.computed(function () {
+            var eventValuesToCounts = self.countData(CWRC.rawData());
+
+            self.selectedEventValues(Object.keys(eventValuesToCounts));
+
+            return eventValuesToCounts;
         });
 
         self.allChecked = ko.pureComputed({
             read: function () {
                 // Comparing length is quick and is accurate if only items from the
                 // main array are added to the selected array.
-                return self.selectedEventValues().length === self.eventValues().length;
+                return self.selectedEventValues().length === Object.keys(self.rawEventValuesToCounts()).length;
             },
             write: function (value) {
-                self.selectedEventValues(value ? self.eventValues().slice(0) : []);
+                self.selectedEventValues(value ? self.rawEventValues().slice(0) : []);
             }
         });
 
-        self['allCheckEnabled'] = ko.computed(function () {
+        self['allCheckEnabled'] = ko.pureComputed(function () {
             return self.enabled() && !self.allChecked();
         });
 
