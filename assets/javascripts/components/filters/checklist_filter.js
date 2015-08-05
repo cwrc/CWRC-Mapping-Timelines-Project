@@ -3,7 +3,7 @@ ko.components.register('checklist_filter', {
                     <span data-bind="text: label"></span>\
                     (<a href="#" data-bind="click: function(){ enabled(!enabled()) }, text: enableText"></a>)\
                     <label>\
-                        <input type="checkbox" title="Select All/None" data-bind="checked: checkAll, enable: enabled"/>\
+                        <input type="checkbox" title="Select All/None" data-bind="checked: allChecked, enable: allCheckEnabled"/>\
                         All\
                     </label>\
                </header>\
@@ -61,16 +61,19 @@ ko.components.register('checklist_filter', {
             return Object.keys(uniqueEventValues).sort();
         });
 
-        self.checkAll = ko.pureComputed({
+        self.allChecked = ko.pureComputed({
             read: function () {
                 // Comparing length is quick and is accurate if only items from the
                 // main array are added to the selected array.
                 return self.selectedEventValues().length === self.eventValues().length;
             },
             write: function (value) {
-                // TODO: don't allow de-selecting. It's a mutual exlusive.
                 self.selectedEventValues(value ? self.eventValues().slice(0) : []);
             }
+        });
+
+        self['allCheckEnabled'] = ko.computed(function () {
+            return self.enabled() && !self.allChecked();
         });
 
         self['filter'] = function (event) {
@@ -84,7 +87,7 @@ ko.components.register('checklist_filter', {
         };
 
         self['reset'] = function () {
-            self.checkAll(true);
+            self.allChecked(true);
         };
 
         CWRC.filters.push(self['filter']);
