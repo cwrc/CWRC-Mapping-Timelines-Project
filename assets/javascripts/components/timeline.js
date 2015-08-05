@@ -1,5 +1,6 @@
 ko.components.register('timeline', {
-    template: '<section id="timeline-section" data-bind="event:{mousedown: dragStart}">\
+    template: '<a href="#" data-bind="click: function(){isVisible(!isVisible())}, text: visibleText"></a>\
+                <section id="timeline-section" data-bind="visible: isVisible, event:{mousedown: dragStart}">\
                     <div class="labels" data-bind="foreach: years, style: {width: canvasWidth }">\
                         <div data-bind="text: $data, \
                                         style: { \
@@ -21,9 +22,14 @@ ko.components.register('timeline', {
                             </a>\
                         </div>\
                     </div>\
-               </section>',
+                </section>',
     viewModel: function () {
         var self = this;
+
+        self.isVisible = ko.observable(true);
+        self.visibleText = ko.computed(function () {
+            return self.isVisible() ? 'Hide Timeline' : 'Show Timeline';
+        });
 
         self.previousDragEvent = ko.observable();
 

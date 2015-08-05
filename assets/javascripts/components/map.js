@@ -1,8 +1,9 @@
 ko.components.register('map', {
     template: '<section>\
-                    <div>\
-                        <a id="historicalMapToggle" href="#" data-bind="click: toggleHistoricalMap">\
-                            Show Historical Map\
+                    <a href="#" data-bind="click: function(){isVisible(!isVisible())}, text: visibleText"></a>\
+                    <div id="historicalMapControls" title="Click to toggle the historical map">\
+                        <a href="#" data-bind="click: toggleHistoricalMap, css: {background: historicalMapBg}">\
+                            Historical Map\
                         </a>\
                         <label id="historicalOpacityControls" data-bind="visible: showHistoricalMap">\
                             Opacity\
@@ -20,7 +21,7 @@ ko.components.register('map', {
                     </div>\
                </section>\
                <!-- identifying by ID does limit to one map per page, but that works for now -->\
-               <div id="map_canvas">\
+               <div id="map_canvas" data-bind="visible: isVisible">\
                </div>\
                <section data-bind="visible: colorKey">\
                     <header>Legend</header>\
@@ -54,6 +55,16 @@ ko.components.register('map', {
             zoom: params.zoom || 4
         });
 
+        // Create the DIV to hold the control and
+        // call the CenterControl() constructor passing
+        // in this DIV.
+        var historicalControlDiv = document.getElementById('historicalMapControls');
+        var historicalControl = new CWRC.HistoricalMapControl(historicalControlDiv, self.map);
+
+        self.historicalMapBg = function () {
+            return self.showHistoricalMap() ? '#fff' : '#555';
+        };
+
         self.spiderfier = new OverlappingMarkerSpiderfier(self.map, {
             keepSpiderfied: true,     // stay open, even if a pin is selected
             spiralFootSeparation: 26, // Default: 26     # These three params will all magically change
@@ -70,6 +81,11 @@ ko.components.register('map', {
             new google.maps.LatLngBounds(swBound, neBound),
             {opacity: self.historicalMapOpacity()}
         );
+
+        self.isVisible = ko.observable(true);
+        self.visibleText = ko.computed(function () {
+            return self.isVisible() ? 'Hide Timeline' : 'Show Timeline';
+        });
 
         // === MAP BEHAVIOUR ===
         self['toggleHistoricalMap'] = function () {
@@ -329,4 +345,23 @@ window.createMarkerIcon = function (width, height, color, label, settings, isSel
     }
 
     return {url: canvas.toDataURL(), shadowURL: shadow.toDataURL()};
+};
+
+
+/**
+ * The HistoricalMapControl adds a control to the map that toggles the Historical map on and off
+ * @constructor
+ */
+CWRC.HistoricalMapControl = function (controlDiv, map) {
+    controlDiv.id = 'cwrc_historical_map_control';
+    controlDiv.index = 1;
+//    controlDiv.innerHTML = 'Historical Map';
+
+    // Setup the click event listeners: simply set the map to
+    // Chicago
+    google.maps.event.addDomListener(controlDiv, 'click', function () {
+        map.setCenter(chicago)
+    });
+
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(controlDiv);
 };
