@@ -66,19 +66,24 @@ ko.components.register('checklist_filter', {
         self.rawEventValuesToCounts = ko.computed(function () {
             var eventValuesToCounts = self.countData(CWRC.rawData());
 
-            self.selectedEventValues(Object.keys(eventValuesToCounts));
+//            self.selectedEventValues(Object.keys(eventValuesToCounts));
 
             return eventValuesToCounts;
         });
 
-        self.allChecked = ko.pureComputed({
+        self.allChecked = ko.computed({
             read: function () {
+                var fullList = self.selectedEventValues().length === Object.keys(self.rawEventValuesToCounts()).length;
+
+                if (fullList)
+                    self.selectedEventValues([]);
+
                 // Comparing length is quick and is accurate if only items from the
                 // main array are added to the selected array.
-                return self.selectedEventValues().length === Object.keys(self.rawEventValuesToCounts()).length;
+                return fullList || self.selectedEventValues().length === 0;
             },
             write: function (value) {
-                self.selectedEventValues(value ? self.rawEventValues().slice(0) : []);
+                self.selectedEventValues([]);
             }
         });
 
@@ -90,7 +95,7 @@ ko.components.register('checklist_filter', {
             var eventValue;
 
             if (self.enabled())
-                return self.selectedEventValues.indexOf(event[self.eventFieldName]) >= 0;
+                return self.allChecked() || self.selectedEventValues.indexOf(event[self.eventFieldName]) >= 0;
             else {
                 return true;
             }
