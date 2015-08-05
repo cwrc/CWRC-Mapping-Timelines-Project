@@ -1,25 +1,22 @@
 ko.components.register('map', {
     template: '<section>\
                     <a href="#" data-bind="click: function(){isVisible(!isVisible())}, text: visibleText"></a>\
-                    <div id="historicalMapControls" title="Click to toggle the historical map">\
-                        <a href="#" data-bind="click: toggleHistoricalMap, css: {background: historicalMapBg}">\
-                            Historical Map\
-                        </a>\
+                    <div>\
+                        <span data-bind="text: unplottableCount"></span> of <span data-bind="text: CWRC.rawData().length"></span>\
+                        lack map data\
+                    </div>\
+               </section>\
+               <div id="historicalMapControls" title="Click to toggle the historical map">\
+                        <label>\
+                            <input type="checkbox" data-bind="checked: showHistoricalMap, css: {background: historicalMapBg}">\
+                            <span>Historical Map</span>\
+                        </label>\
                         <label id="historicalOpacityControls" data-bind="visible: showHistoricalMap">\
-                            Opacity\
+                            <span>Opacity</span>\
                             <input id="historicalMapOpacity" type="range" min="0.0" max="1.0" step="0.05"\
                                     data-bind="value: historicalMapOpacity"/>\
                         </label>\
                     </div>\
-                    <div>\
-                        <!--TODO: this\
-                        <span data-bind="text: unplottable"></span>\
-                        out of\
-                        <span data-bind="text: allMarkers().length"></span>\
-                        cannot be plotted\
-                        -->\
-                    </div>\
-               </section>\
                <!-- identifying by ID does limit to one map per page, but that works for now -->\
                <div id="map_canvas" data-bind="visible: isVisible">\
                </div>\
@@ -164,7 +161,7 @@ ko.components.register('map', {
         });
 
         self.visibleMarkers = ko.computed(function () {
-            var allMarkers, markers, marker, index, j, visibleData;
+            var allMarkers, markers, marker, index, j, visibleData, visibleMarkers;
 
             allMarkers = self.spiderfier.getMarkers();
 
@@ -175,6 +172,7 @@ ko.components.register('map', {
             }
 
             visibleData = CWRC.filteredData();
+            visibleMarkers = [];
 
             for (index = 0; index < visibleData.length; index++) {
                 var visibleItem = visibleData[index];
@@ -185,14 +183,16 @@ ko.components.register('map', {
                         marker = markers[j];
 
                         marker.setVisible(true);
+                        visibleMarkers.push(marker);
                     }
                 }
             }
+
+            return visibleMarkers;
         });
 
-        self.unplottable = ko.computed(function () {
-            // TODO: reenable this
-            return 'x';//CWRC.filteredData().length - self.visibleMarkers().length;
+        self.unplottableCount = ko.pureComputed(function () {
+            return CWRC.rawData().length - self.spiderfier.getMarkers().length;
         });
 
         self._markersToDefaultIcons = {};
@@ -250,13 +250,17 @@ window.createMarkerIcon = function (width, height, color, label, settings, isSel
     // TODO: might be faster to store in a hash, if possible
 
     var drawShadow = function (icon) {
-        var width = icon.width;
-        var height = icon.height;
-        var shadowWidth = width + height;
-        var canvas = document.createElement("canvas");
+        var width, heeight, shadowWidth, canvas, context;
+
+        width = icon.width;
+        height = icon.height;
+        shadowWidth = width + height;
+
+        canvas = document.createElement("canvas");
         canvas.width = shadowWidth;
         canvas.height = height;
-        var context = canvas.getContext("2d");
+
+        context = canvas.getContext("2d");
         context.scale(1, 1 / 2);
         context.translate(height / 2, height);
         context.transform(1, 0, -1 / 2, 1, 0, 0);
@@ -355,13 +359,10 @@ window.createMarkerIcon = function (width, height, color, label, settings, isSel
 CWRC.HistoricalMapControl = function (controlDiv, map) {
     controlDiv.id = 'cwrc_historical_map_control';
     controlDiv.index = 1;
-//    controlDiv.innerHTML = 'Historical Map';
 
-    // Setup the click event listeners: simply set the map to
-    // Chicago
-    google.maps.event.addDomListener(controlDiv, 'click', function () {
-        map.setCenter(chicago)
-    });
+//    google.maps.event.addDomListener(controlDiv, 'click', function () {
+//        map.setCenter(chicago)
+//    });
 
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(controlDiv);
 };

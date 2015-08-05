@@ -3,19 +3,30 @@ map #map_canvas {
     height: 100%;
 }
 
-map > section div {
+map > section {
+    margin: 0.1em 0em;
+    padding: 0.1em;
+}
+
+map > section:first-of-type div {
     display: inline-block;
 
+    position: absolute;
+    right: 0em;
 }
 
 map > section header {
     text-transform: uppercase;
 }
 
+map > section:last-of-type div {
+    display: inline-block;
+}
+
 map #cwrc_historical_map_control {
     margin-top: 1.5em;
 
-    box-shadow: 0 2px 6px rgba(0,0,0,.3);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .3);
 
     border: 1px solid rgba(128, 128, 128, 0.60);
     border-radius: 0.1em;
@@ -25,15 +36,26 @@ map #cwrc_historical_map_control {
     background-color: #fff;
 
     font-size: 1.25em;
+}
+
+map #cwrc_historical_map_control label:first-of-type {
+    display: block;
 
     cursor: pointer;
+}
 
-/*
-//    var controlText = document.createElement('div');
-//    controlText.style.color = 'rgb(25,25,25)';
-//    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-//    controlText.style.fontSize = '16px';
-//    controlText.style.lineHeight = '38px';
-//    controlText.style.paddingLeft = '5px';
-//    controlText.style.paddingRight = '5px';*/
+map #cwrc_historical_map_control label:last-of-type span {
+    line-height: 2em;
+    vertical-align: top;
+}
+
+map #cwrc_historical_map_control a,
+map #cwrc_historical_map_control a:visited,
+map #cwrc_historical_map_control a:active {
+    text-decoration: none;
+    color: black;
+}
+
+map #cwrc_historical_map_control a:hover {
+    text-decoration: underline;
 }
