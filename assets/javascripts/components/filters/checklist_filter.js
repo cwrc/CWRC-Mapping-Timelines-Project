@@ -7,7 +7,7 @@ ko.components.register('checklist_filter', {
                         All\
                     </label>\
                </header>\
-               <div data-bind="visible: enabled, foreach: Object.keys(rawEventValuesToCounts()).sort()">\
+               <div data-bind="visible: enabled, foreach: rawEventValues()">\
                     <div>\
                          <label>\
                               <input type="checkbox" data-bind="checkedValue: $data, \
@@ -62,18 +62,20 @@ ko.components.register('checklist_filter', {
         self.filteredEventValuesToCounts = ko.pureComputed(function () {
             return self.countData(CWRC.filteredData());
         });
+        self.filteredEventValues = function () {
+            return Object.keys(self.filteredEventValuesToCounts()).sort();
+        };
 
         self.rawEventValuesToCounts = ko.computed(function () {
-            var eventValuesToCounts = self.countData(CWRC.rawData());
-
-//            self.selectedEventValues(Object.keys(eventValuesToCounts));
-
-            return eventValuesToCounts;
+            return self.countData(CWRC.rawData());
         });
+        self.rawEventValues = function () {
+            return Object.keys(self.rawEventValuesToCounts()).sort();
+        };
 
         self.allChecked = ko.computed({
             read: function () {
-                var fullList = self.selectedEventValues().length === Object.keys(self.rawEventValuesToCounts()).length;
+                var fullList = self.selectedEventValues().length === self.rawEventValues().length;
 
                 if (fullList)
                     self.selectedEventValues([]);
