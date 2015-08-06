@@ -39,9 +39,7 @@ timeline #timeline-viewport > div.canvas > div.row {
 
     margin: 0.25em 0;
 
-    height: 1.5em;
-
-    overflow: hidden;
+    min-height: 1.5em;
 }
 
 timeline #timeline-viewport > div.canvas > div.row > .event {

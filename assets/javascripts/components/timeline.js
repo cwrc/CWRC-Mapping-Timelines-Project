@@ -13,7 +13,9 @@ ko.components.register('timeline', {
                                 <a href="#" class="event" data-bind="style: {\
                                                                                 left: $parents[1].getPinInfo($data).xPos, \
                                                                                 width: $parents[1].getPinInfo($data).width,\
-                                                                                color: $data.endDate ? \'red\' : \'black\'\
+                                                                                color: $data.endDate ? \'red\' : \'black\',\
+                                                                                border: $parents[1].computeBorder($data), \
+                                                                                boxShadow: $parents[1].computeShadow($data)\
                                                                             },\
                                                                      click: function(){ CWRC.selected($data) }">\
                                     <span data-bind="text: $data.startDate"></span>\
@@ -178,6 +180,20 @@ ko.components.register('timeline', {
                 return item.startDate;
             }).length;
         });
+
+        self.computeBorder = function (event) {
+            if (event == CWRC.selected())
+                return '3px dotted red';
+            else
+                return ''
+        };
+
+        self.computeShadow = function (event) {
+            if (event == CWRC.selected())
+                return '0.25em 0.25em 0.25em rgba(0,0,0,0.65)';
+            else
+                return ''
+        };
 
         // Note: These are on window rather than the component so that dragging doesn't cut off when the
         // mouse leaves the widget. This is Google Maps behaviour adopted for consistency.
