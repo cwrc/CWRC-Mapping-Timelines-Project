@@ -6,29 +6,33 @@ ko.components.register('timeline', {
                         lack time data\
                     </div>\
                </section>\
-                <section id="timeline-viewport" data-bind="visible: isVisible, event:{mousedown: dragStart}">\
-                    <div class="labels" data-bind="foreach: years, style: {width: canvasWidth }">\
-                        <div data-bind="text: $data, \
-                                        style: { \
-                                                 left: $parent.labelPosition($data),\
-                                                 width: $parent.labelSize - $parent.lineThickness, \
-                                                \'border-left-width\': $parent.lineThickness \
-                                        }"></div>\
-                    </div>\
-                    <div class="canvas" data-bind="foreach: timelineRows, style: {width: canvasWidth }">\
-                        <div class="row" data-bind="foreach: $data">\
-                            <a href="#" class="event" data-bind="style: {\
-                                                                            left: $parents[1].getPinInfo($data).xPos, \
-                                                                            width: $parents[1].getPinInfo($data).width,\
-                                                                            color: $data.endDate ? \'red\' : \'black\'\
-                                                                        },\
-                                                                 click: function(){ CWRC.selected($data) }">\
-                                <span data-bind="text: $data.startDate"></span>\
-                                <span data-bind="html: $data.label"></span>\
-                            </a>\
+               <div data-bind="visible: isVisible, event:{mousedown: dragStart}">\
+                    <section id="timeline-viewport">\
+                        <div class="canvas" data-bind="foreach: timelineRows, style: {width: canvasWidth }">\
+                            <div class="row" data-bind="foreach: $data">\
+                                <a href="#" class="event" data-bind="style: {\
+                                                                                left: $parents[1].getPinInfo($data).xPos, \
+                                                                                width: $parents[1].getPinInfo($data).width,\
+                                                                                color: $data.endDate ? \'red\' : \'black\'\
+                                                                            },\
+                                                                     click: function(){ CWRC.selected($data) }">\
+                                    <span data-bind="text: $data.startDate"></span>\
+                                    <span data-bind="html: $data.label"></span>\
+                                </a>\
+                            </div>\
                         </div>\
-                    </div>\
-                </section>',
+                    </section>\
+                    <section id="timeline-ruler">\
+                        <div data-bind="foreach: years, style: { width: canvasWidth }">\
+                            <div data-bind="text: $data, \
+                                            style: { \
+                                                     left: $parent.labelPosition($data),\
+                                                     width: $parent.labelSize - $parent.lineThickness, \
+                                                    \'border-left-width\': $parent.lineThickness \
+                                            }"></div>\
+                        </div>\
+                    </section>\
+               </div>',
     viewModel: function () {
         var self = this;
 
@@ -182,16 +186,19 @@ ko.components.register('timeline', {
         });
 
         window.addEventListener('mousemove', function (mouseEvent) {
-            var src;
+            var viewport, ruler;
 
             if (!self.previousDragEvent())
                 return;
 
-            src = document.getElementById('timeline-viewport');
+            viewport = document.getElementById('timeline-viewport');
+            ruler = document.getElementById('timeline-ruler');
 
             // would've used even.movementX, but at this time it does not exist in Firefox.
-            src.scrollTop -= mouseEvent.screenY - self.previousDragEvent().screenY;
-            src.scrollLeft -= mouseEvent.screenX - self.previousDragEvent().screenX;
+            viewport.scrollTop -= mouseEvent.screenY - self.previousDragEvent().screenY;
+            viewport.scrollLeft -= mouseEvent.screenX - self.previousDragEvent().screenX;
+
+            ruler.scrollLeft -= mouseEvent.screenX - self.previousDragEvent().screenX;
 
             self.previousDragEvent(mouseEvent);
         });

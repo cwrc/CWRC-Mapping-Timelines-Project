@@ -12,31 +12,12 @@ timeline > section:first-of-type div {
 timeline #timeline-viewport {
     height: 15em;
 
-    overflow: auto;
+    overflow: hidden;
 
     background: #ccc;
 }
 
-timeline #timeline-viewport > div.labels {
-    position: relative;
-
-    height: 1em;
-}
-
-timeline #timeline-viewport > div.labels > div {
-    position: absolute; /* Must absolute, otherwise time drift will occur (leap years) */
-
-    border-left-color: black;
-    border-left-style: solid;
-
-    background: white;
-}
-
-timeline #timeline-viewport > div.labels > div:nth-of-type(odd) {
-    background: #ccc;
-}
-
-timeline #timeline-viewport {
+timeline #timeline-viewport, #timeline-ruler {
     cursor: -moz-grab;
     cursor: -webkit-grab;
     cursor: grab;
@@ -47,7 +28,7 @@ timeline #timeline-viewport {
     user-select: none;
 }
 
-timeline #timeline-viewport:active {
+timeline #timeline-viewport:active, #timeline-ruler:active {
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
     cursor: grabbing;
@@ -86,4 +67,29 @@ timeline #timeline-viewport > div.canvas > div.row > .event > span:first-of-type
 
 timeline #timeline-viewport > div.canvas > div.row > .event > span {
     margin-left: 0.25em;
+}
+
+timeline #timeline-ruler {
+    position: relative;
+
+    overflow: hidden;
+
+    height: 1em;
+}
+
+timeline #timeline-ruler > div {
+    overflow: hidden;
+}
+
+timeline #timeline-ruler > div > div {
+    position: absolute; /* Must absolute, otherwise time drift will occur (leap years) */
+
+    border-left-color: black;
+    border-left-style: solid;
+
+    background: white;
+}
+
+timeline #timeline-ruler > div > div:nth-of-type(odd) {
+    background: #ccc;
 }
