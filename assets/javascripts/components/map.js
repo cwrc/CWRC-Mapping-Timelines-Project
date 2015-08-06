@@ -8,7 +8,7 @@ ko.components.register('map', {
                </section>\
                <div id="historicalMapControls" title="Click to toggle the historical map">\
                         <label>\
-                            <input type="checkbox" data-bind="checked: showHistoricalMap, css: {background: historicalMapBg}">\
+                            <input type="checkbox" data-bind="checked: showHistoricalMap">\
                             <span>Historical Map</span>\
                         </label>\
                         <label id="historicalOpacityControls" data-bind="visible: showHistoricalMap">\
@@ -20,9 +20,9 @@ ko.components.register('map', {
                <!-- identifying by ID does limit to one map per page, but that works for now -->\
                <div id="map_canvas" data-bind="visible: isVisible">\
                </div>\
-               <section data-bind="visible: colorKey">\
+               <section data-bind="visible: colorMap.hasMapping()">\
                     <header>Legend</header>\
-                    <!-- ko foreach: colorPairs() -->\
+                    <!-- ko foreach: colorMap.getLegendPairs() -->\
                         <div>\
                             <img data-bind="src: $data.icon"></span>\
                             <span data-bind="text: $data.name"></span>\
@@ -30,37 +30,32 @@ ko.components.register('map', {
                     <!-- /ko -->\
                </section>',
 
-    // Map takes:
-    //    - zoom: Zoom level as an integer number. Default: 4
-    //    - center: LatLng coordinates as a string. Default: '49.8994, -97.1392' (Winnipeg)
-    //    - colorKey: The data label to group by colour
-    //    - colors: The mapping between values and their color. Keys are case-sensitive.
-    //                    eg. { orlandoProject: "#33ff00", multimedia: "blue"}
-    // TODO: handle: pins, polygons, polylines
-    // TODO: make it take the ID of a div that holds the marker templates. it should force-hide that div, or maybe abduct it as the legend?
-    // TODO: redraw the curently selected pin and the old pin
+    /*
+     * Map takes:
+     *   - zoom: Zoom level as an integer number. Default: 4
+     *   - center: LatLng coordinates as a string. Default: '53.5267891,-113.5270909' (University of Alberta)
+     *   - colorKey: The data label to group by colour
+     *   - colors: The mapping between values and their color. Keys are case-sensitive.
+     *             eg. { orlandoProject: "#33ff00", multimedia: "blue"}
+     *
+     * Developer notes:
+     * TODO: handle: pins, polygons, polylines
+     */
     viewModel: function (params) {
         var self = this;
 
-        // === MAP STATE ===
-        self.colorKey = params.colorKey;
-        self.colorMap = params.colors || {};
-        self.colorMap.Default = "#999";
-
-        self.map = new google.maps.Map(document.getElementById('map_canvas'), {
-            center: CWRC.Transform.parseLatLng(params.center || '49.8994, -97.1392'), // default to winnipeg
-            zoom: params.zoom || 4
+        self.isVisible = ko.observable(true);
+        self.visibleText = ko.computed(function () {
+            return self.isVisible() ? 'Hide' : 'Show';
         });
 
-        // Create the DIV to hold the control and
-        // call the CenterControl() constructor passing
-        // in this DIV.
-        var historicalControlDiv = document.getElementById('historicalMapControls');
-        var historicalControl = new CWRC.HistoricalMapControl(historicalControlDiv, self.map);
+        // === MAP MARKERS, PINS & POLYs ===
+        self.colorMap = new CWRC.ColorMap(params.colors, params.colorKey, "#999");
 
-        self.historicalMapBg = function () {
-            return self.showHistoricalMap() ? '#fff' : '#555';
-        };
+        self.map = new google.maps.Map(document.getElementById('map_canvas'), {
+            center: CWRC.Transform.parseLatLng(params.center || '53.5267891,-113.5270909'), // default to U of A
+            zoom: params.zoom || 4
+        });
 
         self.spiderfier = new OverlappingMarkerSpiderfier(self.map, {
             keepSpiderfied: true,     // stay open, even if a pin is selected
@@ -69,53 +64,6 @@ ko.components.register('map', {
             spiralLengthFactor: 5.75  // 4               # interdependant. Good luck playing with them.
         });
 
-        var swBound = new google.maps.LatLng(27.87, -181.56);
-        var neBound = new google.maps.LatLng(81.69, -17.58);
-        self.showHistoricalMap = ko.observable(false);
-        self.historicalMapOpacity = ko.observable(0.6);
-        self.historicalOverlay = new google.maps.GroundOverlay(
-            'assets/images/maps/BNA_1854.png',
-            new google.maps.LatLngBounds(swBound, neBound),
-            {opacity: self.historicalMapOpacity()}
-        );
-
-        self.isVisible = ko.observable(true);
-        self.visibleText = ko.computed(function () {
-            return self.isVisible() ? 'Hide' : 'Show';
-        });
-
-        // === MAP BEHAVIOUR ===
-        self['toggleHistoricalMap'] = function () {
-            self.showHistoricalMap(!self.showHistoricalMap());
-        };
-
-        self.showHistoricalMap.subscribe(function (isShown) {
-            if (isShown) {
-                self.historicalOverlay.setMap(self.map);
-            } else {
-                self.historicalOverlay.setMap(null);
-            }
-        });
-
-        self.historicalMapOpacity.subscribe(function (opacity) {
-            self.historicalOverlay.setOpacity(Number(opacity));
-        });
-
-        self['colorPairs'] = function () {
-            var colorPairs = [];
-
-            for (var field in self.colorMap) {
-                colorPairs.push({
-                        name: field,
-                        icon: window.createMarkerIcon(14, 14, self.colorMap[field], "", {shape: "circle"}).url}
-                )
-            }
-
-            return colorPairs;
-        };
-
-        self.markerCount = 0;
-
         self['buildMarkersForItem'] = function (item) {
             if (!item.latLng)
                 return [];
@@ -123,24 +71,31 @@ ko.components.register('map', {
             var positions = typeof item.latLng == 'string' ? [item.latLng] : item.latLng;
             var created = [];
 
-            for (var i = 0; i < positions.length; i++) {
-                var label = ""; // TODO: set the label to denote the # of colocated markers
-                var color = self.colorMap[item[self.colorKey]] || self.colorMap._default;
+            positions.forEach(function (position) {
+                var label, markerIcon, marker;
 
-                var marker = new google.maps.Marker({
-                    position: CWRC.Transform.parseLatLng(positions[i]),
+                label = ""; // TODO: set the label to denote the # of colocated markers
+
+                markerIcon = CWRC.createMarkerIcon({
+                    width: 18,
+                    height: 18,
+                    color: self.colorMap.getColor(item),
+                    label: label,
+                    settings: {shape: "circle"}
+                });
+
+                marker = new google.maps.Marker({
+                    position: CWRC.Transform.parseLatLng(position),
                     map: self.map,
-                    icon: window.createMarkerIcon(18, 18, color, label, {shape: "circle"})
+                    icon: markerIcon
                 });
 
                 created.push(marker);
 
-                self.markerCount++;
-
                 self.spiderfier.addMarker(marker);
 
                 marker.item = item;
-            }
+            });
 
             return created;
         };
@@ -199,16 +154,16 @@ ko.components.register('map', {
         self._selectedMarkers = [];
         self._itemIDToMarkers = {};
         CWRC.selected.subscribe(function () {
-            var selectedItem = CWRC.selected();
-            var newSelectedMarkers = self.itemToMarkers()[ko.toJSON(selectedItem)];
+            var selectedItem, newSelectedMarkers;
+
+            selectedItem = CWRC.selected();
+            newSelectedMarkers = self.itemToMarkers()[ko.toJSON(selectedItem)];
 
             // resetting the PREVIOUS markers
-            for (var j = 0; j < self._selectedMarkers.length; j++) {
-                var selectedMarker = self._selectedMarkers[j];
-
+            self._selectedMarkers.forEach(function (selectedMarker) {
                 selectedMarker.setIcon(self._markersToDefaultIcons[selectedMarker]);
                 selectedMarker.setZIndex(null);
-            }
+            });
 
             self._selectedMarkers = [];
             self._markersToDefaultIcons = {};
@@ -217,9 +172,7 @@ ko.components.register('map', {
             // panning to last (rather than pan/zoom to fit all) is easier for now
             var position;
 
-            for (var i = 0; i < newSelectedMarkers.length; i++) {
-                var marker = newSelectedMarkers[i];
-
+            newSelectedMarkers.forEach(function (marker) {
                 // get original position if spiderfied
                 if (marker._omsData) {
                     // TODO: find a way to access this data without using the mini variable name
@@ -228,25 +181,75 @@ ko.components.register('map', {
                     position = marker.position
                 }
 
-                var color = self.colorMap[selectedItem[self.colorKey]] || self.colorMap._default;
-
                 self._markersToDefaultIcons[marker] = marker.getIcon();
 
                 // now redraw the newly selected ones
-                marker.setIcon(window.createMarkerIcon(18, 18, color, "", {shape: "circle"}, true));
+                marker.setIcon(CWRC.createMarkerIcon({
+                    width: 18,
+                    height: 18,
+                    color: self.colorMap.getColor(selectedItem),
+                    label: "",
+                    settings: {shape: "circle"},
+                    isSelected: true
+                }));
                 marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
                 self._selectedMarkers.push(marker);
-            }
+            });
 
             if (position && !self.map.getBounds().contains(position)) {
                 self.map.panTo(position);
             }
         });
+
+        // ===  Historical Map ===
+        var historicalControlDiv, swBound, neBound
+
+        swBound = new google.maps.LatLng(27.87, -181.56);
+        neBound = new google.maps.LatLng(81.69, -17.58);
+
+        self.showHistoricalMap = ko.observable(false);
+        self.historicalMapOpacity = ko.observable(0.6);
+        self.historicalOverlay = new google.maps.GroundOverlay(
+            'assets/images/maps/BNA_1854.png',
+            new google.maps.LatLngBounds(swBound, neBound),
+            {opacity: self.historicalMapOpacity()}
+        );
+
+        historicalControlDiv = document.getElementById('historicalMapControls');
+        historicalControlDiv.id = 'cwrc_historical_map_control';
+        historicalControlDiv.index = 1;
+
+        self.map.controls[google.maps.ControlPosition.TOP_LEFT].push(historicalControlDiv);
+
+        self['toggleHistoricalMap'] = function () {
+            self.showHistoricalMap(!self.showHistoricalMap());
+        };
+
+        self.showHistoricalMap.subscribe(function (isShown) {
+            if (isShown) {
+                self.historicalOverlay.setMap(self.map);
+            } else {
+                self.historicalOverlay.setMap(null);
+            }
+        });
+
+        self.historicalMapOpacity.subscribe(function (opacity) {
+            self.historicalOverlay.setOpacity(Number(opacity));
+        });
     }
 });
 
 // TODO: extract to a helper lib
-window.createMarkerIcon = function (width, height, color, label, settings, isSelected) {
+CWRC.createMarkerIcon = function (params) {
+    var width, height, color, label, settings, isSelected;
+
+    width = params['width'];
+    height = params['height'];
+    color = params['color'];
+    label = params['label'];
+    settings = params['settings'];
+    isSelected = params['isSelected'];
+
     // TODO: might be faster to store in a hash, if possible
 
     var drawShadow = function (icon) {
@@ -345,24 +348,37 @@ window.createMarkerIcon = function (width, height, color, label, settings, isSel
         context.textAlign = "center";
         context.globalAlpha = 1;
         context.fillStyle = "black";
-        context.fillText(label, width / 2, height / 2, width / 1.4);
+        context.fillText(label, width / 2, height / 3, width / 1.4);
     }
 
     return {url: canvas.toDataURL(), shadowURL: shadow.toDataURL()};
 };
 
+CWRC.ColorMap = function (mapping, colorKey, defaultColor) {
+    this.mapping = mapping || {};
+    this.colorKey = colorKey;
+    this.defaultColor = defaultColor;
+};
 
-/**
- * The HistoricalMapControl adds a control to the map that toggles the Historical map on and off
- * @constructor
- */
-CWRC.HistoricalMapControl = function (controlDiv, map) {
-    controlDiv.id = 'cwrc_historical_map_control';
-    controlDiv.index = 1;
+CWRC.ColorMap.prototype.hasMapping = function () {
+    return !!this.colorKey;
+};
 
-//    google.maps.event.addDomListener(controlDiv, 'click', function () {
-//        map.setCenter(chicago)
-//    });
+CWRC.ColorMap.prototype.getColor = function (selectedItem) {
+    return (this.mapping[selectedItem[this.colorKey]]) || this.defaultColor;
+};
 
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(controlDiv);
+CWRC.ColorMap.prototype.getLegendPairs = function () {
+    var colorPairs, field;
+
+    colorPairs = [];
+
+    for (field in this.mapping) {
+        colorPairs.push({
+                name: field,
+                icon: CWRC.createMarkerIcon({width: 14, height: 14, color: this.mapping[field], label: "", settings: {shape: "circle"}}).url}
+        )
+    }
+
+    return colorPairs;
 };
