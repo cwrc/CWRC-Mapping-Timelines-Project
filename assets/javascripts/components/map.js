@@ -64,23 +64,51 @@ ko.components.register('map', {
             spiralLengthFactor: 5.75  // 4               # interdependant. Good luck playing with them.
         });
 
+        self.positionsToItemCounts = ko.computed(function () {
+            var latLng, positionsToItemCounts;
+
+            positionsToItemCounts = Object.create(null);
+
+            CWRC.rawData().forEach(function (item) {
+                latLng = item.latLng;
+
+                if (latLng) {
+                    latLng = latLng.constructor === Array ? latLng : [latLng];
+
+                    latLng.forEach(function (pos) {
+                        positionsToItemCounts[pos] = positionsToItemCounts[pos] + 1 || 1;
+                    });
+                }
+            });
+
+            return positionsToItemCounts;
+        });
+
+
         self['buildMarkersForItem'] = function (item) {
+            var latLng, positions, created;
+
+            latLng = item.latLng;
+
             if (!item.latLng)
                 return [];
 
-            var positions = typeof item.latLng == 'string' ? [item.latLng] : item.latLng;
-            var created = [];
+            // some items are single-pos, some multiple. Coerce to multi for consistency.
+            positions = typeof latLng == 'string' ? [latLng] : latLng;
+            created = [];
 
             positions.forEach(function (position) {
-                var label, markerIcon, marker;
+                var markerIcon, marker, stackSize;
 
-                label = ""; // TODO: set the label to denote the # of colocated markers
+                stackSize = self.positionsToItemCounts()[position];
+
+                // todo: maybe use 18x18 for singles, and 20+ for stacks?
 
                 markerIcon = CWRC.createMarkerIcon({
-                    width: 18,
-                    height: 18,
+                    width: 18 * (Math.pow(stackSize, 1 / 10)),
+                    height: 18 * (Math.pow(stackSize, 1 / 10)),
                     color: self.colorMap.getColor(item),
-                    label: label,
+                    label: stackSize > 1 ? stackSize : '',
                     settings: {shape: "circle"}
                 });
 
@@ -243,8 +271,8 @@ ko.components.register('map', {
 CWRC.createMarkerIcon = function (params) {
     var width, height, color, label, settings, isSelected;
 
-    width = params['width'];
-    height = params['height'];
+    width = params['width'] || 18;
+    height = params['height'] || 18;
     color = params['color'];
     label = params['label'];
     settings = params['settings'];
@@ -340,15 +368,24 @@ CWRC.createMarkerIcon = function (params) {
     var shadow = drawShadow(canvas);
     if (label) {
         if (isSelected) {
-            context.font = "bold 10pt Arial";
+            context.font = "bold 12pt Arial Verdana Sans-serif";
         } else {
-            context.font = "10pt Arial";
+            context.font = "12pt Arial Verdana Sans-serif";
         }
         context.textBaseline = "middle";
         context.textAlign = "center";
         context.globalAlpha = 1;
-        context.fillStyle = "black";
-        context.fillText(label, width / 2, height / 3, width / 1.4);
+        context.fillStyle = "white";
+        context.strokeStyle = "black";
+        var w, h, max;
+
+        w = width / 2;
+        h = height / 2.5;
+        max = width / 1.2;
+
+        context.lineWidth = 3;
+        context.strokeText(label, w, h, max);
+        context.fillText(label, w, h, max);
     }
 
     return {url: canvas.toDataURL(), shadowURL: shadow.toDataURL()};
