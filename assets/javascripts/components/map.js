@@ -32,17 +32,23 @@ ko.components.register('map', {
 
     /*
      * Map takes:
-     *   - zoom: Zoom level as an integer number. Default: 4
-     *   - center: LatLng coordinates as a string. Default: '53.5267891,-113.5270909' (University of Alberta)
-     *   - colorKey: The data label to group by colour
-     *   - colors: The mapping between values and their color. Keys are case-sensitive.
+     *  - zoom: Zoom level as an integer number. Default: 4
+     *  - center: LatLng coordinates as a string. Default: '53.5267891,-113.5270909' (University of Alberta)
+     *  - colorKey: The data label to group by colour
+     *  - colors: The mapping between values and their color. Keys are case-sensitive.
      *             eg. { orlandoProject: "#33ff00", multimedia: "blue"}
+     *  - pinWidth: the width in pixels of a solo pin. Default: 18. (stack pins are scaled automatically)
+     *  - pinHeight: the height in pixels of a solo pin. Default: 18. (stack pins are scaled automatically)
      *
      * Developer notes:
      * TODO: handle: pins, polygons, polylines
      */
     viewModel: function (params) {
         var self = this;
+
+        self.pinWidth = params['pinWidth'] || 18;
+        self.pinHeight = params['pinHeight'] || 18;
+
 
         self.isVisible = ko.observable(true);
         self.visibleText = ko.computed(function () {
@@ -103,8 +109,8 @@ ko.components.register('map', {
                 stackSize = self.positionsToItemCounts()[position];
 
                 markerIcon = CWRC.createMarkerIcon({
-                    width: 18 * (Math.pow(stackSize, 1 / 10)),
-                    height: 18 * (Math.pow(stackSize, 1 / 10)),
+                    width: self.pinWidth * (Math.pow(stackSize, 1 / 10)),
+                    height: self.pinHeight * (Math.pow(stackSize, 1 / 10)),
                     color: self.colorMap.getColor(item),
                     label: stackSize > 1 ? stackSize : '',
                     settings: {shape: "circle"}
@@ -137,8 +143,8 @@ ko.components.register('map', {
                 self._markersToDefaultIcons[marker] = marker.getIcon();
 
                 marker.setIcon(CWRC.createMarkerIcon({
-                    width: 18,
-                    height: 18,
+                    width: self.pinWidth,
+                    height: self.pinHeight,
                     color: self.colorMap.getColor(marker.item),
                     label: '',
                     settings: {shape: "circle"}
@@ -232,8 +238,8 @@ ko.components.register('map', {
 
                 // now redraw the newly selected ones
                 marker.setIcon(CWRC.createMarkerIcon({
-                    width: 18,
-                    height: 18,
+                    width: self.pinWidth,
+                    height: self.pinHeight,
                     color: self.colorMap.getColor(selectedItem),
                     label: "",
                     settings: {shape: "circle"},
