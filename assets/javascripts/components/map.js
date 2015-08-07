@@ -102,8 +102,6 @@ ko.components.register('map', {
 
                 stackSize = self.positionsToItemCounts()[position];
 
-                // todo: maybe use 18x18 for singles, and 20+ for stacks?
-
                 markerIcon = CWRC.createMarkerIcon({
                     width: 18 * (Math.pow(stackSize, 1 / 10)),
                     height: 18 * (Math.pow(stackSize, 1 / 10)),
@@ -383,7 +381,8 @@ CWRC.createMarkerIcon = function (params) {
         h = height / 2.5;
         max = width / 1.2;
 
-        context.lineWidth = 3;
+        context.lineWidth = 2;
+        context.miterLimit = 2;
         context.strokeText(label, w, h, max);
         context.fillText(label, w, h, max);
     }
