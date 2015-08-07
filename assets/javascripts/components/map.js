@@ -130,6 +130,28 @@ ko.components.register('map', {
             CWRC.selected(marker.item);
         });
 
+        self._markersToDefaultIcons = {};
+
+        self.spiderfier.addListener('spiderfy', function (markers, event) {
+            markers.forEach(function (marker) {
+                self._markersToDefaultIcons[marker] = marker.getIcon();
+
+                marker.setIcon(CWRC.createMarkerIcon({
+                    width: 18,
+                    height: 18,
+                    color: self.colorMap.getColor(marker.item),
+                    label: '',
+                    settings: {shape: "circle"}
+                }));
+            });
+        });
+
+        self.spiderfier.addListener('unspiderfy', function (markers, event) {
+            markers.forEach(function (marker) {
+                marker.setIcon(self._markersToDefaultIcons[marker])
+            });
+        });
+
         self.itemToMarkers = ko.pureComputed(function () {
             var itemToMarkers = {};
 
@@ -176,7 +198,6 @@ ko.components.register('map', {
             return CWRC.rawData().length - self.spiderfier.getMarkers().length;
         });
 
-        self._markersToDefaultIcons = {};
         self._selectedMarkers = [];
         self._itemIDToMarkers = {};
         CWRC.selected.subscribe(function () {
