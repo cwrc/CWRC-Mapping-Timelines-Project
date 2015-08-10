@@ -1,26 +1,45 @@
 ko.components.register('timeline', {
-    template: '<section id="timeline-section" data-bind="event:{mousedown: dragStart}">\
-                    <div class="labels" data-bind="foreach: years, style: {width: canvasWidth }">\
-                        <div data-bind="text: $data, style: { \
-                                                            width: $parent.labelSize - $parent.lineThickness, \
-                                     \'border-left-width\': $parent.lineThickness }"></div>\
+    template: '<section>\
+                    <a href="#" data-bind="click: function(){isVisible(!isVisible())}, text: visibleText"></a>\
+                    <div>\
+                        <span data-bind="text: unplottableCount"></span> of <span data-bind="text: CWRC.rawData().length"></span>\
+                        lack time data\
                     </div>\
-                    <div class="canvas" data-bind="foreach: timelineRows, style: {width: canvasWidth }">\
-                        <div class="row" data-bind="foreach: $data">\
-                            <a href="#" class="event" data-bind="style: {\
-                                                                            left: $parents[1].getPinInfo($data).xPos, \
-                                                                            width: $parents[1].getPinInfo($data).width,\
-                                                                            color: $data.endDate ? \'red\' : \'black\'\
-                                                                        },\
-                                                                 click: function(){ CWRC.selected($data) }">\
-                                <span data-bind="text: $data.startDate"></span>\
-                                <span data-bind="html: $data.label"></span>\
-                            </a>\
+               </section>\
+               <div data-bind="visible: isVisible, event:{mousedown: dragStart}">\
+                    <section id="timeline-viewport">\
+                        <div class="canvas" data-bind="foreach: timelineRows, style: {width: canvasWidth }">\
+                            <div class="row" data-bind="foreach: $data">\
+                                <a href="#" class="event" data-bind="style: {\
+                                                                                left: $parents[1].getPinInfo($data).xPos, \
+                                                                                width: $parents[1].getPinInfo($data).width,\
+                                                                                color: $data.endDate ? \'red\' : \'black\'\
+                                                                            },\
+                                                                     click: function(){ CWRC.selected($data) }">\
+                                    <span data-bind="text: $data.startDate"></span>\
+                                    <span data-bind="html: $data.label"></span>\
+                                </a>\
+                            </div>\
                         </div>\
-                    </div>\
-               </section>',
+                    </section>\
+                    <section id="timeline-ruler">\
+                        <div data-bind="foreach: years, style: { width: canvasWidth }">\
+                            <div data-bind="text: $data, \
+                                            style: { \
+                                                     left: $parent.labelPosition($data),\
+                                                     width: $parent.labelSize - $parent.lineThickness, \
+                                                    \'border-left-width\': $parent.lineThickness \
+                                            }"></div>\
+                        </div>\
+                    </section>\
+               </div>',
     viewModel: function () {
         var self = this;
+
+        self.isVisible = ko.observable(true);
+        self.visibleText = ko.computed(function () {
+            return self.isVisible() ? 'Hide' : 'Show';
+        });
 
         self.previousDragEvent = ko.observable();
 
@@ -30,7 +49,7 @@ ko.components.register('timeline', {
         self.labelSize = CWRC.toMillisec('year') * self.pixelsPerMs; // px
         self.eventsToPinInfos = Object.create(null);
 
-        // full filtered events, sorted by
+        // full filtered events, sorted by start
         self.events = ko.computed(function () {
             var events, timeDiff;
 
@@ -63,8 +82,16 @@ ko.components.register('timeline', {
         });
 
         self.years = ko.computed(function () {
-            return ko.utils.range(self.earliestDate().getUTCFullYear(), self.latestDate().getUTCFullYear() - 1);
+            return ko.utils.range(self.earliestDate().getUTCFullYear(), self.latestDate().getUTCFullYear());
         });
+
+        self['toPixels'] = function (stamp) {
+            return stamp * self.pixelsPerMs;
+        };
+
+        self['originStamp'] = function () {
+            return CWRC.toStamp(self.years()[0].toString());
+        };
 
         self.timelineRows = ko.computed(function () {
             var startStamp, endStamp, duration, rows, events, cutoff, rowIndex, toMilliSecs, toPixels, nextEventIndex;
@@ -84,9 +111,7 @@ ko.components.register('timeline', {
                 return pixels / self.pixelsPerMs;
             };
 
-            toPixels = function (stamp) {
-                return stamp * self.pixelsPerMs;
-            };
+            toPixels = self.toPixels;
 
             while (events.length > 0) {
                 var event, eventIndex, beyond;
@@ -109,12 +134,9 @@ ko.components.register('timeline', {
                 duration = Math.max(Math.abs(endStamp - startStamp), toMilliSecs(self.labelSize));
 
                 self.eventsToPinInfos[ko.toJSON(event)] = {
-                    xPos: toPixels(startStamp - CWRC.toStamp(self.earliestDate())),
+                    xPos: toPixels(startStamp - self.originStamp()),
                     width: toPixels(duration)
                 };
-
-//                event.xPos = toPixels(startStamp - CWRC.toStamp(self.earliestDate()));
-//                event.width = toPixels(duration);
 
                 cutoff = startStamp + duration;
 
@@ -143,13 +165,18 @@ ko.components.register('timeline', {
             self.previousDragEvent(event);
         };
 
+        self['labelPosition'] = function (year) {
+            return self.toPixels(CWRC.toStamp(year.toString()) - self.originStamp())
+        };
+
         self['getPinInfo'] = function (item) {
             return self.eventsToPinInfos[ko.toJSON(item)];
         };
 
-        self.unplottable = ko.computed(function () {
-            // TODO: reenable this
-            return 'x';//CWRC.filteredData().length - self.visibleMarkers().length;
+        self.unplottableCount = ko.pureComputed(function () {
+            return CWRC.rawData().length - CWRC.select(CWRC.rawData(), function (item) {
+                return item.startDate;
+            }).length;
         });
 
         // Note: These are on window rather than the component so that dragging doesn't cut off when the
@@ -159,16 +186,19 @@ ko.components.register('timeline', {
         });
 
         window.addEventListener('mousemove', function (mouseEvent) {
-            var src;
+            var viewport, ruler;
 
             if (!self.previousDragEvent())
                 return;
 
-            src = document.getElementById('timeline-section');
+            viewport = document.getElementById('timeline-viewport');
+            ruler = document.getElementById('timeline-ruler');
 
             // would've used even.movementX, but at this time it does not exist in Firefox.
-            src.scrollTop -= mouseEvent.screenY - self.previousDragEvent().screenY;
-            src.scrollLeft -= mouseEvent.screenX - self.previousDragEvent().screenX;
+            viewport.scrollTop -= mouseEvent.screenY - self.previousDragEvent().screenY;
+            viewport.scrollLeft -= mouseEvent.screenX - self.previousDragEvent().screenX;
+
+            ruler.scrollLeft -= mouseEvent.screenX - self.previousDragEvent().screenX;
 
             self.previousDragEvent(mouseEvent);
         });

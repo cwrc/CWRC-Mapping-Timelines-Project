@@ -1,35 +1,23 @@
 timeline {
     display: block;
+}
 
+timeline > section:first-of-type div {
+    display: inline-block;
+
+    position: absolute;
+    right: 0em;
+}
+
+timeline #timeline-viewport {
     height: 15em;
-}
 
-timeline > section {
-    height: 100%;
-
-    overflow: auto;
+    overflow: hidden;
 
     background: #ccc;
 }
 
-timeline > section > div.labels {
-    height: 1em;
-
-    background: white;
-}
-
-timeline > section > div.labels > div {
-    display: table-cell;
-
-    border-left-color: black;
-    border-left-style: solid;
-}
-
-timeline > section > div.labels > div:nth-of-type(odd) {
-    background: #ccc;
-}
-
-timeline > section {
+timeline #timeline-viewport, #timeline-ruler {
     cursor: -moz-grab;
     cursor: -webkit-grab;
     cursor: grab;
@@ -40,13 +28,13 @@ timeline > section {
     user-select: none;
 }
 
-timeline > section:active {
+timeline #timeline-viewport:active, #timeline-ruler:active {
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
     cursor: grabbing;
 }
 
-timeline > section > div.canvas > div.row {
+timeline #timeline-viewport > div.canvas > div.row {
     position: relative; /* to give a new origin for children  */
 
     margin: 0.25em 0;
@@ -56,7 +44,7 @@ timeline > section > div.canvas > div.row {
     overflow: hidden;
 }
 
-timeline > section > div.canvas > div.row > .event {
+timeline #timeline-viewport > div.canvas > div.row > .event {
     display: inline-block;
     position: absolute;
     vertical-align: top;
@@ -73,10 +61,35 @@ timeline > section > div.canvas > div.row > .event {
     text-overflow: ellipsis;
 }
 
-timeline > section > div.canvas > div.row > .event > span:first-of-type:after{
+timeline #timeline-viewport > div.canvas > div.row > .event > span:first-of-type:after {
     content: ":";
 }
 
-timeline > section > div.canvas > div.row > .event > span{
+timeline #timeline-viewport > div.canvas > div.row > .event > span {
     margin-left: 0.25em;
+}
+
+timeline #timeline-ruler {
+    position: relative;
+
+    overflow: hidden;
+
+    height: 1em;
+}
+
+timeline #timeline-ruler > div {
+    overflow: hidden;
+}
+
+timeline #timeline-ruler > div > div {
+    position: absolute; /* Must absolute, otherwise time drift will occur (leap years) */
+
+    border-left-color: black;
+    border-left-style: solid;
+
+    background: white;
+}
+
+timeline #timeline-ruler > div > div:nth-of-type(odd) {
+    background: #ccc;
 }

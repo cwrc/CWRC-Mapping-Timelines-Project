@@ -1,9 +1,18 @@
 ko.components.register('date_filter', {
-    template: '<header data-bind="text: label"></header>\
+    template: '<header>\
+                    <span data-bind="text: label">\
+                    </span>\
+                    (<a href="#" data-bind="click: function(){ enabled(!enabled()) }, text: enableText"></a>)\
+               </header>\
                <div ><!--TODO: histogram, probably KO component-->\
                </div>\
-               <div id="time_filter" type="range" ></div>',
+               <div id="time_filter"></div>',
 
+    /**
+     * Parameters:
+     * * label: The label to display (optional)
+     * @param params
+     */
     viewModel: function (params) {
         var self = this;
 
@@ -12,12 +21,27 @@ ko.components.register('date_filter', {
         self.rangeMin = ko.observable();
         self.rangeMax = ko.observable();
 
+        self.enabled = ko.observable(true);
+        self.enableText = ko.pureComputed(function () {
+            return self.enabled() ? 'on' : 'off';
+        });
+
+        // Not sure why, but we can't do the normal KO thing here. Possible that the slider library overwrites the node
+        self.enabled.subscribe(function (newValue) {
+            var sliderElement = document.getElementById('time_filter');
+
+            if (!newValue)
+                sliderElement.setAttribute('disabled', true);
+            else
+                sliderElement.removeAttribute('disabled');
+        });
+
         // TODO: there's a lot to DRY between this and Timeline.
         self.timedEvents = ko.pureComputed(function () {
             var events, timeDiff;
 
             // fetch only the data that have non-null start dates, sort by start date.
-            events = CWRC.select(CWRC.rawData(), function (item) { // TODO: is filtered in timeline; pretty much only diff
+            events = CWRC.select(CWRC.rawData(), function (item) { // TODO: <- filteredData in timeline; pretty much only diff
                 return item.startDate;
             }).sort(function (a, b) {
                 timeDiff = CWRC.toStamp(a) - CWRC.toStamp(b);
@@ -52,11 +76,9 @@ ko.components.register('date_filter', {
                 sliderElement.noUiSlider.destroy();
             }
 
+            // TODO: can refactor this out.
             var earliestStamp = self.earliestDate().getTime();
             var latestStamp = self.latestDate().getTime();
-
-//            self.rangeMin(earliestStamp);
-//            self.rangeMax(latestStamp);
 
             var sliderSettings = {
                 start: [earliestStamp, latestStamp], //[self.rangeMin(), self.rangeMax()],
@@ -97,6 +119,9 @@ ko.components.register('date_filter', {
         });
 
         self['filter'] = function (item) {
+            if (!self.enabled())
+                return true;
+
             if (item.startDate || item.endDate) {
                 var startStamp = CWRC.toStamp(item.startDate);
                 var endStamp = CWRC.toStamp(item.endDate);
@@ -106,6 +131,15 @@ ko.components.register('date_filter', {
             } else {
                 return true; // this filter doesn't apply if there is no date data
             }
+        };
+
+        self['reset'] = function () {
+            var sliderElement = document.getElementById('time_filter');
+
+            var earliestStamp = self.earliestDate().getTime();
+            var latestStamp = self.latestDate().getTime();
+
+            sliderElement.noUiSlider.set([earliestStamp, latestStamp]);
         };
 
         CWRC.filters.push(self['filter']);
