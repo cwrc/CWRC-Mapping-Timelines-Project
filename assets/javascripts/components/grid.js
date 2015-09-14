@@ -1,36 +1,14 @@
 ko.components.register('grid', {
     template: '<table>\
-                    <!-- thead & tbody are important, otherwise the browser assumes incorrect things-->\
+                    <!-- explicit thead & tbody are important, otherwise the browser assumes incorrect things-->\
                     <thead>\
-                        <tr>\
-                            <th>\
-                                Title\
-                            </th>\
-                            <th>\
-                                Collection\
-                            </th>\
-                            <th>\
-                                Location\
-                            </th>\
-                            <th>\
-                                Start\
-                            </th>\
-                            <th>\
-                                End\
-                            </th>\
+                        <tr data-bind="foreach: Object.keys(columns)">\
+                            <th data-bind="text: $data">\
                         </tr>\
                     </thead>\
-                    <tbody data-bind="foreach: itemsOnCurrentPage">\
-                        <tr>\
-                            <td data-bind="html: $data.longLabel">\
-                            </td>\
-                            <td data-bind="html: $data.group">\
-                            </td>\
-                            <td data-bind="html: $data.location">\
-                            </td>\
-                            <td data-bind="text: $data.startDate">\
-                            </td>\
-                            <td data-bind="text: $data.endDate">\
+                    <tbody data-bind="foreach: {data: itemsOnCurrentPage, as: \'item\'}">\
+                        <tr data-bind="foreach: {data: Object.keys($parent.columns), as: \'columnLabel\'}">\
+                            <td data-bind="html: item[$parents[1].columns[columnLabel]]">\
                             </td>\
                         </tr>\
                     </tbody>\
@@ -53,13 +31,16 @@ ko.components.register('grid', {
                    </span>\
                </section>',
 
-    // Table takes:
-    //      - pageSize: the number of items per page. Default: 10
-    // todo: - {columnlabel: columnfield}s
+    /**
+     * A table represetnation of data.
+     * todo: @param columns: Hash in the form of {ColumnLabel: 'fieldName', ColumnLabel2: 'fieldName2'} (Required)
+     * @param pageSize: the number of items per page. Default: 10
+     */
     viewModel: function (params) {
         var self = this;
 
-        self.items = CWRC.filteredData; // items is assumed to be a ko list
+        self.items = CWRC.filteredData;
+        self.columns = params['columns'];
 
         self.currentPageIndex = ko.observable(1);
         self.pageSize = params.pageSize || 20;

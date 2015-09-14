@@ -26,7 +26,7 @@ ko.components.register('switcher', {
                     <list></list>\
                </section>\
                <section id="table_view" data-bind="visible: isView(\'table_view\')">\
-                    <grid></grid>\
+                    <grid params="columns:{Title: \'longLabel\', Collection: \'group\', Location: \'location\', Start: \'startDate\', End: \'endDate\'}"></grid>\
                </section>',
 
     viewModel: function () {
