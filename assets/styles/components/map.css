@@ -4,6 +4,8 @@ map #map_canvas {
 }
 
 map > section {
+    position: relative;
+
     margin: 0.1em 0em;
     padding: 0.1em;
 }

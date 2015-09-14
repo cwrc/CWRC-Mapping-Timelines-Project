@@ -2,6 +2,10 @@ timeline {
     display: block;
 }
 
+timeline > section {
+    position: relative;
+}
+
 timeline > section:first-of-type div {
     display: inline-block;
 
