@@ -2,14 +2,25 @@ ko.components.register('grid', {
     template: '<table>\
                     <!-- explicit thead & tbody are important, otherwise the browser assumes incorrect things-->\
                     <thead>\
-                        <tr data-bind="foreach: Object.keys(columns)">\
-                            <th data-bind="text: $data">\
+                        <tr>\
+                            <th></th>\
+                            <!-- ko foreach: Object.keys(columns) -->\
+                                <th data-bind="text: $data">\
+                                </th>\
+                            <!-- /ko -->\
                         </tr>\
                     </thead>\
                     <tbody data-bind="foreach: {data: itemsOnCurrentPage, as: \'item\'}">\
-                        <tr data-bind="foreach: {data: Object.keys($parent.columns), as: \'columnLabel\'}">\
+                        <tr data-bind="">\
+                            <td>\
+                                <a href="#" data-bind="click: function(){ CWRC.selected(item)}">\
+                                    Select\
+                                </a>\
+                            </td>\
+                            <!-- ko foreach: {data: Object.keys($parent.columns), as: \'columnLabel\'} -->\
                             <td data-bind="html: item[$parents[1].columns[columnLabel]]">\
                             </td>\
+                            <!-- /ko -->\
                         </tr>\
                     </tbody>\
                </table>\

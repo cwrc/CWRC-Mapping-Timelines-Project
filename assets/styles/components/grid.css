@@ -20,10 +20,11 @@ grid table tbody tr:nth-of-type(odd) {
 }
 
 grid table tbody td {
-    min-width: 6em;
+    /*min-width: 6em;*/
+    padding: 0 0.5em;
 }
 
-grid a[selected]{
+grid a[selected] {
     font-weight: bold;
     text-decoration: none;
 }
