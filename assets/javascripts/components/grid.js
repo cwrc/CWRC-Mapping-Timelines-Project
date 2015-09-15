@@ -18,8 +18,8 @@ ko.components.register('grid', {
                                 </a>\
                             </td>\
                             <!-- ko foreach: {data: Object.keys($parent.columns), as: \'columnLabel\'} -->\
-                            <td data-bind="html: item[$parents[1].columns[columnLabel]]">\
-                            </td>\
+                                <td data-bind="html: item[$parents[1].columns[columnLabel]] || \'n/a\', css: $parents[1].getColumnClass(columnLabel)">\
+                                </td>\
                             <!-- /ko -->\
                         </tr>\
                     </tbody>\
@@ -44,7 +44,8 @@ ko.components.register('grid', {
 
     /**
      * A table represetnation of data.
-     * todo: @param columns: Hash in the form of {ColumnLabel: 'fieldName', ColumnLabel2: 'fieldName2'} (Required)
+     * @param columns: Hash in the form of {ColumnLabel: 'fieldName', ColumnLabel2: 'fieldName2'} (Required)
+     * @param nowrap: List of column names that should have line-wrap disabled.
      * @param pageSize: the number of items per page. Default: 10
      */
     viewModel: function (params) {
@@ -73,6 +74,10 @@ ko.components.register('grid', {
 
             return ko.utils.range(low, high);
         });
+
+        self['getColumnClass'] = function (columnLabel) {
+            return 'grid-' + columnLabel;
+        };
 
         self['setPage'] = function (index) {
             self.currentPageIndex(index);

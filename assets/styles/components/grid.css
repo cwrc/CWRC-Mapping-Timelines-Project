@@ -21,7 +21,7 @@ grid table tbody tr:nth-of-type(odd) {
 
 grid table tbody td {
     /*min-width: 6em;*/
-    padding: 0 0.5em;
+    padding: 0.25em 0.5em;
 }
 
 grid a[selected] {
