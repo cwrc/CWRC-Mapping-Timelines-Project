@@ -15,6 +15,10 @@ switcher > header > a {
     text-decoration: none;
 }
 
+switcher > header > a+a::before { /* the + operator is for "next-to" */
+    content: '•'
+}
+
 switcher > header > a[selected] {
     border-bottom: 3px solid red;
 }

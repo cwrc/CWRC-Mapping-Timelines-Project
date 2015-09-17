@@ -3,11 +3,11 @@ ko.components.register('switcher', {
                     <a href="#" data-bind="click: function() { setView(\'map_view\') }, attr:{selected: isView(\'map_view\')}">\
                         Map View\
                     </a>\
-                    •\
+                    <!--\
                     <a href="#" data-bind="click: function() { setView(\'list_view\') }, attr:{selected: isView(\'list_view\')}">\
                         List View\
                     </a>\
-                    •\
+                    -->\
                     <a href="#" data-bind="click: function() { setView(\'table_view\') }, attr:{selected: isView(\'table_view\')}">\
                         Grid View\
                     </a>\
@@ -22,11 +22,13 @@ ko.components.register('switcher', {
                                     markerHeight: 18">\
                     </map>\
                </section>\
+               <!--\
                <section id="list_view" data-bind="visible: isView(\'list_view\')">\
                     <list></list>\
                </section>\
+               -->\
                <section id="table_view" data-bind="visible: isView(\'table_view\')">\
-                    <grid params="columns:{Title: \'longLabel\', Collection: \'group\', Location: \'location\', Start: \'startDate\', End: \'endDate\'}"></grid>\
+                    <grid params="columns: {Title: \'longLabel\', Collection: \'group\', Location: \'location\', Start: \'startDate\', End: \'endDate\'}, initialSortBy: [\'group\', \'longLabel-za\']"></grid>\
                </section>',
 
     viewModel: function () {
