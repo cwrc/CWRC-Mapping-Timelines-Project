@@ -28,3 +28,57 @@ grid a[selected] {
     font-weight: bold;
     text-decoration: none;
 }
+
+grid #gridSorting {
+    font-size: 0.8em;
+}
+
+grid #gridSorting div {
+    display: inline-block;
+}
+
+grid #gridSorting > div > div {
+    display: inline-block;
+
+    border-radius: 0.25em;
+}
+
+grid #gridSorting > div div:after {
+    content: '; then';
+}
+
+grid #gridSorting > div > div select {
+    background: none;
+}
+
+grid #gridSorting > div > div a:last-of-type {
+    margin-left: 0.5em;
+
+    width: 1em;
+
+    border-radius: 100%;
+
+    background: #e8e8e8;
+}
+
+grid #gridSorting > div > div a {
+    /* :last-of-type {*/
+    display: inline-block;
+
+    border-radius: 0.25em;
+
+    padding: 0.25em;
+
+    text-align: center;
+
+    color: black;
+    border: 1px outset #cfcfcf;
+    text-decoration: none;
+}
+
+grid #gridSorting > div > div a:hover {
+    border: 1px outset #ababab;
+
+    color: black;
+    text-decoration: none;
+}

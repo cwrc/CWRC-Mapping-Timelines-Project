@@ -1,5 +1,5 @@
 ko.components.register('grid', {
-    template: '<div>\
+    template: '<div id="gridSorting">\
                     Sort <span data-bind="visible: sortContexts().length > 0">by</span>\
                     <!-- Building a "widget" for editing each sorting context-->\
                     <div data-bind="foreach: sortContexts">\
@@ -8,7 +8,6 @@ ko.components.register('grid', {
                             <a href="#" data-bind="click: function() { $data.reverse() }, text: $data.getFieldDirectionLabel()"></a>\
                             <a href="#" data-bind="click: function() { $parent.removeSortBy($data) }">x</a>\
                         </div>\
-                        , then\
                     </div>\
                     <a href="#" title="Add Sorting Rule" data-bind="click: addContext ">by...</a>\
                </div>\
