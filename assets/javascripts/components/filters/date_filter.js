@@ -2,16 +2,14 @@ ko.components.register('date_filter', {
     template: '<header>\
                     <span data-bind="text: label">\
                     </span>\
-                    (<a href="#" data-bind="click: function(){ enabled(!enabled()) }, text: enableText"></a>)\
+                    (<span data-bind="text: rangeMinDate"></span> - <span data-bind="text: rangeMaxDate"></span>)\
                </header>\
-               <div ><!--TODO: histogram, probably KO component-->\
-               </div>\
                <div id="time_filter"></div>',
 
     /**
-     * Parameters:
-     * * label: The label to display (optional)
-     * @param params
+     * A date-range slider filter.
+     *
+     * @param label: The label to display (optional)
      */
     viewModel: function (params) {
         var self = this;
@@ -19,7 +17,17 @@ ko.components.register('date_filter', {
         self.label = params['label'] || 'Date Range';
 
         self.rangeMin = ko.observable();
-        self.rangeMax = ko.observable();
+        self.rangeMax = ko.observable()
+        self.rangeMinDisplay = ko.observable();
+        self.rangeMaxDisplay = ko.observable();
+
+        self.rangeMinDate = ko.pureComputed(function () {
+            return (new Date(Number(self.rangeMinDisplay()))).toLocaleDateString();
+        });
+
+        self.rangeMaxDate = ko.pureComputed(function () {
+            return (new Date(Number(self.rangeMaxDisplay()))).toLocaleDateString();
+        });
 
         self.enabled = ko.observable(true);
         self.enableText = ko.pureComputed(function () {
@@ -109,6 +117,11 @@ ko.components.register('date_filter', {
             sliderElement.noUiSlider.on('set', function (value) {
                 self.rangeMin(parseInt(value[0]));
                 self.rangeMax(parseInt(value[1]));
+            });
+
+            sliderElement.noUiSlider.on('update', function (value) {
+                self.rangeMinDisplay(parseInt(value[0]));
+                self.rangeMaxDisplay(parseInt(value[1]));
             });
 
             sliderElement.noUiSlider.set(
