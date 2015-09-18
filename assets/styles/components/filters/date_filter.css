@@ -11,3 +11,7 @@ date_filter #time_filter {
     margin: 0.5em;
     margin-bottom: 4em;
 }
+
+date_filter header span~span {
+    font-size: 0.8em;
+}
