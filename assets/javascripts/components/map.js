@@ -272,7 +272,7 @@ ko.components.register('map', {
         historicalControlDiv.id = 'cwrc_historical_map_control';
         historicalControlDiv.index = 1;
 
-        self.map.controls[google.maps.ControlPosition.TOP_LEFT].push(historicalControlDiv);
+        self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(historicalControlDiv);
 
         self['toggleHistoricalMap'] = function () {
             self.showHistoricalMap(!self.showHistoricalMap());
