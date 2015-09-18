@@ -29,3 +29,14 @@ checklist_filter header label {
     top: 0em;
     right: 0em;
 }
+
+checklist_filter header a,
+checklist_filter header a:visited {
+    text-decoration: none;
+
+    color: black;
+}
+
+checklist_filter header a:hover span:first-of-type {
+    text-decoration: underline;
+}

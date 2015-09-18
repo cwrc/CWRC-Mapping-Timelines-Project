@@ -29,21 +29,6 @@ ko.components.register('date_filter', {
             return (new Date(Number(self.rangeMaxDisplay()))).toLocaleDateString();
         });
 
-        self.enabled = ko.observable(true);
-        self.enableText = ko.pureComputed(function () {
-            return self.enabled() ? 'on' : 'off';
-        });
-
-        // Not sure why, but we can't do the normal KO thing here. Possible that the slider library overwrites the node
-        self.enabled.subscribe(function (newValue) {
-            var sliderElement = document.getElementById('time_filter');
-
-            if (!newValue)
-                sliderElement.setAttribute('disabled', true);
-            else
-                sliderElement.removeAttribute('disabled');
-        });
-
         // TODO: there's a lot to DRY between this and Timeline.
         self.timedEvents = ko.pureComputed(function () {
             var events, timeDiff;
@@ -132,9 +117,6 @@ ko.components.register('date_filter', {
         });
 
         self['filter'] = function (item) {
-            if (!self.enabled())
-                return true;
-
             if (item.startDate || item.endDate) {
                 var startStamp = CWRC.toStamp(item.startDate);
                 var endStamp = CWRC.toStamp(item.endDate);

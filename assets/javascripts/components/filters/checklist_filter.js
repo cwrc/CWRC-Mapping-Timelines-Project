@@ -1,18 +1,19 @@
 ko.components.register('checklist_filter', {
     template: '<header>\
-                    <span data-bind="text: label"></span>\
-                    (<a href="#" data-bind="click: function(){ enabled(!enabled()) }, text: enableText"></a>)\
+                    <a href="#" data-bind="click: function(){ isExpanded(!isExpanded()) }">\
+                        <span data-bind="text: label"></span>\
+                        <span data-bind="text: expandText"></span>\
+                    </a>\
                     <label>\
                         <input type="checkbox" title="Select All/None" data-bind="checked: allChecked, enable: allCheckEnabled"/>\
                         All\
                     </label>\
                </header>\
-               <div data-bind="visible: enabled, foreach: rawEventValues()">\
+               <div data-bind="visible: isExpanded, foreach: rawEventValues()">\
                     <div>\
                          <label>\
                               <input type="checkbox" data-bind="checkedValue: $data, \
-                                                                checked: $parent.selectedEventValues, \
-                                                                enable: $parent.enabled"/>\
+                                                                checked: $parent.selectedEventValues"/>\
                               <span data-bind="text: $data"></span>\
                               <span>(<span data-bind="text: $parent.filteredEventValuesToCounts()[$data] || 0"></span>/<span data-bind="text: $parent.rawEventValuesToCounts()[$data]"></span>)<span>\
                          </label>\
@@ -20,10 +21,10 @@ ko.components.register('checklist_filter', {
                </div>',
 
     /**
-     * Parameters:
-     * * field: The name of the object field to filter by
-     * * label: The label to display (optional)
-     * @param params
+     * A checklist of fields groups by values. Only those fields that are checked will pass the filter.
+     *
+     * @param field: The name of the object field to filter by
+     * @param label: The label to display (optional)
      */
     viewModel: function (params) {
         var self = this;
@@ -32,9 +33,9 @@ ko.components.register('checklist_filter', {
 
         self.label = params['label'] || ('Property: ' + self.eventFieldName);
 
-        self.enabled = ko.observable(true);
-        self.enableText = ko.pureComputed(function () {
-            return self.enabled() ? 'on' : 'off';
+        self.isExpanded = ko.observable(true);
+        self.expandText = ko.pureComputed(function () {
+            return self.isExpanded() ? '\u25Be' : '\u25B4';
         });
 
         self.selectedEventValues = ko.observableArray();
@@ -90,17 +91,13 @@ ko.components.register('checklist_filter', {
         });
 
         self['allCheckEnabled'] = ko.pureComputed(function () {
-            return self.enabled() && !self.allChecked();
+            return !self.allChecked();
         });
 
         self['filter'] = function (event) {
             var eventValue;
 
-            if (self.enabled())
-                return self.allChecked() || self.selectedEventValues.indexOf(event[self.eventFieldName]) >= 0;
-            else {
-                return true;
-            }
+            return self.allChecked() || self.selectedEventValues.indexOf(event[self.eventFieldName]) >= 0;
         };
 
         self['reset'] = function () {
