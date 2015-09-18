@@ -63,6 +63,11 @@ timeline #timeline-viewport > div.canvas > div.row > .event {
     text-overflow: ellipsis;
 }
 
+timeline #timeline-viewport > div.canvas > div.row > .selected {
+    box-shadow: 0.25em 0.25em 0.25em rgba(0, 0, 0, 0.65);
+    border: 3px dotted red;
+}
+
 timeline #timeline-viewport > div.canvas > div.row > .event > span:first-of-type:after {
     content: ":";
 }
@@ -95,3 +100,4 @@ timeline #timeline-ruler > div > div {
 timeline #timeline-ruler > div > div:nth-of-type(odd) {
     background: #ccc;
 }
+

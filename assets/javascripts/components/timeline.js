@@ -10,12 +10,11 @@ ko.components.register('timeline', {
                     <section id="timeline-viewport">\
                         <div class="canvas" data-bind="foreach: timelineRows, style: {width: canvasWidth }">\
                             <div class="row" data-bind="foreach: $data">\
-                                <a href="#" class="event" data-bind="style: {\
+                                <a href="#" class="event" data-bind="css: { selected: $parents[1].isSelected($data) }, \
+                                                                     style: {\
                                                                                 left: $parents[1].getPinInfo($data).xPos, \
                                                                                 width: $parents[1].getPinInfo($data).width,\
-                                                                                color: $data.endDate ? \'red\' : \'black\',\
-                                                                                border: $parents[1].computeBorder($data), \
-                                                                                boxShadow: $parents[1].computeShadow($data)\
+                                                                                color: $data.endDate ? \'red\' : \'black\'\
                                                                             },\
                                                                      click: function(){ CWRC.selected($data) }">\
                                     <span data-bind="text: $data.startDate"></span>\
@@ -163,37 +162,78 @@ ko.components.register('timeline', {
             }
         });
 
-        self['dragStart'] = function (element, event) {
+        self.dragStart = function (element, event) {
             self.previousDragEvent(event);
         };
 
-        self['labelPosition'] = function (year) {
+        self.labelPosition = function (year) {
             return self.toPixels(CWRC.toStamp(year.toString()) - self.originStamp())
         };
 
-        self['getPinInfo'] = function (item) {
+        self.getPinInfo = function (item) {
             return self.eventsToPinInfos[ko.toJSON(item)];
         };
 
         self.unplottableCount = ko.pureComputed(function () {
             return CWRC.rawData().length - CWRC.select(CWRC.rawData(), function (item) {
-                return item.startDate;
-            }).length;
+                    return item.startDate;
+                }).length;
         });
 
-        self.computeBorder = function (event) {
-            if (event == CWRC.selected())
-                return '3px dotted red';
-            else
-                return ''
+        self.isSelected = function (record) {
+            return record == CWRC.selected();
         };
 
-        self.computeShadow = function (event) {
-            if (event == CWRC.selected())
-                return '0.25em 0.25em 0.25em rgba(0,0,0,0.65)';
-            else
-                return ''
-        };
+        CWRC.selected.subscribe(function (selectedRecord) {
+            var viewport, recordLabel, row, col, rows, records, ruler;
+
+            rows = self.timelineRows();
+
+            // this is awful, but is so far the only way to find the event label.
+            // applying an ID is arbitrary *and* fragile, and no other unique data exists.
+            // So we just rely on he expected correlation of their location because this class
+            // is also doing the layout. - remiller
+            for (row = 0; row < rows.length; row++) {
+                records = rows[row];
+
+                for (col = 0; col < records.length; col++) {
+                    var record = records[col];
+
+                    if (record === selectedRecord) {
+                        recordLabel = document.querySelector('#timeline-viewport .row:nth-of-type(' + (row + 1) + ') .event:nth-of-type(' + (col + 1) + ')'); // gets the first one
+
+                        break;
+                    }
+                }
+
+                if (recordLabel)
+                    break;
+            }
+
+            viewport = document.getElementById('timeline-viewport');
+            ruler = document.getElementById('timeline-ruler');
+
+            if (recordLabel) {
+                var leftBounds, rightBounds, topBounds, bottomBounds, elementLeft, elementTop;
+
+                leftBounds = viewport.scrollLeft;
+                rightBounds = viewport.scrollLeft + viewport.offsetWidth;
+                topBounds = viewport.scrollTop;
+                bottomBounds = viewport.scrollTop + viewport.offsetHeight;
+
+                elementLeft = recordLabel.offsetLeft;
+                elementTop = recordLabel.parentNode.offsetHeight * row; // the parent is actually the offset
+
+                if (elementLeft < leftBounds || elementLeft > rightBounds) {
+                    viewport.scrollLeft = parseInt(elementLeft) - (viewport.offsetWidth / 3);
+                    ruler.scrollLeft = parseInt(elementLeft) - (viewport.offsetWidth / 3);
+                }
+
+                if (elementTop < topBounds || elementTop > bottomBounds) {
+                    viewport.scrollTop = parseInt(elementTop);
+                }
+            }
+        });
 
         // Note: These are on window rather than the component so that dragging doesn't cut off when the
         // mouse leaves the widget. This is Google Maps behaviour adopted for consistency.
