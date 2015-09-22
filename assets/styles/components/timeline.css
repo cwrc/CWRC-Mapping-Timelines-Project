@@ -32,6 +32,15 @@ timeline #timeline-viewport, #timeline-ruler {
     user-select: none;
 }
 
+/*timeline #timeline-viewport > div,*/
+/*timeline #timeline-ruler > div {*/
+    /*-webkit-transform-origin: 0 0;*/
+    /*-moz-transform-origin: 0 0;*/
+    /*-ms-transform-origin: 0 0;*/
+    /*-o-transform-origin: 0 0;*/
+    /*transform-origin: 0 0;*/
+/*}*/
+
 timeline #timeline-viewport:active, #timeline-ruler:active {
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
