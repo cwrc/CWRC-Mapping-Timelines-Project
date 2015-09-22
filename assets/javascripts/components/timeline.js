@@ -112,12 +112,15 @@ ko.components.register('timeline', {
             //self.translateX(-mouseX * scaleFactor);
             //self.translateY(-mouseY * scaleFactor);
 
+            self.transformOriginX(mouseX)
+            //self.transformOriginY(mouseY)
+
+
+
             var oldScale = self.scaleX();
 
             self.scaleX(self.scaleX() * scaleFactor);
             self.scaleY(self.scaleY() * scaleFactor);
-
-            //after the scale, multiply the sacle factor to the raw trasnlation X
 
 
             var newScale = self.scaleX();
@@ -132,10 +135,14 @@ ko.components.register('timeline', {
             //self.pan(direction * mouseX * translateScale, 0);
 
 
-            var direction = scaleFactor >= 1 ? 1 : -1;
             viewport.scrollLeft *= scaleFactor;
 
-            if (direction > 0) {
+
+            /** shitty rounding error version
+             var direction = scaleFactor >= 1 ? 1 : -1;
+             viewport.scrollLeft *= scaleFactor;
+
+             if (direction > 0) {
                 var scalingCompensation = direction * mouseX
 
                 viewport.scrollLeft += scalingCompensation;
@@ -150,7 +157,7 @@ ko.components.register('timeline', {
 
                 viewport.scrollLeft += scalingCompensation;
             }
-
+             */
 
             console.log('scrollLeft');
             console.log(viewport.scrollLeft)
