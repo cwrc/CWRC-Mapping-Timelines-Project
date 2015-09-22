@@ -36,12 +36,6 @@ ko.components.register('timeline', {
                         <div data-bind="foreach: years, \
                                         style: { \
                                                     width: canvasWidth, \
-                                                    transform: zoomTransform, \
-                                                    \'-ms-transform\': zoomTransform,\
-                                                    \'-webkit-transform\': zoomTransform,\
-                                                    transformOrigin: transformOrigin,\
-                                                    \'-ms-transform-origin\': transformOrigin,\
-                                                    \'-webkit-transform-origin\': transformOrigin\
                                                 }">\
                             <div data-bind="text: $data, \
                                             style: { \
@@ -51,7 +45,9 @@ ko.components.register('timeline', {
                                             }"></div>\
                         </div>\
                     </section>\
-               </div><div id="derp" style="background:red; top: 18; left: 831; width: 4px; height:4px; position: absolute; pointer-events: none;"></div>',
+               </div>\
+               <!-- debug zoom location -->\
+               <div id="zoomPoint" style="display:none; background:red; width: 4px; height:4px; position: absolute; pointer-events: none;"></div>',
     viewModel: function () {
         var self = this;
 
@@ -77,98 +73,57 @@ ko.components.register('timeline', {
         self.transformOriginX = ko.observable(0);        // TODO: remove?
         self.transformOriginY = ko.observable(0);   // TODO: remove?
 
-        self.zoomTransform = ko.computed(function () {
-            //return 'scale(' + self.scaleX() + ',' + self.scaleY() + ') translate(' + self.translateX() + 'px,' + self.translateY() + 'px)';
-            return 'scale(' + self.scaleX() + ',' + self.scaleY() + ')';
-
-        });
-
         self.transformOrigin = ko.computed(function () {
             return self.transformOriginX() + 'px ' + self.transformOriginY() + 'px';
         });
 
+        self.zoomTransform = ko.computed(function () {
+            return 'scale(' + self.scaleX() + ',' + self.scaleY() + ')';
+        });
+
         self.zoom = function (viewModel, scrollEvent) {
-            var scrollDelta = -scrollEvent.deltaY;
-            var scaleFactor;
+            var scrollDelta, scaleFactor, mouseX, mouseY, viewport;
 
-            var viewportContainer = document.querySelector('#timeline-viewport').parentNode;
-            var viewport = document.querySelector('#timeline-viewport');
-            var canvas = document.querySelector('#timeline-viewport .canvas');
+            scrollDelta = -scrollEvent.deltaY;
 
-            scaleFactor = scrollDelta > 0 ? 2 : 0.5; // TODO: find a finer ratio. 10%, maybe?
+            viewport = document.querySelector('#timeline-viewport');
 
+            scaleFactor = scrollDelta > 0 ? 1.1 : 1 / 1.1;
 
-            var mouseX; // relative to viewport
-            var mouseY;
+            //  mouseX, Y are relative to viewport
+            /*
+             mouseX = scrollEvent.clientX - viewport.getBoundingClientRect().left;
+             mouseY = scrollEvent.clientY - viewport.getBoundingClientRect().top;
+             */
 
-            mouseX = viewport.getBoundingClientRect().width / 2; // TODO: actually use mouse location
+            // TODO: actually use mouse location
+            // There is a weird behaviour when scrolling in twice, then moving the mouse to a different location,
+            // then scrolling back out. It jumps around to about the halfway mark between them, and I can't figure
+            // out the math yet. - remiller
+            mouseX = viewport.getBoundingClientRect().width / 2;
             mouseY = viewport.getBoundingClientRect().height / 2; // TODO: actually use mouse location
 
-            // TODO: remove the derp point
-            document.getElementById('derp').style.left = viewport.getBoundingClientRect().left + (mouseX - 2)
-            //document.getElementById('derp').style.top = viewport.getBoundingClientRect().top + (mouseY - 2)
+            // TODO: remove the debug point
+            var debugPoint = document.getElementById('zoomPoint')
+            //debugpoint.style.display='block;'
+            debugPoint.style.left = viewport.getBoundingClientRect().left + (mouseX - 2)
+            debugPoint.style.top = viewport.getBoundingClientRect().top + (mouseY - 2)
 
-
-            //self.translateX(-mouseX * scaleFactor);
-            //self.translateY(-mouseY * scaleFactor);
-
-            self.transformOriginX(mouseX)
-            //self.transformOriginY(mouseY)
-
-
-
-            var oldScale = self.scaleX();
+            self.transformOriginX(mouseX / scaleFactor);
+            self.transformOriginY(mouseY / scaleFactor);
 
             self.scaleX(self.scaleX() * scaleFactor);
             self.scaleY(self.scaleY() * scaleFactor);
 
-
-            var newScale = self.scaleX();
-            var scaleDelta = oldScale - newScale;
-
-            //var direction = scaleFactor >= 1 ? -1 : 1;
-            //var translateScale = direction < 0 ? oldScale : newScale
-
-            //console.log('panby')
-            //console.log(direction + ' * ' + mouseX + ' * ' + translateScale + ' = ' + (direction * 500 * translateScale))
-
-            //self.pan(direction * mouseX * translateScale, 0);
-
-
             viewport.scrollLeft *= scaleFactor;
+            viewport.scrollTop *= scaleFactor;
 
+            //ruler.scrollLeft *= scaleFactor;
 
-            /** shitty rounding error version
-             var direction = scaleFactor >= 1 ? 1 : -1;
-             viewport.scrollLeft *= scaleFactor;
-
-             if (direction > 0) {
-                var scalingCompensation = direction * mouseX
-
-                viewport.scrollLeft += scalingCompensation;
-
-                console.log('scaleFactor')
-                console.log(scaleFactor)
-
-                console.log('Adding')
-                console.log(scalingCompensation)
-            } else {
-                var scalingCompensation = direction * mouseX * scaleFactor
-
-                viewport.scrollLeft += scalingCompensation;
-            }
-             */
-
-            console.log('scrollLeft');
-            console.log(viewport.scrollLeft)
-
-            console.log(scrollEvent);
-            //self.transformOriginX(scrollEvent.clientX - container.getBoundingClientRect().left);
-            //self.transformOriginY(scrollEvent.clientY - container.getBoundingClientRect().top);
-
-            //self.transformOriginX('50%');
-            //self.transformOriginY('50%');
-
+            //console.log('scrollLeft');
+            //console.log(viewport.scrollLeft)
+            //
+            //console.log(scrollEvent);
 
             return false; // prevent regular page scrolling.
         };
@@ -176,72 +131,6 @@ ko.components.register('timeline', {
         //document.querySelector('#timeline-viewport').addEventListener('mousemove', function (e) {
         //    console.log('(' + e.screenX + ',' + e.screenY + ')')
         //});
-
-        /*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-         viewport: 10 wide!
-
-         scale 2 -> translate 1/4 new width = translate 1/2 old width
-
-         0
-         +-----|-----+  10
-         !           !
-         +----------|----------+  15 (scaled + corrected)
-         -5
-
-         Correction: -5 = -1 * original zoom point
-
-
-
-
-
-
-         0
-         +--|--------+  10
-
-         -2
-         +----|----------------+  18 (scaled + corrected)
-
-         correction: -2 = -original origin location
-
-
-         I think that the translation is equal to the transform origin.
-
-
-
-
-
-
-
-
-
-         */
 
         // full filtered events, sorted by start
         self.events = ko.computed(function () {
