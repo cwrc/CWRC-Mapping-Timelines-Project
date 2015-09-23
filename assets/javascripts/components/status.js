@@ -1,41 +1,5 @@
 ko.components.register('status', {
-    template: '<div data-bind="visible: hasMessages()">\
-                   <section data-bind="visible: notices().length > 0">\
-                     <ul>\
-                         <!-- ko foreach: notices() -->\
-                            <li>\
-                                <span data-bind="text: $data"></span>\
-                                <a href="#" data-bind="visible: $parent.dismissable, \
-                                                       click: function(){ $parent.notices.splice($index(), 1)}">X</a>\
-                            </li>\
-                         <!-- /ko --> \
-                     </ul>\
-                   </section>\
-                   <section data-bind="visible: warnings().length > 0">\
-                     <header>Warning</header>\
-                     <p data-bind="text: warningFlavour(), visible: warningFlavour()"></p>\
-                     <ul>\
-                         <!-- ko foreach: warnings() -->\
-                            <li>\
-                                <span data-bind="text: $data"></span>\
-                                <a href="#" data-bind="visible: $parent.dismissable, \
-                                                       click: function(){ $parent.warnings.splice($index(), 1)}">X</a>\
-                            </li>\
-                         <!-- /ko --> \
-                     </ul>\
-                   </section>\
-                   <section data-bind="visible: errors().length > 0">\
-                     <ul>\
-                         <!-- ko foreach: errors() -->\
-                            <li>\
-                                <span data-bind="text: $data"></span>\
-                                <a href="#" data-bind="visible: $parent.dismissable, \
-                                                       click: function(){ $parent.errors.splice($index(), 1)}">X</a>\
-                            </li>\
-                         <!-- /ko --> \
-                     </ul>\
-                   </section>\
-               </div>',
+    template: {element: 'status-template'},
 
     viewModel: function (params) {
         var self = this;

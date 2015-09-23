@@ -101,6 +101,41 @@
 
     <!--
     ===============================================
+                      Switcher
+    ===============================================
+    -->
+    <template id="switcher-template">
+        <header>
+            <a href="#" data-bind="click: function() { setView('map_view') }, attr:{selected: isView('map_view')}">
+                Map View
+            </a>
+            <a href="#" data-bind="click: function() { setView('table_view') }, attr:{selected: isView('table_view')}">
+                Grid View
+            </a>
+        </header>
+        <section id="map_view" data-bind="visible: isView('map_view')">
+            <map params="center: '38.479394673276445, -115.361328125',
+                                    zoom: 3,
+                                    colorKey: 'group',
+                                    colors: {BIBLIFO: '#f00', Multimedia: '#0f0', OrlandoEvents: '#00f', LGLC: '#ff0'},
+                                    opacity: '0.5',
+                                    markerWidth: 18,
+                                    markerHeight: 18">
+            </map>
+        </section>
+        <section id="table_view" data-bind="visible: isView('table_view')">
+            <grid params="columns: {Title: 'longLabel',
+                                    Collection: 'group',
+                                    Location: 'location',
+                                    Start: 'startDate',
+                                    End: 'endDate'},
+                          initialSortBy: ['group', 'longLabel-za']"></grid>
+        </section>
+    </template>
+
+
+    <!--
+    ===============================================
                       Grid
     ===============================================
     -->
@@ -170,6 +205,7 @@
         </section>
     </template>
 
+
     <!--
     ===============================================
                         Map
@@ -210,6 +246,7 @@
             <!-- /ko -->
         </section>
     </template>
+
 
     <!--
     ===============================================
@@ -256,6 +293,53 @@
             </div>
         </section>
     </template>
+
+
+    <!--
+    ===============================================
+                     Error Status
+    ===============================================
+    -->
+    <template id="status-template">
+        <div data-bind="visible: hasMessages()">
+            <section data-bind="visible: notices().length > 0">
+                <ul>
+                    <!-- ko foreach: notices() -->
+                    <li>
+                        <span data-bind="text: $data"></span>
+                        <a href="#" data-bind="visible: $parent.dismissable,
+                                                           click: function(){ $parent.notices.splice($index(), 1)}">X</a>
+                    </li>
+                    <!-- /ko -->
+                </ul>
+            </section>
+            <section data-bind="visible: warnings().length > 0">
+                <header>Warning</header>
+                <p data-bind="text: warningFlavour(), visible: warningFlavour()"></p>
+                <ul>
+                    <!-- ko foreach: warnings() -->
+                    <li>
+                        <span data-bind="text: $data"></span>
+                        <a href="#" data-bind="visible: $parent.dismissable,
+                                                           click: function(){ $parent.warnings.splice($index(), 1)}">X</a>
+                    </li>
+                    <!-- /ko -->
+                </ul>
+            </section>
+            <section data-bind="visible: errors().length > 0">
+                <ul>
+                    <!-- ko foreach: errors() -->
+                    <li>
+                        <span data-bind="text: $data"></span>
+                        <a href="#" data-bind="visible: $parent.dismissable,
+                                                           click: function(){ $parent.errors.splice($index(), 1)}">X</a>
+                    </li>
+                    <!-- /ko -->
+                </ul>
+            </section>
+        </div>
+    </template>
+    
 </div>
 </body>
 </html>
