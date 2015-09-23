@@ -46,6 +46,12 @@ timeline #timeline-viewport:active, #timeline-ruler:active {
     cursor: grabbing;
 }
 
+timeline #timeline-viewport .canvas {
+    padding: 1em 0em;
+
+    background: lightblue;
+}
+
 timeline #timeline-viewport > div.canvas > div.row {
     position: relative; /* to give a new origin for children  */
 
@@ -65,7 +71,7 @@ timeline #timeline-viewport > div.canvas > div.row > .event {
 
     overflow: hidden;
 
-    background: rgba(204, 238, 204, 0.35);
+    background: #EEEDE6;
 
     white-space: nowrap;
     text-overflow: ellipsis;

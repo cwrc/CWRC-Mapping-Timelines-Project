@@ -263,12 +263,13 @@ ko.components.register('timeline', {
                 topBounds = viewport.scrollTop;
                 bottomBounds = viewport.scrollTop + viewport.offsetHeight;
 
-                elementLeft = recordLabel.offsetLeft;
-                elementTop = recordLabel.parentNode.offsetHeight * row; // the parent is actually the offset
+                elementLeft = recordLabel.offsetLeft * self.scaleX();
+                elementTop = (recordLabel.parentNode.offsetHeight * self.scaleY()) * row; // the parent is actually the offset
 
                 if (elementLeft < leftBounds || elementLeft > rightBounds) {
                     viewport.scrollLeft = parseInt(elementLeft) - (viewport.offsetWidth / 3);
-                    ruler.scrollLeft = parseInt(elementLeft) - (viewport.offsetWidth / 3);
+                    if (ruler) // todo: remove when ruler rebuilt
+                        ruler.scrollLeft = parseInt(elementLeft) - (viewport.offsetWidth / 3);
                 }
 
                 if (elementTop < topBounds || elementTop > bottomBounds) {
@@ -287,7 +288,8 @@ ko.components.register('timeline', {
             viewport.scrollTop -= deltaY;
             viewport.scrollLeft -= deltaX;
 
-            //ruler.scrollLeft -= deltaX;
+            if (ruler) // todo: remove when ruler rebuilt
+                ruler.scrollLeft -= deltaX;
         };
 
         // takes a direction in negative or positive integer
@@ -328,12 +330,8 @@ ko.components.register('timeline', {
             viewport.scrollLeft *= scaleFactor;
             viewport.scrollTop *= scaleFactor;
 
-            ruler.scrollLeft *= scaleFactor;
-
-            //console.log('scrollLeft');
-            //console.log(viewport.scrollLeft)
-            //
-            //console.log(scrollEvent);
+            if (ruler) // todo: remove when ruler rebuilt
+                ruler.scrollLeft *= scaleFactor;
         };
 
         self.dragStart = function (element, event) {
