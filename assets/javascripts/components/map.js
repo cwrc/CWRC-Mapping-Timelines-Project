@@ -1,34 +1,5 @@
 ko.components.register('map', {
-    template: '<section>\
-                    <a href="#" data-bind="click: function(){isVisible(!isVisible())}, text: visibleText"></a>\
-                    <div>\
-                        <span data-bind="text: unplottableCount"></span> of <span data-bind="text: CWRC.rawData().length"></span>\
-                        lack map data\
-                    </div>\
-               </section>\
-               <div id="historicalMapControls" title="Click to toggle the historical map">\
-                        <label>\
-                            <input type="checkbox" data-bind="checked: showHistoricalMap">\
-                            <span>Historical Map</span>\
-                        </label>\
-                        <label id="historicalOpacityControls" data-bind="visible: showHistoricalMap">\
-                            <span>Opacity</span>\
-                            <input id="historicalMapOpacity" type="range" min="0.0" max="1.0" step="0.05"\
-                                    data-bind="value: historicalMapOpacity"/>\
-                        </label>\
-                    </div>\
-               <!-- identifying by ID does limit to one map per page, but that works for now -->\
-               <div id="map_canvas" data-bind="visible: isVisible">\
-               </div>\
-               <section data-bind="visible: colorMap.hasMapping()">\
-                    <header>Legend</header>\
-                    <!-- ko foreach: colorMap.getLegendPairs() -->\
-                        <div>\
-                            <img data-bind="src: $data.icon"></span>\
-                            <span data-bind="text: $data.name"></span>\
-                        </div>\
-                    <!-- /ko -->\
-               </section>',
+    template: {element: 'map-template'},
 
     /*
      * Map takes:

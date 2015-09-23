@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -173,9 +172,90 @@
 
     <!--
     ===============================================
-                      
+                        Map
     ===============================================
     -->
+    <template id="map-template">
+        <section>
+            <a href="#" data-bind="click: function(){isVisible(!isVisible())}, text: visibleText"></a>
+
+            <div>
+                <span data-bind="text: unplottableCount"></span>
+                of
+                <span data-bind="text: CWRC.rawData().length"></span>
+                lack map data
+            </div>
+        </section>
+        <div id="historicalMapControls" title="Click to toggle the historical map">
+            <label>
+                <input type="checkbox" data-bind="checked: showHistoricalMap">
+                <span>Historical Map</span>
+            </label>
+            <label id="historicalOpacityControls" data-bind="visible: showHistoricalMap">
+                <span>Opacity</span>
+                <input id="historicalMapOpacity" type="range" min="0.0" max="1.0" step="0.05"
+                       data-bind="value: historicalMapOpacity"/>
+            </label>
+        </div>
+        <!-- identifying by ID does limit to one map per page, but that works for now -->
+        <div id="map_canvas" data-bind="visible: isVisible">
+        </div>
+        <section data-bind="visible: colorMap.hasMapping()">
+            <header>Legend</header>
+            <!-- ko foreach: colorMap.getLegendPairs() -->
+            <div>
+                <img data-bind="src: $data.icon"></span>
+                <span data-bind="text: $data.name"></span>
+            </div>
+            <!-- /ko -->
+        </section>
+    </template>
+
+    <!--
+    ===============================================
+                       Spotlight
+    ===============================================
+    -->
+    <template id="spotlight-template">
+        <section data-bind="if: selected() == null, visible: selected() == null">
+            <p class="placeholder">
+                Click an event in the timeline or map to see details
+            </p>
+        </section>
+        <section data-bind="if: selected() != null, visible: selected() != null">
+            <img data-bind="visible: selected().images, src: selected().images"/>
+            <iframe allowfullscreen=true data-bind="visible: selected().videos, src: selected().videos">
+            </iframe>
+            <div>
+                <header>
+                    <span data-bind="if: selected().startDate">
+                        <span data-bind="text: selected().startDate"></span>
+                        <span data-bind="if: selected().endDate">
+                            to
+                            <span data-bind="text: selected().endDate"></span>
+                        </span>
+                    </span>
+                    <span data-bind="if: selected().location">
+                        <span data-bind="text: selected().location"></span>
+                    </span>
+                </header>
+                <section>
+                    <header>
+                        <span data-bind="html: selected().longLabel"></span>
+                    </header>
+                    <span data-bind="html: selected().description"></span>
+
+                    <p data-bind="if: selected().urls">
+                        <a target="_blank" data-bind="href: selected().urls">More...</a>
+                    </p>
+
+                    <p data-bind="if: selected().source">
+                        <a target="_blank" data-bind="href: selected().source">(Source)</a>
+                    </p>
+                </section>
+            </div>
+        </section>
+    </template>
 </div>
 </body>
 </html>
