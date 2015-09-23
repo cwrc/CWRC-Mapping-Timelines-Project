@@ -32,14 +32,13 @@ timeline #timeline-viewport, #timeline-ruler {
     user-select: none;
 }
 
-/*timeline #timeline-viewport > div,*/
-/*timeline #timeline-ruler > div {*/
-    /*-webkit-transform-origin: 0 0;*/
-    /*-moz-transform-origin: 0 0;*/
-    /*-ms-transform-origin: 0 0;*/
-    /*-o-transform-origin: 0 0;*/
-    /*transform-origin: 0 0;*/
-/*}*/
+timeline #timeline-ruler > div {
+    -webkit-transform-origin: left;
+    -moz-transform-origin: left;
+    -ms-transform-origin: left;
+    -o-transform-origin: left;
+    transform-origin: left;
+}
 
 timeline #timeline-viewport:active, #timeline-ruler:active {
     cursor: -moz-grabbing;

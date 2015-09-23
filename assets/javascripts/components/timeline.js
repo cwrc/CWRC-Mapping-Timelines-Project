@@ -6,8 +6,8 @@ ko.components.register('timeline', {
                         lack time data\
                     </div>\
                </section>\
-               <div data-bind="visible: isVisible, event:{mousedown: dragStart}">\
-                    <section id="timeline-viewport" data-bind="event: {wheel: zoom}">\
+               <div data-bind="visible: isVisible, event:{mousedown: dragStart, touchstart: dragStart}">\
+                    <section id="timeline-viewport" data-bind="event: {wheel: scroll}">\
                         <div class="canvas" data-bind="foreach: timelineRows, \
                                                        style: {\
                                                                 width: canvasWidth, \
@@ -31,11 +31,12 @@ ko.components.register('timeline', {
                                 </a>\
                             </div>\
                         </div>\
-                    </section>\
+                    </section><!-- Ruler disabled until further production available\
                     <section id="timeline-ruler">\
                         <div data-bind="foreach: years, \
                                         style: { \
-                                                    width: canvasWidth, \
+                                                    width: canvasWidth,\
+                                                    transform: rulerTransform \
                                                 }">\
                             <div data-bind="text: $data, \
                                             style: { \
@@ -44,7 +45,7 @@ ko.components.register('timeline', {
                                                     \'border-left-width\': $parent.lineThickness \
                                             }"></div>\
                         </div>\
-                    </section>\
+                    </section>-->\
                </div>\
                <!-- debug zoom location -->\
                <div id="zoomPoint" style="display:none; background:red; width: 4px; height:4px; position: absolute; pointer-events: none;"></div>',
@@ -56,7 +57,7 @@ ko.components.register('timeline', {
             return self.isVisible() ? 'Hide' : 'Show';
         });
 
-        self.previousDragEvent = ko.observable();
+        self.previousDragPosition = ko.observable();
 
         self.lineThickness = 1; // in px
 
@@ -77,53 +78,16 @@ ko.components.register('timeline', {
             return self.transformOriginX() + 'px ' + self.transformOriginY() + 'px';
         });
 
+        self.rulerTransform = ko.computed(function () {
+            return 'scaleX(' + self.scaleX() + ')';
+        });
+
         self.zoomTransform = ko.computed(function () {
             return 'scale(' + self.scaleX() + ',' + self.scaleY() + ')';
         });
 
-        self.zoom = function (viewModel, scrollEvent) {
-            var scrollDelta, scaleFactor, mouseX, mouseY, viewport;
-
-            scrollDelta = -scrollEvent.deltaY;
-
-            viewport = document.querySelector('#timeline-viewport');
-
-            scaleFactor = scrollDelta > 0 ? 1.1 : 1 / 1.1;
-
-            //  mouseX, Y are relative to viewport
-            /*
-             mouseX = scrollEvent.clientX - viewport.getBoundingClientRect().left;
-             mouseY = scrollEvent.clientY - viewport.getBoundingClientRect().top;
-             */
-
-            // TODO: actually use mouse location
-            // There is a weird behaviour when scrolling in twice, then moving the mouse to a different location,
-            // then scrolling back out. It jumps around to about the halfway mark between them, and I can't figure
-            // out the math yet. - remiller
-            mouseX = viewport.getBoundingClientRect().width / 2;
-            mouseY = viewport.getBoundingClientRect().height / 2; // TODO: actually use mouse location
-
-            // TODO: remove the debug point
-            var debugPoint = document.getElementById('zoomPoint')
-            //debugpoint.style.display='block;'
-            debugPoint.style.left = viewport.getBoundingClientRect().left + (mouseX - 2)
-            debugPoint.style.top = viewport.getBoundingClientRect().top + (mouseY - 2)
-
-            self.transformOriginX(mouseX / scaleFactor);
-            self.transformOriginY(mouseY / scaleFactor);
-
-            self.scaleX(self.scaleX() * scaleFactor);
-            self.scaleY(self.scaleY() * scaleFactor);
-
-            viewport.scrollLeft *= scaleFactor;
-            viewport.scrollTop *= scaleFactor;
-
-            //ruler.scrollLeft *= scaleFactor;
-
-            //console.log('scrollLeft');
-            //console.log(viewport.scrollLeft)
-            //
-            //console.log(scrollEvent);
+        self.scroll = function (viewModel, scrollEvent) {
+            self.scale(-scrollEvent.deltaY);
 
             return false; // prevent regular page scrolling.
         };
@@ -244,10 +208,6 @@ ko.components.register('timeline', {
             }
         });
 
-        self.dragStart = function (element, event) {
-            self.previousDragEvent(event);
-        };
-
         self.labelPosition = function (year) {
             return self.toPixels(CWRC.toStamp(year.toString()) - self.originStamp())
         };
@@ -327,32 +287,105 @@ ko.components.register('timeline', {
             viewport.scrollTop -= deltaY;
             viewport.scrollLeft -= deltaX;
 
-            ruler.scrollLeft -= deltaX;
+            //ruler.scrollLeft -= deltaX;
+        };
 
-            console.log('=== scroll location===') // TODO: remove
-            console.log(viewport.scrollTop)
-            console.log(viewport.scrollLeft)
+        // takes a direction in negative or positive integer
+        self.scale = function (direction) {
+            var scaleFactor, mouseX, mouseY, viewport;
+
+            viewport = document.querySelector('#timeline-viewport');
+            var ruler = document.querySelector('#timeline-ruler');
+
+
+            scaleFactor = direction > 0 ? 1.1 : 1 / 1.1;
+
+            //  mouseX, Y are relative to viewport
+            /*
+             mouseX = scrollEvent.clientX - viewport.getBoundingClientRect().left;
+             mouseY = scrollEvent.clientY - viewport.getBoundingClientRect().top;
+             */
+
+            // TODO: actually use mouse location
+            // There is a weird behaviour when scrolling in twice, then moving the mouse to a different location,
+            // then scrolling back out. It jumps around to about the halfway mark between them, and I can't figure
+            // out the math yet. - remiller
+            mouseX = viewport.getBoundingClientRect().width / 2;
+            mouseY = viewport.getBoundingClientRect().height / 2; // TODO: actually use mouse location
+
+            // TODO: remove the debug point
+            var debugPoint = document.getElementById('zoomPoint')
+            //debugpoint.style.display='block;'
+            debugPoint.style.left = viewport.getBoundingClientRect().left + (mouseX - 2)
+            debugPoint.style.top = viewport.getBoundingClientRect().top + (mouseY - 2)
+
+            self.transformOriginX(mouseX / scaleFactor);
+            self.transformOriginY(mouseY / scaleFactor);
+
+            self.scaleX(self.scaleX() * scaleFactor);
+            self.scaleY(self.scaleY() * scaleFactor);
+
+            viewport.scrollLeft *= scaleFactor;
+            viewport.scrollTop *= scaleFactor;
+
+            ruler.scrollLeft *= scaleFactor;
+
+            //console.log('scrollLeft');
+            //console.log(viewport.scrollLeft)
+            //
+            //console.log(scrollEvent);
+        };
+
+        self.dragStart = function (element, event) {
+            var x, y;
+
+            if (event.touches && event.touches.length >= 2) {
+                self.pinching = true;
+            } else {
+                x = event.screenX || event.touches[0].screenX;
+                y = event.screenY || event.touches[0].screenY;
+
+                self.previousDragPosition({screenX: x, screenY: y});
+            }
         };
 
         // Note: These are on window rather than the component so that dragging doesn't cut off when the
         // mouse leaves the widget. This is Google Maps behaviour adopted for consistency.
-        window.addEventListener('mouseup', function (mouseEvent) {
-            self.previousDragEvent(null);
-        });
+        var stopEventHandler = function (mouseEvent) {
+            self.previousDragPosition(null);
+        };
 
-        window.addEventListener('mousemove', function (mouseEvent) {
-            var deltaX, deltaY;
+        var dragEventHandler = function (mouseEvent) {
+            var deltaX, deltaY, mouseX, mouseY;
 
-            if (!self.previousDragEvent())
+            if (!self.previousDragPosition())
                 return;
 
             // would've used simpler event.movementX and movementY, but Firefox doesn't support yet.
-            deltaX = mouseEvent.screenX - self.previousDragEvent().screenX;
-            deltaY = mouseEvent.screenY - self.previousDragEvent().screenY;
+            mouseX = mouseEvent.screenX || mouseEvent.touches[0].screenX;
+            mouseY = mouseEvent.screenY || mouseEvent.touches[0].screenY;
+
+            deltaX = mouseX - self.previousDragPosition().screenX;
+            deltaY = mouseY - self.previousDragPosition().screenY;
 
             self.pan(deltaX, deltaY);
 
-            self.previousDragEvent(mouseEvent);
+            var x = mouseEvent.screenX || event.touches[0].screenX;
+            var y = mouseEvent.screenY || event.touches[0].screenY;
+            self.previousDragPosition({screenX: x, screenY: y});
+        };
+
+        window.addEventListener('mouseup', stopEventHandler);
+        window.addEventListener('touchend', stopEventHandler);
+
+        window.addEventListener('mousemove', dragEventHandler);
+        window.addEventListener('touchmove', function (event) {
+            if (event.touches.length > 1) {
+                alert('Zoom not yet supported on touch.');
+                //self.scale(something)
+            } else {
+                dragEventHandler(event);
+            }
         });
     }
 });
