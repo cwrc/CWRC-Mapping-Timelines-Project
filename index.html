@@ -4,322 +4,178 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, user-scalable=yes">
 
-    <title>Digital Diversity 2015: Writing | Feminism | Culture</title>
-    <script src="libs/simile/exhibit-api.js" type="text/javascript"></script>
-    <script src="libs/simile/extensions/map/map-extension.js" type="text/javascript"></script>
-    <script src="libs/simile/extensions/time/time-extension.js" type="text/javascript" type="text/javascript"></script>
+    <title>Plot-It</title>
 
-    <link href="datasets/digital_diversity.json" type="application/json" rel="exhibit/data"/>
-
-    <!-- Static datasets
-    <link href="transformers/cache/multimedia.json" type="application/json" rel="exhibit/data"/>
-    <link href="transformers/cache/biblifo.json" type="application/json" rel="exhibit/data"/>
-    <link href="transformers/cache/lglc.json" type="application/json" rel="exhibit/data"/>
-    <link href="transformers/cache/orlando.json" type="application/json" rel="exhibit/data"/>
-    -->
-
-    <link href="libs/simile/styles/common.css" type="text/css" rel="stylesheet"/>
-    <link href="libs/simile/styles/styles.css" type="text/css" rel="stylesheet"/>
+    <!-- Static datasets -->
+    <link href="transformers/cache/multimedia.json" type="application/json" rel="cwrc/data"/>
+    <link href="transformers/cache/biblifo.json" type="application/json" rel="cwrc/data"/>
+    <link href="transformers/cache/lglc.json" type="application/json" rel="cwrc/data"/>
+    <link href="transformers/cache/orlando.json" type="application/json" rel="cwrc/data"/>
 
     <!-- Customizations -->
     <link href="assets/styles/cwrc.css" type="text/css" rel="stylesheet"/>
-    <script src="assets/javascripts/simile_override.js" type="text/javascript"></script>
-    <script src="assets/javascripts/cwrc.js" type="text/javascript"></script>
+    <link href="assets/styles/components/filters/text_filter.css" type="text/css" rel="stylesheet"/>
+    <link href="assets/styles/components/filters/date_filter.css" type="text/css" rel="stylesheet"/>
+    <link href="assets/styles/components/filters/checklist_filter.css" type="text/css" rel="stylesheet"/>
+    <link href="assets/styles/components/filters/filter_reset.css" type="text/css" rel="stylesheet"/>
+    <link href="assets/styles/components/switcher.css" type="text/css" rel="stylesheet"/>
+    <link href="assets/styles/components/spotlight.css" type="text/css" rel="stylesheet"/>
+    <link href="assets/styles/components/map.css" type="text/css" rel="stylesheet"/>
+    <link href="assets/styles/components/grid.css" type="text/css" rel="stylesheet"/>
+    <link href="assets/styles/components/timeline.css" type="text/css" rel="stylesheet"/>
+
+    <!-- Libraries -->
+    <script src="assets/javascripts/lib/knockout-3.3.0.js" type="text/javascript"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
     <script src="assets/javascripts/lib/spiderfy.min.js" type="text/javascript"></script>
 
+    <link href="assets/javascripts/lib/noUiSlider.8.0.2/nouislider.min.css" rel="stylesheet">
+    <script src="assets/javascripts/lib/noUiSlider.8.0.2/nouislider.min.js" type="text/javascript"></script>
+
+    <script src="assets/javascripts/network.js" type="text/javascript"></script>
+    <script src="assets/javascripts/transform.js" type="text/javascript"></script>
+    <script src="assets/javascripts/cwrc_ko.js" type="text/javascript"></script>
+
+    <!-- KO components -->
+    <script src="assets/javascripts/components/filters/text_filter.js" type="text/javascript"></script>
+    <script src="assets/javascripts/components/filters/date_filter.js" type="text/javascript"></script>
+    <script src="assets/javascripts/components/filters/checklist_filter.js" type="text/javascript"></script>
+    <script src="assets/javascripts/components/filters/filter_reset.js" type="text/javascript"
+            rel="stylesheet"></script>
+    <script src="assets/javascripts/components/switcher.js" type="text/javascript"></script>
+    <script src="assets/javascripts/components/spotlight.js" type="text/javascript"></script>
+    <script src="assets/javascripts/components/timeline.js" type="text/javascript"></script>
+    <script src="assets/javascripts/components/map.js" type="text/javascript"></script>
+    <script src="assets/javascripts/components/grid.js" type="text/javascript"></script>
 </head>
 <body>
-<table id="frame">
-<tr>
-<td id="sidebar">
+<section id="sidebar">
     <header>
-        <a href="/">Digital Diversity 2015</a>
-        <header>
-            Writing | Feminism | Culture
-        </header>
+        <a href="/">Plot-It</a>
     </header>
 
-    <div ex:role="coordinator" id="bubble-coordinator"></div>
-
     <section>
-        Created for 
-        <a href="http://digitaldiversity2015.org/" target="_blank">
-            Digital Diversity 2015
-        </a>
-        , 7&ndash;9 May 2015, Edmonton, Alberta, Canada
-    </section>
+        <div id="filters">
+            <text_filter params="label: 'Search', placeholder: 'eg. Rocky Mountains'"></text_filter>
 
-    <section>
-        <strong>Browsing:</strong> You can browse events via either the timeline or the map. To browse
-        using the timeline interface, left-click on the timeline and drag it to the right
-        to go back in time, and drag it to the left to go forward in time. To browse using
-        the map interface, pan the map by left-clicking and dragging the map, and zoom in
-        and out of the map by rotating the mouse wheel.
-    </section>
-    <section>
-        <strong>Searching:</strong> Search below by typing search terms, and/or by limiting using the
-        various filters that are available. Limiting options include date of event,
-        event type, and country. To restart your search, click on "Reset All
-        Filters", which will appear above the map after keywords and/or limiting filters
-        have been selected.
-    </section>
+            <date_filter params="label: 'Date Range'"></date_filter>
 
-    <section>
-        <a id="help" href="http://cwrc.ca/Plot-It_Documentation" target="_blank">Help...</a>
-    </section>
 
-    <section>
-        <a id="historicalMapToggle" href="#" onclick="CWRC.toggleHistoricalMap();">
-            Show Historical Map
-        </a>
-        <label id="historicalOpacityControls" style="display:none">
-            Opacity
-            <input id="historicalMapOpacity" type="range" min="0.0" max="1.0" step="0.05"
-                   onchange="CWRC.setMapOpacity()"/>
-        </label>
-    </section>
-
-    <section>
-        <div id="exhibit-browse-panel">
-            <strong>Search terms:</strong>
-
-            <div ex:role="facet" ex:facetClass="TextSearch"></div>
-            <div ex:role="facet" ex:expression=".startDate" ex:facetLabel="Event Date Range" ex:facetClass="Slider"
-                 ex:horizontal="true" ex:precision="1" ex:histogram="true" ex:width="285px"></div>
-            <div ex:role="facet" ex:expression=".eventType" ex:facetLabel="Event type" ex:height="3em"></div>
-            <div ex:role="facet" ex:expression=".countryName" ex:facetLabel="Country" ex:height="3em"></div>
+            <checklist_filter params="label: 'Collection', field: 'group'"></checklist_filter>
+            <checklist_filter params="label: 'Event Type', field: 'eventType'"></checklist_filter>
         </div>
+
+        <hr/>
+
+        <filter_reset params="label: 'Reset All', filterGroupId: 'filters'"></filter_reset>
     </section>
 
     <section>
-        <strong>Project team members:</strong> Jeffery Antoniuk, Susan Brown, Michael Brundin,
-        Lisa Dublin, Isobel Grundy, Kathryn Holland, Mihaela Ilovan, Robin Miller, and Hamman Samuel
+        <header>How to use search</header>
+        <p>
+            Search below by choosing a facet or typing keywords. To restart your search, click on "Reset all Filters"
+            above the map.
+        </p>
     </section>
-</td>
-
-<td id="content">
-<div class="item" ex:role="lens" style="display: none; overflow: auto;">
-    <!-- Begin popup. If only this is set, it will be used for the map markers too. Can be disabled for timeline, and show
-    on map only as well-->
-    <img ex:if-exists=".images" ex:src-content=".images"/>
-    <iframe height="150" height="150" ex:if-exists=".videos" ex:src-content=".videos" frameborder="0"
-            allowfullscreen></iframe>
-    <div>
-        <header>
-            <span ex:if-exists=".startDate">
-                <span ex:content=".startDate"></span>
-                <span ex:if-exists=".endDate">
-                    to
-                    <span ex:content=".endDate"></span>
-                </span>
-            </span>
-            <span ex:if-exists=".location">
-                <span ex:content=".location"></span>
-            </span>
-        </header>
-        <section>
-            <header>
-                <span ex:content=".longLabel"></span>
-            </header>
-            <span ex:content=".description"></span>
-
-            <p>
-                <b>
-                    <a target="_blank" ex:if-exists=".urls" ex:href-content=".urls">More...</a>
-                </b>
-            </p>
-
-            <p>
-                <b>
-                    <a target="_blank" ex:if-exists=".source" ex:href-content=".source">(Source)</a>
-                </b>
-            </p>
-        </section>
-    </div>
-    <!-- End timeline popup -->
-</div>
-
-<div ex:role="coder" ex:coderClass="Color" id="event-colors">
-    <span ex:color="#22E">bibliographical</span>
-    <span ex:color="#274">biographical</span>
-    <span ex:color="#00f">cultural</span>
-    <span ex:color="#ff0">literary</span>
-    <span ex:color="#000">political</span>
-    <span ex:color="#0ff">social</span>
-</div>
-
-<!-- Example for customizing icons without any data manipulations -->
-<div ex:role="coder" ex:coderClass="Icon" id="event-icons" style="display:none;">
-    <span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=22E">bibliographical</span>
-    <span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=274">biographical</span>
-    <span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=00f">cultural</span>
-    <span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=ff0">literary</span>
-    <span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=000">political</span>
-    <span ex:icon="http://simile.mit.edu/painter/painter?renderer=map-marker&shape=circle&width=15&height=15&pinHeight=5&background=0ff">social</span>
-</div>
-
-<!-- This sychronizes the showing of popups, i.e. if a map marker is clicked, the popup on the timeline also shows -->
-<!--<div ex:role="coordinator" id="event"></div>-->
-
-<!-- Begin timeline component -->
-<div class="cwrc-hide">
-    <a id="timelineToggle" href="#" onclick="CWRC.toggleTimeline();">
-        Hide Timeline
-    </a>
-</div>
-
-<div id="timelineArea" ex:role="view"
-     ex:viewClass="Timeline"
-     ex:label="Timeline"
-     ex:start=".startDate"
-     ex:end=".endDate"
-     ex:bubbleWidth="350"
-     ex:topBandPixelsPerUnit="400"
-     ex:showSummary="false"
-     ex:iconCoder="event-icons"
-     ex:iconKey=".eventType"
-     ex:timelineHeight="170"
-     ex:selectCoordinator="bubble-coordinator">
-</div>
-<!-- End timeline component -->
-
-<section id="detailsBox">
-    <p class="placeholder">
-        Click an event in the timeline or map to see details
-    </p>
 </section>
 
-<div class="cwrc-hide">
-    <a id="mapToggle" href="#" onclick="CWRC.toggleMap();">
-        Hide Map
-    </a>
-</div>
+<main>
+    <timeline></timeline>
 
-<div ex:role="viewPanel" id="mapArea">
-    <!-- Begin map popup -->
-    <!-- This controls a custom popup for the map markers. Disabling it causes the same popup to be used for both timeline and map -->
-    <!--<div class="map-lens" ex:role="lens">-->
-    <!--<table cellpadding="2" width="100%">-->
-    <!--<tr>-->
-    <!--<td width="1">-->
-    <!--<img ex:if-exists=".images" ex:src-content=".images" width="100px"/>-->
-    <!--</td>-->
-    <!--<td width="1">-->
-    <!--<iframe width="150" height="150" ex:if-exists=".videos" ex:src-content=".videos" frameborder="0"-->
-    <!--allowfullscreen></iframe>-->
-    <!--</td>-->
-    <!--<td>-->
-    <!--<div>-->
-    <!--<span ex:if-exists=".location">-->
-    <!--<b>-->
-    <!--<small>LOCATION</small>-->
-    <!--</b> <span ex:content=".location"></span><br/>-->
-    <!--</span>-->
-    <!--<span ex:if-exists=".startDate">-->
-    <!--<b>-->
-    <!--<small>DATE</small>-->
-    <!--</b>-->
-    <!--<span ex:content=".startDate"></span>-->
-    <!--<span ex:if-exists=".endDate">-->
-    <!--<b>-->
-    <!--<small>TO</small>-->
-    <!--</b> <span ex:content=".endDate"></span>-->
-    <!--</span>-->
-    <!--<br/>-->
-    <!--</span>-->
-    <!--<b>-->
-    <!--<small>TITLE</small>-->
-    <!--</b>-->
-    <!--<span ex:content=".longLabel"></span>-->
-    <!--<br/>-->
-    <!--<b>-->
-    <!--<small>NOTES</small>-->
-    <!--</b>-->
-    <!--<span ex:content=".description"></span>-->
-    <!--<br/>-->
-    <!--<b>-->
-    <!--<small>-->
-    <!--<a target="_blank" ex:if-exists=".urls" ex:href-content=".urls">MORE INFO</a>-->
-    <!--</small>-->
-    <!--</b>-->
-    <!--<b>-->
-    <!--<small>-->
-    <!--<a target="_blank" ex:if-exists=".source" ex:href-content=".source">SOURCE</a>-->
-    <!--</small>-->
-    <!--</b>-->
-    <!--</div>-->
-    <!--</td>-->
-    <!--</tr>-->
-    <!--</table>-->
-    <!--</div>-->
-    <!-- End map popup -->
+    <spotlight></spotlight>
 
-    <!-- Begin map control, same map can hold multiple views, only one is needed here -->
-    <!-- Note:needs bubbleheight/width set, otherwise it will draw garbage -->
-    <div ex:role="view"
-         id="map1"
-         ex:viewClass="MapView"
-         ex:label="Map View"
-         ex:latlng=".latLng"
-         ex:latlngOrder="lnglat"
-         ex:latlngPairSeparator="|"
-         ex:polygon=".polygon"
-         ex:polyline=".polyline"
-         ex:opacity="0.5"
-         ex:borderWidth="4"
-         ex:center="30, 0"
-         ex:zoom="2"
-         ex:colorCoder="event-colors"
-         ex:colorKey=".eventType"
-         ex:shapeWidth="18"
-         ex:shapeHeight="18"
-         ex:bubbleWidth="310"
-         ex:bubbleHeight="100"
-         ex:selectCoordinator="bubble-coordinator">
-        <!--ex:showSummary="false"-->
-    </div>
-    <!-- End map control -->
+    <style>
+        .grid-Start, .grid-End {
+            white-space: nowrap;
+        }
+    </style>
+    <switcher></switcher>
+</main>
 
-    <!-- Begin data details -->
-    <div ex:role="view"
-         ex:viewClass=""
-         ex:label="List View"
-         ex:columns=".label, .eventType, .startDate, .location, .countryName"
-         ex:columnLabels="Label, Type, Date, Location, Country"
-         ex:sortAscending="true">
 
-        <table style="display: none;">
+<!--
+===============================================
+               Widget Templates
+===============================================
+-->
+<div id="templates" style="display:none;">
+
+    <!--
+    ===============================================
+                      Grid
+    ===============================================
+    -->
+    <template id="grid-template">
+        <div id="gridSorting">
+            Sort <span data-bind="visible: sortContexts().length > 0">by</span>
+            <!-- Building a "widget" for editing each sorting context-->
+            <div data-bind="foreach: sortContexts">
+                <div>
+                    <select data-bind="options: $parent.allFields, optionsText: 'name', optionsValue: 'name', optionsCaption:'Choose...', value: $data.name"></select>
+                    <a href="#"
+                       data-bind="click: function() { $data.reverse() }, text: $data.getFieldDirectionLabel()"></a>
+                    <a href="#" data-bind="click: function() { $parent.removeSortBy($data) }">x</a>
+                </div>
+
+            </div>
+
+            <a href="#" title="Add Sorting Rule" data-bind="click: addContext ">by...</a>
+        </div>
+
+        <table>
+            <!-- explicit thead & tbody are important, otherwise the browser assumes incorrect things-->
+            <thead>
             <tr>
-                <td><b ex:content=".label"></b></td>
-                <td><span ex:content=".eventType"></span></td>
-                <td><span ex:content=".startDate"></span></td>
-                <td><span ex:content=".location"></span></td>
-                <td><span ex:content=".countryName"></span></td>
+                <th></th>
+                <!-- ko foreach: Object.keys(columns) -->
+                <th data-bind="text: $data">
+                </th>
+                <!-- /ko -->
             </tr>
-        </table>
-    </div>
+            </thead>
+            <tbody data-bind="foreach: {data: itemsOnCurrentPage, as: 'item'}">
+            <tr data-bind="">
+                <td>
+                    <a href="#" data-bind="click: function(){ CWRC.selected(item)}">
+                        Select
+                    </a>
+                </td>
 
-    <!-- Begin tabular details -->
-    <div ex:role="view"
-         ex:viewClass="Tabular"
-         ex:label="Grid View"
-         ex:columns=".label, .eventType, .startDate, .location, .countryName"
-         ex:columnLabels="Label, Type, Date, Location, Country"
-         ex:sortAscending="true"
-         ex:rowStyler="CWRC.zebraStyler">
-        <table style="display: none;">
-            <tr>
-                <td><strong ex:content=".label"></strong></td>
-                <td><span ex:content=".eventType"></span></td>
-                <td><span ex:content=".startDate"></span></td>
-                <td><span ex:content=".location"></span></td>
-                <td><span ex:content=".countryName"></span></td>
+                <!-- ko foreach: {data: Object.keys($parent.columns), as: 'columnLabel'} -->
+                <td data-bind="html: item[$parents[1].columns[columnLabel]] || 'n/a', css: $parents[1].getColumnClass(columnLabel)">
+                </td>
+                <!-- /ko -->
             </tr>
+            </tbody>
         </table>
-    </div>
+
+        <section>
+           <span data-bind="visible: isFarAway(1)">
+                <a href="#"
+                   data-bind="text: 1, click: function(){ setPage(1) }, attr: {selected: currentPageIndex() == 1}"></a>
+                <span data-bind="visible: isFarAway(2)">
+                    ...
+                </span>
+           </span>
+           <span data-bind="foreach: pageNeighbourhood">
+                <a href="#"
+                   data-bind="text: $data, click: function(){ $parent.setPage($data) }, attr: {selected: $parent.currentPageIndex() == $data}"></a>
+           </span>
+           <span data-bind="visible: isFarAway(maxPageIndex())">
+                <span data-bind="visible: isFarAway(maxPageIndex() - 1)">
+                    ...
+                </span>
+                <a href="#"
+                   data-bind="text: maxPageIndex, click: function(){ setPage(maxPageIndex()) }, attr: {selected: currentPageIndex() == maxPageIndex()}"></a>
+           </span>
+        </section>
+    </template>
+
+    <!--
+    ===============================================
+                      
+    ===============================================
+    -->
 </div>
-</td>
-</tr>
-</table>
 </body>
 </html>

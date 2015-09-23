@@ -1,58 +1,5 @@
 ko.components.register('grid', {
-    template: '<div id="gridSorting">\
-                    Sort <span data-bind="visible: sortContexts().length > 0">by</span>\
-                    <!-- Building a "widget" for editing each sorting context-->\
-                    <div data-bind="foreach: sortContexts">\
-                        <div>\
-                            <select data-bind="options: $parent.allFields, optionsText: \'name\', optionsValue: \'name\', optionsCaption:\'Choose...\', value: $data.name"></select>\
-                            <a href="#" data-bind="click: function() { $data.reverse() }, text: $data.getFieldDirectionLabel()"></a>\
-                            <a href="#" data-bind="click: function() { $parent.removeSortBy($data) }">x</a>\
-                        </div>\
-                    </div>\
-                    <a href="#" title="Add Sorting Rule" data-bind="click: addContext ">by...</a>\
-               </div>\
-               <table>\
-                    <!-- explicit thead & tbody are important, otherwise the browser assumes incorrect things-->\
-                    <thead>\
-                        <tr>\
-                            <th></th>\
-                            <!-- ko foreach: Object.keys(columns) -->\
-                                <th data-bind="text: $data">\
-                                </th>\
-                            <!-- /ko -->\
-                        </tr>\
-                    </thead>\
-                    <tbody data-bind="foreach: {data: itemsOnCurrentPage, as: \'item\'}">\
-                        <tr data-bind="">\
-                            <td>\
-                                <a href="#" data-bind="click: function(){ CWRC.selected(item)}">\
-                                    Select\
-                                </a>\
-                            </td>\
-                            <!-- ko foreach: {data: Object.keys($parent.columns), as: \'columnLabel\'} -->\
-                                <td data-bind="html: item[$parents[1].columns[columnLabel]] || \'n/a\', css: $parents[1].getColumnClass(columnLabel)">\
-                                </td>\
-                            <!-- /ko -->\
-                        </tr>\
-                    </tbody>\
-               </table>\
-               <section>\
-                   <span data-bind="visible: isFarAway(1)">\
-                        <a href="#" data-bind="text: 1, click: function(){ setPage(1) }, attr: {selected: currentPageIndex() == 1}"></a>\
-                        <span data-bind="visible: isFarAway(2)">\
-                            ...\
-                        </span>\
-                   </span>\
-                   <span data-bind="foreach: pageNeighbourhood">\
-                        <a href="#" data-bind="text: $data, click: function(){ $parent.setPage($data) }, attr: {selected: $parent.currentPageIndex() == $data}"></a>\
-                   </span>\
-                   <span data-bind="visible: isFarAway(maxPageIndex())">\
-                        <span data-bind="visible: isFarAway(maxPageIndex() - 1)">\
-                            ...\
-                        </span>\
-                        <a href="#" data-bind="text: maxPageIndex, click: function(){ setPage(maxPageIndex()) }, attr: {selected: currentPageIndex() == maxPageIndex()}"></a>\
-                   </span>\
-               </section>',
+    template: {element: 'grid-template'},
 
     /**
      * A table representation of data.
