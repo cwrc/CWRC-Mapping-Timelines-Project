@@ -2,8 +2,6 @@ window.CWRC = window.CWRC || {};
 
 // transformations
 window.CWRC.Transform = (function (transform, undefined) {
-    // TODO: modularize these all to depollute the global namespace
-
     transform['humanDate'] = function (stamp) {
         if (!stamp)
             return null;
@@ -36,39 +34,6 @@ window.CWRC.Transform = (function (transform, undefined) {
         } else {
             return date.toLocaleString();
         }
-    };
-
-    transform['desymbol'] = function (sym) {
-        return sym.replace('_', ' ');
-    };
-
-    transform['deserializeSearch'] = function () {
-        var pairs = location.search.substring(1, location.search.length).split("&");
-        var params = {};
-
-        for (var i = 0; i < pairs.length; i++) {
-            if (pairs[i]) {
-                var p = pairs[i].split("=");
-
-                params[p[0]] = decodeURIComponent(p[1]);
-            }
-        }
-
-        return params
-    };
-
-    transform['serializeSearch'] = function (paramHash) {
-        var params = [];
-
-        for (param in paramHash) {
-            if (paramHash.hasOwnProperty(param)) {
-                params.push(param + "=" + paramHash[param]);
-            }
-        }
-
-        var serialized = params.join('&');
-
-        return (serialized ? "?" : "") + serialized;
     };
 
     transform['parseLatLng'] = function (string) {
