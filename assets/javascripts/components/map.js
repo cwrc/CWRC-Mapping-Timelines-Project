@@ -107,11 +107,9 @@ ko.components.register('map', {
             CWRC.selected(marker.item);
         });
 
-        self._markersToDefaultIcons = {};
-
         self.spiderfier.addListener('spiderfy', function (markers, event) {
             markers.forEach(function (marker) {
-                self._markersToDefaultIcons[marker] = marker.getIcon();
+                marker.cwrcDefaultIcon = marker.getIcon();
 
                 marker.setIcon(CWRC.createMarkerIcon({
                     width: self.pinWidth,
@@ -125,7 +123,7 @@ ko.components.register('map', {
 
         self.spiderfier.addListener('unspiderfy', function (markers, event) {
             markers.forEach(function (marker) {
-                marker.setIcon(self._markersToDefaultIcons[marker])
+                marker.setIcon(marker.cwrcDefaultIcon);
             });
         });
 
@@ -185,12 +183,11 @@ ko.components.register('map', {
 
             // resetting the PREVIOUS markers
             self._selectedMarkers.forEach(function (selectedMarker) {
-                selectedMarker.setIcon(self._markersToDefaultIcons[selectedMarker]);
+                selectedMarker.setIcon(selectedMarker.cwrcDefaultIcon);
                 selectedMarker.setZIndex(null);
             });
 
             self._selectedMarkers = [];
-            self._markersToDefaultIcons = {};
 
             // declared outside loop to allow panning to last one after the loop
             // panning to last (rather than pan/zoom to fit all) is easier for now
@@ -205,7 +202,7 @@ ko.components.register('map', {
                     position = marker.position
                 }
 
-                self._markersToDefaultIcons[marker] = marker.getIcon();
+                marker.cwrcDefaultIcon = marker.getIcon();
 
                 // now redraw the newly selected ones
                 marker.setIcon(CWRC.createMarkerIcon({
@@ -410,7 +407,14 @@ CWRC.ColorMap.prototype.getLegendPairs = function () {
     for (field in this.mapping) {
         colorPairs.push({
                 name: field,
-                icon: CWRC.createMarkerIcon({width: 14, height: 14, color: this.mapping[field], label: "", settings: {shape: "circle"}}).url}
+                icon: CWRC.createMarkerIcon({
+                    width: 14,
+                    height: 14,
+                    color: this.mapping[field],
+                    label: "",
+                    settings: {shape: "circle"}
+                }).url
+            }
         )
     }
 
