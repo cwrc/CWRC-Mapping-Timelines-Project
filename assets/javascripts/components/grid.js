@@ -32,7 +32,7 @@ ko.components.register('grid', {
 
         // assumes all data objects have same format.
         self.allFields = ko.pureComputed(function () {
-            return Object.keys(CWRC.rawData()[0]).map(function (fieldString) {
+            return Object.keys(CWRC.rawData()[0] || {}).map(function (fieldString) {
                 return new SortContext(fieldString);
             });
         });
@@ -47,9 +47,15 @@ ko.components.register('grid', {
         };
 
         self.columns = params['columns'];
-        self.sortContexts = ko.observableArray(params['initialSortBy'].map(function (fieldString) {
-            return new SortContext(fieldString);
-        }));
+        self.sortContexts = ko.observableArray();
+
+        CWRC.rawData.subscribe(function () {
+            // this needs to be loaded on data changing, not on init.
+
+            self.sortContexts(params['initialSortBy'].map(function (fieldString) {
+                return new SortContext(fieldString);
+            }))
+        });
 
         self.items = ko.pureComputed(function () {
             var unsorted, direction, nameAndDirection, result, sortContexts, fieldName, sortFunction, collator, sortContext;

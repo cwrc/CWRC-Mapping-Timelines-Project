@@ -150,7 +150,6 @@
                        data-bind="click: function() { $data.reverse() }, text: $data.getFieldDirectionLabel()"></a>
                     <a href="#" data-bind="click: function() { $parent.removeSortBy($data) }">x</a>
                 </div>
-
             </div>
 
             <a href="#" title="Add Sorting Rule" data-bind="click: addContext ">by...</a>
@@ -183,7 +182,7 @@
             </tbody>
         </table>
 
-        <section>
+        <section data-bind="visible: maxPageIndex() > 1">
            <span data-bind="visible: isFarAway(1)">
                 <a href="#"
                    data-bind="text: 1, click: function(){ setPage(1) }, attr: {selected: currentPageIndex() == 1}"></a>
@@ -339,7 +338,7 @@
             </section>
         </div>
     </template>
-    
+
 </div>
 </body>
 </html>
