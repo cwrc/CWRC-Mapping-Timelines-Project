@@ -204,7 +204,7 @@ ko.components.register('timeline', {
             } else {
                 timespan = (endStamp - startStamp); // in ms
 
-                return timespan * self.pixelsPerMs; // convert to px
+                return (timespan * self.pixelsPerMs) + (self.pixelsPerMs * CWRC.toMillisec('year')); // convert to px
             }
         });
 
