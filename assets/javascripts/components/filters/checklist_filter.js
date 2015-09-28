@@ -23,8 +23,8 @@ ko.components.register('checklist_filter', {
     /**
      * A checklist of fields groups by values. Only those fields that are checked will pass the filter.
      *
-     * @param field: The name of the object field to filter by
      * @param label: The label to display (optional)
+     * @param field: The name of the object field to filter by
      */
     viewModel: function (params) {
         var self = this;

@@ -3,9 +3,8 @@ ko.components.register('filter_reset', {
 
     /**
      * Parameters:
-     * * filterGroupId: The HTML id of the container around the filters.
-     * * label: The label to display (optional)
-     * @param params
+     * @param filterGroupId: The HTML id of the container around the filters.
+     * @param label: The label to display (optional)
      */
     viewModel: function (params) {
         var self = this;
