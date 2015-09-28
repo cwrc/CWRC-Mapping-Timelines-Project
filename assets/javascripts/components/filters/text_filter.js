@@ -6,9 +6,8 @@ ko.components.register('text_filter', {
 
     /**
      * Parameters:
-     * * label: The label to display (optional)
-     * * placeholder: The greyed out prompt text
-     * @param params
+     * @param label: The label to display (optional)
+     * @param placeholder: The greyed out prompt text
      */
     viewModel: function (params) {
         var self = this;

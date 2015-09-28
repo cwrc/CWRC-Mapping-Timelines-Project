@@ -17,7 +17,11 @@ ko.components.register('date_filter', {
         self.label = params['label'] || 'Date Range';
 
         self.rangeMin = ko.observable();
-        self.rangeMax = ko.observable()
+        self.rangeMax = ko.observable();
+
+        // separated because we don't want to filter until after the slider is done moving, but
+        // we do want to update the displayed min/dax dates live.
+        // Throttling the update can still become sluggish if the user pauses for a second.
         self.rangeMinDisplay = ko.observable();
         self.rangeMaxDisplay = ko.observable();
 
