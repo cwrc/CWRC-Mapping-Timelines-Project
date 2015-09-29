@@ -23,13 +23,13 @@ ko.components.register('checklist_filter', {
     /**
      * A checklist of fields groups by values. Only those fields that are checked will pass the filter.
      *
-     * @param label: The label to display (optional)
-     * @param field: The name of the object field to filter by
+     * @param label: The label to display
+     * @param field: The object field to group as a facet, as a javascript string (required)
      */
     viewModel: function (params) {
         var self = this;
 
-        self.eventFieldName = params['field'] || alert('Error. Please provide "field" parameter to checklist facet.')
+        self.eventFieldName = params['field'] || alert('Error. Please provide "field" parameter to checklist facet.');
 
         self.label = params['label'] || ('Property: ' + self.eventFieldName);
 

@@ -2,24 +2,26 @@ ko.components.register('map', {
     template: {element: 'map-template'},
 
     /*
-     * Map takes:
-     *  - zoom: Zoom level as an integer number. Default: 4
-     *  - center: LatLng coordinates as a string. Default: '53.5267891,-113.5270909' (University of Alberta)
-     *  - colorKey: The data label to group by colour
-     *  - colors: The mapping between values and their color. Keys are case-sensitive.
-     *             eg. { orlandoProject: "#33ff00", multimedia: "blue"}
-     *  - pinWidth: the width in pixels of a solo pin. Default: 18. (stack pins are scaled automatically)
-     *  - pinHeight: the height in pixels of a solo pin. Default: 18. (stack pins are scaled automatically)
+     * A google map with pins at each geolocation in the data set. If there are multiple pins at the same location,
+     * the stack will bear the number of pints in it. When a stack is clicked the pins will spiral out into individuals
+     * for further precise selection.
      *
-     * Developer notes:
-     * TODO: handle: pins, polygons, polylines
+     * Records that have multiple locations will have all pins "linked", so that selecting one will highlight all.
+     *
+     * @param zoom: Zoom level as an integer number. Default: 4
+     * @param center: LatLng coordinates as a string. Default: '53.5267891,-113.5270909' (University of Alberta)
+     * @param colorKey: The data label to group by colour
+     * @param colors: The mapping between values and their color. Keys are case-sensitive.
+     *            eg. { orlandoProject: "#33ff00", multimedia: "blue"}
+     * @param pinWidth: the width in pixels of a solo pin. Default: 18. (stack pins are scaled up automatically if needed)
+     * @param pinHeight: the height in pixels of a solo pin. Default: 18. (stack pins are scaled up automatically if needed)
      */
+    // TODO:  handle: polygons, polylines
     viewModel: function (params) {
         var self = this;
 
         self.pinWidth = params['pinWidth'] || 18;
         self.pinHeight = params['pinHeight'] || 18;
-
 
         self.isVisible = ko.observable(true);
         self.visibleText = ko.computed(function () {

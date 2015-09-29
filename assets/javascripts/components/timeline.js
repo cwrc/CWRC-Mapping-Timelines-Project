@@ -49,6 +49,10 @@ ko.components.register('timeline', {
                </div>\
                <!-- debug zoom location -->\
                <div id="zoomPoint" style="display:none; background:red; width: 4px; height:4px; position: absolute; pointer-events: none;"></div>',
+
+    /**
+     * A timeline of all of the time points within records.
+     */
     viewModel: function () {
         var self = this;
 

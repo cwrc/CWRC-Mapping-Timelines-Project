@@ -9,7 +9,7 @@ ko.components.register('date_filter', {
     /**
      * A date-range slider filter.
      *
-     * @param label: The label to display (optional)
+     * @param label: The label to display
      */
     viewModel: function (params) {
         var self = this;
