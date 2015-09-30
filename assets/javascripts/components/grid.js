@@ -2,11 +2,10 @@ ko.components.register('grid', {
     template: {element: 'grid-template'},
 
     /**
-     * A table representation of data.
+     * A table listing records and the given fields. The table is sortable my multiple fields, in order of preference.
      *
      * @param columns: Hash in the form of {ColumnLabel: 'fieldName', ColumnLabel2: 'fieldName2'} (Required)
-     * @param nowrap: List of column names that should have line-wrap disabled.
-     * @param pageSize: the number of items per page. Default: 10
+     * @param pageSize: the number of items per page. Default: 20
      * @param initialSortBy: an array of field names by which to sort, in order of priority. Use a suffix of -za to get reverse order. eg. ['startdate', 'longName-za']. Optional; if not given, then no sorting will be done.
      */
     viewModel: function (params) {

@@ -51,7 +51,9 @@ ko.components.register('timeline', {
                <div id="zoomPoint" style="display:none; background:red; width: 4px; height:4px; position: absolute; pointer-events: none;"></div>',
 
     /**
-     * A timeline of all of the time points within records.
+     * A timeline with markers at each time point in the data set.
+     *
+     * Records with multiple locations have all markers "linked", so that selecting one will highlight all.
      */
     viewModel: function () {
         var self = this;
