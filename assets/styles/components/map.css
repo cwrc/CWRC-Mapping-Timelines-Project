@@ -17,10 +17,6 @@ map > section:first-of-type div {
     right: 0em;
 }
 
-map > section header {
-    text-transform: uppercase;
-}
-
 map > section:last-of-type div {
     display: inline-block;
 }
@@ -68,4 +64,15 @@ map #cwrc_historical_map_control a:active {
 
 map #cwrc_historical_map_control a:hover {
     text-decoration: underline;
+}
+
+/* === Legend === */
+map > section:last-of-type {
+    margin-top: 0.5em;
+
+    text-align: center;
+}
+
+map > section:last-of-type > header {
+    text-transform: uppercase;
 }
