@@ -15,8 +15,12 @@ ko.components.register('expander', {
         // for why this is a little different from most components
         createViewModel: function (params, componentInfo) {
             /**
+             * An expandable/collapsable pane that toggles between states.
              *
              * @param params
+             *        - expandedObservable: An observable to use instead of its own internal state.
+             *        - expandedText: The text to display while content is expanded.
+             *        - collapsedText: The text to display while the content is collapsed
              * @param content the content to expand and collapse
              * @constructor
              */
