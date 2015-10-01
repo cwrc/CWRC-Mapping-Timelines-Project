@@ -11,6 +11,9 @@ ko.components.register('grid', {
     viewModel: function (params) {
         var self = this;
 
+        self.columns = params['columns'] || alert("Error: You must provide the 'columns' parameter to <grid>.");
+        self.sortContexts = ko.observableArray();
+
         var SortContext = function (fieldString) {
             var self = this;
             var split = (fieldString || '').split('-');
@@ -44,9 +47,6 @@ ko.components.register('grid', {
             var index = self.sortContexts.indexOf(fieldName);
             self.sortContexts.splice(index, 1);
         };
-
-        self.columns = params['columns'];
-        self.sortContexts = ko.observableArray();
 
         CWRC.rawData.subscribe(function () {
             // this needs to be loaded on data changing, not on init.

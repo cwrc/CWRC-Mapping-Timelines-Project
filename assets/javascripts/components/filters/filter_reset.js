@@ -11,7 +11,7 @@ ko.components.register('filter_reset', {
 
         self.label = params['label'] || 'Reset All';
 
-        self.filterGroupId = params['filterGroupId'];
+        self.filterGroupId = params['filterGroupId'] || alert("Error: You must provide the 'filterGroupId' parameter to <filter_reset>.");
 
         self['resetFilters'] = function () {
             var filter, filterGroup, children, child;

@@ -26,7 +26,7 @@ ko.components.register('checklist_filter', {
     viewModel: function (params) {
         var self = this;
 
-        self.recordFieldName = params['field'] || alert('Error. Please provide "field" parameter to checklist facet.');
+        self.recordFieldName = params['field'] || alert('Error: Please provide "field" parameter to <checklist_filter> facet filter.');
 
         self.label = params['label'] || ('Property: ' + self.recordFieldName);
 
