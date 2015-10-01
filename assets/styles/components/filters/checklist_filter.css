@@ -30,13 +30,14 @@ checklist_filter header label {
     right: 0em;
 }
 
-checklist_filter header a,
-checklist_filter header a:visited {
-    text-decoration: none;
+checklist_filter header expander > a {
+    font-size: 1em;
 
     color: black;
 }
 
-checklist_filter header a:hover span:first-of-type {
-    text-decoration: underline;
+checklist_filter header expander > a:hover span,
+checklist_filter header expander > a:active span,
+checklist_filter header expander > a:focus span {
+    color: black;
 }

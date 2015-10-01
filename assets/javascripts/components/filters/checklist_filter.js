@@ -1,9 +1,6 @@
 ko.components.register('checklist_filter', {
     template: '<header>\
-                    <a href="#" data-bind="click: function(){ isExpanded(!isExpanded()) }">\
-                        <span data-bind="text: label"></span>\
-                        <span data-bind="text: expandText"></span>\
-                    </a>\
+                    <expander params="expandedText: label, collapsedText: label, expandedObservable: isExpanded"></expander>\
                     <label>\
                         <input type="checkbox" title="Select All/None" data-bind="checked: allChecked, enable: allCheckEnabled"/>\
                         All\
