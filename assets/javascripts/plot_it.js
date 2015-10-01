@@ -46,6 +46,8 @@ var CWRC = (function (cwrc, undefined) {
         dataSources = document.querySelectorAll('link[rel="cwrc/data"]');
         loadedData = [];
 
+        cwrc.isLoading(true);
+
         for (var i = 0; i < dataSources.length; i++) {
             dataSource = dataSources[i].getAttribute('href');
 
@@ -62,6 +64,8 @@ var CWRC = (function (cwrc, undefined) {
                     });
 
                     cwrc.rawData(flattenedData);
+
+                    cwrc.isLoading(false);
                 }
             });
         }
@@ -102,6 +106,8 @@ var CWRC = (function (cwrc, undefined) {
 
         return conversionChart[unit];
     };
+
+    cwrc.isLoading = ko.observable();
 
     return cwrc;
 }(CWRC || {}));
