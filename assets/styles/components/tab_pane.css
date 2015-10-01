@@ -1,4 +1,4 @@
-switcher {
+tab_pane {
     display: block;
 
     margin: 1em 0em;
@@ -7,18 +7,18 @@ switcher {
     min-height: 10em;
 }
 
-switcher > header {
+tab_pane > header {
     text-align: center;
 }
 
-switcher > header > a {
+tab_pane > header > a {
     text-decoration: none;
 }
 
-switcher > header > a+a::before { /* the + operator is for "next-to" */
+tab_pane > header > a+a::before { /* the + operator is for "next-to" */
     content: '•'
 }
 
-switcher > header > a[selected] {
+tab_pane > header > a[selected] {
     border-bottom: 3px solid red;
 }

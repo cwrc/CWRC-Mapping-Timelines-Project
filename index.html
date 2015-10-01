@@ -17,7 +17,7 @@
     <link href="assets/styles/components/filters/date_filter.css" type="text/css" rel="stylesheet"/>
     <link href="assets/styles/components/filters/checklist_filter.css" type="text/css" rel="stylesheet"/>
     <link href="assets/styles/components/filters/filter_reset.css" type="text/css" rel="stylesheet"/>
-    <link href="assets/styles/components/switcher.css" type="text/css" rel="stylesheet"/>
+    <link href="assets/styles/components/tab_pane.css" type="text/css" rel="stylesheet"/>
     <link href="assets/styles/components/spotlight.css" type="text/css" rel="stylesheet"/>
     <link href="assets/styles/components/map.css" type="text/css" rel="stylesheet"/>
     <link href="assets/styles/components/grid.css" type="text/css" rel="stylesheet"/>
@@ -42,7 +42,7 @@
     <script src="assets/javascripts/components/filters/checklist_filter.js" type="text/javascript"></script>
     <script src="assets/javascripts/components/filters/filter_reset.js" type="text/javascript"
             rel="stylesheet"></script>
-    <script src="assets/javascripts/components/switcher.js" type="text/javascript"></script>
+    <script src="assets/javascripts/components/tab_pane.js" type="text/javascript"></script>
     <script src="assets/javascripts/components/spotlight.js" type="text/javascript"></script>
     <script src="assets/javascripts/components/timeline.js" type="text/javascript"></script>
     <script src="assets/javascripts/components/map.js" type="text/javascript"></script>
@@ -93,11 +93,28 @@
     <spotlight></spotlight>
 
     <style>
-        .grid-Start, .grid-End {
+        grid .grid-Start,
+        grid .grid-End {
             white-space: nowrap;
         }
     </style>
-    <switcher></switcher>
+    <tab_pane>
+        <map data-tab-label="Map View" params="center: '38.479394673276445, -115.361328125',
+                                    zoom: 3,
+                                    colorKey: 'group',
+                                    colors: {BIBLIFO: '#f00', Multimedia: '#0f0', OrlandoEvents: '#00f', LGLC: '#ff0'},
+                                    opacity: '0.5',
+                                    markerWidth: 18,
+                                    markerHeight: 18">
+        </map>
+        <grid data-tab-label="Grid View" params="columns: {'Title': 'longLabel',
+                                    'Collection': 'group',
+                                    'Location': 'location',
+                                    'Start': 'startDate',
+                                    'End': 'endDate'},
+                          initialSortBy: ['group', 'longLabel-za']">
+        </grid>
+    </tab_pane>
 </main>
 
 
@@ -153,41 +170,6 @@
             </div>
         </section>
     </template>
-
-    <!--
-    ===============================================
-                      Switcher
-    ===============================================
-    -->
-    <template id="switcher-template">
-        <header>
-            <a href="#" data-bind="click: function() { setView('map_view') }, attr:{selected: isView('map_view')}">
-                Map View
-            </a>
-            <a href="#" data-bind="click: function() { setView('table_view') }, attr:{selected: isView('table_view')}">
-                Grid View
-            </a>
-        </header>
-        <section id="map_view" data-bind="visible: isView('map_view')">
-            <map params="center: '38.479394673276445, -115.361328125',
-                                    zoom: 3,
-                                    colorKey: 'group',
-                                    colors: {BIBLIFO: '#f00', Multimedia: '#0f0', OrlandoEvents: '#00f', LGLC: '#ff0'},
-                                    opacity: '0.5',
-                                    markerWidth: 18,
-                                    markerHeight: 18">
-            </map>
-        </section>
-        <section id="table_view" data-bind="visible: isView('table_view')">
-            <grid params="columns: {'Title': 'longLabel',
-                                    'Collection': 'group',
-                                    'Location': 'location',
-                                    'Start': 'startDate',
-                                    'End': 'endDate'},
-                          initialSortBy: ['group', 'longLabel-za']"></grid>
-        </section>
-    </template>
-
 
     <!--
     ===============================================
@@ -299,6 +281,24 @@
             </div>
             <!-- /ko -->
         </section>
+    </template>
+
+    <!--
+    ===============================================
+                      Tab Switcher
+    ===============================================
+    -->
+    <template id="tab-pane-template">
+        <header data-bind="foreach: views">
+            <a href="#" data-bind="click: function() { $parent.setView($index()) },
+                                   attr: { selected: $parent.isView($index()) }">
+                <span data-bind="text: $parent.tabName($data, $index())"></span>
+            </a>
+        </header>
+        <div data-bind="foreach: views">
+            <div data-derp="derp2" data-bind="visible: $parent.isView($index()), template: {nodes: [$data]}">
+            </div>
+        </div>
     </template>
 
     <!--
