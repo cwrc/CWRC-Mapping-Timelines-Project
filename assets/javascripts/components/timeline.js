@@ -69,7 +69,7 @@ ko.components.register('timeline', {
 
         self.pixelsPerMs = 1 / CWRC.toMillisec('day');
         self.labelSize = CWRC.toMillisec('year') * self.pixelsPerMs; // px
-        self.eventsToPinInfos = Object.create(null);
+        self.recordsToPinInfos = Object.create(null);
 
         self.scaleX = ko.observable(1.0);
         self.scaleY = ko.observable(1.0);
@@ -102,12 +102,12 @@ ko.components.register('timeline', {
         //    console.log('(' + e.screenX + ',' + e.screenY + ')')
         //});
 
-        // full filtered events, sorted by start
-        self.events = ko.computed(function () {
-            var events, timeDiff;
+        // full filtered records, sorted by start
+        self.records = ko.computed(function () {
+            var records, timeDiff;
 
             // fetch only the data that have non-null start dates, sort by start date.
-            events = CWRC.select(CWRC.filteredData(), function (item) {
+            records = CWRC.select(CWRC.filteredData(), function (item) {
                 return item.startDate;
             }).sort(function (a, b) {
                 timeDiff = CWRC.toStamp(a) - CWRC.toStamp(b);
@@ -118,20 +118,20 @@ ko.components.register('timeline', {
                     return timeDiff;
             });
 
-            return events;
+            return records;
         });
 
         self.earliestDate = ko.computed(function () {
-            var firstEvent = self.events()[0];
+            var firstRecord = self.records()[0];
 
-            return firstEvent ? new Date(firstEvent.startDate) : new Date();
+            return firstRecord ? new Date(firstRecord.startDate) : new Date();
         });
 
         self.latestDate = ko.computed(function () {
-            var sortedEvents = self.events();
-            var lastEvent = sortedEvents[sortedEvents.size];
+            var sortedRecords = self.records();
+            var lastRecord = sortedRecords[sortedRecords.size];
 
-            return lastEvent ? new Date(lastEvent.endDate || lastEvent.startDate) : new Date();
+            return lastRecord ? new Date(lastRecord.endDate || lastRecord.startDate) : new Date();
         });
 
         self.years = ko.computed(function () {
@@ -147,15 +147,15 @@ ko.components.register('timeline', {
         };
 
         self.timelineRows = ko.computed(function () {
-            var startStamp, endStamp, duration, rows, events, cutoff, rowIndex, toMilliSecs, toPixels, nextEventIndex;
+            var startStamp, endStamp, duration, rows, records, cutoff, rowIndex, toMilliSecs, toPixels, nextRecordIndex;
 
-            events = self.events().slice(); // slice to duplicate array, otherwise we would alter the cached value
+            records = self.records().slice(); // slice to duplicate array, otherwise we would alter the cached value
             rows = [];
             rowIndex = -1;
 
-            nextEventIndex = function (cutoff, events) {
-                for (var i = 0; i < events.length; i++) {
-                    if (CWRC.toStamp(events[i]) >= cutoff)
+            nextRecordIndex = function (cutoff, records) {
+                for (var i = 0; i < records.length; i++) {
+                    if (CWRC.toStamp(records[i]) >= cutoff)
                         return i;
                 }
             };
@@ -166,34 +166,34 @@ ko.components.register('timeline', {
 
             toPixels = self.toPixels;
 
-            while (events.length > 0) {
-                var event, eventIndex, beyond;
+            while (records.length > 0) {
+                var record, recordIndex, beyond;
 
-                beyond = cutoff > CWRC.toStamp(events[events.length - 1]);
+                beyond = cutoff > CWRC.toStamp(records[records.length - 1]);
 
                 if (typeof cutoff === 'undefined' || beyond) {
-                    cutoff = CWRC.toStamp(events[0]);
+                    cutoff = CWRC.toStamp(records[0]);
                     rows[++rowIndex] = [];
                 }
 
-                eventIndex = nextEventIndex(cutoff, events);
+                recordIndex = nextRecordIndex(cutoff, records);
 
-                event = events.splice(eventIndex, 1)[0];
+                record = records.splice(recordIndex, 1)[0];
 
-                startStamp = CWRC.toStamp(event.startDate);
-                endStamp = CWRC.toStamp(event.endDate) || startStamp;
+                startStamp = CWRC.toStamp(record.startDate);
+                endStamp = CWRC.toStamp(record.endDate) || startStamp;
 
                 // duration can be artificially set to labelsize to ensure there's enough room for a label
                 duration = Math.max(Math.abs(endStamp - startStamp), toMilliSecs(self.labelSize));
 
-                self.eventsToPinInfos[ko.toJSON(event)] = {
+                self.recordsToPinInfos[ko.toJSON(record)] = {
                     xPos: toPixels(startStamp - self.originStamp()),
                     width: toPixels(duration)
                 };
 
                 cutoff = startStamp + duration;
 
-                rows[rowIndex].push(event);
+                rows[rowIndex].push(record);
             }
 
             return rows;
@@ -219,7 +219,7 @@ ko.components.register('timeline', {
         };
 
         self.getPinInfo = function (item) {
-            return self.eventsToPinInfos[ko.toJSON(item)];
+            return self.recordsToPinInfos[ko.toJSON(item)];
         };
 
         self.unplottableCount = ko.pureComputed(function () {
@@ -340,14 +340,14 @@ ko.components.register('timeline', {
                 ruler.scrollLeft *= scaleFactor;
         };
 
-        self.dragStart = function (element, event) {
+        self.dragStart = function (element, mouseEvent) {
             var x, y;
 
-            if (event.touches && event.touches.length >= 2) {
+            if (mouseEvent.touches && mouseEvent.touches.length >= 2) {
                 self.pinching = true;
             } else {
-                x = event.screenX || event.touches[0].screenX;
-                y = event.screenY || event.touches[0].screenY;
+                x = mouseEvent.screenX || mouseEvent.touches[0].screenX;
+                y = mouseEvent.screenY || mouseEvent.touches[0].screenY;
 
                 self.previousDragPosition({screenX: x, screenY: y});
             }
@@ -374,8 +374,8 @@ ko.components.register('timeline', {
 
             self.pan(deltaX, deltaY);
 
-            var x = mouseEvent.screenX || event.touches[0].screenX;
-            var y = mouseEvent.screenY || event.touches[0].screenY;
+            var x = mouseEvent.screenX || mouseEvent.touches[0].screenX;
+            var y = mouseEvent.screenY || mouseEvent.touches[0].screenY;
             self.previousDragPosition({screenX: x, screenY: y});
         };
 
@@ -383,12 +383,12 @@ ko.components.register('timeline', {
         window.addEventListener('touchend', stopEventHandler);
 
         window.addEventListener('mousemove', dragEventHandler);
-        window.addEventListener('touchmove', function (event) {
-            if (event.touches.length > 1) {
+        window.addEventListener('touchmove', function (touchEvent) {
+            if (touchEvent.touches.length > 1) {
                 alert('Zoom not yet supported on touch.');
                 //self.scale(something)
             } else {
-                dragEventHandler(event);
+                dragEventHandler(touchEvent);
             }
         });
     }

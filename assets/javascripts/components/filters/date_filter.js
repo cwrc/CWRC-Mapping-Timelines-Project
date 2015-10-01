@@ -34,11 +34,11 @@ ko.components.register('date_filter', {
         });
 
         // TODO: there's a lot to DRY between this and Timeline.
-        self.timedEvents = ko.pureComputed(function () {
-            var events, timeDiff;
+        self.timedRecords = ko.pureComputed(function () {
+            var records, timeDiff;
 
             // fetch only the data that have non-null start dates, sort by start date.
-            events = CWRC.select(CWRC.rawData(), function (item) { // TODO: <- filteredData in timeline; pretty much only diff
+            records = CWRC.select(CWRC.rawData(), function (item) { // TODO: <- filteredData in timeline; pretty much only diff
                 return item.startDate;
             }).sort(function (a, b) {
                 timeDiff = CWRC.toStamp(a) - CWRC.toStamp(b);
@@ -49,20 +49,20 @@ ko.components.register('date_filter', {
                     return timeDiff;
             });
 
-            return events;
+            return records;
         });
 
         self.earliestDate = ko.pureComputed(function () {
-            var firstEvent = self.timedEvents()[0];
+            var firstRecord = self.timedRecords()[0];
 
-            return firstEvent ? new Date(firstEvent.startDate) : new Date();
+            return firstRecord ? new Date(firstRecord.startDate) : new Date();
         });
 
         self.latestDate = ko.pureComputed(function () {
-            var sortedEvents = self.timedEvents();
-            var lastEvent = sortedEvents[sortedEvents.length - 1];
+            var sortedRecords = self.timedRecords();
+            var lastRecord = sortedRecords[sortedRecords.length - 1];
 
-            return lastEvent ? new Date(lastEvent.endDate || lastEvent.startDate) : new Date();
+            return lastRecord ? new Date(lastRecord.endDate || lastRecord.startDate) : new Date();
         });
 
         // Tried with subscribe, but it ends up out of order. Making a computed fixes the order problem.

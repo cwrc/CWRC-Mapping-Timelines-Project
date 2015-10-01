@@ -9,13 +9,13 @@ ko.components.register('checklist_filter', {
                         All\
                     </label>\
                </header>\
-               <div data-bind="visible: isExpanded, foreach: rawEventValues()">\
+               <div data-bind="visible: isExpanded, foreach: rawRecordValues()">\
                     <div>\
                          <label>\
                               <input type="checkbox" data-bind="checkedValue: $data, \
-                                                                checked: $parent.selectedEventValues"/>\
+                                                                checked: $parent.selectedRecordValues"/>\
                               <span data-bind="text: $data"></span>\
-                              <span>(<span data-bind="text: $parent.filteredEventValuesToCounts()[$data] || 0"></span>/<span data-bind="text: $parent.rawEventValuesToCounts()[$data]"></span>)<span>\
+                              <span>(<span data-bind="text: $parent.filteredRecordValuesToCounts()[$data] || 0"></span>/<span data-bind="text: $parent.rawRecordValuesToCounts()[$data]"></span>)<span>\
                          </label>\
                     </div>\
                </div>',
@@ -29,64 +29,64 @@ ko.components.register('checklist_filter', {
     viewModel: function (params) {
         var self = this;
 
-        self.eventFieldName = params['field'] || alert('Error. Please provide "field" parameter to checklist facet.');
+        self.recordFieldName = params['field'] || alert('Error. Please provide "field" parameter to checklist facet.');
 
-        self.label = params['label'] || ('Property: ' + self.eventFieldName);
+        self.label = params['label'] || ('Property: ' + self.recordFieldName);
 
         self.isExpanded = ko.observable(true);
         self.expandText = ko.pureComputed(function () {
             return self.isExpanded() ? '\u25Be' : '\u25B4';
         });
 
-        self.selectedEventValues = ko.observableArray();
+        self.selectedRecordValues = ko.observableArray();
 
         self['countData'] = function (dataList) {
-            var eventValue, eventValuesToCounts, observable;
+            var recordValue, recordValuesToCounts, observable;
 
-            eventValuesToCounts = Object.create(null);
+            recordValuesToCounts = Object.create(null);
 
-            dataList.forEach(function (event) {
-                eventValue = event[self.eventFieldName];
+            dataList.forEach(function (record) {
+                recordValue = record[self.recordFieldName];
 
-                observable = eventValuesToCounts[eventValue];
+                observable = recordValuesToCounts[recordValue];
 
                 // only assign a new observable if one is missing
                 if (!observable)
-                    eventValuesToCounts[eventValue] = observable = ko.observable(0);
+                    recordValuesToCounts[recordValue] = observable = ko.observable(0);
 
                 observable(observable() + 1);
             });
 
-            return eventValuesToCounts;
+            return recordValuesToCounts;
         };
 
-        self.filteredEventValuesToCounts = ko.pureComputed(function () {
+        self.filteredRecordValuesToCounts = ko.pureComputed(function () {
             return self.countData(CWRC.filteredData());
         });
-        self.filteredEventValues = function () {
-            return Object.keys(self.filteredEventValuesToCounts()).sort();
+        self.filteredRecordValues = function () {
+            return Object.keys(self.filteredRecordValuesToCounts()).sort();
         };
 
-        self.rawEventValuesToCounts = ko.computed(function () {
+        self.rawRecordValuesToCounts = ko.computed(function () {
             return self.countData(CWRC.rawData());
         });
-        self.rawEventValues = function () {
-            return Object.keys(self.rawEventValuesToCounts()).sort();
+        self.rawRecordValues = function () {
+            return Object.keys(self.rawRecordValuesToCounts()).sort();
         };
 
         self.allChecked = ko.computed({
             read: function () {
-                var fullList = self.selectedEventValues().length === self.rawEventValues().length;
+                var fullList = self.selectedRecordValues().length === self.rawRecordValues().length;
 
                 if (fullList)
-                    self.selectedEventValues([]);
+                    self.selectedRecordValues([]);
 
                 // Comparing length is quick and is accurate if only items from the
                 // main array are added to the selected array.
-                return fullList || self.selectedEventValues().length === 0;
+                return fullList || self.selectedRecordValues().length === 0;
             },
             write: function (value) {
-                self.selectedEventValues([]);
+                self.selectedRecordValues([]);
             }
         });
 
@@ -94,10 +94,8 @@ ko.components.register('checklist_filter', {
             return !self.allChecked();
         });
 
-        self['filter'] = function (event) {
-            var eventValue;
-
-            return self.allChecked() || self.selectedEventValues.indexOf(event[self.eventFieldName]) >= 0;
+        self['filter'] = function (record) {
+            return self.allChecked() || self.selectedRecordValues.indexOf(record[self.recordFieldName]) >= 0;
         };
 
         self['reset'] = function () {
