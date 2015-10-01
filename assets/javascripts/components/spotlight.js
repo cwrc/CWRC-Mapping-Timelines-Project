@@ -6,7 +6,6 @@ ko.components.register('spotlight', {
     viewModel: function () {
         var self = this;
 
-        // switcher state
         self.selected = CWRC.selected;
     }
 });

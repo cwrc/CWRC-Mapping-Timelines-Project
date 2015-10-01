@@ -24,7 +24,7 @@ ko.components.register('expander', {
              * @param content the content to expand and collapse
              * @constructor
              */
-            var SwitcherModel = function (params, content) {
+            var ExpanderModel = function (params, content) {
                 var self = this;
 
                 self.content = content;
@@ -45,7 +45,7 @@ ko.components.register('expander', {
                 });
             };
 
-            return new SwitcherModel(params, componentInfo.templateNodes);
+            return new ExpanderModel(params, componentInfo.templateNodes);
         }
     }
 });
