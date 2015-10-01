@@ -11,14 +11,19 @@ tab_pane > header {
     text-align: center;
 }
 
-tab_pane > header > a {
-    text-decoration: none;
+tab_pane > header > form > label {
+    cursor: pointer;
 }
 
-tab_pane > header > a+a::before { /* the + operator is for "next-to" */
+/* the + operator is for "next-to" */
+tab_pane > header > form > label + label::before {
     content: '•'
 }
 
-tab_pane > header > a[selected] {
+tab_pane > header > form > label > input[type="radio"]:checked + span {
     border-bottom: 3px solid red;
+}
+
+tab_pane > header > form > label > input[type="radio"] {
+    display: none;
 }

@@ -356,12 +356,13 @@
     -->
     <template id="tab-pane-template">
         <header>
-            <!-- ko foreach: views-->
-            <a href="#" data-bind="click: function() { $parent.setView($index()) },
-                                   attr: { selected: $parent.isView($index()) }">
-                <span data-bind="text: $parent.tabName($data, $index())"></span>
-            </a>
-            <!-- /ko -->
+            <form data-bind="foreach: views">
+                <label>
+                    <input type="radio" name="tabset" data-bind="checked: $parent.currentView,
+                                                             value: $index()"/>
+                    <span data-bind="text: $parent.tabName($data, $index())"></span>
+                </label>
+            </form>
         </header>
         <div data-bind="foreach: views">
             <div data-bind="visible: $parent.isView($index()), template: {nodes: [$data]}">
