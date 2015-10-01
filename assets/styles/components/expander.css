@@ -1,0 +1,13 @@
+expander {
+    display: block;
+}
+
+expander > a {
+    text-decoration: none;
+
+    font-size: 0.75em;
+}
+
+expander > a:hover > span:first-of-type {
+    text-decoration: underline;
+}

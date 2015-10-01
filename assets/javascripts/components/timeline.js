@@ -1,54 +1,5 @@
 ko.components.register('timeline', {
-    template: '<section>\
-                    <a href="#" data-bind="click: function(){isVisible(!isVisible())}, text: visibleText"></a>\
-                    <div>\
-                        <span data-bind="text: unplottableCount"></span> of <span data-bind="text: CWRC.rawData().length"></span>\
-                        lack time data\
-                    </div>\
-               </section>\
-               <div data-bind="visible: isVisible, event:{mousedown: dragStart, touchstart: dragStart}">\
-                    <section id="timeline-viewport" data-bind="event: {wheel: scroll}">\
-                        <div class="canvas" data-bind="foreach: timelineRows, \
-                                                       style: {\
-                                                                width: canvasWidth, \
-                                                                transform: zoomTransform, \
-                                                                \'-ms-transform\': zoomTransform,\
-                                                                \'-webkit-transform\': zoomTransform,\
-                                                                transformOrigin: transformOrigin,\
-                                                                \'-ms-transform-origin\': transformOrigin,\
-                                                                \'-webkit-transform-origin\': transformOrigin\
-                                                              }">\
-                            <div class="row" data-bind="foreach: $data">\
-                                <a href="#" class="event" data-bind="css: { selected: $parents[1].isSelected($data) }, \
-                                                                     style: {\
-                                                                                left: $parents[1].getPinInfo($data).xPos, \
-                                                                                width: $parents[1].getPinInfo($data).width,\
-                                                                                color: $data.endDate ? \'red\' : \'black\'\
-                                                                            },\
-                                                                     click: function(){ CWRC.selected($data) }">\
-                                    <span data-bind="text: $data.startDate"></span>\
-                                    <span data-bind="html: $data.label"></span>\
-                                </a>\
-                            </div>\
-                        </div>\
-                    </section><!-- Ruler disabled until further production available\
-                    <section id="timeline-ruler">\
-                        <div data-bind="foreach: years, \
-                                        style: { \
-                                                    width: canvasWidth,\
-                                                    transform: rulerTransform \
-                                                }">\
-                            <div data-bind="text: $data, \
-                                            style: { \
-                                                     left: $parent.labelPosition($data),\
-                                                     width: $parent.labelSize - $parent.lineThickness, \
-                                                    \'border-left-width\': $parent.lineThickness \
-                                            }"></div>\
-                        </div>\
-                    </section>-->\
-               </div>\
-               <!-- debug zoom location -->\
-               <div id="zoomPoint" style="display:none; background:red; width: 4px; height:4px; position: absolute; pointer-events: none;"></div>',
+    template: {element: 'timeline-template'},
 
     /**
      * A timeline with markers at each time point in the data set.
@@ -57,11 +8,6 @@ ko.components.register('timeline', {
      */
     viewModel: function () {
         var self = this;
-
-        self.isVisible = ko.observable(true);
-        self.visibleText = ko.computed(function () {
-            return self.isVisible() ? 'Hide' : 'Show';
-        });
 
         self.previousDragPosition = ko.observable();
 

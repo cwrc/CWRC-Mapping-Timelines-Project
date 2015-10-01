@@ -20,13 +20,10 @@ ko.components.register('map', {
     viewModel: function (params) {
         var self = this;
 
+        self.isVisible = ko.observable(true);
+
         self.pinWidth = params['pinWidth'] || 18;
         self.pinHeight = params['pinHeight'] || 18;
-
-        self.isVisible = ko.observable(true);
-        self.visibleText = ko.computed(function () {
-            return self.isVisible() ? 'Hide' : 'Show';
-        });
 
         // === MAP MARKERS, PINS & POLYs ===
         self.colorMap = new CWRC.ColorMap(params.colors, params.colorKey, "#999");

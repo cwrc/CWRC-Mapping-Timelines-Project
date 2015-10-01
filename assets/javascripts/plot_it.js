@@ -1,8 +1,7 @@
 /**
- * CWRC Exhibit Modification file
+ * CWRC PlotIt Main file
  *
- * There are some "modules" below (eg: (function(window, undefined){...}(window))), which are for pure
- * additions, rather than transmutations, to the system.
+ * There are some "modules" below (eg: (function(window, undefined){...}(window))), that provide some common utility functions.
  */
 var CWRC = (function (cwrc, undefined) {
     // ========= Map Overlay =========
@@ -18,7 +17,7 @@ var CWRC = (function (cwrc, undefined) {
         }
 
         return filteredData;
-    });//.extend({method: 'notifyWhenChangesStop', rateLimit: 150 });
+    });
 
     cwrc.selected = ko.observable();
 
@@ -39,6 +38,9 @@ var CWRC = (function (cwrc, undefined) {
 
         return result;
     };
+
+
+    cwrc.isLoading = ko.observable();
 
     cwrc['loadData'] = function () {
         var dataSources, dataSource, loadedData, flattenedData, finishLoading;
@@ -106,8 +108,6 @@ var CWRC = (function (cwrc, undefined) {
 
         return conversionChart[unit];
     };
-
-    cwrc.isLoading = ko.observable();
 
     return cwrc;
 }(CWRC || {}));

@@ -4,10 +4,10 @@ ko.components.register('tab_pane', {
         // See http://knockoutjs.com/documentation/component-custom-elements.html#passing-markup-into-components
         // for why this is a little different from most components
         createViewModel: function (params, componentInfo) {
-            var SwitcherModel = function (params, componentInfo) {
+            var SwitcherModel = function (params, panelNodes) {
                 var self = this;
 
-                self.views = componentInfo;
+                self.views = panelNodes;
 
                 // switcher state
                 self.currentView = ko.observable(0);
