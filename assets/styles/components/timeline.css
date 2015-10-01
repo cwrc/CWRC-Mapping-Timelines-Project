@@ -3,15 +3,19 @@ timeline {
 }
 
 timeline > section {
-    position: relative;
+    text-align: right;
 }
 
-timeline > section:first-of-type div {
-    display: inline-block;
+/*timeline > section {*/
+/*position: relative;*/
+/*}*/
 
-    position: absolute;
-    right: 0em;
-}
+/*timeline > section:first-of-type div {*/
+/*display: inline-block;*/
+/**/
+/*position: absolute;*/
+/*right: 0em;*/
+/*}*/
 
 timeline #timeline-viewport {
     height: 15em;

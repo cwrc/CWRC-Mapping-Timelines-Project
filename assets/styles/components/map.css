@@ -10,11 +10,12 @@ map > section {
     padding: 0.1em;
 }
 
+map > section:first-of-type {
+    text-align: right;
+}
+
 map > section:first-of-type div.unplottable {
     display: inline-block;
-
-    position: absolute;
-    right: 0em;
 }
 
 map > section:last-of-type div {

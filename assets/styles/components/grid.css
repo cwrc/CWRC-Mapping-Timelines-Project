@@ -5,6 +5,8 @@ grid {
 
     width: 100%;
     min-height: 10em;
+
+    padding-top: 0.5em;
 }
 
 grid table {
