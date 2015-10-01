@@ -132,7 +132,7 @@ ko.components.register('grid', {
         });
 
         self['getColumnClass'] = function (columnLabel) {
-            return 'grid-' + columnLabel;
+            return 'grid-' + columnLabel.replace(/\s/, '-').toLowerCase();
         };
 
         self['setPage'] = function (index) {
