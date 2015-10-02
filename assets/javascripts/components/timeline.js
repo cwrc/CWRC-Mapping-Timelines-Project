@@ -286,8 +286,17 @@ ko.components.register('timeline', {
                 ruler.scrollLeft *= scaleFactor;
         };
 
-        self.recordClicked = function (record) {
-            CWRC.selected(record)
+        /*
+         * recordMouseUp and recordMouseDown are split (ie. not recordClick) to allow drag to abort the event
+         * so that it doesn't select when you drag over a record. - remiller
+         */
+        self.recordMouseUp = function (record) {
+            if (self.clickingOnRecord)
+                CWRC.selected(record)
+        };
+
+        self.recordMouseDown = function (record) {
+            self.clickingOnRecord = true
         };
 
         self.dragStart = function (element, mouseEvent) {
@@ -323,6 +332,8 @@ ko.components.register('timeline', {
             var x = mouseEvent.screenX || mouseEvent.touches[0].screenX;
             var y = mouseEvent.screenY || mouseEvent.touches[0].screenY;
             self.previousDragPosition = {screenX: x, screenY: y};
+
+            self.clickingOnRecord = false;
         };
 
         var stopDragHandler = function (mouseEvent) {

@@ -221,7 +221,7 @@
                                                                                     width: $parents[1].getPinInfo($data).width,
                                                                                     color: $data.endDate ? 'red' : 'black'
                                                                                 },
-                                                                         click: $parents[1].recordClicked">
+                                                                         event: {mouseup: $parents[1].recordMouseUp, mousedown: $parents[1].recordMouseDown}">
                             <span data-bind="text: $data.startDate"></span>
                             <span data-bind="html: $data.label"></span>
                         </a>
