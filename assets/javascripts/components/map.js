@@ -190,15 +190,15 @@ ko.components.register('map', {
 
             // declared outside loop to allow panning to last one after the loop
             // panning to last (rather than pan/zoom to fit all) is easier for now
-            var position;
+            var positions = [];
 
             newSelectedMarkers.forEach(function (marker) {
                 // get original position if spiderfied
                 if (marker._omsData) {
                     // TODO: find a way to access this data without using the mini variable name
-                    position = marker._omsData.l; // l because it's minified. This might break if they recompile differently.
+                    positions.push(marker._omsData.l); // l because it's minified. This might break if they recompile differently.
                 } else {
-                    position = marker.position
+                    positions.push(marker.position);
                 }
 
                 marker.cwrcDefaultIcon = marker.getIcon();
@@ -216,8 +216,12 @@ ko.components.register('map', {
                 self._selectedMarkers.push(marker);
             });
 
-            if (position && !self.map.getBounds().contains(position)) {
-                self.map.panTo(position);
+
+            if (positions.every(function (pos) {
+                    return !self.map.getBounds().contains(pos);
+                })
+            ) {
+                self.map.panTo(positions[0]);
             }
         });
 
