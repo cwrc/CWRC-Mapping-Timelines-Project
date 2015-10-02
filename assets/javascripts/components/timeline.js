@@ -129,7 +129,7 @@ ko.components.register('timeline', {
                 startStamp = CWRC.toStamp(record.startDate);
                 endStamp = CWRC.toStamp(record.endDate) || startStamp;
 
-                // duration can be artificially set to labelsize to ensure there's enough room for a label
+                // duration can be artificially set to label size to ensure there's enough room for a label
                 duration = Math.max(Math.abs(endStamp - startStamp), toMilliSecs(self.labelSize));
 
                 self.recordsToPinInfos[ko.toJSON(record)] = {
@@ -215,8 +215,8 @@ ko.components.register('timeline', {
                 topBounds = viewport.scrollTop;
                 bottomBounds = viewport.scrollTop + viewport.offsetHeight;
 
-                elementLeft = recordLabel.offsetLeft * self.scaleX();
-                elementTop = (recordLabel.parentNode.offsetHeight * self.scaleY()) * row; // the parent is actually the offset
+                elementLeft = recordLabel.offsetLeft / self.scaleX();
+                elementTop = (recordLabel.parentNode.offsetHeight / self.scaleY()) * row; // the parent is actually the offset
 
                 if (elementLeft < leftBounds || elementLeft > rightBounds) {
                     viewport.scrollLeft = parseInt(elementLeft) - (viewport.offsetWidth / 3);

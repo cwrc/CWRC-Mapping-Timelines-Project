@@ -216,12 +216,12 @@
                                                                   }">
                     <div class="row" data-bind="foreach: $data">
                         <a href="#" class="event" data-bind="css: { selected: $parents[1].isSelected($data) },
-                                                                         style: {
-                                                                                    left: $parents[1].getPinInfo($data).xPos,
-                                                                                    width: $parents[1].getPinInfo($data).width,
-                                                                                    color: $data.endDate ? 'red' : 'black'
-                                                                                },
-                                                                         event: {mouseup: $parents[1].recordMouseUp, mousedown: $parents[1].recordMouseDown}">
+                                                             style: {
+                                                                        left: $parents[1].getPinInfo($data).xPos,
+                                                                        width: $parents[1].getPinInfo($data).width,
+                                                                        color: $data.endDate ? 'red' : 'black'
+                                                                    },
+                                                             event: {mouseup: $parents[1].recordMouseUp, mousedown: $parents[1].recordMouseDown}">
                             <span data-bind="text: $data.startDate"></span>
                             <span data-bind="html: $data.label"></span>
                         </a>
