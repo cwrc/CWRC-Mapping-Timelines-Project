@@ -286,6 +286,10 @@ ko.components.register('timeline', {
                 ruler.scrollLeft *= scaleFactor;
         };
 
+        self.recordClicked = function (record) {
+            CWRC.selected(record)
+        };
+
         self.dragStart = function (element, mouseEvent) {
             var x, y;
 

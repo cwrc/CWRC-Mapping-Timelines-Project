@@ -221,7 +221,7 @@
                                                                                     width: $parents[1].getPinInfo($data).width,
                                                                                     color: $data.endDate ? 'red' : 'black'
                                                                                 },
-                                                                         click: function(){ CWRC.selected($data) }">
+                                                                         click: $parents[1].recordClicked">
                             <span data-bind="text: $data.startDate"></span>
                             <span data-bind="html: $data.label"></span>
                         </a>
