@@ -9,7 +9,7 @@ ko.components.register('timeline', {
     viewModel: function () {
         var self = this;
 
-        self.previousDragPosition = ko.observable();
+        self.previousDragPosition = null;
 
         self.lineThickness = 1; // in px
 
@@ -295,46 +295,46 @@ ko.components.register('timeline', {
                 x = mouseEvent.screenX || mouseEvent.touches[0].screenX;
                 y = mouseEvent.screenY || mouseEvent.touches[0].screenY;
 
-                self.previousDragPosition({screenX: x, screenY: y});
+                self.previousDragPosition = {screenX: x, screenY: y};
             }
         };
 
         // Note: These are on window rather than the component so that dragging doesn't cut off when the
         // mouse leaves the widget. This is Google Maps behaviour adopted for consistency.
-        var stopEventHandler = function (mouseEvent) {
-            self.previousDragPosition(null);
-        };
-
-        var dragEventHandler = function (mouseEvent) {
+        var dragHandler = function (mouseEvent) {
             var deltaX, deltaY, mouseX, mouseY;
 
-            if (!self.previousDragPosition())
+            if (!self.previousDragPosition)
                 return;
 
             // would've used simpler event.movementX and movementY, but Firefox doesn't support yet.
             mouseX = mouseEvent.screenX || mouseEvent.touches[0].screenX;
             mouseY = mouseEvent.screenY || mouseEvent.touches[0].screenY;
 
-            deltaX = mouseX - self.previousDragPosition().screenX;
-            deltaY = mouseY - self.previousDragPosition().screenY;
+            deltaX = mouseX - self.previousDragPosition.screenX;
+            deltaY = mouseY - self.previousDragPosition.screenY;
 
             self.pan(deltaX, deltaY);
 
             var x = mouseEvent.screenX || mouseEvent.touches[0].screenX;
             var y = mouseEvent.screenY || mouseEvent.touches[0].screenY;
-            self.previousDragPosition({screenX: x, screenY: y});
+            self.previousDragPosition = {screenX: x, screenY: y};
         };
 
-        window.addEventListener('mouseup', stopEventHandler);
-        window.addEventListener('touchend', stopEventHandler);
+        var stopDragHandler = function (mouseEvent) {
+            self.previousDragPosition = null;
+        };
 
-        window.addEventListener('mousemove', dragEventHandler);
+        window.addEventListener('mouseup', stopDragHandler);
+        window.addEventListener('touchend', stopDragHandler);
+
+        window.addEventListener('mousemove', dragHandler);
         window.addEventListener('touchmove', function (touchEvent) {
             if (touchEvent.touches.length > 1) {
                 alert('Zoom not yet supported on touch.');
                 //self.scale(something)
             } else {
-                dragEventHandler(touchEvent);
+                dragHandler(touchEvent);
             }
         });
     }
