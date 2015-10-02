@@ -23,8 +23,8 @@ ko.components.register('timeline', {
         self.translateX = ko.observable(0);
         self.translateY = ko.observable(0);
 
-        self.transformOriginX = ko.observable(0);        // TODO: remove?
-        self.transformOriginY = ko.observable(0);   // TODO: remove?
+        self.transformOriginX = ko.observable(0);
+        self.transformOriginY = ko.observable(0);
 
         self.transformOrigin = ko.computed(function () {
             return self.transformOriginX() + 'px ' + self.transformOriginY() + 'px';
@@ -265,7 +265,7 @@ ko.components.register('timeline', {
             // then scrolling back out. It jumps around to about the halfway mark between them, and I can't figure
             // out the math yet. - remiller
             mouseX = viewport.getBoundingClientRect().width / 2;
-            mouseY = viewport.getBoundingClientRect().height / 2; // TODO: actually use mouse location
+            mouseY = viewport.getBoundingClientRect().height / 2;
 
             // TODO: remove the debug point
             var debugPoint = document.getElementById('zoomPoint')
