@@ -208,24 +208,41 @@ ko.components.register('timeline', {
             ruler = document.getElementById('timeline-ruler');
 
             if (recordLabel) {
-                var leftBounds, rightBounds, topBounds, bottomBounds, elementLeft, elementTop;
+                var viewportBounds, elementBounds;
 
-                leftBounds = viewport.scrollLeft;
-                rightBounds = viewport.scrollLeft + viewport.offsetWidth;
-                topBounds = viewport.scrollTop;
-                bottomBounds = viewport.scrollTop + viewport.offsetHeight;
+                // viewport x,y are in scaled pixels, but w,h is unscaled
+                viewportBounds = {
+                    left: viewport.scrollLeft,
+                    right: viewport.scrollLeft + Math.round(viewport.offsetWidth * self.scaleX()),
+                    top: viewport.scrollTop,
+                    bottom: viewport.scrollTop + Math.round(viewport.offsetHeight * self.scaleX())
+                };
 
-                elementLeft = recordLabel.offsetLeft / self.scaleX();
-                elementTop = (recordLabel.parentNode.offsetHeight / self.scaleY()) * row; // the parent is actually the offset
+                // element x,y are in unscaled pixels, so scale them
+                elementBounds = {
+                    left: Math.round(parseInt(recordLabel.offsetLeft) * self.scaleX()),
+                    // Using the row index times the row height is cheating, but it works
+                    top: Math.round((parseInt(recordLabel.parentNode.offsetHeight) * row) * self.scaleY())
+                };
 
-                if (elementLeft < leftBounds || elementLeft > rightBounds) {
-                    viewport.scrollLeft = parseInt(elementLeft) - (viewport.offsetWidth / 3);
+                console.log(viewportBounds)
+                console.log(elementBounds)
+                console.log(viewportBounds.left / self.scaleX())
+                console.log(self.scaleX())
+
+
+                if (elementBounds.left < (viewportBounds.left / self.scaleX()) ||
+                    elementBounds.left > (viewportBounds.right / self.scaleX())) {
+
+                    console.log('derp')
+                    viewport.scrollLeft = elementBounds.left;// - (viewport.offsetWidth / 3);
+
                     if (ruler) // todo: remove when ruler rebuilt
-                        ruler.scrollLeft = parseInt(elementLeft) - (viewport.offsetWidth / 3);
+                        ruler.scrollLeft = elementBounds.left;// - (viewport.offsetWidth / 3);
                 }
 
-                if (elementTop < topBounds || elementTop > bottomBounds) {
-                    viewport.scrollTop = parseInt(elementTop);
+                if (elementBounds.top < viewportBounds.top || elementBounds.top > viewportBounds.bottom) {
+                    viewport.scrollTop = elementBounds.top;
                 }
             }
         });
@@ -246,11 +263,10 @@ ko.components.register('timeline', {
 
         // takes a direction in negative or positive integer
         self.scale = function (direction) {
-            var scaleFactor, mouseX, mouseY, viewport;
+            var scaleFactor, mouseX, mouseY, viewport, ruler;
 
             viewport = document.querySelector('#timeline-viewport');
-            var ruler = document.querySelector('#timeline-ruler');
-
+            ruler = document.querySelector('#timeline-ruler');
 
             scaleFactor = direction > 0 ? 1.1 : 1 / 1.1;
 
