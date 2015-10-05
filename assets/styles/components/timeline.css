@@ -54,6 +54,12 @@ timeline #timeline-viewport .canvas {
     padding: 1em 0em;
 
     background: lightblue;
+
+    -webkit-transform-origin: 0 0 0;
+    -moz-transform-origin: 0 0 0;
+    -ms-transform-origin: 0 0 0;
+    -o-transform-origin: 0 0 0;
+    transform-origin: 0 0 0;
 }
 
 timeline #timeline-viewport > div.canvas > div.row {

@@ -5,48 +5,38 @@ ko.components.register('timeline', {
      * A timeline with markers at each time point in the data set.
      *
      * Records with multiple locations have all markers "linked", so that selecting one will highlight all.
+     *
+     * For developers:
+     * The coordianate systems can get confusing sometimes. Remember that each measurement is either going to be in
+     * true pixels or scaled pixels. Please leave comments to make it clear what unit a distance is in.
      */
     viewModel: function () {
         var self = this;
 
         self.previousDragPosition = null;
 
-        self.lineThickness = 1; // in px
-
         self.pixelsPerMs = 1 / CWRC.toMillisec('day');
         self.labelSize = CWRC.toMillisec('year') * self.pixelsPerMs; // px
         self.recordsToPinInfos = Object.create(null);
 
-        self.scaleX = ko.observable(1.0);
-        self.scaleY = ko.observable(1.0);
+        self.scale = ko.observable(1.0);
 
         self.translateX = ko.observable(0);
         self.translateY = ko.observable(0);
 
-        self.transformOriginX = ko.observable(0);
-        self.transformOriginY = ko.observable(0);
-
-        self.transformOrigin = ko.computed(function () {
-            return self.transformOriginX() + 'px ' + self.transformOriginY() + 'px';
-        });
-
         self.rulerTransform = ko.computed(function () {
-            return 'scaleX(' + self.scaleX() + ')';
+            return 'scaleX(' + self.scale() + ')';
         });
 
         self.zoomTransform = ko.computed(function () {
-            return 'scale(' + self.scaleX() + ',' + self.scaleY() + ')';
+            return 'scale(' + self.scale() + ',' + self.scale() + ')';
         });
 
         self.scroll = function (viewModel, scrollEvent) {
-            self.scale(-scrollEvent.deltaY);
+            self.zoom(-scrollEvent.deltaY);
 
             return false; // prevent regular page scrolling.
         };
-
-        //document.querySelector('#timeline-viewport').addEventListener('mousemove', function (e) {
-        //    console.log('(' + e.screenX + ',' + e.screenY + ')')
-        //});
 
         // full filtered records, sorted by start
         self.records = ko.computed(function () {
@@ -178,6 +168,22 @@ ko.components.register('timeline', {
             return record == CWRC.selected();
         };
 
+        self.viewport = document.getElementById('timeline-viewport');
+        self.ruler = document.getElementById('timeline-ruler');
+
+        // Store state separate from viewport so that it only rounds once at the end, not every step. This eliminates drift
+        // Top, left, right, and bottom are in scaled pixels
+        self.viewportBounds = {
+            left: ko.observable(0),
+            top: ko.observable(0),
+            right: function () {
+                return self.viewportBounds.left() + (self.viewport.offsetWidth * self.scale());
+            },
+            bottom: function () {
+                return self.viewportBounds.top() + (self.viewport.offsetHeight * self.scale());
+            }
+        };
+
         CWRC.selected.subscribe(function (selectedRecord) {
             var viewport, recordLabel, row, col, rows, records, ruler;
 
@@ -204,73 +210,65 @@ ko.components.register('timeline', {
                     break;
             }
 
-            viewport = document.getElementById('timeline-viewport');
-            ruler = document.getElementById('timeline-ruler');
-
             if (recordLabel) {
-                var viewportBounds, elementBounds;
-
-                // viewport x,y are in scaled pixels, but w,h is unscaled
-                viewportBounds = {
-                    left: viewport.scrollLeft,
-                    right: viewport.scrollLeft + Math.round(viewport.offsetWidth * self.scaleX()),
-                    top: viewport.scrollTop,
-                    bottom: viewport.scrollTop + Math.round(viewport.offsetHeight * self.scaleX())
-                };
+                var elementBounds;
 
                 // element x,y are in unscaled pixels, so scale them
                 elementBounds = {
-                    left: Math.round(parseInt(recordLabel.offsetLeft) * self.scaleX()),
+                    left: Math.round(parseInt(recordLabel.offsetLeft) * self.scale()),
                     // Using the row index times the row height is cheating, but it works
-                    top: Math.round((parseInt(recordLabel.parentNode.offsetHeight) * row) * self.scaleY())
+                    top: Math.round((parseInt(recordLabel.parentNode.offsetHeight) * row) * self.scale())
                 };
 
-                console.log(viewportBounds)
-                console.log(elementBounds)
-                console.log(viewportBounds.left / self.scaleX())
-                console.log(self.scaleX())
+                console.log('viewport:' + ko.mapping.toJSON(self.viewportBounds))
+                console.log('element:' + ko.mapping.toJSON(elementBounds))
+                console.log(self.viewportBounds.left() / self.scale())
+                console.log('scale:' + self.scale())
 
 
-                if (elementBounds.left < (viewportBounds.left / self.scaleX()) ||
-                    elementBounds.left > (viewportBounds.right / self.scaleX())) {
+                if (elementBounds.left < self.viewportBounds.left() ||
+                    elementBounds.left > self.viewportBounds.right()) {
 
-                    console.log('derp')
-                    viewport.scrollLeft = elementBounds.left;// - (viewport.offsetWidth / 3);
+                    console.log(elementBounds.left)
+                    console.log(self.viewportBounds.right())
+                    console.log(elementBounds.left > self.viewportBounds.right())
+
+                    self.viewportBounds.left(elementBounds.left);
 
                     if (ruler) // todo: remove when ruler rebuilt
-                        ruler.scrollLeft = elementBounds.left;// - (viewport.offsetWidth / 3);
+                        ruler.scrollLeft = elementBounds.left;
                 }
 
-                if (elementBounds.top < viewportBounds.top || elementBounds.top > viewportBounds.bottom) {
-                    viewport.scrollTop = elementBounds.top;
+                if (elementBounds.top < self.viewportBounds.top || elementBounds.top > self.viewportBounds.bottom) {
+                    self.viewportBounds.top(elementBounds.top);
                 }
             }
         });
 
-        // Moves the viewport X pixels right, and Y pixels down.
+        self.viewportBounds.left.subscribe(function (newVal) {
+            self.viewport.scrollLeft = Math.round(newVal);
+        });
+
+        self.viewportBounds.top.subscribe(function (newVal) {
+            self.viewport.scrollTop = Math.round(newVal);
+        });
+
+        // Moves the viewport X pixels right, and Y pixels down. Both x, y are in unscaled pixels
         self.pan = function (deltaX, deltaY) {
-            var viewport, ruler;
+            self.viewportBounds.left(self.viewportBounds.left() - deltaX);
+            self.viewportBounds.top(self.viewportBounds.top() - deltaY);
 
-            viewport = document.getElementById('timeline-viewport');
-            ruler = document.getElementById('timeline-ruler');
-
-            viewport.scrollTop -= deltaY;
-            viewport.scrollLeft -= deltaX;
-
-            if (ruler) // todo: remove when ruler rebuilt
-                ruler.scrollLeft -= deltaX;
+            if (self.ruler) // todo: remove when ruler rebuilt
+                self.ruler.scrollLeft -= deltaX;
         };
 
         // takes a direction in negative or positive integer
-        self.scale = function (direction) {
-            var scaleFactor, mouseX, mouseY, viewport, ruler;
+        self.zoom = function (direction) {
+            var stepScaleFactor, mouseX, mouseY;
 
-            viewport = document.querySelector('#timeline-viewport');
-            ruler = document.querySelector('#timeline-ruler');
+            stepScaleFactor = direction > 0 ? 1.1 : 1 / 1.1;
 
-            scaleFactor = direction > 0 ? 1.1 : 1 / 1.1;
-
-            //  mouseX, Y are relative to viewport
+            //  mouseX, Y are relative to viewport, in unscaled pixels
             /*
              mouseX = scrollEvent.clientX - viewport.getBoundingClientRect().left;
              mouseY = scrollEvent.clientY - viewport.getBoundingClientRect().top;
@@ -280,26 +278,25 @@ ko.components.register('timeline', {
             // There is a weird behaviour when scrolling in twice, then moving the mouse to a different location,
             // then scrolling back out. It jumps around to about the halfway mark between them, and I can't figure
             // out the math yet. - remiller
-            mouseX = viewport.getBoundingClientRect().width / 2;
-            mouseY = viewport.getBoundingClientRect().height / 2;
+            mouseX = self.viewport.getBoundingClientRect().width / 2;
+            mouseY = self.viewport.getBoundingClientRect().height / 2;
 
-            // TODO: remove the debug point
-            var debugPoint = document.getElementById('zoomPoint')
-            //debugpoint.style.display='block;'
-            debugPoint.style.left = viewport.getBoundingClientRect().left + (mouseX - 2)
-            debugPoint.style.top = viewport.getBoundingClientRect().top + (mouseY - 2)
+            /*
+             // TODO: remove the debug point
+             var debugPoint = document.getElementById('zoomPoint')
+             //debugpoint.style.display='block;'
+             debugPoint.style.left = viewport.getBoundingClientRect().left + (mouseX - 2)
+             debugPoint.style.top = viewport.getBoundingClientRect().top + (mouseY - 2)
+             */
 
-            self.transformOriginX(mouseX / scaleFactor);
-            self.transformOriginY(mouseY / scaleFactor);
+            self.scale(self.scale() * stepScaleFactor);
 
-            self.scaleX(self.scaleX() * scaleFactor);
-            self.scaleY(self.scaleY() * scaleFactor);
+            // TODO: also add the delta between prescaled to postscaled mouse coords
+            self.viewportBounds.left(self.viewportBounds.left() * stepScaleFactor);
+            self.viewportBounds.top(self.viewportBounds.top() * stepScaleFactor);
 
-            viewport.scrollLeft *= scaleFactor;
-            viewport.scrollTop *= scaleFactor;
-
-            if (ruler) // todo: remove when ruler rebuilt
-                ruler.scrollLeft *= scaleFactor;
+            if (self.ruler) // todo: remove when ruler rebuilt
+                self.ruler.scrollLeft *= stepScaleFactor;
         };
 
         /*
@@ -363,7 +360,7 @@ ko.components.register('timeline', {
         window.addEventListener('touchmove', function (touchEvent) {
             if (touchEvent.touches.length > 1) {
                 alert('Zoom not yet supported on touch.');
-                //self.scale(something)
+                //self.zoom(something)
             } else {
                 dragHandler(touchEvent);
             }
