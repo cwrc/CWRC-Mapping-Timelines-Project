@@ -204,7 +204,7 @@
             </div>
         </section>
         <div data-bind="event: { mousedown: dragStart, touchstart: dragStart }">
-            <section id="timeline-viewport" data-bind="event: {wheel: scroll}">
+            <section id="timeline-viewport" data-bind="event: {wheel: scrollHandler}">
                 <div class="canvas" data-bind="foreach: timelineRows,
                                                            style: {
                                                                     width: canvasWidth,
@@ -244,7 +244,7 @@
         </div>
         <!-- debug zoom location -->
         <div id="zoomPoint"
-             style="display:none; background:red; width: 4px; height:4px; position: absolute; pointer-events: none;"></div>
+             style="background:red; width: 4px; height:4px; position: absolute; pointer-events: none;"></div>
     </template>
 
 

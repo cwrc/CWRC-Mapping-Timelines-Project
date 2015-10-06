@@ -32,12 +32,6 @@ ko.components.register('timeline', {
             return 'scale(' + self.scale() + ',' + self.scale() + ')';
         });
 
-        self.scroll = function (viewModel, scrollEvent) {
-            self.zoom(-scrollEvent.deltaY);
-
-            return false; // prevent regular page scrolling.
-        };
-
         // full filtered records, sorted by start
         self.records = ko.computed(function () {
             var records, timeDiff;
@@ -220,10 +214,10 @@ ko.components.register('timeline', {
                     top: Math.round((parseInt(recordLabel.parentNode.offsetHeight) * row) * self.scale())
                 };
 
-                console.log('viewport:' + ko.mapping.toJSON(self.viewportBounds))
-                console.log('element:' + ko.mapping.toJSON(elementBounds))
-                console.log(self.viewportBounds.left() / self.scale())
-                console.log('scale:' + self.scale())
+                //console.log('viewport:' + ko.mapping.toJSON(self.viewportBounds))
+                //console.log('element:' + ko.mapping.toJSON(elementBounds))
+                //console.log(self.viewportBounds.left() / self.scale())
+                //console.log('scale:' + self.scale())
 
 
                 if (elementBounds.left < self.viewportBounds.left() ||
@@ -262,41 +256,90 @@ ko.components.register('timeline', {
                 self.ruler.scrollLeft -= deltaX;
         };
 
-        // takes a direction in negative or positive integer
-        self.zoom = function (direction) {
-            var stepScaleFactor, mouseX, mouseY;
+        self.viewport.addEventListener('click', function (mouseEvent) {
+            if (mouseEvent.button == 1) {
+                var x, y;
 
-            stepScaleFactor = direction > 0 ? 1.1 : 1 / 1.1;
+                var mouseXView = mouseEvent.clientX - self.viewport.getBoundingClientRect().left;
+                var mouseYView = mouseEvent.clientY - self.viewport.getBoundingClientRect().top;
 
-            //  mouseX, Y are relative to viewport, in unscaled pixels
-            /*
-             mouseX = scrollEvent.clientX - viewport.getBoundingClientRect().left;
-             mouseY = scrollEvent.clientY - viewport.getBoundingClientRect().top;
-             */
+                var canvasX = mouseXView + self.viewportBounds.left()
+                var canvasY = mouseYView + self.viewportBounds.top();
 
-            // TODO: actually use mouse location
-            // There is a weird behaviour when scrolling in twice, then moving the mouse to a different location,
-            // then scrolling back out. It jumps around to about the halfway mark between them, and I can't figure
-            // out the math yet. - remiller
-            mouseX = self.viewport.getBoundingClientRect().width / 2;
-            mouseY = self.viewport.getBoundingClientRect().height / 2;
+                //x = self.viewportBounds.left() + ;
+                //y = self.viewportBounds.top();
 
-            /*
-             // TODO: remove the debug point
-             var debugPoint = document.getElementById('zoomPoint')
-             //debugpoint.style.display='block;'
-             debugPoint.style.left = viewport.getBoundingClientRect().left + (mouseX - 2)
-             debugPoint.style.top = viewport.getBoundingClientRect().top + (mouseY - 2)
-             */
+                console.log("viewport: " + mouseXView + ", " + mouseYView)
+                console.log("canvas: " + canvasX + ", " + canvasY)
+            }
+        });
+
+        /**
+         *
+         * @param focusX In unscaled pixels, relative to viewport
+         * @param focusY In unscaled pixels, relative to viewport
+         * @param zoomIn Boolean: true zoom in, false zoom out
+         */
+        self.zoom = function (focusX, focusY, zoomIn) {
+            var stepScaleFactor;
+
+            stepScaleFactor = zoomIn ? (1.1) : (1 / 1.1);
+
+            /* */
+            // TODO: remove the debug point
+            //var debugPoint = document.getElementById('zoomPoint')
+            //debugPoint.style.display = 'block'
+            //debugPoint.style.left = self.viewport.getBoundingClientRect().left + (focusX - 2);
+            //debugPoint.style.top = self.viewport.getBoundingClientRect().top + (focusY - 2);
+
+            /* */
+
+            var oldScale = self.scale();
 
             self.scale(self.scale() * stepScaleFactor);
 
+            var focusXDelta = focusX * self.scale() - focusX * oldScale;
+            var focusYDelta = focusY * self.scale() - focusY * oldScale;
+
+            //if (zoomIn) {
+            //    focusX = -focusX * self.scale();
+            //    focusY = -focusY * self.scale();
+            //} else {
+            //    focusX = focusX * self.scale();
+            //    focusY = focusY * self.scale()
+            //}
+
+            console.log(focusXDelta)
+            console.log(focusYDelta)
+
             // TODO: also add the delta between prescaled to postscaled mouse coords
-            self.viewportBounds.left(self.viewportBounds.left() * stepScaleFactor);
-            self.viewportBounds.top(self.viewportBounds.top() * stepScaleFactor);
+            self.viewportBounds.left(self.viewportBounds.left() * stepScaleFactor + focusXDelta);
+            self.viewportBounds.top(self.viewportBounds.top() * stepScaleFactor + focusYDelta);
 
             if (self.ruler) // todo: remove when ruler rebuilt
                 self.ruler.scrollLeft *= stepScaleFactor;
+        };
+
+        self.scrollHandler = function (viewModel, scrollEvent) {
+            var mouseX, mouseY;
+
+            //  mouseX, Y are relative to viewport, in unscaled pixels
+            mouseX = scrollEvent.clientX - self.viewport.getBoundingClientRect().left;
+            mouseY = scrollEvent.clientY - self.viewport.getBoundingClientRect().top;
+
+            /*
+
+             // TODO: actually use mouse location
+             // There is a weird behaviour when scrolling in twice, then moving the mouse to a different location,
+             // then scrolling back out. It jumps around to about the halfway mark between them, and I can't figure
+             // out the math yet. - remiller
+             mouseX = self.viewport.getBoundingClientRect().width / 2;
+             mouseY = self.viewport.getBoundingClientRect().height / 2;
+             */
+
+            self.zoom(mouseX, mouseY, scrollEvent.deltaY < 0);
+
+            return false; // prevent regular page scrolling.
         };
 
         /*
