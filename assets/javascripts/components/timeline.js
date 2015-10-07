@@ -186,7 +186,7 @@ ko.components.register('timeline', {
             // this is awful, but is so far the only way to find the event label.
             // applying an ID is arbitrary *and* fragile, and no other unique data exists.
             // So we just rely on he expected correlation of their location because this class
-            // is also doing the layout. - remiller
+            // is also doing the layout. - retm
             for (row = 0; row < rows.length; row++) {
                 records = rows[row];
 
@@ -258,8 +258,8 @@ ko.components.register('timeline', {
 
         /**
          *
-         * @param viewFocusX In unscaled pixels, relative to viewport
-         * @param viewFocusY In unscaled pixels, relative to viewport
+         * @param viewFocusX In raw pixels, relative to viewport
+         * @param viewFocusY In raw pixels, relative to viewport
          * @param zoomIn Boolean: true zoom in, false zoom out
          */
         self.zoom = function (viewFocusX, viewFocusY, zoomIn) {
@@ -267,15 +267,35 @@ ko.components.register('timeline', {
 
             stepScaleFactor = zoomIn ? (1.1) : (1 / 1.1);
 
+            /*
+             * We know that the zoom focus point, relative to the canvas (Xfc) can be described by this formula:
+             * [units in square brackets]
+             *
+             *              Xvc [px] + Xfv [px]
+             * Xfc [can] =  ------------------
+             *                S [px/can]              # Divide by scale, because we're scaling the canvas, not the viewport.
+             *
+             * We also know that the after-scale, the focus point equals this:
+             *
+             *               X'vc [px] + X'fv [px]
+             * X'fc [can] =   ------------------
+             *                 S' [px/can]
+             *
+             * We also know that X'fv [px] = Xfv [px], because they are both the focus point, relative to the viewport
+             * in raw px, and so does not change. Further, we know that  X'fc [can] = Xfc [can], as they're both
+             * referring to the exact same logical location relative to the canvas and in canvas units.
+             *
+             * Sub in eqivalencies, and rearrange to solve for the new view offset, relative to canvas, in px (X'vc):
+             *
+             *       X'vc [px] = ( Xvc [px] + Xvf [px] ) * (S' [px/can] / S [px/can]) - Xfv [px]
+             *
+             *
+             * - retm
+             */
             oldScale = self.scale();
 
             self.scale(self.scale() * stepScaleFactor);
 
-            /**
-             *     X'vc = ( Xvc + Xvf ) * (S'/S) - Xfv
-             *
-             * in: px   = ( px  + px  ) * (px/can / px/can) - px
-             */
             self.viewportBounds.left(( self.viewportBounds.left() + viewFocusX ) * (self.scale() / oldScale) - viewFocusX);
             self.viewportBounds.top(( self.viewportBounds.top() + viewFocusY ) * (self.scale() / oldScale) - viewFocusY);
 
@@ -297,7 +317,7 @@ ko.components.register('timeline', {
 
         /*
          * recordMouseUp and recordMouseDown are split (ie. not recordClick) to allow drag to abort the event
-         * so that it doesn't select when you drag over a record. - remiller
+         * so that it doesn't select when you drag over a record. - retm
          */
         self.recordMouseUp = function (record) {
             if (self.clickingOnRecord)
