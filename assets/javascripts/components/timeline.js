@@ -214,18 +214,8 @@ ko.components.register('timeline', {
                     top: Math.round((parseInt(recordLabel.parentNode.offsetHeight) * row) * self.scale())
                 };
 
-                //console.log('viewport:' + ko.mapping.toJSON(self.viewportBounds))
-                //console.log('element:' + ko.mapping.toJSON(elementBounds))
-                //console.log(self.viewportBounds.left() / self.scale())
-                //console.log('scale:' + self.scale())
-
-
                 if (elementBounds.left < self.viewportBounds.left() ||
                     elementBounds.left > self.viewportBounds.right()) {
-
-                    console.log(elementBounds.left)
-                    console.log(self.viewportBounds.right())
-                    console.log(elementBounds.left > self.viewportBounds.right())
 
                     self.viewportBounds.left(elementBounds.left);
 
@@ -249,72 +239,45 @@ ko.components.register('timeline', {
 
         // Moves the viewport X pixels right, and Y pixels down. Both x, y are in unscaled pixels
         self.pan = function (deltaX, deltaY) {
-            self.viewportBounds.left(self.viewportBounds.left() - deltaX);
-            self.viewportBounds.top(self.viewportBounds.top() - deltaY);
+            var newLeft, newTop, maxLeft, maxTop, canvas;
+
+            canvas = document.querySelector('#timeline-viewport .canvas');
+
+            maxLeft = canvas.offsetWidth * self.scale() - self.viewport.offsetWidth;
+            maxTop = canvas.offsetHeight* self.scale() - self.viewport.offsetHeight;
+
+            newLeft = Math.max(0, Math.min(self.viewportBounds.left() - deltaX, maxLeft));
+            newTop = Math.max(0, Math.min(self.viewportBounds.top() - deltaY, maxTop));
+
+            self.viewportBounds.left(newLeft);
+            self.viewportBounds.top(newTop);
 
             if (self.ruler) // todo: remove when ruler rebuilt
                 self.ruler.scrollLeft -= deltaX;
         };
 
-        self.viewport.addEventListener('click', function (mouseEvent) {
-            if (mouseEvent.button == 1) {
-                var x, y;
-
-                var mouseXView = mouseEvent.clientX - self.viewport.getBoundingClientRect().left;
-                var mouseYView = mouseEvent.clientY - self.viewport.getBoundingClientRect().top;
-
-                var canvasX = mouseXView + self.viewportBounds.left()
-                var canvasY = mouseYView + self.viewportBounds.top();
-
-                //x = self.viewportBounds.left() + ;
-                //y = self.viewportBounds.top();
-
-                console.log("viewport: " + mouseXView + ", " + mouseYView)
-                console.log("canvas: " + canvasX + ", " + canvasY)
-            }
-        });
-
         /**
          *
-         * @param focusX In unscaled pixels, relative to viewport
-         * @param focusY In unscaled pixels, relative to viewport
+         * @param viewFocusX In unscaled pixels, relative to viewport
+         * @param viewFocusY In unscaled pixels, relative to viewport
          * @param zoomIn Boolean: true zoom in, false zoom out
          */
-        self.zoom = function (focusX, focusY, zoomIn) {
-            var stepScaleFactor;
+        self.zoom = function (viewFocusX, viewFocusY, zoomIn) {
+            var stepScaleFactor, oldScale;
 
             stepScaleFactor = zoomIn ? (1.1) : (1 / 1.1);
 
-            /* */
-            // TODO: remove the debug point
-            //var debugPoint = document.getElementById('zoomPoint')
-            //debugPoint.style.display = 'block'
-            //debugPoint.style.left = self.viewport.getBoundingClientRect().left + (focusX - 2);
-            //debugPoint.style.top = self.viewport.getBoundingClientRect().top + (focusY - 2);
-
-            /* */
-
-            var oldScale = self.scale();
+            oldScale = self.scale();
 
             self.scale(self.scale() * stepScaleFactor);
 
-            var focusXDelta = focusX * self.scale() - focusX * oldScale;
-            var focusYDelta = focusY * self.scale() - focusY * oldScale;
-
-            //if (zoomIn) {
-            //    focusX = -focusX * self.scale();
-            //    focusY = -focusY * self.scale();
-            //} else {
-            //    focusX = focusX * self.scale();
-            //    focusY = focusY * self.scale()
-            //}
-
-            console.log(focusXDelta)
-            console.log(focusYDelta)
-
-            // TODO: also add the delta between prescaled to postscaled mouse coords
-            self.viewportBounds.left(self.viewportBounds.left() * stepScaleFactor + focusXDelta);
-            self.viewportBounds.top(self.viewportBounds.top() * stepScaleFactor + focusYDelta);
+            /**
+             *     X'vc = ( Xvc + Xvf ) * (S'/S) - Xfv
+             *
+             * in: px   = ( px  + px  ) * (px/can / px/can) - px
+             */
+            self.viewportBounds.left(( self.viewportBounds.left() + viewFocusX ) * (self.scale() / oldScale) - viewFocusX);
+            self.viewportBounds.top(( self.viewportBounds.top() + viewFocusY ) * (self.scale() / oldScale) - viewFocusY);
 
             if (self.ruler) // todo: remove when ruler rebuilt
                 self.ruler.scrollLeft *= stepScaleFactor;
@@ -326,16 +289,6 @@ ko.components.register('timeline', {
             //  mouseX, Y are relative to viewport, in unscaled pixels
             mouseX = scrollEvent.clientX - self.viewport.getBoundingClientRect().left;
             mouseY = scrollEvent.clientY - self.viewport.getBoundingClientRect().top;
-
-            /*
-
-             // TODO: actually use mouse location
-             // There is a weird behaviour when scrolling in twice, then moving the mouse to a different location,
-             // then scrolling back out. It jumps around to about the halfway mark between them, and I can't figure
-             // out the math yet. - remiller
-             mouseX = self.viewport.getBoundingClientRect().width / 2;
-             mouseY = self.viewport.getBoundingClientRect().height / 2;
-             */
 
             self.zoom(mouseX, mouseY, scrollEvent.deltaY < 0);
 
