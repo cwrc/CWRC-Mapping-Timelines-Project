@@ -126,7 +126,7 @@ ko.components.register('map', {
             });
         });
 
-        self.itemToMarkers = ko.pureComputed(function () {
+        self.itemToMarkers = ko.computed(function () {
             var itemToMarkers = {};
 
             for (var i = 0; i < CWRC.rawData().length; i++) {
