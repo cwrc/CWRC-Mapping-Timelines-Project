@@ -66,7 +66,7 @@ ko.components.register('map', {
 
             latLng = item.latLng;
 
-            if (!item.latLng)
+            if (!item.latLng || item.latLng.length == 0)
                 return [];
 
             // some items are single-pos, some multiple. Coerce to multi for consistency.
@@ -221,7 +221,10 @@ ko.components.register('map', {
                     return !self.map.getBounds().contains(pos);
                 })
             ) {
-                self.map.panTo(positions[0]);
+                if (positions[0])
+                {
+                  self.map.panTo(positions[0]);
+                }
             }
         });
 
