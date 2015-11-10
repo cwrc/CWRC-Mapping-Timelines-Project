@@ -193,6 +193,10 @@
                         <a target="_blank" data-bind="href: selected().urls">More...</a>
                     </p>
 
+                    <p data-bind="foreach: selected().citations">
+                        <div class="citation" data-bind="html: $data">
+                    </p>
+
                     <p data-bind="if: selected().source">
                         <a target="_blank" data-bind="href: selected().source">(Source)</a>
                     </p>
