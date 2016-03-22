@@ -1,0 +1,150 @@
+tei\:bibl {
+    display : inline;
+}
+tei\:div[type="works"] {
+    text-indent: -2em;
+    margin:0 0 0 2em;
+}
+tei\:bibl > note {
+    display : inline;
+}
+tei\:bibl > title[type="alternate"] {
+    content: "Alternate Title: " !important;
+}
+tei\:bibl > title[type="subtitle"] {
+    content: "";
+}
+tei\:cit {
+    display : inline;
+}
+tei\:date {
+    display : inline;
+}
+tei\:keywords {
+    display : block;
+    margin-bottom : 0.5em;
+}
+tei\:l {
+    display : block;
+    white-space : nowrap;
+}
+tei\:label {
+    display : inline;
+    font-weight : bold;
+}
+tei\:lb {
+    display : block;
+}
+tei\:lg {
+    display : block;
+    margin-bottom : 0.5em;
+}
+tei\:list {
+    display : block;
+    list-style-type : disc;
+    list-style-position : outside;
+    margin-bottom : 1em;
+    margin-left : 2em;
+    margin-top : 1em;
+}
+tei\:list[rend = "runon"] {
+    display : inline;
+}
+tei\:list[type = "bulleted"] {
+    list-style-type : disc;
+    list-style-position : outside;
+}
+tei\:list[type = "unordered"] {
+    list-style-type : disc;
+    list-style-position : outside;
+}
+tei\:list[type = "ordered"] {
+    list-style-type : decimal;
+    list-style-position : outside;
+}
+tei\:list[type = "numbered"] {
+    list-style-type : decimal;
+    list-style-position : outside;
+}
+tei\:list[type = "none"] {
+    list-style-type : none;
+}
+tei\:listBibl {
+    display : block;
+    margin-bottom : 0.5em;
+}
+tei\:name {
+    display : inline;
+    font-weight: bold;
+    color: #336699;
+}
+tei\:note {
+    display : block;
+    color:#999;
+}
+tei\:orgName {
+    display : inline;
+    font-weight: bold;
+    color: #336699;
+}
+tei\:placeName {
+    display : inline;
+    font-weight: bold;
+    color: #336699;
+}
+tei\:q {
+    display : inline;
+    quotes : '"' '"' "'" "'";
+    margin-top : 0em;
+    margin-left : 0em;
+    margin-right : 0em;
+    margin-bottom : 0em;
+}
+tei\:q[rend = "display"] {
+    display : block;
+    margin-bottom : 0.5em;
+    margin-left : 3em;
+    margin-right : 3em;
+    quotes : none;
+}
+tei\:q:before {
+    content : open-quote;
+}
+tei\:q:after {
+    content : close-quote;
+}
+tei\:sic {
+    display : inline;
+    color : red;
+    background-color : inherit;
+}
+tei\:title {
+    display : inline;
+    font-weight: bold;
+    color: #336699;
+}
+tei\:title[type="subtitle"] {
+    display : block;
+    font-weight:normal;
+}
+tei\:title[level = "m"],
+tei\:title[level = "j"] {
+    font-style : italic;
+}
+tei\:title[level = "s"] {
+    font-style : normal;
+}
+tei\:title[level = "a"],
+tei\:title[level = "u"] {
+    font-style : normal;
+}
+tei\:title[level = "a"]:before,
+tei\:title[level = "u"]:before {
+    content : open-quote;
+}
+tei\:title[level = "a"]:after,
+tei\:title[level = "u"]:after {
+    content : close-quote;
+}
+
+;

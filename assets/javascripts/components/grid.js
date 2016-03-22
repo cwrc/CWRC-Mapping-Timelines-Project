@@ -85,9 +85,9 @@ ko.components.register('grid', {
 
                     // collator doesn't exist in all platforms. Fall back to (much) slower localeCompare
                     if (collator) {
-                        result = collator.compare(a[fieldName].trim(), b[fieldName].trim());
+                        result = collator.compare(a[fieldName], b[fieldName]);
                     } else {
-                        result = a[fieldName].trim().localeCompare(b[fieldName].trim(), 'en', {
+                        result = a[fieldName].localeCompare(b[fieldName], 'en', {
                             sensitivity: 'base',
                             ignorePunctuation: true
                         });

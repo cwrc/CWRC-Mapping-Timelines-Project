@@ -11,6 +11,11 @@
     <link href="datasets/lglc.json" type="application/json" rel="cwrc/data"/>
     <link href="datasets/orlando.json" type="application/json" rel="cwrc/data"/>
 
+    <!-- Content Styles -->
+    <link href="assets/styles/content/tei.css" type="text/css" rel="stylesheet"/>
+    <link href="assets/styles/content/orlando.css" type="text/css" rel="stylesheet"/>
+
+
     <!-- Styles -->
     <link href="assets/styles/plot_it.css" type="text/css" rel="stylesheet"/>
     <link href="assets/styles/components/filters/text_filter.css" type="text/css" rel="stylesheet"/>
@@ -124,12 +129,13 @@
                                         markerWidth: 18,
                                         markerHeight: 18">
             </map>
-            <grid data-tab-label="Grid View" params="columns: {'Event': 'longLabel',
+            <grid data-tab-label="Grid View" params="columns: {'Event': 'label',
                                         'Collection': 'group',
                                         'Location': 'location',
+                                        'Lat/Lng': 'latLng',
                                         'Start': 'startDate',
                                         'End': 'endDate'},
-                              initialSortBy: ['group', 'longLabel-za']">
+                              initialSortBy: ['group', 'label-za']">
             </grid>
         </tab_pane>
     </expander>
@@ -170,6 +176,10 @@
                     <span data-bind="if: selected().location">
                         <span data-bind="html: selected().location"></span>
                     </span>
+
+                    <span data-bind="if: selected().link">
+                      <a target="_blank" data-bind="html: 'link' , attr: { href: selected().link}"></a>
+                    </span>
                 </header>
                 <section>
                     <header>
@@ -180,6 +190,12 @@
                     <p data-bind="if: selected().urls">
                         <a target="_blank" data-bind="href: selected().urls">More...</a>
                     </p>
+
+                    <!-- ko if: selected().citations -->
+                    <div>Sources:</div>
+                    <p data-bind="html: selected().citations">
+                    </p>
+                    <!-- /ko -->
 
                     <p data-bind="if: selected().source">
                         <a target="_blank" data-bind="href: selected().source">(Source)</a>
@@ -289,6 +305,11 @@
                 <td data-bind="html: item[$parents[1].columns[columnLabel]] || 'n/a', css: $parents[1].getColumnClass(columnLabel)">
                 </td>
                 <!-- /ko -->
+                <td>
+                    <a target="_blank" data-bind="attr: {href: item['link']}">
+                        Link
+                    </a>
+                </td>
             </tr>
             </tbody>
         </table>
