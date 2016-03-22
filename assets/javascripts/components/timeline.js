@@ -10,7 +10,7 @@ ko.components.register('timeline', {
      * The coordianate systems can get confusing sometimes. Remember that each measurement is either going to be in
      * true pixels or scaled pixels. Please leave comments to make it clear what unit a distance is in.
      */
-    viewModel: function () {
+    viewModel: function (params) {
         var self = this;
 
         self.previousDragPosition = null;
@@ -21,8 +21,8 @@ ko.components.register('timeline', {
 
         self.scale = ko.observable(1.0);
 
-        self.translateX = ko.observable(0);
-        self.translateY = ko.observable(0);
+        //self.translateX = ko.observable(0);
+        //self.translateY = ko.observable(0);
 
         self.rulerTransform = ko.computed(function () {
             return 'scaleX(' + self.scale() + ')';
@@ -178,6 +178,14 @@ ko.components.register('timeline', {
             }
         };
 
+        // Wrapped in a timeout to run after the actual canvas is initialized.
+        setTimeout(function () {
+            var startFocusStamp = CWRC.toStamp(params['startDate']) || 0;
+            var startOffset = startFocusStamp - self.originStamp()
+
+            self.pan(self.toPixels(-startOffset), 0)
+        }, 0);
+
         CWRC.selected.subscribe(function (selectedRecord) {
             var viewport, recordLabel, row, col, rows, records, ruler;
 
@@ -244,7 +252,7 @@ ko.components.register('timeline', {
             canvas = document.querySelector('#timeline-viewport .canvas');
 
             maxLeft = canvas.offsetWidth * self.scale() - self.viewport.offsetWidth;
-            maxTop = canvas.offsetHeight* self.scale() - self.viewport.offsetHeight;
+            maxTop = canvas.offsetHeight * self.scale() - self.viewport.offsetHeight;
 
             newLeft = Math.max(0, Math.min(self.viewportBounds.left() - deltaX, maxLeft));
             newTop = Math.max(0, Math.min(self.viewportBounds.top() - deltaY, maxTop));
