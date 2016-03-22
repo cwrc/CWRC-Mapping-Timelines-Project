@@ -60,8 +60,19 @@ ko.components.register('map', {
             return positionsToItemCounts;
         });
 
+        self.buildMapTokens = function (item) {
+            var drawMode = item.pointType;
 
-        self['buildMarkersForItem'] = function (item) {
+            if (/polygon/i.test(drawMode)) {
+                return self.buildPolygonForItem(item);
+            } else if (/polyline|path/i.test(drawMode)) {
+                return self.buildPolylineForItem(item);
+            } else {
+                return self.buildMarkersForItem(item);
+            }
+        };
+
+        self.buildMarkersForItem = function (item) {
             var latLng, positions, created;
 
             latLng = item.latLng;
@@ -102,6 +113,39 @@ ko.components.register('map', {
             return created;
         };
 
+        self.buildPolylineForItem = function (item) {
+            var coordinates, pathPts;
+
+            coordinates = [];
+
+            if (typeof item.polyline == 'string')
+                pathPts = item.polyline.split('|');
+            else
+                pathPts = item.polyline;
+
+            pathPts.forEach(function (point) {
+                var parts = point.split(',');
+
+                coordinates.push({lng: parseFloat(parts[0]), lat: parseFloat(parts[1])})
+            });
+
+            var line = new google.maps.Polyline({
+                path: coordinates,
+                geodesic: true,
+                strokeColor: self.colorMap.getColor(item),
+                strokeOpacity: 1.0,
+                strokeWeight: 3,
+                map: self.map
+            });
+
+            return [line];
+        };
+
+        self.buildPolygonForItem = function (item) {
+            console.error('AAAAA POLYGONNNN AAAA')
+            return [];
+        };
+
         self.spiderfier.addListener('click', function (marker, event) {
             CWRC.selected(marker.item);
         });
@@ -126,15 +170,15 @@ ko.components.register('map', {
             });
         });
 
-        self.itemToMarkers = ko.computed(function () {
-            var itemToMarkers = {};
+        self.itemsToTokens = ko.computed(function () {
+            var itemsToTokens = {};
 
             for (var i = 0; i < CWRC.rawData().length; i++) {
                 var item = CWRC.rawData()[i];
-                itemToMarkers[ko.toJSON(item)] = self.buildMarkersForItem(item);
+                itemsToTokens[ko.toJSON(item)] = self.buildMapTokens(item);
             }
 
-            return itemToMarkers;
+            return itemsToTokens;
         });
 
         self.visibleMarkers = ko.computed(function () {
@@ -153,7 +197,7 @@ ko.components.register('map', {
 
             for (index = 0; index < visibleData.length; index++) {
                 var visibleItem = visibleData[index];
-                markers = self.itemToMarkers()[ko.toJSON(visibleItem)];
+                markers = self.itemsToTokens()[ko.toJSON(visibleItem)];
 
                 if (markers) {
                     for (j = 0; j < markers.length; j++) {
@@ -178,7 +222,7 @@ ko.components.register('map', {
             var selectedItem, newSelectedMarkers;
 
             selectedItem = CWRC.selected();
-            newSelectedMarkers = self.itemToMarkers()[ko.toJSON(selectedItem)];
+            newSelectedMarkers = self.itemsToTokens()[ko.toJSON(selectedItem)];
 
             // resetting the PREVIOUS markers
             self._selectedMarkers.forEach(function (selectedMarker) {
@@ -266,6 +310,7 @@ ko.components.register('map', {
     }
 });
 
+// === COLOR MAP ===
 CWRC.ColorMap = function (mapping, colorKey, defaultColor) {
     this.mapping = mapping || {};
     this.colorKey = colorKey;
