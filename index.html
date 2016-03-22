@@ -365,9 +365,9 @@
         <!-- identifying by ID does limit to one map per page, but that works for now -->
         <div id="map_canvas">
         </div>
-        <section data-bind="visible: colorMap.hasMapping()">
+        <section data-bind="visible: colorTable.hasMapping()">
             <header>Legend</header>
-            <!-- ko foreach: colorMap.getLegendPairs() -->
+            <!-- ko foreach: colorTable.getLegendPairs() -->
             <div>
                 <img data-bind="src: $data.icon"></span>
                 <span data-bind="text: $data.name"></span>

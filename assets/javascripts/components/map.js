@@ -26,7 +26,7 @@ ko.components.register('map', {
         self.pinHeight = params['pinHeight'] || 18;
 
         // === MAP MARKERS, PINS & POLYs ===
-        self.colorMap = new CWRC.ColorMap(params.colors, params.colorKey, '#999');
+        self.colorTable = new CWRC.ColorTable(params.colors, params.colorKey, '#999');
 
         self.map = new google.maps.Map(document.getElementById('map_canvas'), {
             center: CWRC.Transform.parseLatLng(params.center || '53.5267891,-113.5270909'), // default to U of A
@@ -60,19 +60,19 @@ ko.components.register('map', {
             return positionsToItemCounts;
         });
 
-        self.buildMapTokens = function (item) {
+        self.buildMapTokens = function (item, map, colorTable) {
             var drawMode = item.pointType;
 
             if (/polygon/i.test(drawMode)) {
-                return self.buildPolygonForItem(item);
+                return self.buildPolygonForItem(item, map, colorTable);
             } else if (/polyline|path/i.test(drawMode)) {
-                return self.buildPolylineForItem(item);
+                return self.buildPolylineForItem(item, map, colorTable);
             } else {
-                return self.buildMarkersForItem(item);
+                return self.buildMarkersForItem(item, map, colorTable);
             }
         };
 
-        self.buildMarkersForItem = function (item) {
+        self.buildMarkersForItem = function (item, map, colorTable) {
             var latLng, positions, created;
 
             latLng = item.latLng;
@@ -92,14 +92,14 @@ ko.components.register('map', {
                 markerIcon = CWRC.createMarkerIcon({
                     width: self.pinWidth * (Math.pow(stackSize, 1 / 10)),
                     height: self.pinHeight * (Math.pow(stackSize, 1 / 10)),
-                    color: stackSize > 1 ? self.colorMap.getDefaultColor() : self.colorMap.getColor(item),
+                    color: stackSize > 1 ? colorTable.getDefaultColor() : colorTable.getColor(item),
                     label: stackSize > 1 ? stackSize : '',
                     settings: {shape: "circle"}
                 });
 
                 marker = new google.maps.Marker({
                     position: CWRC.Transform.parseLatLng(position),
-                    map: self.map,
+                    map: map,
                     icon: markerIcon
                 });
 
@@ -113,7 +113,7 @@ ko.components.register('map', {
             return created;
         };
 
-        self.buildPolylineForItem = function (item) {
+        self.buildPolylineForItem = function (item, map, colorTable) {
             var coordinates, pathPts, line;
 
             coordinates = [];
@@ -132,16 +132,16 @@ ko.components.register('map', {
             line = new google.maps.Polyline({
                 path: coordinates,
                 geodesic: true,
-                strokeColor: self.colorMap.getColor(item),
+                strokeColor: colorTable.getColor(item),
                 strokeOpacity: 1.0,
                 strokeWeight: 3,
-                map: self.map
+                map: map
             });
 
             return [line];
         };
 
-        self.buildPolygonForItem = function (item) {
+        self.buildPolygonForItem = function (item, map, colorTable) {
             var coordinates, vertecies, shape, color;
 
             coordinates = [];
@@ -157,7 +157,7 @@ ko.components.register('map', {
                 coordinates.push({lng: parseFloat(parts[0]), lat: parseFloat(parts[1])})
             });
 
-            color = self.colorMap.getColor(item)
+            color = colorTable.getColor(item);
 
             shape = new google.maps.Polygon({
                 path: coordinates,
@@ -167,7 +167,7 @@ ko.components.register('map', {
                 strokeWeight: 3,
                 fillColor: color,
                 fillOpacity: 0.2,
-                map: self.map
+                map: map
             });
 
             return [shape];
@@ -184,7 +184,7 @@ ko.components.register('map', {
                 marker.setIcon(CWRC.createMarkerIcon({
                     width: self.pinWidth,
                     height: self.pinHeight,
-                    color: self.colorMap.getColor(marker.item),
+                    color: self.colorTable.getColor(marker.item),
                     label: '',
                     settings: {shape: "circle"}
                 }));
@@ -202,7 +202,7 @@ ko.components.register('map', {
 
             for (var i = 0; i < CWRC.rawData().length; i++) {
                 var item = CWRC.rawData()[i];
-                itemsToTokens[ko.toJSON(item)] = self.buildMapTokens(item);
+                itemsToTokens[ko.toJSON(item)] = self.buildMapTokens(item, self.map, self.colorTable);
             }
 
             return itemsToTokens;
@@ -278,7 +278,7 @@ ko.components.register('map', {
                 marker.setIcon(CWRC.createMarkerIcon({
                     width: self.pinWidth,
                     height: self.pinHeight,
-                    color: self.colorMap.getColor(selectedItem),
+                    color: self.colorTable.getColor(selectedItem),
                     label: "",
                     settings: {shape: "circle"},
                     isSelected: true
@@ -338,25 +338,25 @@ ko.components.register('map', {
 });
 
 // === COLOR MAP ===
-CWRC.ColorMap = function (mapping, colorKey, defaultColor) {
+CWRC.ColorTable = function (mapping, colorKey, defaultColor) {
     this.mapping = mapping || {};
     this.colorKey = colorKey;
     this.defaultColor = defaultColor;
 };
 
-CWRC.ColorMap.prototype.hasMapping = function () {
+CWRC.ColorTable.prototype.hasMapping = function () {
     return !!this.colorKey;
 };
 
-CWRC.ColorMap.prototype.getColor = function (selectedItem) {
+CWRC.ColorTable.prototype.getColor = function (selectedItem) {
     return (this.mapping[selectedItem[this.colorKey]]) || this.defaultColor;
 };
 
-CWRC.ColorMap.prototype.getDefaultColor = function (selectedItem) {
+CWRC.ColorTable.prototype.getDefaultColor = function (selectedItem) {
     return this.defaultColor;
 };
 
-CWRC.ColorMap.prototype.getLegendPairs = function () {
+CWRC.ColorTable.prototype.getLegendPairs = function () {
     var colorPairs, field;
 
     colorPairs = [];
