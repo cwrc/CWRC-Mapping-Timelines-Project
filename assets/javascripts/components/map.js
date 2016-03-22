@@ -114,7 +114,7 @@ ko.components.register('map', {
         };
 
         self.buildPolylineForItem = function (item) {
-            var coordinates, pathPts;
+            var coordinates, pathPts, line;
 
             coordinates = [];
 
@@ -129,7 +129,7 @@ ko.components.register('map', {
                 coordinates.push({lng: parseFloat(parts[0]), lat: parseFloat(parts[1])})
             });
 
-            var line = new google.maps.Polyline({
+            line = new google.maps.Polyline({
                 path: coordinates,
                 geodesic: true,
                 strokeColor: self.colorMap.getColor(item),
@@ -142,8 +142,35 @@ ko.components.register('map', {
         };
 
         self.buildPolygonForItem = function (item) {
-            console.error('AAAAA POLYGONNNN AAAA')
-            return [];
+            var coordinates, vertecies, shape, color;
+
+            coordinates = [];
+
+            if (typeof item.polygon == 'string')
+                vertecies = item.polygon.split('|');
+            else
+                vertecies = item.polygon;
+
+            vertecies.forEach(function (point) {
+                var parts = point.split(',');
+
+                coordinates.push({lng: parseFloat(parts[0]), lat: parseFloat(parts[1])})
+            });
+
+            color = self.colorMap.getColor(item)
+
+            shape = new google.maps.Polygon({
+                path: coordinates,
+                geodesic: false,
+                strokeColor: color,
+                strokeOpacity: 1.0,
+                strokeWeight: 3,
+                fillColor: color,
+                fillOpacity: 0.2,
+                map: self.map
+            });
+
+            return [shape];
         };
 
         self.spiderfier.addListener('click', function (marker, event) {
