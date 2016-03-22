@@ -26,7 +26,7 @@ ko.components.register('map', {
         self.pinHeight = params['pinHeight'] || 18;
 
         // === MAP MARKERS, PINS & POLYs ===
-        self.colorMap = new CWRC.ColorMap(params.colors, params.colorKey, "#999");
+        self.colorMap = new CWRC.ColorMap(params.colors, params.colorKey, '#999');
 
         self.map = new google.maps.Map(document.getElementById('map_canvas'), {
             center: CWRC.Transform.parseLatLng(params.center || '53.5267891,-113.5270909'), // default to U of A
@@ -81,7 +81,7 @@ ko.components.register('map', {
                 markerIcon = CWRC.createMarkerIcon({
                     width: self.pinWidth * (Math.pow(stackSize, 1 / 10)),
                     height: self.pinHeight * (Math.pow(stackSize, 1 / 10)),
-                    color: self.colorMap.getColor(item),
+                    color: stackSize > 1 ? self.colorMap.getDefaultColor() : self.colorMap.getColor(item),
                     label: stackSize > 1 ? stackSize : '',
                     settings: {shape: "circle"}
                 });
@@ -217,13 +217,13 @@ ko.components.register('map', {
             });
 
 
-            if (positions.every(function (pos) {
+            if (
+                positions.every(function (pos) {
                     return !self.map.getBounds().contains(pos);
                 })
             ) {
-                if (positions[0])
-                {
-                  self.map.panTo(positions[0]);
+                if (positions[0]) {
+                    self.map.panTo(positions[0]);
                 }
             }
         });
@@ -266,131 +266,6 @@ ko.components.register('map', {
     }
 });
 
-// TODO: extract to a helper lib
-CWRC.createMarkerIcon = function (params) {
-    var width, height, color, label, settings, isSelected;
-
-    width = params['width'] || 18;
-    height = params['height'] || 18;
-    color = params['color'];
-    label = params['label'];
-    settings = params['settings'];
-    isSelected = params['isSelected'];
-
-    // TODO: might be faster to store in a hash, if possible
-
-    var drawShadow = function (icon) {
-        var width, heeight, shadowWidth, canvas, context;
-
-        width = icon.width;
-        height = icon.height;
-        shadowWidth = width + height;
-
-        canvas = document.createElement("canvas");
-        canvas.width = shadowWidth;
-        canvas.height = height;
-
-        context = canvas.getContext("2d");
-        context.scale(1, 1 / 2);
-        context.translate(height / 2, height);
-        context.transform(1, 0, -1 / 2, 1, 0, 0);
-        context.fillRect(0, 0, width, height);
-        context.globalAlpha = settings.shapeAlpha;
-        context.globalCompositeOperation = "destination-in";
-        context.drawImage(icon, 0, 0);
-        return canvas;
-    };
-    // TODO: check all these
-    var pin = true; //settings.pin;
-    var pinWidth = width / 3; // settings.pinWidth;
-    var pinHeight = height / 3; // settings.pinHeight;
-    var lineWidth = isSelected ? 4 : 1;
-    var lineColor = settings.borderColor || "black";
-    var alpha = 1.0; //settings.shapeAlpha;
-    var bodyWidth = width - lineWidth;
-    var bodyHeight = height - lineWidth;
-    var markerHeight = height + (pin ? pinHeight : 0) + lineWidth;
-    var radius;
-    var canvas = document.createElement("canvas");
-    canvas.width = width;
-    canvas.height = markerHeight;
-    if (isSelected)
-        canvas.z_index = 999;
-
-    var context = canvas.getContext("2d");
-    context.clearRect(0, 0, width, markerHeight);
-    context.beginPath();
-
-    if (settings && (settings.shape == "circle")) {
-        radius = bodyWidth / 2;
-        if (!pin) {
-            context.arc(width / 2, height / 2, radius, 0, 2 * Math.PI);
-        } else {
-            var meetAngle = Math.atan2(pinWidth / 2, bodyHeight / 2);
-            context.arc(width / 2, height / 2, radius, Math.PI / 2 + meetAngle, Math.PI / 2 - meetAngle);
-            context.lineTo(width / 2, height + pinHeight - lineWidth / 2);
-        }
-    } else {
-        radius = bodyWidth / 4;
-        var topY = leftX = lineWidth / 2;
-        var botY = height - lineWidth / 2;
-        var rightX = width - lineWidth / 2;
-        context.moveTo(rightX - radius, topY);
-        context.arcTo(rightX, topY, rightX, topY + radius, radius);
-        context.lineTo(rightX, botY - radius);
-        context.arcTo(rightX, botY, rightX - radius, botY, radius);
-        if (pin) {
-            context.lineTo(width / 2 + pinWidth / 2, botY);
-            context.lineTo(width / 2, height + pinHeight - lineWidth / 2);
-            context.lineTo(width / 2 - pinWidth / 2, botY);
-        }
-        context.lineTo(leftX + radius, botY);
-        context.arcTo(leftX, botY, leftX, botY - radius, radius);
-        context.lineTo(leftX, topY + radius);
-        context.arcTo(leftX, topY, leftX + radius, topY, radius);
-    }
-    context.closePath();
-    context.fillStyle = color;
-    context.globalAlpha = alpha;
-    context.fill();
-
-    if (isSelected) {
-        context.strokeStyle = "#ff0000";
-        context.setLineDash([4, 1]);
-    } else {
-        context.strokeStyle = lineColor;
-    }
-
-    context.lineWidth = lineWidth;
-
-    context.stroke();
-    var shadow = drawShadow(canvas);
-    if (label) {
-        if (isSelected) {
-            context.font = "bold 12pt Arial Verdana Sans-serif";
-        } else {
-            context.font = "12pt Arial Verdana Sans-serif";
-        }
-        context.textBaseline = "middle";
-        context.textAlign = "center";
-        context.globalAlpha = 1;
-        context.fillStyle = "white";
-        context.strokeStyle = "black";
-        var w, h, max;
-
-        w = width / 2;
-        h = height / 2.5;
-        max = width / 1.2;
-
-        context.lineWidth = 2;
-        context.miterLimit = 2;
-        context.strokeText(label, w, h, max);
-        context.fillText(label, w, h, max);
-    }
-
-    return {url: canvas.toDataURL(), shadowURL: shadow.toDataURL()};
-};
-
 CWRC.ColorMap = function (mapping, colorKey, defaultColor) {
     this.mapping = mapping || {};
     this.colorKey = colorKey;
@@ -403,6 +278,10 @@ CWRC.ColorMap.prototype.hasMapping = function () {
 
 CWRC.ColorMap.prototype.getColor = function (selectedItem) {
     return (this.mapping[selectedItem[this.colorKey]]) || this.defaultColor;
+};
+
+CWRC.ColorMap.prototype.getDefaultColor = function (selectedItem) {
+    return this.defaultColor;
 };
 
 CWRC.ColorMap.prototype.getLegendPairs = function () {
