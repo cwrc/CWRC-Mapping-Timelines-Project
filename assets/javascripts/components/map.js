@@ -159,17 +159,26 @@ ko.components.register('map', {
             line = new google.maps.Polyline({
                 path: coordinates,
                 geodesic: true,
-                strokeColor: colorTable.getColor(item),
                 strokeOpacity: 1.0,
-                strokeWeight: 3,
                 map: map
             });
+
+            line.plainDrawingOptions = {
+                strokeColor: colorTable.getColor(item),
+                strokeWeight: 2
+            };
+            line.selectedDrawingOptions = {
+                strokeColor: '#FF0000',
+                strokeWeight: 3
+            };
 
             line.item = item;
 
             line.addListener('click', function (event) {
                 CWRC.selected(item);
             });
+
+            line.setOptions(line.plainDrawingOptions);
 
             return [line];
         };
@@ -325,7 +334,7 @@ ko.components.register('map', {
                 if (token instanceof google.maps.Polygon) {
                     token.setOptions(token.plainDrawingOptions);
                 } else if (token instanceof google.maps.Polyline) {
-                    console.error('Unimplemented: deselect polyline')
+                    token.setOptions(token.plainDrawingOptions);
                 } else { // Marker
                     token.cwrcSelected = false;
 
@@ -346,6 +355,7 @@ ko.components.register('map', {
             positions = [];
 
             newSelectedTokens.forEach(function (token) {
+                // TODO: refactor this into a setSelected(true) method on Marker, Polygon, and Polyline
                 if (token instanceof google.maps.Polygon) {
                     token.setOptions(token.selectedDrawingOptions);
 
@@ -355,7 +365,11 @@ ko.components.register('map', {
                         })
                     });
                 } else if (token instanceof google.maps.Polyline) {
-                    console.error('polyline')
+                    token.setOptions(token.selectedDrawingOptions);
+
+                    token.getPath().forEach(function (point) {
+                        positions.push(point);
+                    });
                 } else { // it's a Marker
                     positions.push(token.originalPosition);
 
@@ -365,6 +379,8 @@ ko.components.register('map', {
                 }
 
                 token.cwrcSelected = true;
+
+                // token.setSelected(true)
 
                 self._selectedTokens.push(token);
             });
