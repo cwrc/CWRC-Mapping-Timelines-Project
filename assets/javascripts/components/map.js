@@ -211,7 +211,7 @@ ko.components.register('map', {
 
             shape.plainDrawingOptions = {
                 strokeColor: plainColor,
-                strokeWeight: 3
+                strokeWeight: 2
             };
             shape.selectedDrawingOptions = {
                 strokeColor: '#FF0000',
@@ -309,7 +309,7 @@ ko.components.register('map', {
             return CWRC.rawData().length - self.spiderfier.getMarkers().length;
         });
 
-        self._selectedMarkers = [];
+        self._selectedTokens = [];
         self._itemIDToMarkers = {};
         CWRC.selected.subscribe(function () {
             var selectedItem, newSelectedTokens, isOffCamera, positions;
@@ -318,21 +318,30 @@ ko.components.register('map', {
             newSelectedTokens = self.itemsToTokens()[ko.toJSON(selectedItem)];
 
             // resetting the PREVIOUS markers
-            self._selectedMarkers.forEach(function (marker) {
+            self._selectedTokens.forEach(function (token) {
                 var icon;
 
-                marker.cwrcSelected = false;
+                // TODO: refactor this into a setSelected(false) method on Marker, Polygon, and Polyline
+                if (token instanceof google.maps.Polygon) {
+                    token.setOptions(token.plainDrawingOptions);
+                } else if (token instanceof google.maps.Polyline) {
+                    console.error('Unimplemented: deselect polyline')
+                } else { // Marker
+                    token.cwrcSelected = false;
 
-                if (marker.cwrcSpiderfied)
-                    icon = marker.plainIcon;
-                else
-                    icon = marker.stackedIcon;
+                    if (token.cwrcSpiderfied)
+                        icon = token.plainIcon;
+                    else
+                        icon = token.stackedIcon;
 
-                marker.setIcon(icon);
-                marker.setZIndex(null);
+                    token.setIcon(icon);
+                    token.setZIndex(null);
+                }
+
+                // token.setSelected(false)
             });
 
-            self._selectedMarkers = [];
+            self._selectedTokens = [];
 
             positions = [];
 
@@ -350,8 +359,6 @@ ko.components.register('map', {
                 } else { // it's a Marker
                     positions.push(token.originalPosition);
 
-                    console.log(token.originalPosition)
-
                     // now redraw the newly selected ones
                     token.setIcon(token.selectedIcon);
                     token.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
@@ -359,7 +366,7 @@ ko.components.register('map', {
 
                 token.cwrcSelected = true;
 
-                self._selectedMarkers.push(token);
+                self._selectedTokens.push(token);
             });
 
             isOffCamera = positions.every(function (pos) {
