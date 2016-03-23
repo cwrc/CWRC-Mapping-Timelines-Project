@@ -275,40 +275,50 @@ ko.components.register('map', {
         self.itemsToTokens = ko.computed(function () {
             var itemsToTokens = {};
 
-            CWRC.rawData().forEach(function(item){
+            CWRC.rawData().forEach(function (item) {
                 itemsToTokens[ko.toJSON(item)] = self.buildMapTokens(item, self.map, self.colorTable);
             });
 
             return itemsToTokens;
         });
 
+        // Not an actual display property.
+        // It's a computed to allow it to observe both CWRC.filteredData and self.itemsToTokens
         self.visibleMarkers = ko.computed(function () {
-            var allMarkers, markers, marker, index, j, visibleItems, visibleMarkers;
+            var allMarkers, tokens, token, index, j, visibleItems, visibleTokens, itemsToTokens;
 
-            allMarkers = self.spiderfier.getMarkers();
+            itemsToTokens = self.itemsToTokens();
 
-            allMarkers.forEach(function(marker){
+            allMarkers = Object.keys(itemsToTokens).map(function (v) {
+                return itemsToTokens[v];
+            }).reduce(function (a, b) {
+                return a.concat(b);
+            }, []);
+
+            //allMarkers = self.spiderfier.getMarkers();
+
+            allMarkers.forEach(function (marker) {
                 marker.setVisible(false);
             });
 
             visibleItems = CWRC.filteredData();
-            visibleMarkers = [];
+            visibleTokens = [];
 
             for (index = 0; index < visibleItems.length; index++) {
                 var visibleItem = visibleItems[index];
-                markers = self.itemsToTokens()[ko.toJSON(visibleItem)];
+                tokens = itemsToTokens[ko.toJSON(visibleItem)];
 
-                if (markers) {
-                    for (j = 0; j < markers.length; j++) {
-                        marker = markers[j];
+                if (tokens) {
+                    for (j = 0; j < tokens.length; j++) {
+                        token = tokens[j];
 
-                        marker.setVisible(true);
-                        visibleMarkers.push(marker);
+                        token.setVisible(true);
+                        visibleTokens.push(token);
                     }
                 }
             }
 
-            return visibleMarkers;
+            return visibleTokens;
         });
 
         self.unplottableCount = ko.pureComputed(function () {
