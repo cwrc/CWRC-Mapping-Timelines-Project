@@ -285,38 +285,32 @@ ko.components.register('map', {
         // Not an actual display property.
         // It's a computed to allow it to observe both CWRC.filteredData and self.itemsToTokens
         self.visibleMarkers = ko.computed(function () {
-            var allMarkers, tokens, token, index, j, visibleItems, visibleTokens, itemsToTokens;
+            var allTokens, tokens, visibleItems, visibleTokens, itemsToTokens;
 
             itemsToTokens = self.itemsToTokens();
 
-            allMarkers = Object.keys(itemsToTokens).map(function (v) {
+            // TODO: move this into itmesToTokens
+            allTokens = Object.keys(itemsToTokens).map(function (v) {
                 return itemsToTokens[v];
             }).reduce(function (a, b) {
                 return a.concat(b);
             }, []);
 
-            //allMarkers = self.spiderfier.getMarkers();
-
-            allMarkers.forEach(function (marker) {
-                marker.setVisible(false);
+            allTokens.forEach(function (token) {
+                token.setVisible(false);
             });
 
             visibleItems = CWRC.filteredData();
             visibleTokens = [];
 
-            for (index = 0; index < visibleItems.length; index++) {
-                var visibleItem = visibleItems[index];
-                tokens = itemsToTokens[ko.toJSON(visibleItem)];
+            visibleItems.forEach(function (visibleItem) {
+                tokens = itemsToTokens[ko.toJSON(visibleItem)] || [];
 
-                if (tokens) {
-                    for (j = 0; j < tokens.length; j++) {
-                        token = tokens[j];
-
-                        token.setVisible(true);
-                        visibleTokens.push(token);
-                    }
-                }
-            }
+                tokens.forEach(function(token){
+                    token.setVisible(true);
+                    visibleTokens.push(token);
+                });
+            });
 
             return visibleTokens;
         });
