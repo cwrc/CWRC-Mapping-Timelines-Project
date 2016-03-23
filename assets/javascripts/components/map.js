@@ -275,30 +275,27 @@ ko.components.register('map', {
         self.itemsToTokens = ko.computed(function () {
             var itemsToTokens = {};
 
-            for (var i = 0; i < CWRC.rawData().length; i++) {
-                var item = CWRC.rawData()[i];
+            CWRC.rawData().forEach(function(item){
                 itemsToTokens[ko.toJSON(item)] = self.buildMapTokens(item, self.map, self.colorTable);
-            }
+            });
 
             return itemsToTokens;
         });
 
         self.visibleMarkers = ko.computed(function () {
-            var allMarkers, markers, marker, index, j, visibleData, visibleMarkers;
+            var allMarkers, markers, marker, index, j, visibleItems, visibleMarkers;
 
             allMarkers = self.spiderfier.getMarkers();
 
-            for (index = 0; index < allMarkers.length; index++) {
-                marker = allMarkers[index];
-
+            allMarkers.forEach(function(marker){
                 marker.setVisible(false);
-            }
+            });
 
-            visibleData = CWRC.filteredData();
+            visibleItems = CWRC.filteredData();
             visibleMarkers = [];
 
-            for (index = 0; index < visibleData.length; index++) {
-                var visibleItem = visibleData[index];
+            for (index = 0; index < visibleItems.length; index++) {
+                var visibleItem = visibleItems[index];
                 markers = self.itemsToTokens()[ko.toJSON(visibleItem)];
 
                 if (markers) {
