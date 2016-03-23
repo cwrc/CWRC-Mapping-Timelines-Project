@@ -2,11 +2,13 @@ ko.components.register('map', {
     template: {element: 'map-template'},
 
     /*
-     * A google map with pins at each geolocation in the data set. If there are multiple pins at the same location,
-     * the stack will bear the number of pints in it. When a stack is clicked the pins will spiral out into individuals
-     * for further precise selection.
+     * A google map with tokens (pins, polylines, or polygons) at each geolocation in the data set.
      *
-     * Records that have multiple locations will have all pins "linked", so that selecting one will highlight all.
+     * Pin Stacking
+     * If there are multiple pin tokens at the same location, the stack will bear the number of pins in it. When a
+     * stack is clicked the pins will spiral out into individuals for further precise selection.
+     *
+     * Records that have multiple locations have all pins "linked", so that selecting one will highlight all.
      *
      * @param zoom: Zoom level as an integer number. Default: 4
      * @param center: LatLng coordinates as a string. Default: '53.5267891,-113.5270909' (University of Alberta)
@@ -73,7 +75,7 @@ ko.components.register('map', {
         };
 
         self.buildMarkersForItem = function (item, map, colorTable) {
-            var latLng, positions, created;
+            var latLng, positions, createdMarkers;
 
             latLng = item.latLng;
 
@@ -82,35 +84,60 @@ ko.components.register('map', {
 
             // some items are single-pos, some multiple. Coerce to multi for consistency.
             positions = typeof latLng == 'string' ? [latLng] : latLng;
-            created = [];
+            createdMarkers = [];
 
-            positions.forEach(function (position) {
-                var markerIcon, marker, stackSize;
+            positions.forEach(function (positionString) {
+                var plainIcon, stackedIcon, selectedIcon, marker, stackSize, position, color;
 
-                stackSize = self.positionsToItemCounts()[position];
+                stackSize = self.positionsToItemCounts()[positionString];
 
-                markerIcon = CWRC.createMarkerIcon({
-                    width: self.pinWidth * (Math.pow(stackSize, 1 / 10)),
-                    height: self.pinHeight * (Math.pow(stackSize, 1 / 10)),
-                    color: stackSize > 1 ? colorTable.getDefaultColor() : colorTable.getColor(item),
-                    label: stackSize > 1 ? stackSize : '',
+                color = colorTable.getColor(item);
+
+                plainIcon = CWRC.createMarkerIcon({
+                    width: self.pinWidth,
+                    height: self.pinHeight,
+                    color: self.colorTable.getColor(item),
+                    label: '',
                     settings: {shape: "circle"}
                 });
 
-                marker = new google.maps.Marker({
-                    position: CWRC.Transform.parseLatLng(position),
-                    map: map,
-                    icon: markerIcon
+                stackedIcon = CWRC.createMarkerIcon({
+                    width: self.pinWidth * (Math.pow(stackSize, 1 / 10)),
+                    height: self.pinHeight * (Math.pow(stackSize, 1 / 10)),
+                    color: stackSize > 1 ? colorTable.getDefaultColor() : color,
+                    label: stackSize > 1 ? stackSize : '',
+                    settings: {shape: 'circle'}
                 });
 
-                created.push(marker);
+                selectedIcon = CWRC.createMarkerIcon({
+                    width: self.pinWidth,
+                    height: self.pinHeight,
+                    color: color,
+                    label: '',
+                    settings: {shape: 'circle'},
+                    isSelected: true
+                });
+
+                position = CWRC.Transform.parseLatLng(positionString);
+
+                marker = new google.maps.Marker({
+                    position: position,
+                    map: map,
+                    icon: stackedIcon
+                });
+
+                createdMarkers.push(marker);
 
                 self.spiderfier.addMarker(marker);
 
                 marker.item = item;
+                marker.originalPosition = position;
+                marker.stackedIcon = stackedIcon;
+                marker.selectedIcon = selectedIcon;
+                marker.plainIcon = plainIcon;
             });
 
-            return created;
+            return createdMarkers;
         };
 
         self.buildPolylineForItem = function (item, map, colorTable) {
@@ -138,11 +165,17 @@ ko.components.register('map', {
                 map: map
             });
 
+            line.item = item;
+
+            line.addListener('click', function (event) {
+                CWRC.selected(item);
+            });
+
             return [line];
         };
 
         self.buildPolygonForItem = function (item, map, colorTable) {
-            var coordinates, vertecies, shape, color;
+            var coordinates, vertecies, shape, plainColor;
 
             coordinates = [];
 
@@ -151,24 +184,41 @@ ko.components.register('map', {
             else
                 vertecies = item.polygon;
 
-            vertecies.forEach(function (point) {
-                var parts = point.split(',');
+            vertecies.forEach(function (vertexString) {
+                var vertexParts = vertexString.split(',');
 
-                coordinates.push({lng: parseFloat(parts[0]), lat: parseFloat(parts[1])})
+                coordinates.push({
+                    lng: parseFloat(vertexParts[0]),
+                    lat: parseFloat(vertexParts[1])
+                })
             });
 
-            color = colorTable.getColor(item);
+            plainColor = colorTable.getColor(item);
 
             shape = new google.maps.Polygon({
                 path: coordinates,
                 geodesic: false,
-                strokeColor: color,
-                strokeOpacity: 1.0,
-                strokeWeight: 3,
-                fillColor: color,
+                map: map,
+                fillColor: plainColor,
                 fillOpacity: 0.2,
-                map: map
+                strokeOpacity: 1.0
             });
+            shape.item = item;
+
+            shape.addListener('click', function (event) {
+                CWRC.selected(item);
+            });
+
+            shape.plainDrawingOptions = {
+                strokeColor: plainColor,
+                strokeWeight: 3
+            };
+            shape.selectedDrawingOptions = {
+                strokeColor: '#FF0000',
+                strokeWeight: 3
+            };
+
+            shape.setOptions(shape.plainDrawingOptions);
 
             return [shape];
         };
@@ -179,21 +229,37 @@ ko.components.register('map', {
 
         self.spiderfier.addListener('spiderfy', function (markers, event) {
             markers.forEach(function (marker) {
-                marker.cwrcDefaultIcon = marker.getIcon();
+                var icon;
 
-                marker.setIcon(CWRC.createMarkerIcon({
-                    width: self.pinWidth,
-                    height: self.pinHeight,
-                    color: self.colorTable.getColor(marker.item),
-                    label: '',
-                    settings: {shape: "circle"}
-                }));
+                marker.cwrcSpiderfied = true;
+
+                if (marker.cwrcSelected)
+                    icon = marker.selectedIcon;
+                else if (marker.cwrcSpiderfied)
+                    icon = marker.plainIcon;
+                else
+                    icon = marker.stackedIcon;
+
+
+                marker.setIcon(icon);
             });
         });
 
         self.spiderfier.addListener('unspiderfy', function (markers, event) {
             markers.forEach(function (marker) {
-                marker.setIcon(marker.cwrcDefaultIcon);
+                var icon;
+
+                marker.cwrcSpiderfied = false;
+
+                if (marker.cwrcSelected)
+                    icon = marker.selectedIcon;
+                else if (marker.cwrcSpiderfied)
+                    icon = marker.plainIcon;
+                else
+                    icon = marker.stackedIcon;
+
+
+                marker.setIcon(icon);
             });
         });
 
@@ -246,61 +312,67 @@ ko.components.register('map', {
         self._selectedMarkers = [];
         self._itemIDToMarkers = {};
         CWRC.selected.subscribe(function () {
-            var selectedItem, newSelectedMarkers;
+            var selectedItem, newSelectedTokens, isOffCamera, positions;
 
             selectedItem = CWRC.selected();
-            newSelectedMarkers = self.itemsToTokens()[ko.toJSON(selectedItem)];
+            newSelectedTokens = self.itemsToTokens()[ko.toJSON(selectedItem)];
 
             // resetting the PREVIOUS markers
-            self._selectedMarkers.forEach(function (selectedMarker) {
-                selectedMarker.setIcon(selectedMarker.cwrcDefaultIcon);
-                selectedMarker.setZIndex(null);
+            self._selectedMarkers.forEach(function (marker) {
+                var icon;
+
+                marker.cwrcSelected = false;
+
+                if (marker.cwrcSpiderfied)
+                    icon = marker.plainIcon;
+                else
+                    icon = marker.stackedIcon;
+
+                marker.setIcon(icon);
+                marker.setZIndex(null);
             });
 
             self._selectedMarkers = [];
 
-            // declared outside loop to allow panning to last one after the loop
-            // panning to last (rather than pan/zoom to fit all) is easier for now
-            var positions = [];
+            positions = [];
 
-            newSelectedMarkers.forEach(function (marker) {
-                // get original position if spiderfied
-                if (marker._omsData) {
-                    // TODO: find a way to access this data without using the mini variable name
-                    positions.push(marker._omsData.l); // l because it's minified. This might break if they recompile differently.
-                } else {
-                    positions.push(marker.position);
+            newSelectedTokens.forEach(function (token) {
+                if (token instanceof google.maps.Polygon) {
+                    token.setOptions(token.selectedDrawingOptions);
+
+                    token.getPaths().forEach(function (path) {
+                        path.forEach(function (point) {
+                            positions.push(point);
+                        })
+                    });
+                } else if (token instanceof google.maps.Polyline) {
+                    console.error('polyline')
+                } else { // it's a Marker
+                    positions.push(token.originalPosition);
+
+                    console.log(token.originalPosition)
+
+                    // now redraw the newly selected ones
+                    token.setIcon(token.selectedIcon);
+                    token.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
                 }
 
-                marker.cwrcDefaultIcon = marker.getIcon();
+                token.cwrcSelected = true;
 
-                // now redraw the newly selected ones
-                marker.setIcon(CWRC.createMarkerIcon({
-                    width: self.pinWidth,
-                    height: self.pinHeight,
-                    color: self.colorTable.getColor(selectedItem),
-                    label: "",
-                    settings: {shape: "circle"},
-                    isSelected: true
-                }));
-                marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
-                self._selectedMarkers.push(marker);
+                self._selectedMarkers.push(token);
             });
 
+            isOffCamera = positions.every(function (pos) {
+                return !self.map.getBounds().contains(pos);
+            });
 
-            if (
-                positions.every(function (pos) {
-                    return !self.map.getBounds().contains(pos);
-                })
-            ) {
-                if (positions[0]) {
-                    self.map.panTo(positions[0]);
-                }
-            }
+            // Panning (rather than pan & zoom to fit all) is easier for now
+            if (isOffCamera && positions[0])
+                self.map.panTo(positions[0]);
         });
 
         // ===  Historical Map ===
-        var historicalControlDiv, swBound, neBound
+        var historicalControlDiv, swBound, neBound;
 
         swBound = new google.maps.LatLng(27.87, -181.56);
         neBound = new google.maps.LatLng(81.69, -17.58);
