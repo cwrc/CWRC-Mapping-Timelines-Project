@@ -273,30 +273,44 @@ ko.components.register('map', {
         });
 
         self.itemsToTokens = ko.computed(function () {
-            var itemsToTokens = {};
+            return {
+                itemsToTokens: CWRC.rawData().reduce(function (aggregate, item) {
+                    aggregate[ko.toJSON(item)] = self.buildMapTokens(item, self.map, self.colorTable);
+                    return aggregate;
+                }, {}),
 
-            CWRC.rawData().forEach(function (item) {
-                itemsToTokens[ko.toJSON(item)] = self.buildMapTokens(item, self.map, self.colorTable);
-            });
+                getTokens: function (items) {
+                    var itemsToTokens, values;
 
-            return itemsToTokens;
+                    itemsToTokens = this.itemsToTokens;
+
+                    if (!(items instanceof Array))
+                        items = [ko.toJSON(items)];
+
+                    values = items.map(function (key) {
+                        return itemsToTokens[key];
+                    });
+
+                    // smoosh the array of arrays flat.
+                    return values.reduce(function (aggregate, tokenList) {
+                        return tokenList ? aggregate.concat(tokenList) : aggregate;
+                    }, []);
+                },
+
+                getAllTokens: function () {
+                    return this.getTokens(Object.keys(this.itemsToTokens))
+                }
+            };
         });
 
         // Not an actual display property.
         // It's a computed to allow it to observe both CWRC.filteredData and self.itemsToTokens
         self.visibleMarkers = ko.computed(function () {
-            var allTokens, tokens, visibleItems, visibleTokens, itemsToTokens;
+            var visibleItems, visibleTokens, itemsToTokens, tokens;
 
             itemsToTokens = self.itemsToTokens();
 
-            // TODO: move this into itmesToTokens
-            allTokens = Object.keys(itemsToTokens).map(function (v) {
-                return itemsToTokens[v];
-            }).reduce(function (a, b) {
-                return a.concat(b);
-            }, []);
-
-            allTokens.forEach(function (token) {
+            itemsToTokens.getAllTokens().forEach(function (token) {
                 token.setVisible(false);
             });
 
@@ -304,9 +318,9 @@ ko.components.register('map', {
             visibleTokens = [];
 
             visibleItems.forEach(function (visibleItem) {
-                tokens = itemsToTokens[ko.toJSON(visibleItem)] || [];
+                tokens = itemsToTokens.getTokens(visibleItem) || [];
 
-                tokens.forEach(function(token){
+                tokens.forEach(function (token) {
                     token.setVisible(true);
                     visibleTokens.push(token);
                 });
@@ -325,7 +339,7 @@ ko.components.register('map', {
             var selectedItem, newSelectedTokens, isOffCamera, positions;
 
             selectedItem = CWRC.selected();
-            newSelectedTokens = self.itemsToTokens()[ko.toJSON(selectedItem)];
+            newSelectedTokens = self.itemsToTokens().getTokens(selectedItem);
 
             // resetting the PREVIOUS markers
             self._selectedTokens.forEach(function (token) {
