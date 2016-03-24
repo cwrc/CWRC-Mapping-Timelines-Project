@@ -1,86 +1,112 @@
 grid {
-    display: block;
+   display: block;
 
-    /*margin: 1em;*/
+   /*margin: 1em;*/
 
-    width: 100%;
-    min-height: 10em;
+   width: 100%;
+   min-height: 10em;
 
-    padding-top: 0.5em;
+   padding-top: 0.5em;
 }
 
 grid table {
-    width: 100%;
+   border-collapse: collapse;
+
+   width: 100%;
 }
 
 grid table tbody tr:nth-of-type(even) {
-    background: #eee;
+   background: #eee;
 }
 
 grid table tbody tr:nth-of-type(odd) {
-    background: #ccc;
+   background: #ccc;
 }
 
 grid table tbody td {
-    /*min-width: 6em;*/
-    padding: 0.25em 0.5em;
+   /*min-width: 6em;*/
+   padding: 0.25em 0.5em;
 }
 
 grid a[selected] {
-    font-weight: bold;
-    text-decoration: none;
+   font-weight: bold;
+   text-decoration: none;
 }
 
 grid #gridSorting {
-    font-size: 0.8em;
+   font-size: 0.8em;
 }
 
 grid #gridSorting div {
-    display: inline-block;
+   display: inline-block;
 }
 
 grid #gridSorting > div > div {
-    display: inline-block;
+   display: inline-block;
 
-    border-radius: 0.25em;
+   border-radius: 0.25em;
 }
 
 grid #gridSorting > div div:after {
-    content: '; then';
+   content: '; then';
 }
 
 grid #gridSorting > div > div select {
-    background: none;
+   background: none;
 }
 
 grid #gridSorting > div > div a:last-of-type {
-    margin-left: 0.5em;
+   margin-left: 0.5em;
 
-    width: 1em;
+   width: 1em;
 
-    border-radius: 100%;
+   border-radius: 100%;
 
-    background: #e8e8e8;
+   background: #e8e8e8;
 }
 
 grid #gridSorting > div > div a {
-    /* :last-of-type {*/
-    display: inline-block;
+   /* :last-of-type {*/
+   display: inline-block;
 
-    border-radius: 0.25em;
+   border-radius: 0.25em;
 
-    padding: 0.25em;
+   padding: 0.25em;
 
-    text-align: center;
+   text-align: center;
 
-    color: black;
-    border: 1px outset #cfcfcf;
-    text-decoration: none;
+   color: black;
+   border: 1px outset #cfcfcf;
+   text-decoration: none;
 }
 
 grid #gridSorting > div > div a:hover {
-    border: 1px outset #ababab;
+   border: 1px outset #ababab;
 
-    color: black;
-    text-decoration: none;
+   color: black;
+   text-decoration: none;
+}
+
+grid .pageControls {
+   margin-top: 0.5em;
+
+   text-align: center;
+}
+
+grid .pageControls a {
+   display: inline-block;
+
+   min-width: 1em;
+   min-height: 1em;
+
+   padding: 0.25em;
+
+   background: white;
+   text-align: center;
+
+   text-decoration: none;
+}
+
+grid .pageControls a:hover {
+   text-decoration: underline;
 }

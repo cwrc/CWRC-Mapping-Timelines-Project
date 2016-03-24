@@ -1,144 +1,144 @@
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, user-scalable=yes">
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <meta name="viewport" content="width=device-width, user-scalable=yes">
 
-    <title>Plot-It</title>
+   <title>Plot-It</title>
 
-    <!-- Static datasets -->
-    <link href="datasets/multimedia.json" type="application/json" rel="cwrc/data"/>
-    <link href="datasets/biblifo.json" type="application/json" rel="cwrc/data"/>
-    <link href="datasets/lglc.json" type="application/json" rel="cwrc/data"/>
-    <link href="datasets/orlando.json" type="application/json" rel="cwrc/data"/>
+   <!-- Static datasets -->
+   <link href="datasets/multimedia.json" type="application/json" rel="cwrc/data" />
+   <link href="datasets/biblifo.json" type="application/json" rel="cwrc/data" />
+   <link href="datasets/lglc.json" type="application/json" rel="cwrc/data" />
+   <link href="datasets/orlando.json" type="application/json" rel="cwrc/data" />
 
-    <!-- Content Styles -->
-    <link href="assets/styles/content/tei.css" type="text/css" rel="stylesheet"/>
-    <link href="assets/styles/content/orlando.css" type="text/css" rel="stylesheet"/>
+   <!-- Content Styles -->
+   <link href="assets/styles/content/tei.css" type="text/css" rel="stylesheet" />
+   <link href="assets/styles/content/orlando.css" type="text/css" rel="stylesheet" />
 
 
-    <!-- Styles -->
-    <link href="assets/styles/plot_it.css" type="text/css" rel="stylesheet"/>
-    <link href="assets/styles/components/filters/text_filter.css" type="text/css" rel="stylesheet"/>
-    <link href="assets/styles/components/filters/date_filter.css" type="text/css" rel="stylesheet"/>
-    <link href="assets/styles/components/filters/checklist_filter.css" type="text/css" rel="stylesheet"/>
-    <link href="assets/styles/components/filters/filter_reset.css" type="text/css" rel="stylesheet"/>
-    <link href="assets/styles/components/tab_pane.css" type="text/css" rel="stylesheet"/>
-    <link href="assets/styles/components/expander.css" type="text/css" rel="stylesheet"/>
-    <link href="assets/styles/components/spotlight.css" type="text/css" rel="stylesheet"/>
-    <link href="assets/styles/components/map.css" type="text/css" rel="stylesheet"/>
-    <link href="assets/styles/components/grid.css" type="text/css" rel="stylesheet"/>
-    <link href="assets/styles/components/timeline.css" type="text/css" rel="stylesheet"/>
-    <link href="assets/styles/components/loading.css" type="text/css" rel="stylesheet"/>
+   <!-- Styles -->
+   <link href="assets/styles/plot_it.css" type="text/css" rel="stylesheet" />
+   <link href="assets/styles/components/filters/text_filter.css" type="text/css" rel="stylesheet" />
+   <link href="assets/styles/components/filters/date_filter.css" type="text/css" rel="stylesheet" />
+   <link href="assets/styles/components/filters/checklist_filter.css" type="text/css" rel="stylesheet" />
+   <link href="assets/styles/components/filters/filter_reset.css" type="text/css" rel="stylesheet" />
+   <link href="assets/styles/components/tab_pane.css" type="text/css" rel="stylesheet" />
+   <link href="assets/styles/components/expander.css" type="text/css" rel="stylesheet" />
+   <link href="assets/styles/components/spotlight.css" type="text/css" rel="stylesheet" />
+   <link href="assets/styles/components/map.css" type="text/css" rel="stylesheet" />
+   <link href="assets/styles/components/grid.css" type="text/css" rel="stylesheet" />
+   <link href="assets/styles/components/timeline.css" type="text/css" rel="stylesheet" />
+   <link href="assets/styles/components/loading.css" type="text/css" rel="stylesheet" />
 
-    <!-- Libraries -->
-    <script src="assets/javascripts/lib/knockout-3.3.0.js" type="text/javascript"></script>
-    <script src="assets/javascripts/lib/knockout-mapping-2.0.min.js" type="text/javascript"></script>
-    <script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
-    <script src="assets/javascripts/lib/spiderfy.min.js" type="text/javascript"></script>
+   <!-- Libraries -->
+   <script src="assets/javascripts/lib/knockout-3.3.0.js" type="text/javascript"></script>
+   <script src="assets/javascripts/lib/knockout-mapping-2.0.min.js" type="text/javascript"></script>
+   <script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+   <script src="assets/javascripts/lib/spiderfy.min.js" type="text/javascript"></script>
 
-    <link href="assets/javascripts/lib/noUiSlider.8.0.2/nouislider.min.css" rel="stylesheet">
-    <script src="assets/javascripts/lib/noUiSlider.8.0.2/nouislider.min.js" type="text/javascript"></script>
+   <link href="assets/javascripts/lib/noUiSlider.8.0.2/nouislider.min.css" rel="stylesheet">
+   <script src="assets/javascripts/lib/noUiSlider.8.0.2/nouislider.min.js" type="text/javascript"></script>
 
-    <script src="assets/javascripts/util/network.js" type="text/javascript"></script>
-    <script src="assets/javascripts/util/transform.js" type="text/javascript"></script>
-    <script src="assets/javascripts/plot_it.js" type="text/javascript"></script>
+   <script src="assets/javascripts/util/network.js" type="text/javascript"></script>
+   <script src="assets/javascripts/util/transform.js" type="text/javascript"></script>
+   <script src="assets/javascripts/plot_it.js" type="text/javascript"></script>
 
-    <!-- KO components -->
-    <script src="assets/javascripts/components/filters/text_filter.js" type="text/javascript"></script>
-    <script src="assets/javascripts/components/filters/date_filter.js" type="text/javascript"></script>
-    <script src="assets/javascripts/components/filters/checklist_filter.js" type="text/javascript"></script>
-    <script src="assets/javascripts/components/filters/filter_reset.js" type="text/javascript"
-            rel="stylesheet"></script>
-    <script src="assets/javascripts/components/tab_pane.js" type="text/javascript"></script>
-    <script src="assets/javascripts/components/expander.js" type="text/javascript"></script>
-    <script src="assets/javascripts/components/spotlight.js" type="text/javascript"></script>
-    <script src="assets/javascripts/components/timeline.js" type="text/javascript"></script>
-    <script src="assets/javascripts/components/map.js" type="text/javascript"></script>
-    <script src="assets/javascripts/components/grid.js" type="text/javascript"></script>
-    <script src="assets/javascripts/components/loading.js" type="text/javascript"></script>
+   <!-- KO components -->
+   <script src="assets/javascripts/components/filters/text_filter.js" type="text/javascript"></script>
+   <script src="assets/javascripts/components/filters/date_filter.js" type="text/javascript"></script>
+   <script src="assets/javascripts/components/filters/checklist_filter.js" type="text/javascript"></script>
+   <script src="assets/javascripts/components/filters/filter_reset.js" type="text/javascript"
+           rel="stylesheet"></script>
+   <script src="assets/javascripts/components/tab_pane.js" type="text/javascript"></script>
+   <script src="assets/javascripts/components/expander.js" type="text/javascript"></script>
+   <script src="assets/javascripts/components/spotlight.js" type="text/javascript"></script>
+   <script src="assets/javascripts/components/timeline.js" type="text/javascript"></script>
+   <script src="assets/javascripts/components/map.js" type="text/javascript"></script>
+   <script src="assets/javascripts/components/grid.js" type="text/javascript"></script>
+   <script src="assets/javascripts/components/loading.js" type="text/javascript"></script>
 </head>
 <body>
 
 <loading_overlay></loading_overlay>
 
 <section id="sidebar">
-    <header>
-        <a href="/">Plot-It</a>
-    </header>
+   <header>
+      <a href="/">Plot-It</a>
+   </header>
 
-    <section>
-        <div id="filters">
-            <text_filter params="label: 'Search', placeholder: 'eg. Rocky Mountains'"></text_filter>
+   <section>
+      <div id="filters">
+         <text_filter params="label: 'Search', placeholder: 'eg. Rocky Mountains'"></text_filter>
 
-            <date_filter params="label: 'Date Range'"></date_filter>
+         <date_filter params="label: 'Date Range'"></date_filter>
 
 
-            <checklist_filter params="label: 'Collection', field: 'group'"></checklist_filter>
-            <checklist_filter params="label: 'Event Type', field: 'eventType'"></checklist_filter>
-        </div>
+         <checklist_filter params="label: 'Collection', field: 'group'"></checklist_filter>
+         <checklist_filter params="label: 'Event Type', field: 'eventType'"></checklist_filter>
+      </div>
 
-        <hr/>
+      <hr />
 
-        <filter_reset params="label: 'Reset All', filterGroupId: 'filters'"></filter_reset>
-    </section>
+      <filter_reset params="label: 'Reset All', filterGroupId: 'filters'"></filter_reset>
+   </section>
 
-    <section>
-        <header>How to use search</header>
-        <p>
-            Search below by choosing a facet or typing keywords. To restart your search, click on "Reset all Filters"
-            above the map.
-        </p>
+   <section>
+      <header>How to use search</header>
+      <p>
+         Search below by choosing a facet or typing keywords. To restart your search, click on "Reset all Filters"
+         above the map.
+      </p>
 
-        <p>
-            <a id="help" href="http://cwrc.ca/Plot-It_Documentation" target="_blank">Help...</a>
-        </p>
-    </section>
+      <p>
+         <a id="help" href="http://cwrc.ca/Plot-It_Documentation" target="_blank">Help...</a>
+      </p>
+   </section>
 
-    <section>
-        <header>
-            Project team members
-        </header>
-        <p>
-            Jeffery Antoniuk, Brittney Broder, Susan Brown, Michael Brundin, Lisa Dublin, Isobel Grundy, Kathryn
-            Holland, Mihaela Ilovan, Hamman Samuel, <a href="http://tenjin.ca" target="_blank">Tenjin</a>, Kristina
-            Vyskocil, and Willow White
-        </p>
-    </section>
+   <section>
+      <header>
+         Project team members
+      </header>
+      <p>
+         Jeffery Antoniuk, Brittney Broder, Susan Brown, Michael Brundin, Lisa Dublin, Isobel Grundy, Kathryn
+         Holland, Mihaela Ilovan, Hamman Samuel, <a href="http://tenjin.ca" target="_blank">Tenjin</a>, Kristina
+         Vyskocil, and Willow White
+      </p>
+   </section>
 </section>
 
 <main>
-    <expander params="expandedText: 'Hide Timeline', collapsedText: 'Show Timeline'">
-        <timeline params="startDate: '1964'"></timeline>
-    </expander>
+   <expander params="expandedText: 'Hide Timeline', collapsedText: 'Show Timeline'">
+      <timeline params="startDate: '1964'"></timeline>
+   </expander>
 
-    <spotlight></spotlight>
+   <spotlight></spotlight>
 
-    <style>
-        grid .grid-Start,
-        grid .grid-End {
-            white-space: nowrap;
-        }
-    </style>
-    <expander>
-        <tab_pane>
-            <map data-tab-label="Map View" params="center: '38.479394673276445, -115.361328125',
-                                        zoom: 3,
-                                        colorKey: 'group',
-                                        colors: {BIBLIFO: '#f00', Multimedia: '#0f0', OrlandoEvents: '#00f', LGLC: '#ff0'},
-                                        opacity: '0.5',
-                                        markerWidth: 18,
-                                        markerHeight: 18">
-            </map>
-            <grid data-tab-label="Grid View" params="columns: {'Event': 'label',
-                                        'Collection': 'group',
-                                        'Location': 'location',
-                                        'Lat/Lng': 'latLng',
-                                        'Start': 'startDate',
-                                        'End': 'endDate'},
-                              initialSortBy: ['group', 'label-za']">
-            </grid>
-        </tab_pane>
-    </expander>
+   <style>
+      grid .grid-Start,
+      grid .grid-End {
+         white-space: nowrap;
+      }
+   </style>
+   <expander>
+      <tab_pane>
+         <map data-tab-label="Map View" params="center: '38.479394673276445, -115.361328125',
+                                                    zoom: 3,
+                                                    colorKey: 'group',
+                                                    colors: {BIBLIFO: '#f00', Multimedia: '#0f0', OrlandoEvents: '#00f', LGLC: '#ff0'},
+                                                    opacity: '0.5',
+                                                    markerWidth: 18,
+                                                    markerHeight: 18">
+         </map>
+         <grid data-tab-label="Grid View" params="columns: {'Event': 'label',
+                                                                'Collection': 'group',
+                                                                'Location': 'location',
+                                                                'Lat/Lng': 'latLng',
+                                                                'Start': 'startDate',
+                                                                'End': 'endDate'},
+                                                                initialSortBy: ['group', 'label-za']">
+         </grid>
+      </tab_pane>
+   </expander>
 </main>
 
 
@@ -149,23 +149,23 @@
 -->
 <div id="templates" style="display:none;">
 
-    <!--
-    ===============================================
-                       Spotlight
-    ===============================================
-    -->
-    <template id="spotlight-template">
-        <section data-bind="if: selected() == null, visible: selected() == null">
-            <p class="placeholder">
-                Click an event in the timeline or map to see details
-            </p>
-        </section>
-        <section data-bind="if: selected() != null, visible: selected() != null">
-            <img data-bind="visible: selected().images, src: selected().images"/>
-            <iframe allowfullscreen=true data-bind="visible: selected().videos, src: selected().videos">
-            </iframe>
-            <div>
-                <header>
+   <!--
+   ===============================================
+                      Spotlight
+   ===============================================
+   -->
+   <template id="spotlight-template">
+      <section data-bind="if: selected() == null, visible: selected() == null">
+         <p class="placeholder">
+            Click an event in the timeline or map to see details
+         </p>
+      </section>
+      <section data-bind="if: selected() != null, visible: selected() != null">
+         <img data-bind="visible: selected().images, src: selected().images" />
+         <iframe allowfullscreen=true data-bind="visible: selected().videos, src: selected().videos">
+         </iframe>
+         <div>
+            <header>
                     <span data-bind="if: selected().startDate">
                         <span data-bind="html: selected().startDate"></span>
                         <span data-bind="if: selected().endDate">
@@ -180,144 +180,146 @@
                     <span data-bind="if: selected().link">
                       <a target="_blank" data-bind="html: 'link' , attr: { href: selected().link}"></a>
                     </span>
-                </header>
-                <section>
-                    <header>
-                        <span data-bind="html: selected().longLabel"></span>
-                    </header>
-                    <span data-bind="html: selected().description"></span>
+            </header>
+            <section>
+               <header>
+                  <span data-bind="html: selected().longLabel"></span>
+               </header>
+               <span data-bind="html: selected().description"></span>
 
-                    <p data-bind="if: selected().urls">
-                        <a target="_blank" data-bind="href: selected().urls">More...</a>
-                    </p>
+               <p data-bind="if: selected().urls">
+                  <a target="_blank" data-bind="href: selected().urls">More...</a>
+               </p>
 
-                    <!-- ko if: selected().citations -->
-                    <div>Sources:</div>
-                    <p data-bind="html: selected().citations">
-                    </p>
-                    <!-- /ko -->
+               <!-- ko if: selected().citations -->
+               <div>Sources:</div>
+               <p data-bind="html: selected().citations">
+               </p>
+               <!-- /ko -->
 
-                    <p data-bind="if: selected().source">
-                        <a target="_blank" data-bind="href: selected().source">(Source)</a>
-                    </p>
-                </section>
-            </div>
-        </section>
-    </template>
+               <p data-bind="if: selected().source">
+                  <a target="_blank" data-bind="href: selected().source">(Source)</a>
+               </p>
+            </section>
+         </div>
+      </section>
+   </template>
 
-    <!--
-    ===============================================
-                      Timeline
-    ===============================================
-    -->
-    <template id="timeline-template">
-        <section>
-            <div>
-                <span data-bind="text: unplottableCount"></span>
-                of
-                <span data-bind="text: CWRC.rawData().length"></span>
-                lack time data
-            </div>
-        </section>
-        <div data-bind="event: { mousedown: dragStart, touchstart: dragStart }">
-            <section id="timeline-viewport" data-bind="event: {wheel: scrollHandler}">
-                <div class="canvas" data-bind="foreach: timelineRows,
+   <!--
+   ===============================================
+                     Timeline
+   ===============================================
+   -->
+   <template id="timeline-template">
+      <section>
+         <div>
+            <span data-bind="text: unplottableCount"></span>
+            of
+            <span data-bind="text: CWRC.rawData().length"></span>
+            lack time data
+         </div>
+      </section>
+      <div data-bind="event: { mousedown: dragStart, touchstart: dragStart }">
+         <section id="timeline-viewport" data-bind="event: {wheel: scrollHandler}">
+            <div class="canvas" data-bind="foreach: timelineRows,
                                                            style: {
                                                                     width: canvasWidth,
                                                                     transform: zoomTransform,
                                                                     '-ms-transform': zoomTransform,
                                                                     '-webkit-transform': zoomTransform
                                                                   }">
-                    <div class="row" data-bind="foreach: $data">
-                        <a href="#" class="event" data-bind="css: { selected: $parents[1].isSelected($data) },
+               <div class="row" data-bind="foreach: $data">
+                  <a href="#" class="event" data-bind="css: { selected: $parents[1].isSelected($data) },
                                                              style: {
                                                                         left: $parents[1].getPinInfo($data).xPos,
                                                                         width: $parents[1].getPinInfo($data).width,
                                                                         color: $data.endDate ? 'red' : 'black'
                                                                     },
                                                              event: {mouseup: $parents[1].recordMouseUp, mousedown: $parents[1].recordMouseDown}">
-                            <span data-bind="text: $data.startDate"></span>
-                            <span data-bind="html: $data.label"></span>
-                        </a>
-                    </div>
-                </div>
-            </section>
-            <!-- Ruler disabled until further production available
-                        <section id="timeline-ruler">
-                            <div data-bind="foreach: years,
-                                            style: {
-                                                        width: canvasWidth,
-                                                        transform: rulerTransform
-                                                    }">
-                                <div data-bind="text: $data,
-                                                style: {
-                                                         left: $parent.labelPosition($data),
-                                                         width: $parent.labelSize - $parent.lineThickness,
-                                                        'border-left-width': $parent.lineThickness
-                                                }"></div>
-                            </div>
-                        </section>-->
-        </div>
-    </template>
-
-
-    <!--
-    ===============================================
-                         Grid
-    ===============================================
-    -->
-    <template id="grid-template">
-        <div id="gridSorting">
-            Sort <span data-bind="visible: sortContexts().length > 0">by</span>
-            <!-- Building a "widget" for editing each sorting context-->
-            <div data-bind="foreach: sortContexts">
-                <div>
-                    <select data-bind="options: $parent.allFields, optionsText: 'name', optionsValue: 'name', optionsCaption:'Choose...', value: $data.name"></select>
-                    <a href="#"
-                       data-bind="click: function() { $data.reverse() }, text: $data.getFieldDirectionLabel()"></a>
-                    <a href="#" data-bind="click: function() { $parent.removeSortBy($data) }">x</a>
-                </div>
+                     <span data-bind="text: $data.startDate"></span>
+                     <span data-bind="html: $data.label"></span>
+                  </a>
+               </div>
             </div>
+         </section>
+         <!-- Ruler disabled until further production available
+                     <section id="timeline-ruler">
+                         <div data-bind="foreach: years,
+                                         style: {
+                                                     width: canvasWidth,
+                                                     transform: rulerTransform
+                                                 }">
+                             <div data-bind="text: $data,
+                                             style: {
+                                                      left: $parent.labelPosition($data),
+                                                      width: $parent.labelSize - $parent.lineThickness,
+                                                     'border-left-width': $parent.lineThickness
+                                             }"></div>
+                         </div>
+                     </section>-->
+      </div>
+   </template>
 
-            <a href="#" title="Add Sorting Rule" data-bind="click: addContext ">by...</a>
-        </div>
 
-        <table>
-            <!-- explicit thead & tbody are important, otherwise the browser assumes incorrect things-->
-            <thead>
-            <tr>
-                <th></th>
-                <!-- ko foreach: Object.keys(columns) -->
-                <th data-bind="text: $data">
-                </th>
-                <!-- /ko -->
-            </tr>
-            </thead>
-            <tbody data-bind="foreach: {data: itemsOnCurrentPage, as: 'item'}">
-            <tr data-bind="">
-                <td>
-                    <a href="#" data-bind="click: function(){ CWRC.selected(item)}">
-                        View
-                    </a>
-                </td>
+   <!--
+   ===============================================
+                        Grid
+   ===============================================
+   -->
+   <template id="grid-template">
+      <div id="gridSorting">
+         Sort <span data-bind="visible: sortContexts().length > 0">by</span>
+         <!-- Building a "widget" for editing each sorting context-->
+         <div data-bind="foreach: sortContexts">
+            <div>
+               <select
+                     data-bind="options: $parent.allFields, optionsText: 'name', optionsValue: 'name', optionsCaption:'Choose...', value: $data.name"></select>
+               <a href="#"
+                  data-bind="click: function() { $data.reverse() }, text: $data.getFieldDirectionLabel()"></a>
+               <a href="#" data-bind="click: function() { $parent.removeSortBy($data) }">x</a>
+            </div>
+         </div>
 
-                <!-- ko foreach: {data: Object.keys($parent.columns), as: 'columnLabel'} -->
-                <td data-bind="html: item[$parents[1].columns[columnLabel]] || 'n/a', css: $parents[1].getColumnClass(columnLabel)">
-                </td>
-                <!-- /ko -->
-                <td>
-                    <a target="_blank" data-bind="attr: {href: item['link']}">
-                        Link
-                    </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+         <a href="#" title="Add Sorting Rule" data-bind="click: addContext ">by...</a>
+      </div>
 
-        <section data-bind="visible: maxPageIndex() > 1">
+      <table>
+         <!-- explicit thead & tbody are important, otherwise the browser assumes incorrect things-->
+         <thead>
+         <tr>
+            <th></th>
+            <!-- ko foreach: Object.keys(columns) -->
+            <th data-bind="text: $data">
+            </th>
+            <!-- /ko -->
+         </tr>
+         </thead>
+         <tbody data-bind="foreach: {data: itemsOnCurrentPage, as: 'item'}">
+         <tr data-bind="">
+            <td>
+               <a href="#" data-bind="click: function(){ CWRC.selected(item)}">
+                  View
+               </a>
+            </td>
+
+            <!-- ko foreach: {data: Object.keys($parent.columns), as: 'columnLabel'} -->
+            <td data-bind="html: item[$parents[1].columns[columnLabel]] || 'n/a', css: $parents[1].getColumnClass(columnLabel)">
+            </td>
+            <!-- /ko -->
+            <td>
+               <a target="_blank" data-bind="attr: {href: item['link']}">
+                  Link
+               </a>
+            </td>
+         </tr>
+         </tbody>
+      </table>
+
+      <section class="pageControls" data-bind="visible: maxPageIndex() > 1">
            <span data-bind="visible: isFarAway(1)">
                 <a href="#"
-                   data-bind="text: 1, click: function(){ setPage(1) }, attr: {selected: currentPageIndex() == 1}"></a>
+                   data-bind="click: function(){ setPage(1) },
+                              attr: {selected: currentPageIndex() == 1}">1</a>
                 <span data-bind="visible: isFarAway(2)">
                     ...
                 </span>
@@ -331,116 +333,118 @@
                     ...
                 </span>
                 <a href="#"
-                   data-bind="text: maxPageIndex, click: function(){ setPage(maxPageIndex()) }, attr: {selected: currentPageIndex() == maxPageIndex()}"></a>
+                   data-bind="text: maxPageIndex,
+                              click: function(){ setPage(maxPageIndex()) },
+                              attr: {selected: currentPageIndex() == maxPageIndex()}"></a>
            </span>
-        </section>
-    </template>
+      </section>
+   </template>
 
 
-    <!--
-    ===============================================
-                        Map
-    ===============================================
-    -->
-    <template id="map-template">
-        <section>
-            <div class="unplottable">
-                <span data-bind="text: unplottableCount"></span>
-                of
-                <span data-bind="text: CWRC.rawData().length"></span>
-                lack map data
-            </div>
-        </section>
-        <div id="historicalMapControls" title="Click to toggle the historical map">
+   <!--
+   ===============================================
+                       Map
+   ===============================================
+   -->
+   <template id="map-template">
+      <section>
+         <div class="unplottable">
+            <span data-bind="text: unplottableCount"></span>
+            of
+            <span data-bind="text: CWRC.rawData().length"></span>
+            lack map data
+         </div>
+      </section>
+      <div id="historicalMapControls" title="Click to toggle the historical map">
+         <label>
+            <input type="checkbox" data-bind="checked: showHistoricalMap">
+            <span>Historical Map</span>
+         </label>
+         <label id="historicalOpacityControls" data-bind="visible: showHistoricalMap">
+            <span>Opacity</span>
+            <input id="historicalMapOpacity" type="range" min="0.0" max="1.0" step="0.05"
+                   data-bind="value: historicalMapOpacity" />
+         </label>
+      </div>
+      <!-- identifying by ID does limit to one map per page, but that works for now -->
+      <div id="map_canvas">
+      </div>
+      <section data-bind="visible: colorTable.hasMapping()">
+         <header>Legend</header>
+         <!-- ko foreach: colorTable.getLegendPairs() -->
+         <div>
+            <img data-bind="src: $data.icon"></span>
+            <span data-bind="text: $data.name"></span>
+         </div>
+         <!-- /ko -->
+      </section>
+   </template>
+
+   <!--
+   ===============================================
+                     Tab Pane
+   ===============================================
+   -->
+   <template id="tab-pane-template">
+      <header>
+         <form data-bind="foreach: views">
             <label>
-                <input type="checkbox" data-bind="checked: showHistoricalMap">
-                <span>Historical Map</span>
+               <input type="radio" name="tabset" data-bind="checked: $parent.currentView,
+                                                             value: $index()" />
+               <span data-bind="text: $parent.tabName($data, $index())"></span>
             </label>
-            <label id="historicalOpacityControls" data-bind="visible: showHistoricalMap">
-                <span>Opacity</span>
-                <input id="historicalMapOpacity" type="range" min="0.0" max="1.0" step="0.05"
-                       data-bind="value: historicalMapOpacity"/>
-            </label>
-        </div>
-        <!-- identifying by ID does limit to one map per page, but that works for now -->
-        <div id="map_canvas">
-        </div>
-        <section data-bind="visible: colorTable.hasMapping()">
-            <header>Legend</header>
-            <!-- ko foreach: colorTable.getLegendPairs() -->
-            <div>
-                <img data-bind="src: $data.icon"></span>
-                <span data-bind="text: $data.name"></span>
-            </div>
-            <!-- /ko -->
-        </section>
-    </template>
+         </form>
+      </header>
+      <div data-bind="foreach: views">
+         <div data-bind="visible: $parent.isView($index()), template: {nodes: [$data]}">
+         </div>
+      </div>
+   </template>
 
-    <!--
-    ===============================================
-                      Tab Pane
-    ===============================================
-    -->
-    <template id="tab-pane-template">
-        <header>
-            <form data-bind="foreach: views">
-                <label>
-                    <input type="radio" name="tabset" data-bind="checked: $parent.currentView,
-                                                             value: $index()"/>
-                    <span data-bind="text: $parent.tabName($data, $index())"></span>
-                </label>
-            </form>
-        </header>
-        <div data-bind="foreach: views">
-            <div data-bind="visible: $parent.isView($index()), template: {nodes: [$data]}">
-            </div>
-        </div>
-    </template>
-
-    <!--
-    ===============================================
-                     Error Status
-    ===============================================
-    -->
-    <template id="status-template">
-        <div data-bind="visible: hasMessages()">
-            <section data-bind="visible: notices().length > 0">
-                <ul>
-                    <!-- ko foreach: notices() -->
-                    <li>
-                        <span data-bind="text: $data"></span>
-                        <a href="#" data-bind="visible: $parent.dismissable,
+   <!--
+   ===============================================
+                    Error Status
+   ===============================================
+   -->
+   <template id="status-template">
+      <div data-bind="visible: hasMessages()">
+         <section data-bind="visible: notices().length > 0">
+            <ul>
+               <!-- ko foreach: notices() -->
+               <li>
+                  <span data-bind="text: $data"></span>
+                  <a href="#" data-bind="visible: $parent.dismissable,
                                                            click: function(){ $parent.notices.splice($index(), 1)}">X</a>
-                    </li>
-                    <!-- /ko -->
-                </ul>
-            </section>
-            <section data-bind="visible: warnings().length > 0">
-                <header>Warning</header>
-                <p data-bind="text: warningFlavour(), visible: warningFlavour()"></p>
-                <ul>
-                    <!-- ko foreach: warnings() -->
-                    <li>
-                        <span data-bind="text: $data"></span>
-                        <a href="#" data-bind="visible: $parent.dismissable,
+               </li>
+               <!-- /ko -->
+            </ul>
+         </section>
+         <section data-bind="visible: warnings().length > 0">
+            <header>Warning</header>
+            <p data-bind="text: warningFlavour(), visible: warningFlavour()"></p>
+            <ul>
+               <!-- ko foreach: warnings() -->
+               <li>
+                  <span data-bind="text: $data"></span>
+                  <a href="#" data-bind="visible: $parent.dismissable,
                                                            click: function(){ $parent.warnings.splice($index(), 1)}">X</a>
-                    </li>
-                    <!-- /ko -->
-                </ul>
-            </section>
-            <section data-bind="visible: errors().length > 0">
-                <ul>
-                    <!-- ko foreach: errors() -->
-                    <li>
-                        <span data-bind="text: $data"></span>
-                        <a href="#" data-bind="visible: $parent.dismissable,
+               </li>
+               <!-- /ko -->
+            </ul>
+         </section>
+         <section data-bind="visible: errors().length > 0">
+            <ul>
+               <!-- ko foreach: errors() -->
+               <li>
+                  <span data-bind="text: $data"></span>
+                  <a href="#" data-bind="visible: $parent.dismissable,
                                                            click: function(){ $parent.errors.splice($index(), 1)}">X</a>
-                    </li>
-                    <!-- /ko -->
-                </ul>
-            </section>
-        </div>
-    </template>
+               </li>
+               <!-- /ko -->
+            </ul>
+         </section>
+      </div>
+   </template>
 
 </div>
 </body>

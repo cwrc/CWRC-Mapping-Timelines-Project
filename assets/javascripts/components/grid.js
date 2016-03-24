@@ -123,7 +123,7 @@ ko.components.register('grid', {
             return Math.ceil(self.items().length / self.pageSize);
         });
 
-        self.pageNeighbourhoodDistance = 1;
+        self.pageNeighbourhoodDistance = 2;
         self.pageNeighbourhood = ko.pureComputed(function () {
             var low = Math.max(1, self.currentPageIndex() - self.pageNeighbourhoodDistance);
             var high = Math.min(self.maxPageIndex(), self.currentPageIndex() + self.pageNeighbourhoodDistance);
