@@ -285,10 +285,13 @@ ko.components.register('map', {
                     itemsToTokens = this.itemsToTokens;
 
                     if (!(items instanceof Array))
-                        items = [ko.toJSON(items)];
+                        items = [items];
 
-                    values = items.map(function (key) {
-                        return itemsToTokens[key];
+                    values = items.map(function (item) {
+                        if (!(typeof item == 'string'))
+                            item = ko.toJSON(item);
+
+                        return itemsToTokens[item];
                     });
 
                     // smoosh the array of arrays flat.
@@ -305,25 +308,19 @@ ko.components.register('map', {
 
         // Not an actual display property.
         // It's a computed to allow it to observe both CWRC.filteredData and self.itemsToTokens
-        self.visibleMarkers = ko.computed(function () {
-            var visibleItems, visibleTokens, itemsToTokens, tokens;
+        self.visibleTokens = ko.computed(function () {
+            var allTokens, visibleTokens, itemsToTokens;
 
             itemsToTokens = self.itemsToTokens();
 
-            itemsToTokens.getAllTokens().forEach(function (token) {
+            allTokens = itemsToTokens.getAllTokens();
+            allTokens.forEach(function (token) {
                 token.setVisible(false);
             });
 
-            visibleItems = CWRC.filteredData();
-            visibleTokens = [];
-
-            visibleItems.forEach(function (visibleItem) {
-                tokens = itemsToTokens.getTokens(visibleItem) || [];
-
-                tokens.forEach(function (token) {
-                    token.setVisible(true);
-                    visibleTokens.push(token);
-                });
+            visibleTokens = itemsToTokens.getTokens(CWRC.filteredData());
+            visibleTokens.forEach(function (token) {
+                token.setVisible(true);
             });
 
             return visibleTokens;
