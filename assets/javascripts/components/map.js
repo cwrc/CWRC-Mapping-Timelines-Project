@@ -379,20 +379,17 @@ CWRC.Map.TokenBuilder.prototype.buildMarker = function (position, item, stackSiz
  * @returns {*[]} The constructed Polyline
  */
 CWRC.Map.TokenBuilder.prototype.buildPolylineForItem = function (item) {
-    var coordinates, pathPts, line, color;
+    var coordinates, pathPts, line, color, pointParts;
 
     color = this.colorTable.getColor(item);
     coordinates = [];
 
-    if (typeof item.polyline == 'string')
-        pathPts = item.polyline.split('|');
-    else
-        pathPts = item.polyline;
+    pathPts = (typeof item.polyline == 'string') ? item.polyline.split('|') : item.polyline;
 
     pathPts.forEach(function (point) {
-        var parts = point.split(',');
+        pointParts = point.split(',');
 
-        coordinates.push({lng: parseFloat(parts[0]), lat: parseFloat(parts[1])})
+        coordinates.push({lng: parseFloat(pointParts[0]), lat: parseFloat(pointParts[1])})
     });
 
     line = new google.maps.Polyline({
@@ -436,17 +433,14 @@ CWRC.Map.TokenBuilder.prototype.buildPolylineForItem = function (item) {
  * @returns {*[]} The constructed Polygon
  */
 CWRC.Map.TokenBuilder.prototype.buildPolygonForItem = function (item) {
-    var coordinates, vertecies, shape, plainColor;
+    var coordinates, vertecies, vertexParts, shape, plainColor;
 
     coordinates = [];
 
-    if (typeof item.polygon == 'string')
-        vertecies = item.polygon.split('|');
-    else
-        vertecies = item.polygon;
+    vertecies = (typeof item.polygon == 'string') ? item.polygon.split('|') : item.polygon;
 
     vertecies.forEach(function (vertexString) {
-        var vertexParts = vertexString.split(',');
+        vertexParts = vertexString.split(',');
 
         coordinates.push({
             lng: parseFloat(vertexParts[0]),
@@ -494,6 +488,9 @@ CWRC.Map.TokenBuilder.prototype.buildPolygonForItem = function (item) {
     return [shape];
 };
 
+
+
+
 // === Token Mapper ===
 /**
  * Constructs a new token mapper.
@@ -507,6 +504,7 @@ CWRC.Map.ItemTokenMapper = function (tokenBuilder) {
         return aggregate;
     }, {});
 };
+
 
 /**
  * Gets the tokens mapped to the given item, or item list.
@@ -535,9 +533,16 @@ CWRC.Map.ItemTokenMapper.prototype.getTokens = function (items) {
     }, []);
 };
 
+
+/**
+ * Returns all tokens for all items.
+ *
+ * @returns {Array}
+ */
 CWRC.Map.ItemTokenMapper.prototype.getAllTokens = function () {
     return this.getTokens(Object.keys(this.itemsToTokens))
 };
+
 
 
 // === COLOR MAP ===
