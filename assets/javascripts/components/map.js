@@ -161,7 +161,7 @@ ko.components.register('map', {
         });
 
         self.unplottableCount = ko.pureComputed(function () {
-            return CWRC.rawData().length - self.spiderfier.getMarkers().length;
+            return CWRC.rawData().length - self.itemsToTokens().getAllTokens().length;
         });
 
         self._selectedTokens = [];
