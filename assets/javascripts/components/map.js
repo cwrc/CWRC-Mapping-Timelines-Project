@@ -44,37 +44,13 @@ ko.components.register('map', {
 
         self.spiderfier.addListener('spiderfy', function (markers, event) {
             markers.forEach(function (marker) {
-                var icon;
-
-                marker.cwrc.spiderfied = true;
-
-                if (marker.cwrc.selected())
-                    icon = marker.cwrc.selectedIcon;
-                else if (marker.cwrc.spiderfied)
-                    icon = marker.cwrc.plainIcon;
-                else
-                    icon = marker.cwrc.stackedIcon;
-
-
-                marker.setIcon(icon);
+                marker.cwrc.spiderfied(true);
             });
         });
 
         self.spiderfier.addListener('unspiderfy', function (markers, event) {
             markers.forEach(function (marker) {
-                var icon;
-
-                marker.cwrc.spiderfied = false;
-
-                if (marker.cwrc.selected())
-                    icon = marker.cwrc.selectedIcon;
-                else if (marker.cwrc.spiderfied)
-                    icon = marker.cwrc.plainIcon;
-                else
-                    icon = marker.cwrc.stackedIcon;
-
-
-                marker.setIcon(icon);
+                marker.cwrc.spiderfied(false);
             });
         });
 
@@ -330,38 +306,39 @@ CWRC.Map.TokenBuilder.prototype.buildMarker = function (position, item, stackSiz
 
     marker = new google.maps.Marker({
         position: position,
-        map: this.map,
-        icon: stackedIcon
+        map: this.map
     });
 
     marker.cwrc = {
         item: item,
         originalPosition: position,
-        stackedIcon: stackedIcon,
-        selectedIcon: selectedIcon,
-        plainIcon: plainIcon,
         selected: ko.observable(false),
+        spiderfied: ko.observable(false),
         getPoints: function () {
             return [position];
         }
     };
 
-    marker.cwrc.selected.subscribe(function (isSelected) {
+    marker.cwrc.updateIcon = ko.computed(function () {
+        var isSelected = marker.cwrc.selected();
+        var isSpiderfied = marker.cwrc.spiderfied();
+
         if (isSelected) {
-            marker.setIcon(marker.cwrc.selectedIcon);
+            marker.setIcon(selectedIcon);
             marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
+
         } else {
-            var icon;
-
-            if (marker.cwrc.spiderfied)
-                icon = marker.cwrc.plainIcon;
-            else
-                icon = marker.cwrc.stackedIcon;
-
-            marker.setIcon(icon);
             marker.setZIndex(null);
+
+            if (isSpiderfied)
+                marker.setIcon(plainIcon);
+            else
+                marker.setIcon(stackedIcon); // not selected && not spiderfied
         }
     });
+
+    marker.cwrc.selected(false);
+    marker.cwrc.spiderfied(false);
 
     spiderfier.addMarker(marker);
 
@@ -489,8 +466,6 @@ CWRC.Map.TokenBuilder.prototype.buildPolygonForItem = function (item) {
 };
 
 
-
-
 // === Token Mapper ===
 /**
  * Constructs a new token mapper.
@@ -542,7 +517,6 @@ CWRC.Map.ItemTokenMapper.prototype.getTokens = function (items) {
 CWRC.Map.ItemTokenMapper.prototype.getAllTokens = function () {
     return this.getTokens(Object.keys(this.itemsToTokens))
 };
-
 
 
 // === COLOR MAP ===
