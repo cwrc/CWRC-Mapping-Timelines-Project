@@ -166,7 +166,7 @@ ko.components.register('map', {
 
         self._selectedTokens = [];
         CWRC.selected.subscribe(function () {
-            var newSelectedTokens, bounds, pointCount;
+            var newSelectedTokens, bounds, pointCount, withinViewport;
 
             newSelectedTokens = self.itemsToTokens().getTokens(CWRC.selected());
 
@@ -190,11 +190,12 @@ ko.components.register('map', {
                 self._selectedTokens.push(token);
             });
 
-            // using two separate behaviours because fitBounds on a point zooms in far too much
-            if (pointCount > 1)
-                self.map.fitBounds(bounds);
-            else if (pointCount > 0)
-                self.map.panTo(bounds.getCenter());
+            withinViewport = self.map.getBounds().contains(bounds.getNorthEast()) &&
+                self.map.getBounds().contains(bounds.getSouthWest());
+
+            // using two separate behaviours because fitBounds(singlePoint) zooms in far too much
+            if (pointCount > 0 && !withinViewport)
+                pointCount > 1 ? self.map.fitBounds(bounds) : self.map.panTo(bounds.getCenter());
         });
 
         // ===  Historical Map ===
