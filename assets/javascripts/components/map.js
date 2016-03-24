@@ -42,206 +42,14 @@ ko.components.register('map', {
             spiralLengthFactor: 5.75  // 4               # interdependant. Good luck playing with them.
         });
 
-        self.positionsToItemCounts = ko.computed(function () {
-            var latLng, positionsToItemCounts;
-
-            positionsToItemCounts = Object.create(null);
-
-            CWRC.rawData().forEach(function (item) {
-                latLng = item.latLng;
-
-                if (latLng) {
-                    latLng = latLng.constructor === Array ? latLng : [latLng];
-
-                    latLng.forEach(function (pos) {
-                        positionsToItemCounts[pos] = positionsToItemCounts[pos] + 1 || 1;
-                    });
-                }
-            });
-
-            return positionsToItemCounts;
-        });
-
-        self.buildMapTokens = function (item, map, colorTable) {
-            var drawMode = item.pointType;
-
-            if (/polygon/i.test(drawMode)) {
-                return self.buildPolygonForItem(item, map, colorTable);
-            } else if (/polyline|path/i.test(drawMode)) {
-                return self.buildPolylineForItem(item, map, colorTable);
-            } else {
-                return self.buildMarkersForItem(item, map, colorTable);
+        self.tokenBuilder = new CWRC.Map.TokenBuilder({
+            colorTable: self.colorTable,
+            pin: {
+                width: self.pinWidth,
+                height: self.pinHeight,
+                spiderfier: self.spiderfier
             }
-        };
-
-        self.buildMarkersForItem = function (item, map, colorTable) {
-            var latLng, positions, createdMarkers;
-
-            latLng = item.latLng;
-
-            if (!item.latLng || item.latLng.length == 0)
-                return [];
-
-            // some items are single-pos, some multiple. Coerce to multi for consistency.
-            positions = typeof latLng == 'string' ? [latLng] : latLng;
-            createdMarkers = [];
-
-            positions.forEach(function (positionString) {
-                var plainIcon, stackedIcon, selectedIcon, marker, stackSize, position, color;
-
-                stackSize = self.positionsToItemCounts()[positionString];
-
-                color = colorTable.getColor(item);
-
-                plainIcon = CWRC.createMarkerIcon({
-                    width: self.pinWidth,
-                    height: self.pinHeight,
-                    color: self.colorTable.getColor(item),
-                    label: '',
-                    settings: {shape: "circle"}
-                });
-
-                stackedIcon = CWRC.createMarkerIcon({
-                    width: self.pinWidth * (Math.pow(stackSize, 1 / 10)),
-                    height: self.pinHeight * (Math.pow(stackSize, 1 / 10)),
-                    color: stackSize > 1 ? colorTable.getDefaultColor() : color,
-                    label: stackSize > 1 ? stackSize : '',
-                    settings: {shape: 'circle'}
-                });
-
-                selectedIcon = CWRC.createMarkerIcon({
-                    width: self.pinWidth,
-                    height: self.pinHeight,
-                    color: color,
-                    label: '',
-                    settings: {shape: 'circle'},
-                    isSelected: true
-                });
-
-                position = CWRC.Transform.parseLatLng(positionString);
-
-                marker = new google.maps.Marker({
-                    position: position,
-                    map: map,
-                    icon: stackedIcon
-                });
-
-                createdMarkers.push(marker);
-
-                self.spiderfier.addMarker(marker);
-
-                marker.cwrc = {
-                    item: item,
-                    originalPosition: position,
-                    stackedIcon: stackedIcon,
-                    selectedIcon: selectedIcon,
-                    plainIcon: plainIcon,
-                    selected: false
-                };
-            });
-
-            return createdMarkers;
-        };
-
-        self.buildPolylineForItem = function (item, map, colorTable) {
-            var coordinates, pathPts, line;
-
-            coordinates = [];
-
-            if (typeof item.polyline == 'string')
-                pathPts = item.polyline.split('|');
-            else
-                pathPts = item.polyline;
-
-            pathPts.forEach(function (point) {
-                var parts = point.split(',');
-
-                coordinates.push({lng: parseFloat(parts[0]), lat: parseFloat(parts[1])})
-            });
-
-            line = new google.maps.Polyline({
-                path: coordinates,
-                geodesic: true,
-                strokeOpacity: 1.0,
-                map: map
-            });
-
-            line.cwrc = {
-                item: item,
-                plainDrawingOptions: {
-                    strokeColor: colorTable.getColor(item),
-                    strokeWeight: 2
-                },
-                selectedDrawingOptions: {
-                    strokeColor: '#FF0000',
-                    strokeWeight: 3
-                },
-                selected: false,
-                setSelected: function (isSelected) {
-
-                }
-            };
-
-            line.setOptions(line.cwrc.plainDrawingOptions);
-
-            line.addListener('click', function (event) {
-                CWRC.selected(item);
-            });
-
-            return [line];
-        };
-
-        self.buildPolygonForItem = function (item, map, colorTable) {
-            var coordinates, vertecies, shape, plainColor;
-
-            coordinates = [];
-
-            if (typeof item.polygon == 'string')
-                vertecies = item.polygon.split('|');
-            else
-                vertecies = item.polygon;
-
-            vertecies.forEach(function (vertexString) {
-                var vertexParts = vertexString.split(',');
-
-                coordinates.push({
-                    lng: parseFloat(vertexParts[0]),
-                    lat: parseFloat(vertexParts[1])
-                })
-            });
-
-            plainColor = colorTable.getColor(item);
-
-            shape = new google.maps.Polygon({
-                path: coordinates,
-                geodesic: false,
-                map: map,
-                fillColor: plainColor,
-                fillOpacity: 0.2,
-                strokeOpacity: 1.0
-            });
-
-            shape.cwrc = {
-                item: item,
-                plainDrawingOptions: {
-                    strokeColor: plainColor,
-                    strokeWeight: 2
-                },
-                selectedDrawingOptions: {
-                    strokeColor: '#FF0000',
-                    strokeWeight: 3
-                },
-                selected: false
-            };
-
-            shape.addListener('click', function (event) {
-                CWRC.selected(item);
-            });
-
-            shape.setOptions(shape.cwrc.plainDrawingOptions);
-
-            return [shape];
-        };
+        });
 
         self.getPoints = function (token) {
             var positions = [];
@@ -337,7 +145,7 @@ ko.components.register('map', {
         self.itemsToTokens = ko.computed(function () {
             // TODO: refactor this into the constructor after the buildToken methods are extracted
             var map = CWRC.rawData().reduce(function (aggregate, item) {
-                aggregate[ko.toJSON(item)] = self.buildMapTokens(item, self.map, self.colorTable);
+                aggregate[ko.toJSON(item)] = self.tokenBuilder.buildMapTokens(item);
                 return aggregate;
             }, {});
 
@@ -441,6 +249,315 @@ ko.components.register('map', {
 });
 
 CWRC.Map = CWRC.Map || {};
+
+
+// === Token Builder ===
+
+/**
+ * Constucts a new Token Builder.
+ *
+ * @param params A options object with the following properties:
+ *   {colorTable: table,
+ *    map: the map tokens are placed on
+ *    pin: {
+ *          spiderfier: the spiderfier used to lay out pins
+ *          width: the default width of a pin,
+ *          height: the default height of a pin
+ *         }
+ *   }
+ *
+ * @constructor
+ */
+CWRC.Map.TokenBuilder = function (params) {
+    this.colorTable = params.colorTable;
+    this.map = params.map || params.pin.spiderfier.map;
+
+    this.spiderfier = params.pin.spiderfier;
+
+    this.pinWidth = params.pin.width;
+    this.pinHeight = params.pin.height;
+
+    this.positionsToItemCounts = ko.computed(function () {
+        var latLng, positionsToItemCounts;
+
+        positionsToItemCounts = Object.create(null);
+
+        CWRC.rawData().forEach(function (item) {
+            latLng = item.latLng;
+
+            if (latLng) {
+                latLng = latLng.constructor === Array ? latLng : [latLng];
+
+                latLng.forEach(function (pos) {
+                    positionsToItemCounts[pos] = positionsToItemCounts[pos] + 1 || 1;
+                });
+            }
+        });
+
+        return positionsToItemCounts;
+    });
+};
+
+/**
+ * Constructs one or more map tokens (Marker pin, Polyline path, or Polygon area) from the data in the given item.
+ *
+ * @param item A data record.
+ * @param map
+ * @param colorTable
+ */
+CWRC.Map.TokenBuilder.prototype.buildMapTokens = function (item) {
+    var drawMode = item.pointType;
+
+    if (/polygon/i.test(drawMode)) {
+        return this.buildPolygonForItem(item);
+    } else if (/polyline|path/i.test(drawMode)) {
+        return this.buildPolylineForItem(item);
+    } else {
+        return this.buildMarkersForItem(item);
+    }
+};
+
+CWRC.Map.TokenBuilder.prototype.buildMarkersForItem = function (item) {
+    var latLng, positions, createdMarkers;
+
+    var self = this;
+
+    latLng = item.latLng;
+
+    if (!item.latLng || item.latLng.length == 0)
+        return [];
+
+    // some items are single-pos, some multiple. Coerce to multi for consistency.
+    positions = typeof latLng == 'string' ? [latLng] : latLng;
+    createdMarkers = [];
+
+    positions.forEach(function (positionString) {
+        var plainIcon, stackedIcon, selectedIcon, marker, stackSize, position, color;
+
+        stackSize = self.positionsToItemCounts()[positionString];
+
+        color = self.colorTable.getColor(item);
+
+        plainIcon = CWRC.createMarkerIcon({
+            width: self.pinWidth,
+            height: self.pinHeight,
+            color: color,
+            label: '',
+            settings: {shape: "circle"}
+        });
+
+        stackedIcon = CWRC.createMarkerIcon({
+            width: self.pinWidth * (Math.pow(stackSize, 1 / 10)),
+            height: self.pinHeight * (Math.pow(stackSize, 1 / 10)),
+            color: stackSize > 1 ? self.colorTable.getDefaultColor() : color,
+            label: stackSize > 1 ? stackSize : '',
+            settings: {shape: 'circle'}
+        });
+
+        selectedIcon = CWRC.createMarkerIcon({
+            width: self.pinWidth,
+            height: self.pinHeight,
+            color: color,
+            label: '',
+            settings: {shape: 'circle'},
+            isSelected: true
+        });
+
+        position = CWRC.Transform.parseLatLng(positionString);
+
+        marker = new google.maps.Marker({
+            position: position,
+            map: self.map,
+            icon: stackedIcon
+        });
+
+        createdMarkers.push(marker);
+
+        self.spiderfier.addMarker(marker);
+
+        marker.cwrc = {
+            item: item,
+            originalPosition: position,
+            stackedIcon: stackedIcon,
+            selectedIcon: selectedIcon,
+            plainIcon: plainIcon,
+            selected: false
+        };
+    });
+
+    return createdMarkers;
+};
+
+//CWRC.Map.TokenBuilder.prototype.buildMarkersForPosition = function (item) {
+//    var latLng, positions, createdMarkers;
+//
+//    var self = this;
+//
+//    latLng = item.latLng;
+//
+//    if (!item.latLng || item.latLng.length == 0)
+//        return [];
+//
+//    // some items are single-pos, some multiple. Coerce to multi for consistency.
+//    positions = typeof latLng == 'string' ? [latLng] : latLng;
+//    createdMarkers = [];
+//
+//    positions.forEach(function (positionString) {
+//        var plainIcon, stackedIcon, selectedIcon, marker, stackSize, position, color;
+//
+//        stackSize = self.positionsToItemCounts()[positionString];
+//
+//        color = self.colorTable.getColor(item);
+//
+//        plainIcon = CWRC.createMarkerIcon({
+//            width: self.pinWidth,
+//            height: self.pinHeight,
+//            color: color,
+//            label: '',
+//            settings: {shape: "circle"}
+//        });
+//
+//        stackedIcon = CWRC.createMarkerIcon({
+//            width: self.pinWidth * (Math.pow(stackSize, 1 / 10)),
+//            height: self.pinHeight * (Math.pow(stackSize, 1 / 10)),
+//            color: stackSize > 1 ? self.colorTable.getDefaultColor() : color,
+//            label: stackSize > 1 ? stackSize : '',
+//            settings: {shape: 'circle'}
+//        });
+//
+//        selectedIcon = CWRC.createMarkerIcon({
+//            width: self.pinWidth,
+//            height: self.pinHeight,
+//            color: color,
+//            label: '',
+//            settings: {shape: 'circle'},
+//            isSelected: true
+//        });
+//
+//        position = CWRC.Transform.parseLatLng(positionString);
+//
+//        marker = new google.maps.Marker({
+//            position: position,
+//            map: self.map,
+//            icon: stackedIcon
+//        });
+//
+//        createdMarkers.push(marker);
+//
+//        self.spiderfier.addMarker(marker);
+//
+//        marker.cwrc = {
+//            item: item,
+//            originalPosition: position,
+//            stackedIcon: stackedIcon,
+//            selectedIcon: selectedIcon,
+//            plainIcon: plainIcon,
+//            selected: false
+//        };
+//    });
+//
+//    return createdMarkers;
+//};
+
+CWRC.Map.TokenBuilder.prototype.buildPolylineForItem = function (item) {
+    var coordinates, pathPts, line;
+
+    coordinates = [];
+
+    if (typeof item.polyline == 'string')
+        pathPts = item.polyline.split('|');
+    else
+        pathPts = item.polyline;
+
+    pathPts.forEach(function (point) {
+        var parts = point.split(',');
+
+        coordinates.push({lng: parseFloat(parts[0]), lat: parseFloat(parts[1])})
+    });
+
+    line = new google.maps.Polyline({
+        path: coordinates,
+        geodesic: true,
+        strokeOpacity: 1.0,
+        map: this.map
+    });
+
+    line.cwrc = {
+        item: item,
+        plainDrawingOptions: {
+            strokeColor: this.colorTable.getColor(item),
+            strokeWeight: 2
+        },
+        selectedDrawingOptions: {
+            strokeColor: '#FF0000',
+            strokeWeight: 3
+        },
+        selected: false,
+        setSelected: function (isSelected) {
+
+        }
+    };
+
+    line.setOptions(line.cwrc.plainDrawingOptions);
+
+    line.addListener('click', function (event) {
+        CWRC.selected(item);
+    });
+
+    return [line];
+};
+
+CWRC.Map.TokenBuilder.prototype.buildPolygonForItem = function (item) {
+    var coordinates, vertecies, shape, plainColor;
+
+    coordinates = [];
+
+    if (typeof item.polygon == 'string')
+        vertecies = item.polygon.split('|');
+    else
+        vertecies = item.polygon;
+
+    vertecies.forEach(function (vertexString) {
+        var vertexParts = vertexString.split(',');
+
+        coordinates.push({
+            lng: parseFloat(vertexParts[0]),
+            lat: parseFloat(vertexParts[1])
+        })
+    });
+
+    plainColor = this.colorTable.getColor(item);
+
+    shape = new google.maps.Polygon({
+        path: coordinates,
+        geodesic: false,
+        map: this.map,
+        fillColor: plainColor,
+        fillOpacity: 0.2,
+        strokeOpacity: 1.0
+    });
+
+    shape.cwrc = {
+        item: item,
+        plainDrawingOptions: {
+            strokeColor: plainColor,
+            strokeWeight: 2
+        },
+        selectedDrawingOptions: {
+            strokeColor: '#FF0000',
+            strokeWeight: 3
+        },
+        selected: false
+    };
+
+    shape.addListener('click', function (event) {
+        CWRC.selected(item);
+    });
+
+    shape.setOptions(shape.cwrc.plainDrawingOptions);
+
+    return [shape];
+};
 
 
 // === Token Mapper ===
