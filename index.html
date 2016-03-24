@@ -316,27 +316,32 @@
       </table>
 
       <section class="pageControls" data-bind="visible: maxPageIndex() > 1">
-           <span data-bind="visible: isFarAway(1)">
-                <a href="#"
-                   data-bind="click: function(){ setPage(1) },
-                              attr: {selected: currentPageIndex() == 1}">1</a>
-                <span data-bind="visible: isFarAway(2)">
-                    ...
-                </span>
-           </span>
-           <span data-bind="foreach: pageNeighbourhood">
-                <a href="#"
-                   data-bind="text: $data, click: function(){ $parent.setPage($data) }, attr: {selected: $parent.currentPageIndex() == $data}"></a>
-           </span>
-           <span data-bind="visible: isFarAway(maxPageIndex())">
-                <span data-bind="visible: isFarAway(maxPageIndex() - 1)">
-                    ...
-                </span>
-                <a href="#"
-                   data-bind="text: maxPageIndex,
-                              click: function(){ setPage(maxPageIndex()) },
-                              attr: {selected: currentPageIndex() == maxPageIndex()}"></a>
-           </span>
+         <span data-bind="visible: isFarAway(1)">
+            <a href="#" data-bind="click: function(){ setPage(1) },
+                                   attr: {selected: currentPageIndex() == 1}">1</a>
+            <span data-bind="visible: isFarAway(2)">
+              ...
+            </span>
+         </span>
+         <span data-bind="foreach: pageNeighbourhood">
+             <a href="#" data-bind="text: $data,
+                                    click: function(){ $parent.setPage($data) },
+                                    attr: {selected: $parent.currentPageIndex() == $data}"></a>
+         </span>
+         <span data-bind="visible: isFarAway(maxPageIndex())">
+             <span data-bind="visible: isFarAway(maxPageIndex() - 1)">
+                 ...
+             </span>
+             <a href="#"
+                data-bind="text: maxPageIndex,
+                           click: function(){ setPage(maxPageIndex()) },
+                           attr: {selected: currentPageIndex() == maxPageIndex()}"></a>
+         </span>
+
+         <div>
+            <span>Jump To...</span>
+            <select data-bind="value: currentPageIndex, options: pages"></select>
+         </div>
       </section>
    </template>
 

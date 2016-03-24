@@ -131,6 +131,16 @@ ko.components.register('grid', {
             return ko.utils.range(low, high);
         });
 
+        self.pages = ko.computed(function () {
+            var pages = [];
+
+            for (var page = 1; page <= self.maxPageIndex(); page++) {
+                pages.push(page);
+            }
+
+            return pages;
+        });
+
         self['getColumnClass'] = function (columnLabel) {
             return 'grid-' + columnLabel.replace(/\s/, '-').toLowerCase();
         };

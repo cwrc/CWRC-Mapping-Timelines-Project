@@ -110,3 +110,15 @@ grid .pageControls a {
 grid .pageControls a:hover {
    text-decoration: underline;
 }
+
+grid .pageControls div {
+   margin-top: 0.5em;
+
+   font-size: 0.8em;
+
+   color: #6D6D6D;
+}
+
+grid .pageControls div select {
+   background: white;
+}
