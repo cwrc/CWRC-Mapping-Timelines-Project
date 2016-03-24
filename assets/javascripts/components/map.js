@@ -18,14 +18,10 @@ ko.components.register('map', {
      * @param pinWidth: the width in pixels of a solo pin. Default: 18. (stack pins are scaled up automatically if needed)
      * @param pinHeight: the height in pixels of a solo pin. Default: 18. (stack pins are scaled up automatically if needed)
      */
-    // TODO:  handle: polygons, polylines
     viewModel: function (params) {
         var self = this;
 
         self.isVisible = ko.observable(true);
-
-        self.pinWidth = params['pinWidth'] || 18;
-        self.pinHeight = params['pinHeight'] || 18;
 
         // === MAP MARKERS, PINS & POLYs ===
         self.colorTable = new CWRC.ColorTable(params.colors, params.colorKey, '#999');
@@ -137,8 +133,8 @@ ko.components.register('map', {
             return new CWRC.Map.ItemTokenMapper(new CWRC.Map.TokenBuilder({
                 colorTable: self.colorTable,
                 pin: {
-                    width: self.pinWidth,
-                    height: self.pinHeight,
+                    width: params['pinWidth'] || CWRC.Map.DEFAULT_PIN_WIDTH,
+                    height: params['pinHeight'] || CWRC.Map.DEFAULT_PIN_HEIGHT,
                     spiderfier: self.spiderfier
                 }
             }));
@@ -170,10 +166,9 @@ ko.components.register('map', {
 
         self._selectedTokens = [];
         CWRC.selected.subscribe(function () {
-            var selectedItem, newSelectedTokens, bounds, pointCount;
+            var newSelectedTokens, bounds, pointCount;
 
-            selectedItem = CWRC.selected();
-            newSelectedTokens = self.itemsToTokens().getTokens(selectedItem);
+            newSelectedTokens = self.itemsToTokens().getTokens(CWRC.selected());
 
             // resetting the PREVIOUS markers
             self._selectedTokens.forEach(function (token) {
@@ -242,6 +237,8 @@ ko.components.register('map', {
 
 CWRC.Map = CWRC.Map || {};
 
+CWRC.Map.DEFAULT_PIN_HEIGHT = CWRC.Map.DEFAULT_PIN_WIDTH = 18;
+
 
 // === Token Builder ===
 
@@ -295,7 +292,7 @@ CWRC.Map.TokenBuilder = function (params) {
  *
  * @param item A data record.
  */
-CWRC.Map.TokenBuilder.prototype.buildMapTokens = function (item) {
+CWRC.Map.TokenBuilder.prototype.buildTokens = function (item) {
     var drawMode = item.pointType;
 
     if (/polygon/i.test(drawMode)) {
@@ -307,8 +304,14 @@ CWRC.Map.TokenBuilder.prototype.buildMapTokens = function (item) {
     }
 };
 
+/**
+ * Builds one or more map Marker tokens and returns them in an array. See buildToken for details on Markers.
+ *
+ * @param item The data record to be represented on the map.
+ * @returns {Array} The Markers for the given item.
+ */
 CWRC.Map.TokenBuilder.prototype.buildMarkersForItem = function (item) {
-    var latLng, positions, createdMarkers;
+    var latLng, positions, createdMarkers, stackSize, position;
 
     var self = this;
 
@@ -322,133 +325,89 @@ CWRC.Map.TokenBuilder.prototype.buildMarkersForItem = function (item) {
     createdMarkers = [];
 
     positions.forEach(function (positionString) {
-        var plainIcon, stackedIcon, selectedIcon, marker, stackSize, position, color;
-
         stackSize = self.positionsToItemCounts()[positionString];
-
-        color = self.colorTable.getColor(item);
-
-        plainIcon = CWRC.createMarkerIcon({
-            width: self.pinWidth,
-            height: self.pinHeight,
-            color: color,
-            label: '',
-            settings: {shape: "circle"}
-        });
-
-        stackedIcon = CWRC.createMarkerIcon({
-            width: self.pinWidth * (Math.pow(stackSize, 1 / 10)),
-            height: self.pinHeight * (Math.pow(stackSize, 1 / 10)),
-            color: stackSize > 1 ? self.colorTable.getDefaultColor() : color,
-            label: stackSize > 1 ? stackSize : '',
-            settings: {shape: 'circle'}
-        });
-
-        selectedIcon = CWRC.createMarkerIcon({
-            width: self.pinWidth,
-            height: self.pinHeight,
-            color: color,
-            label: '',
-            settings: {shape: 'circle'},
-            isSelected: true
-        });
 
         position = CWRC.Transform.parseLatLng(positionString);
 
-        marker = new google.maps.Marker({
-            position: position,
-            map: self.map,
-            icon: stackedIcon
-        });
-
-        createdMarkers.push(marker);
-
-        self.spiderfier.addMarker(marker);
-
-        marker.cwrc = {
-            item: item,
-            originalPosition: position,
-            stackedIcon: stackedIcon,
-            selectedIcon: selectedIcon,
-            plainIcon: plainIcon,
-            selected: false
-        };
+        createdMarkers.push(self.buildMarker(position, item, stackSize, self.spiderfier));
     });
 
     return createdMarkers;
 };
 
-//CWRC.Map.TokenBuilder.prototype.buildMarkersForPosition = function (item) {
-//    var latLng, positions, createdMarkers;
-//
-//    var self = this;
-//
-//    latLng = item.latLng;
-//
-//    if (!item.latLng || item.latLng.length == 0)
-//        return [];
-//
-//    // some items are single-pos, some multiple. Coerce to multi for consistency.
-//    positions = typeof latLng == 'string' ? [latLng] : latLng;
-//    createdMarkers = [];
-//
-//    positions.forEach(function (positionString) {
-//        var plainIcon, stackedIcon, selectedIcon, marker, stackSize, position, color;
-//
-//        stackSize = self.positionsToItemCounts()[positionString];
-//
-//        color = self.colorTable.getColor(item);
-//
-//        plainIcon = CWRC.createMarkerIcon({
-//            width: self.pinWidth,
-//            height: self.pinHeight,
-//            color: color,
-//            label: '',
-//            settings: {shape: "circle"}
-//        });
-//
-//        stackedIcon = CWRC.createMarkerIcon({
-//            width: self.pinWidth * (Math.pow(stackSize, 1 / 10)),
-//            height: self.pinHeight * (Math.pow(stackSize, 1 / 10)),
-//            color: stackSize > 1 ? self.colorTable.getDefaultColor() : color,
-//            label: stackSize > 1 ? stackSize : '',
-//            settings: {shape: 'circle'}
-//        });
-//
-//        selectedIcon = CWRC.createMarkerIcon({
-//            width: self.pinWidth,
-//            height: self.pinHeight,
-//            color: color,
-//            label: '',
-//            settings: {shape: 'circle'},
-//            isSelected: true
-//        });
-//
-//        position = CWRC.Transform.parseLatLng(positionString);
-//
-//        marker = new google.maps.Marker({
-//            position: position,
-//            map: self.map,
-//            icon: stackedIcon
-//        });
-//
-//        createdMarkers.push(marker);
-//
-//        self.spiderfier.addMarker(marker);
-//
-//        marker.cwrc = {
-//            item: item,
-//            originalPosition: position,
-//            stackedIcon: stackedIcon,
-//            selectedIcon: selectedIcon,
-//            plainIcon: plainIcon,
-//            selected: false
-//        };
-//    });
-//
-//    return createdMarkers;
-//};
+/**
+ * Builds a Marker token at the given position to represent the given item. The Marker is constructed with a .cwrc
+ * subfield that packages together all additional cwrc custom information.
+ *
+ * Dev note: The .cwrc field exists because current requirements do not yet warrant the copious boilerplate of full JS
+ * subclasses.
+ *
+ * @param position Object with properties lat and lng, both integers of their geocoordinates.
+ * @param item The data record to link this marker to.
+ * @param stackSize The total number of items with the same position
+ * @param spiderfier The spiderfier to use for layout on the map.
+ * @returns {google.maps.Marker|*} The constructed Marker.
+ */
+CWRC.Map.TokenBuilder.prototype.buildMarker = function (position, item, stackSize, spiderfier) {
+    var plainIcon, stackedIcon, selectedIcon, marker, color;
 
+    color = this.colorTable.getColor(item);
+
+    plainIcon = CWRC.createMarkerIcon({
+        width: this.pinWidth,
+        height: this.pinHeight,
+        color: color,
+        label: '',
+        settings: {shape: "circle"}
+    });
+
+    stackedIcon = CWRC.createMarkerIcon({
+        width: this.pinWidth * (Math.pow(stackSize, 1 / 10)),
+        height: this.pinHeight * (Math.pow(stackSize, 1 / 10)),
+        color: stackSize > 1 ? this.colorTable.getDefaultColor() : color,
+        label: stackSize > 1 ? stackSize : '',
+        settings: {shape: 'circle'}
+    });
+
+    selectedIcon = CWRC.createMarkerIcon({
+        width: this.pinWidth,
+        height: this.pinHeight,
+        color: color,
+        label: '',
+        settings: {shape: 'circle'},
+        isSelected: true
+    });
+
+    marker = new google.maps.Marker({
+        position: position,
+        map: this.map,
+        icon: stackedIcon
+    });
+
+    marker.cwrc = {
+        item: item,
+        originalPosition: position,
+        stackedIcon: stackedIcon,
+        selectedIcon: selectedIcon,
+        plainIcon: plainIcon,
+        selected: false
+    };
+
+    spiderfier.addMarker(marker);
+
+    return marker;
+};
+
+/**
+ * Builds a Polyline path token to represent the given item. The Polyline contains a .cwrc subfield that packages
+ * together all additional cwrc custom information.
+ *
+ * Dev note: The .cwrc field exists because current requirements do not yet warrant the copious boilerplate of full JS
+ * subclasses.
+ *
+ * @param item The data record to link this line to.
+ * @returns {*[]} The constructed Polyline
+ */
 CWRC.Map.TokenBuilder.prototype.buildPolylineForItem = function (item) {
     var coordinates, pathPts, line;
 
@@ -497,6 +456,16 @@ CWRC.Map.TokenBuilder.prototype.buildPolylineForItem = function (item) {
     return [line];
 };
 
+/**
+ * Builds a Polygon shape token to represent the given item. The Polygon contains a .cwrc subfield that packages
+ * together all additional cwrc custom information.
+ *
+ * Dev note: The .cwrc field exists because current requirements do not yet warrant the copious boilerplate of full JS
+ * subclasses.
+ *
+ * @param item The data record to link this line to.
+ * @returns {*[]} The constructed Polygon
+ */
 CWRC.Map.TokenBuilder.prototype.buildPolygonForItem = function (item) {
     var coordinates, vertecies, shape, plainColor;
 
@@ -559,7 +528,7 @@ CWRC.Map.TokenBuilder.prototype.buildPolygonForItem = function (item) {
  */
 CWRC.Map.ItemTokenMapper = function (tokenBuilder) {
     this.itemsToTokens = CWRC.rawData().reduce(function (aggregate, item) {
-        aggregate[ko.toJSON(item)] = tokenBuilder.buildMapTokens(item);
+        aggregate[ko.toJSON(item)] = tokenBuilder.buildTokens(item);
         return aggregate;
     }, {});
 };
@@ -607,11 +576,11 @@ CWRC.ColorTable.prototype.hasMapping = function () {
     return !!this.colorKey;
 };
 
-CWRC.ColorTable.prototype.getColor = function (selectedItem) {
-    return (this.mapping[selectedItem[this.colorKey]]) || this.defaultColor;
+CWRC.ColorTable.prototype.getColor = function (item) {
+    return (this.mapping[item[this.colorKey]]) || this.defaultColor;
 };
 
-CWRC.ColorTable.prototype.getDefaultColor = function (selectedItem) {
+CWRC.ColorTable.prototype.getDefaultColor = function (item) {
     return this.defaultColor;
 };
 
