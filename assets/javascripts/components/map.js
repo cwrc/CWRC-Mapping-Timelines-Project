@@ -379,8 +379,9 @@ CWRC.Map.TokenBuilder.prototype.buildMarker = function (position, item, stackSiz
  * @returns {*[]} The constructed Polyline
  */
 CWRC.Map.TokenBuilder.prototype.buildPolylineForItem = function (item) {
-    var coordinates, pathPts, line;
+    var coordinates, pathPts, line, color;
 
+    color = this.colorTable.getColor(item);
     coordinates = [];
 
     if (typeof item.polyline == 'string')
@@ -403,25 +404,19 @@ CWRC.Map.TokenBuilder.prototype.buildPolylineForItem = function (item) {
 
     line.cwrc = {
         item: item,
-        plainDrawingOptions: {
-            strokeColor: this.colorTable.getColor(item),
-            strokeWeight: 2
-        },
-        selectedDrawingOptions: {
-            strokeColor: '#FF0000',
-            strokeWeight: 3
-        },
-        selected: ko.observable(false),
+        selected: ko.observable(),
         getPoints: function () {
             return line.getPath();
         }
     };
 
     line.cwrc.selected.subscribe(function (isSelected) {
-        line.setOptions(isSelected ? line.cwrc.selectedDrawingOptions : line.cwrc.plainDrawingOptions);
+        line.setOptions({
+            strokeColor: isSelected ? '#FF0000' : color,
+            strokeWeight: isSelected ? 3 : 2
+        });
     });
-
-    line.setOptions(line.cwrc.plainDrawingOptions);
+    line.cwrc.selected(false); // set default and trigger listener
 
     line.addListener('click', function (event) {
         CWRC.selected(item);
@@ -472,15 +467,7 @@ CWRC.Map.TokenBuilder.prototype.buildPolygonForItem = function (item) {
 
     shape.cwrc = {
         item: item,
-        plainDrawingOptions: {
-            strokeColor: plainColor,
-            strokeWeight: 2
-        },
-        selectedDrawingOptions: {
-            strokeColor: '#FF0000',
-            strokeWeight: 3
-        },
-        selected: ko.observable(false),
+        selected: ko.observable(),
         getPoints: function () {
             var positions = [];
 
@@ -493,14 +480,16 @@ CWRC.Map.TokenBuilder.prototype.buildPolygonForItem = function (item) {
     };
 
     shape.cwrc.selected.subscribe(function (isSelected) {
-        shape.setOptions(isSelected ? shape.cwrc.selectedDrawingOptions : shape.cwrc.plainDrawingOptions);
+        shape.setOptions({
+            strokeColor: isSelected ? '#FF0000' : plainColor,
+            strokeWeight: isSelected ? 3 : 2
+        });
     });
+    shape.cwrc.selected(false); // set default and trigger listener
 
     shape.addListener('click', function (event) {
         CWRC.selected(item);
     });
-
-    shape.setOptions(shape.cwrc.plainDrawingOptions);
 
     return [shape];
 };
