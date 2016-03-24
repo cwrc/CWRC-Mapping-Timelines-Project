@@ -38,37 +38,6 @@ ko.components.register('map', {
             spiralLengthFactor: 5.75  // 4               # interdependant. Good luck playing with them.
         });
 
-        self.setSelected = function (token, isSelected) {
-            var icon;
-
-            token.cwrc.selected = isSelected;
-
-            if (isSelected) {
-                if (token instanceof google.maps.Polygon) {
-                    token.setOptions(token.cwrc.selectedDrawingOptions);
-                } else if (token instanceof google.maps.Polyline) {
-                    token.setOptions(token.cwrc.selectedDrawingOptions);
-                } else { // it's a Marker
-                    token.setIcon(token.cwrc.selectedIcon);
-                    token.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
-                }
-            } else {
-                if (token instanceof google.maps.Polygon) {
-                    token.setOptions(token.cwrc.plainDrawingOptions);
-                } else if (token instanceof google.maps.Polyline) {
-                    token.setOptions(token.cwrc.plainDrawingOptions);
-                } else { // Marker
-                    if (token.cwrc.spiderfied)
-                        icon = token.cwrc.plainIcon;
-                    else
-                        icon = token.cwrc.stackedIcon;
-
-                    token.setIcon(icon);
-                    token.setZIndex(null);
-                }
-            }
-        };
-
         self.spiderfier.addListener('click', function (marker, event) {
             CWRC.selected(marker.cwrc.item);
         });
@@ -79,7 +48,7 @@ ko.components.register('map', {
 
                 marker.cwrc.spiderfied = true;
 
-                if (marker.cwrc.selected)
+                if (marker.cwrc.isSelected())
                     icon = marker.cwrc.selectedIcon;
                 else if (marker.cwrc.spiderfied)
                     icon = marker.cwrc.plainIcon;
@@ -97,7 +66,7 @@ ko.components.register('map', {
 
                 marker.cwrc.spiderfied = false;
 
-                if (marker.cwrc.selected)
+                if (marker.cwrc.isSelected())
                     icon = marker.cwrc.selectedIcon;
                 else if (marker.cwrc.spiderfied)
                     icon = marker.cwrc.plainIcon;
@@ -152,7 +121,7 @@ ko.components.register('map', {
 
             // resetting the PREVIOUS markers
             self._selectedTokens.forEach(function (token) {
-                self.setSelected(token, false)
+                token.cwrc.setSelected(false)
             });
 
             self._selectedTokens = [];
@@ -165,7 +134,7 @@ ko.components.register('map', {
                     bounds.extend(position);
                     pointCount++;
                 });
-                self.setSelected(token, true);
+                token.cwrc.setSelected(true);
 
                 self._selectedTokens.push(token);
             });
@@ -371,7 +340,28 @@ CWRC.Map.TokenBuilder.prototype.buildMarker = function (position, item, stackSiz
         stackedIcon: stackedIcon,
         selectedIcon: selectedIcon,
         plainIcon: plainIcon,
-        selected: false,
+        __selected__: false,
+        setSelected: function (isSelected) {
+            marker.cwrc.__selected__ = isSelected;
+
+            if (isSelected) {
+                marker.setIcon(marker.cwrc.selectedIcon);
+                marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
+            } else {
+                var icon;
+
+                if (marker.cwrc.spiderfied)
+                    icon = marker.cwrc.plainIcon;
+                else
+                    icon = marker.cwrc.stackedIcon;
+
+                marker.setIcon(icon);
+                marker.setZIndex(null);
+            }
+        },
+        isSelected: function () {
+            return marker.cwrc.__selected__;
+        },
         getPoints: function () {
             return [position];
         }
@@ -425,9 +415,14 @@ CWRC.Map.TokenBuilder.prototype.buildPolylineForItem = function (item) {
             strokeColor: '#FF0000',
             strokeWeight: 3
         },
-        selected: false,
+        __selected__: false,
         setSelected: function (isSelected) {
+            line.cwrc.__selected__ = isSelected;
 
+            line.setOptions(isSelected ? line.cwrc.selectedDrawingOptions : line.cwrc.plainDrawingOptions);
+        },
+        isSelected: function () {
+            return shape.cwrc.__selected__;
         },
         getPoints: function () {
             return line.getPath();
@@ -493,7 +488,15 @@ CWRC.Map.TokenBuilder.prototype.buildPolygonForItem = function (item) {
             strokeColor: '#FF0000',
             strokeWeight: 3
         },
-        selected: false,
+        __selected__: false,
+        setSelected: function (isSelected) {
+            shape.cwrc.__selected__ = isSelected;
+
+            shape.setOptions(isSelected ? shape.cwrc.selectedDrawingOptions : shape.cwrc.plainDrawingOptions);
+        },
+        isSelected: function () {
+            return shape.cwrc.__selected__;
+        },
         getPoints: function () {
             var positions = [];
 
@@ -513,7 +516,6 @@ CWRC.Map.TokenBuilder.prototype.buildPolygonForItem = function (item) {
 
     return [shape];
 };
-
 
 // === Token Mapper ===
 /**
