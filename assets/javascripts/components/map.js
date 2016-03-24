@@ -38,26 +38,6 @@ ko.components.register('map', {
             spiralLengthFactor: 5.75  // 4               # interdependant. Good luck playing with them.
         });
 
-        self.getPoints = function (token) {
-            var positions = [];
-
-            if (token instanceof google.maps.Polygon) {
-                token.getPaths().forEach(function (path) {
-                    path.forEach(function (point) {
-                        positions.push(point);
-                    })
-                });
-            } else if (token instanceof google.maps.Polyline) {
-                token.getPath().forEach(function (point) {
-                    positions.push(point);
-                });
-            } else { // it's a Marker
-                positions.push(token.cwrc.originalPosition);
-            }
-
-            return positions;
-        }
-
         self.setSelected = function (token, isSelected) {
             var icon;
 
@@ -181,7 +161,7 @@ ko.components.register('map', {
             bounds = new google.maps.LatLngBounds();
 
             newSelectedTokens.forEach(function (token) {
-                self.getPoints(token).forEach(function (position) {
+                token.cwrc.getPoints().forEach(function (position) {
                     bounds.extend(position);
                     pointCount++;
                 });
@@ -391,7 +371,10 @@ CWRC.Map.TokenBuilder.prototype.buildMarker = function (position, item, stackSiz
         stackedIcon: stackedIcon,
         selectedIcon: selectedIcon,
         plainIcon: plainIcon,
-        selected: false
+        selected: false,
+        getPoints: function () {
+            return [position];
+        }
     };
 
     spiderfier.addMarker(marker);
@@ -445,6 +428,9 @@ CWRC.Map.TokenBuilder.prototype.buildPolylineForItem = function (item) {
         selected: false,
         setSelected: function (isSelected) {
 
+        },
+        getPoints: function () {
+            return line.getPath();
         }
     };
 
@@ -507,7 +493,16 @@ CWRC.Map.TokenBuilder.prototype.buildPolygonForItem = function (item) {
             strokeColor: '#FF0000',
             strokeWeight: 3
         },
-        selected: false
+        selected: false,
+        getPoints: function () {
+            var positions = [];
+
+            shape.getPaths().forEach(function (path) {
+                positions = positions.concat(path.getArray());
+            });
+
+            return positions;
+        }
     };
 
     shape.addListener('click', function (event) {
