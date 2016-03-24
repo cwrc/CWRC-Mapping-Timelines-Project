@@ -42,15 +42,6 @@ ko.components.register('map', {
             spiralLengthFactor: 5.75  // 4               # interdependant. Good luck playing with them.
         });
 
-        self.tokenBuilder = new CWRC.Map.TokenBuilder({
-            colorTable: self.colorTable,
-            pin: {
-                width: self.pinWidth,
-                height: self.pinHeight,
-                spiderfier: self.spiderfier
-            }
-        });
-
         self.getPoints = function (token) {
             var positions = [];
 
@@ -143,13 +134,14 @@ ko.components.register('map', {
         });
 
         self.itemsToTokens = ko.computed(function () {
-            // TODO: refactor this into the constructor after the buildToken methods are extracted
-            var map = CWRC.rawData().reduce(function (aggregate, item) {
-                aggregate[ko.toJSON(item)] = self.tokenBuilder.buildMapTokens(item);
-                return aggregate;
-            }, {});
-
-            return new CWRC.Map.ItemTokenMapper(map);
+            return new CWRC.Map.ItemTokenMapper(new CWRC.Map.TokenBuilder({
+                colorTable: self.colorTable,
+                pin: {
+                    width: self.pinWidth,
+                    height: self.pinHeight,
+                    spiderfier: self.spiderfier
+                }
+            }));
         });
 
         // Not an actual display property.
@@ -561,8 +553,11 @@ CWRC.Map.TokenBuilder.prototype.buildPolygonForItem = function (item) {
 
 
 // === Token Mapper ===
-CWRC.Map.ItemTokenMapper = function (itemsToTokens) {
-    this.itemsToTokens = itemsToTokens;
+CWRC.Map.ItemTokenMapper = function (tokenBuilder) {
+    this.itemsToTokens = CWRC.rawData().reduce(function (aggregate, item) {
+        aggregate[ko.toJSON(item)] = tokenBuilder.buildMapTokens(item);
+        return aggregate;
+    }, {});
 };
 
 CWRC.Map.ItemTokenMapper.prototype.getTokens = function (items) {
