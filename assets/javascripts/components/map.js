@@ -273,37 +273,12 @@ ko.components.register('map', {
         });
 
         self.itemsToTokens = ko.computed(function () {
-            return {
-                itemsToTokens: CWRC.rawData().reduce(function (aggregate, item) {
-                    aggregate[ko.toJSON(item)] = self.buildMapTokens(item, self.map, self.colorTable);
-                    return aggregate;
-                }, {}),
+            var map = CWRC.rawData().reduce(function (aggregate, item) {
+                aggregate[ko.toJSON(item)] = self.buildMapTokens(item, self.map, self.colorTable);
+                return aggregate;
+            }, {});
 
-                getTokens: function (items) {
-                    var itemsToTokens, values;
-
-                    itemsToTokens = this.itemsToTokens;
-
-                    if (!(items instanceof Array))
-                        items = [items];
-
-                    values = items.map(function (item) {
-                        if (!(typeof item == 'string'))
-                            item = ko.toJSON(item);
-
-                        return itemsToTokens[item];
-                    });
-
-                    // smoosh the array of arrays flat.
-                    return values.reduce(function (aggregate, tokenList) {
-                        return tokenList ? aggregate.concat(tokenList) : aggregate;
-                    }, []);
-                },
-
-                getAllTokens: function () {
-                    return this.getTokens(Object.keys(this.itemsToTokens))
-                }
-            };
+            return new CWRC.Map.ItemTokenMapper(map);
         });
 
         // Not an actual display property.
@@ -443,6 +418,40 @@ ko.components.register('map', {
         });
     }
 });
+
+CWRC.Map = CWRC.Map || {};
+
+
+// === Token Mapper ===
+CWRC.Map.ItemTokenMapper = function (itemsToTokens) {
+    this.itemsToTokens = itemsToTokens;
+};
+
+CWRC.Map.ItemTokenMapper.prototype.getTokens = function (items) {
+    var itemsToTokens, values;
+
+    itemsToTokens = this.itemsToTokens;
+
+    if (!(items instanceof Array))
+        items = [items];
+
+    values = items.map(function (item) {
+        if (!(typeof item == 'string'))
+            item = ko.toJSON(item);
+
+        return itemsToTokens[item];
+    });
+
+    // smoosh the array of arrays flat.
+    return values.reduce(function (aggregate, tokenList) {
+        return tokenList ? aggregate.concat(tokenList) : aggregate;
+    }, []);
+};
+
+CWRC.Map.ItemTokenMapper.prototype.getAllTokens = function () {
+    return this.getTokens(Object.keys(this.itemsToTokens))
+};
+
 
 // === COLOR MAP ===
 CWRC.ColorTable = function (mapping, colorKey, defaultColor) {
