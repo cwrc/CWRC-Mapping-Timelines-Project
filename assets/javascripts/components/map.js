@@ -294,8 +294,6 @@ CWRC.Map.TokenBuilder = function (params) {
  * Constructs one or more map tokens (Marker pin, Polyline path, or Polygon area) from the data in the given item.
  *
  * @param item A data record.
- * @param map
- * @param colorTable
  */
 CWRC.Map.TokenBuilder.prototype.buildMapTokens = function (item) {
     var drawMode = item.pointType;
@@ -553,6 +551,12 @@ CWRC.Map.TokenBuilder.prototype.buildPolygonForItem = function (item) {
 
 
 // === Token Mapper ===
+/**
+ * Constructs a new token mapper.
+ *
+ * @param tokenBuilder The builder object to be used for constructing tokens
+ * @constructor
+ */
 CWRC.Map.ItemTokenMapper = function (tokenBuilder) {
     this.itemsToTokens = CWRC.rawData().reduce(function (aggregate, item) {
         aggregate[ko.toJSON(item)] = tokenBuilder.buildMapTokens(item);
@@ -560,6 +564,12 @@ CWRC.Map.ItemTokenMapper = function (tokenBuilder) {
     }, {});
 };
 
+/**
+ * Gets the tokens mapped to the given item, or item list.
+ *
+ * @param items An array of items or a single item.
+ * @returns Array of map tokens for the given item.
+ */
 CWRC.Map.ItemTokenMapper.prototype.getTokens = function (items) {
     var itemsToTokens, values;
 
