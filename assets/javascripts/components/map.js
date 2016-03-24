@@ -176,7 +176,10 @@ ko.components.register('map', {
                     strokeColor: '#FF0000',
                     strokeWeight: 3
                 },
-                selected: false
+                selected: false,
+                setSelected: function (isSelected) {
+
+                }
             };
 
             line.setOptions(line.cwrc.plainDrawingOptions);
@@ -240,6 +243,57 @@ ko.components.register('map', {
             return [shape];
         };
 
+        self.getPoints = function (token) {
+            var positions = [];
+
+            if (token instanceof google.maps.Polygon) {
+                token.getPaths().forEach(function (path) {
+                    path.forEach(function (point) {
+                        positions.push(point);
+                    })
+                });
+            } else if (token instanceof google.maps.Polyline) {
+                token.getPath().forEach(function (point) {
+                    positions.push(point);
+                });
+            } else { // it's a Marker
+                positions.push(token.cwrc.originalPosition);
+            }
+
+            return positions;
+        }
+
+        self.setSelected = function (token, isSelected) {
+            var icon;
+
+            token.cwrc.selected = isSelected;
+
+            if (isSelected) {
+                if (token instanceof google.maps.Polygon) {
+                    token.setOptions(token.cwrc.selectedDrawingOptions);
+                } else if (token instanceof google.maps.Polyline) {
+                    token.setOptions(token.cwrc.selectedDrawingOptions);
+                } else { // it's a Marker
+                    token.setIcon(token.cwrc.selectedIcon);
+                    token.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
+                }
+            } else {
+                if (token instanceof google.maps.Polygon) {
+                    token.setOptions(token.cwrc.plainDrawingOptions);
+                } else if (token instanceof google.maps.Polyline) {
+                    token.setOptions(token.cwrc.plainDrawingOptions);
+                } else { // Marker
+                    if (token.cwrc.spiderfied)
+                        icon = token.cwrc.plainIcon;
+                    else
+                        icon = token.cwrc.stackedIcon;
+
+                    token.setIcon(icon);
+                    token.setZIndex(null);
+                }
+            }
+        };
+
         self.spiderfier.addListener('click', function (marker, event) {
             CWRC.selected(marker.cwrc.item);
         });
@@ -281,6 +335,7 @@ ko.components.register('map', {
         });
 
         self.itemsToTokens = ko.computed(function () {
+            // TODO: refactor this into the constructor after the buildToken methods are extracted
             var map = CWRC.rawData().reduce(function (aggregate, item) {
                 aggregate[ko.toJSON(item)] = self.buildMapTokens(item, self.map, self.colorTable);
                 return aggregate;
@@ -314,7 +369,6 @@ ko.components.register('map', {
         });
 
         self._selectedTokens = [];
-        self._itemIDToMarkers = {};
         CWRC.selected.subscribe(function () {
             var selectedItem, newSelectedTokens, isOffCamera, positions;
 
@@ -323,26 +377,7 @@ ko.components.register('map', {
 
             // resetting the PREVIOUS markers
             self._selectedTokens.forEach(function (token) {
-                var icon;
-
-                // TODO: refactor this into a setSelected(false) method on Marker, Polygon, and Polyline
-                if (token instanceof google.maps.Polygon) {
-                    token.setOptions(token.cwrc.plainDrawingOptions);
-                } else if (token instanceof google.maps.Polyline) {
-                    token.setOptions(token.cwrc.plainDrawingOptions);
-                } else { // Marker
-                    token.cwrc.selected = false;
-
-                    if (token.cwrc.spiderfied)
-                        icon = token.cwrc.plainIcon;
-                    else
-                        icon = token.cwrc.stackedIcon;
-
-                    token.setIcon(icon);
-                    token.setZIndex(null);
-                }
-
-                // token.setSelected(false)
+                self.setSelected(token, false)
             });
 
             self._selectedTokens = [];
@@ -350,32 +385,8 @@ ko.components.register('map', {
             positions = [];
 
             newSelectedTokens.forEach(function (token) {
-                // TODO: refactor this into a setSelected(true) method on Marker, Polygon, and Polyline
-                if (token instanceof google.maps.Polygon) {
-                    token.setOptions(token.cwrc.selectedDrawingOptions);
-
-                    token.getPaths().forEach(function (path) {
-                        path.forEach(function (point) {
-                            positions.push(point);
-                        })
-                    });
-                } else if (token instanceof google.maps.Polyline) {
-                    token.setOptions(token.cwrc.selectedDrawingOptions);
-
-                    token.getPath().forEach(function (point) {
-                        positions.push(point);
-                    });
-                } else { // it's a Marker
-                    positions.push(token.cwrc.originalPosition);
-
-                    // now redraw the newly selected ones
-                    token.setIcon(token.cwrc.selectedIcon);
-                    token.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
-                }
-
-                token.cwrc.selected = true;
-
-                // token.setSelected(true)
+                positions = positions.concat(self.getPoints(token));
+                self.setSelected(token, true);
 
                 self._selectedTokens.push(token);
             });
