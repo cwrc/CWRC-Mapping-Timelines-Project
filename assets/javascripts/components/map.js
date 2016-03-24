@@ -130,11 +130,14 @@ ko.components.register('map', {
 
                 self.spiderfier.addMarker(marker);
 
-                marker.item = item;
-                marker.originalPosition = position;
-                marker.stackedIcon = stackedIcon;
-                marker.selectedIcon = selectedIcon;
-                marker.plainIcon = plainIcon;
+                marker.cwrc = {
+                    item: item,
+                    originalPosition: position,
+                    stackedIcon: stackedIcon,
+                    selectedIcon: selectedIcon,
+                    plainIcon: plainIcon,
+                    selected: false
+                };
             });
 
             return createdMarkers;
@@ -163,22 +166,24 @@ ko.components.register('map', {
                 map: map
             });
 
-            line.plainDrawingOptions = {
-                strokeColor: colorTable.getColor(item),
-                strokeWeight: 2
-            };
-            line.selectedDrawingOptions = {
-                strokeColor: '#FF0000',
-                strokeWeight: 3
+            line.cwrc = {
+                item: item,
+                plainDrawingOptions: {
+                    strokeColor: colorTable.getColor(item),
+                    strokeWeight: 2
+                },
+                selectedDrawingOptions: {
+                    strokeColor: '#FF0000',
+                    strokeWeight: 3
+                },
+                selected: false
             };
 
-            line.item = item;
+            line.setOptions(line.cwrc.plainDrawingOptions);
 
             line.addListener('click', function (event) {
                 CWRC.selected(item);
             });
-
-            line.setOptions(line.plainDrawingOptions);
 
             return [line];
         };
@@ -212,42 +217,45 @@ ko.components.register('map', {
                 fillOpacity: 0.2,
                 strokeOpacity: 1.0
             });
-            shape.item = item;
+
+            shape.cwrc = {
+                item: item,
+                plainDrawingOptions: {
+                    strokeColor: plainColor,
+                    strokeWeight: 2
+                },
+                selectedDrawingOptions: {
+                    strokeColor: '#FF0000',
+                    strokeWeight: 3
+                },
+                selected: false
+            };
 
             shape.addListener('click', function (event) {
                 CWRC.selected(item);
             });
 
-            shape.plainDrawingOptions = {
-                strokeColor: plainColor,
-                strokeWeight: 2
-            };
-            shape.selectedDrawingOptions = {
-                strokeColor: '#FF0000',
-                strokeWeight: 3
-            };
-
-            shape.setOptions(shape.plainDrawingOptions);
+            shape.setOptions(shape.cwrc.plainDrawingOptions);
 
             return [shape];
         };
 
         self.spiderfier.addListener('click', function (marker, event) {
-            CWRC.selected(marker.item);
+            CWRC.selected(marker.cwrc.item);
         });
 
         self.spiderfier.addListener('spiderfy', function (markers, event) {
             markers.forEach(function (marker) {
                 var icon;
 
-                marker.cwrcSpiderfied = true;
+                marker.cwrc.spiderfied = true;
 
-                if (marker.cwrcSelected)
-                    icon = marker.selectedIcon;
-                else if (marker.cwrcSpiderfied)
-                    icon = marker.plainIcon;
+                if (marker.cwrc.selected)
+                    icon = marker.cwrc.selectedIcon;
+                else if (marker.cwrc.spiderfied)
+                    icon = marker.cwrc.plainIcon;
                 else
-                    icon = marker.stackedIcon;
+                    icon = marker.cwrc.stackedIcon;
 
 
                 marker.setIcon(icon);
@@ -258,14 +266,14 @@ ko.components.register('map', {
             markers.forEach(function (marker) {
                 var icon;
 
-                marker.cwrcSpiderfied = false;
+                marker.cwrc.spiderfied = false;
 
-                if (marker.cwrcSelected)
-                    icon = marker.selectedIcon;
-                else if (marker.cwrcSpiderfied)
-                    icon = marker.plainIcon;
+                if (marker.cwrc.selected)
+                    icon = marker.cwrc.selectedIcon;
+                else if (marker.cwrc.spiderfied)
+                    icon = marker.cwrc.plainIcon;
                 else
-                    icon = marker.stackedIcon;
+                    icon = marker.cwrc.stackedIcon;
 
 
                 marker.setIcon(icon);
@@ -319,16 +327,16 @@ ko.components.register('map', {
 
                 // TODO: refactor this into a setSelected(false) method on Marker, Polygon, and Polyline
                 if (token instanceof google.maps.Polygon) {
-                    token.setOptions(token.plainDrawingOptions);
+                    token.setOptions(token.cwrc.plainDrawingOptions);
                 } else if (token instanceof google.maps.Polyline) {
-                    token.setOptions(token.plainDrawingOptions);
+                    token.setOptions(token.cwrc.plainDrawingOptions);
                 } else { // Marker
-                    token.cwrcSelected = false;
+                    token.cwrc.selected = false;
 
-                    if (token.cwrcSpiderfied)
-                        icon = token.plainIcon;
+                    if (token.cwrc.spiderfied)
+                        icon = token.cwrc.plainIcon;
                     else
-                        icon = token.stackedIcon;
+                        icon = token.cwrc.stackedIcon;
 
                     token.setIcon(icon);
                     token.setZIndex(null);
@@ -344,7 +352,7 @@ ko.components.register('map', {
             newSelectedTokens.forEach(function (token) {
                 // TODO: refactor this into a setSelected(true) method on Marker, Polygon, and Polyline
                 if (token instanceof google.maps.Polygon) {
-                    token.setOptions(token.selectedDrawingOptions);
+                    token.setOptions(token.cwrc.selectedDrawingOptions);
 
                     token.getPaths().forEach(function (path) {
                         path.forEach(function (point) {
@@ -352,20 +360,20 @@ ko.components.register('map', {
                         })
                     });
                 } else if (token instanceof google.maps.Polyline) {
-                    token.setOptions(token.selectedDrawingOptions);
+                    token.setOptions(token.cwrc.selectedDrawingOptions);
 
                     token.getPath().forEach(function (point) {
                         positions.push(point);
                     });
                 } else { // it's a Marker
-                    positions.push(token.originalPosition);
+                    positions.push(token.cwrc.originalPosition);
 
                     // now redraw the newly selected ones
-                    token.setIcon(token.selectedIcon);
+                    token.setIcon(token.cwrc.selectedIcon);
                     token.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
                 }
 
-                token.cwrcSelected = true;
+                token.cwrc.selected = true;
 
                 // token.setSelected(true)
 
