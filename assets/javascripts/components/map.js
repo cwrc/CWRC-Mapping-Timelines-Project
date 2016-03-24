@@ -370,7 +370,7 @@ ko.components.register('map', {
 
         self._selectedTokens = [];
         CWRC.selected.subscribe(function () {
-            var selectedItem, newSelectedTokens, isOffCamera, positions;
+            var selectedItem, newSelectedTokens, bounds, pointCount;
 
             selectedItem = CWRC.selected();
             newSelectedTokens = self.itemsToTokens().getTokens(selectedItem);
@@ -382,22 +382,24 @@ ko.components.register('map', {
 
             self._selectedTokens = [];
 
-            positions = [];
+            pointCount = 0;
+            bounds = new google.maps.LatLngBounds();
 
             newSelectedTokens.forEach(function (token) {
-                positions = positions.concat(self.getPoints(token));
+                self.getPoints(token).forEach(function (position) {
+                    bounds.extend(position);
+                    pointCount++;
+                });
                 self.setSelected(token, true);
 
                 self._selectedTokens.push(token);
             });
 
-            isOffCamera = positions.every(function (pos) {
-                return !self.map.getBounds().contains(pos);
-            });
-
-            // Panning (rather than pan & zoom to fit all) is easier for now
-            if (isOffCamera && positions[0])
-                self.map.panTo(positions[0]);
+            // using two separate behaviours because fitBounds on a point zooms in far too much
+            if (pointCount > 1)
+                self.map.fitBounds(bounds);
+            else if (pointCount > 0)
+                self.map.panTo(bounds.getCenter());
         });
 
         // ===  Historical Map ===
