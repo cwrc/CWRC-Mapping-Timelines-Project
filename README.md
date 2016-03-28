@@ -37,6 +37,50 @@ Each record is a JSON object like the following:
 
 Timeline & spotlight expect the fields above; if your dataset uses different field names, you must modify the references in the templates at the end of `index.html`.
 
+**Map Points, Paths, and Areas**
+
+Records that have one or more point locations provide a "latitude,longitude" point string. 
+
+```javascript
+// one location
+{
+  // ...
+  "location": ["53.544389,-113.490927"],  // square brackets are optional for a single location
+  // ... 
+},
+// or multiple locations
+{
+  // ...
+  "location": ["53.544389,-113.490927", "50.454722,-104.606667"],  
+  // ... 
+},
+```
+
+Records that have a path must provide the `polyline` attribute with either a list of point strings, or a single string 
+separated with pipe ("`|`") characters. It must also provide the `pointType` field with the value `"path"` or `"polyline"` 
+(case insensitive).
+
+```javascript
+{
+  // ...
+  "polyline": ["53.544389,-113.490927", "50.454722,-104.606667"],  // or "53.544389,-113.490927|50.454722,-104.606667"
+  "pointType": "Path"       // or "polyline" 
+  // ... 
+},
+```
+
+Records that have an area must provide the `polygon` attribute with either a list of point strings, or a single string 
+separated with pipe ("`|`") characters. It must also provide the `pointType` field with the value `"polygon"` (case insensitive).
+
+```javascript
+{
+  // ...
+  "polygon": ["-109.951172,59.716253,0", "-101.777344,59.804779,0", "-101.337891,48.870135,0", "-109.687500,48.812290,0" "-109.951172,59.716253,0"],  // or "-109.951172,59.716253,0| -101.777344,59.804779,0| ... etc
+  "pointType": "polygon" 
+  // ... 
+},
+```
+
 ## Components
 PlotIt provides some extensions to basic HTML in with components. Each component consists of a tag like HTML and an optional  params attribute that customizes the behaviour. 
 
@@ -54,9 +98,12 @@ Parameters are listed in params as a single JSON declaration; ie. a comma-separa
 View each component's documentation to see a description of the component, the parameters it can accept in `params`, any special conditions, and some examples of its use. All parameters are optional, except when otherwise specified. 
 
 ### `<map>`
-A google map with pins at each geolocation in the data set. If there are multiple pins at the same location, the stack will bear the number of points in it. When a stack is clicked the pins will spiral out into individuals for more precise selection.
+A google map adorned with tokens (pins, paths, and areas) for geodata in the data set. See the Data section for how each type must be denoted in the dataset. 
 
-Records with multiple locations have all pins "linked", so that selecting one will highlight all.
+If multiple pin tokens share the same location, the stack will bear the number of points in it and be given the "default" color as defined in the color table. 
+Similarly, when pins are bunched together, they spread out when clicked to allow precise selection.
+
+All of a record's tokens are grouped so that selecting one will highlight the others as well. 
 
 **Parameters**
 
@@ -105,7 +152,7 @@ A timeline with markers at each time point in the data set.
 Records with multiple time points have all markers "linked", so that selecting one will highlight all.
 
 **Parameters**
-*(none)*
+ * `startDate` A date string (eg. `"Jan 1 2016"`) that will be the starting focus of the timeline.
 
 **Examples**
 ```html
