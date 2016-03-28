@@ -15,6 +15,10 @@ grid table {
    width: 100%;
 }
 
+grid table tbody tr td {
+   height: 2.5em;
+}
+
 grid table tbody tr:nth-of-type(even) {
    background: #eee;
 }

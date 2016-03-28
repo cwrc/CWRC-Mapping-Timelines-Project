@@ -114,9 +114,15 @@
    <spotlight></spotlight>
 
    <style>
-      grid .grid-Start,
-      grid .grid-End {
+      grid .grid-start,
+      grid .grid-end {
          white-space: nowrap;
+      }
+
+      grid .grid-lat-lng {
+         max-width: 12em;
+
+         overflow: auto;
       }
    </style>
    <expander>
@@ -295,7 +301,7 @@
          </tr>
          </thead>
          <tbody data-bind="foreach: {data: itemsOnCurrentPage, as: 'item'}">
-         <tr data-bind="">
+         <tr>
             <td>
                <a href="#" data-bind="click: function(){ CWRC.selected(item)}">
                   View
@@ -303,7 +309,7 @@
             </td>
 
             <!-- ko foreach: {data: Object.keys($parent.columns), as: 'columnLabel'} -->
-            <td data-bind="html: item[$parents[1].columns[columnLabel]] || 'n/a', css: $parents[1].getColumnClass(columnLabel)">
+            <td data-bind="html: $parents[1].getData(item, columnLabel) || 'n/a', css: $parents[1].getColumnClass(columnLabel)">
             </td>
             <!-- /ko -->
             <td>

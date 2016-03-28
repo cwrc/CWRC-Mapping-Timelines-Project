@@ -171,9 +171,9 @@ A sortable table listing records and the given fields.
  * `initialSortBy`: an array of field names by which to initially sort, in order of priority. Use a suffix of `-za` to get reverse order. eg. `'author'` is forwards sorting, `'author-za'` sorts in reverse
 
 **Styling Notes**
-Columns are automatically sized, but sometimes you want to have more control or disable word-wrapping in those cells. Every grid column has a CSS class automatically added in the form based on the column name, in the format grid-column-name. 
+Columns are automatically sized, but sometimes you want to have more control or disable word-wrapping in those cells. Every grid column has a CSS class automatically added in the form based on the column name, in the format *grid-column-name*. 
 
-eg. Column *Author* would get CSS class `grid-author`, and *First Name* gets `grid-first-name`
+eg. Column *Author* would get CSS class `grid-author`, and *First Name* gets `grid-first-name`. Every non-alphanumeric character in the column name is converted to a `-`.
 
 **Examples**
 ```html

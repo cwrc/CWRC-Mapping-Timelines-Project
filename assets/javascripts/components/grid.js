@@ -141,8 +141,14 @@ ko.components.register('grid', {
             return pages;
         });
 
+        self['getData'] = function (item, label) {
+            var data = item[self.columns[label]]
+
+            return data instanceof Array ? data.join(', ') : data;
+        };
+
         self['getColumnClass'] = function (columnLabel) {
-            return 'grid-' + columnLabel.replace(/\s/, '-').toLowerCase();
+            return 'grid-' + columnLabel.replace(/\s/, '-').replace(/[^a-zA-Z\d-]/, '-').toLowerCase();
         };
 
         self['setPage'] = function (index) {
