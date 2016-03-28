@@ -15,6 +15,10 @@ grid table {
    width: 100%;
 }
 
+grid table tbody tr {
+   cursor: pointer;
+}
+
 grid table tbody tr td {
    height: 2.5em;
 }
@@ -24,7 +28,13 @@ grid table tbody tr:nth-of-type(even) {
 }
 
 grid table tbody tr:nth-of-type(odd) {
-   background: #ccc;
+   background: #ddd;
+}
+
+grid table tbody tr:hover {
+   background: #ADD8E6;
+
+   text-decoration: underline;
 }
 
 grid table tbody td {

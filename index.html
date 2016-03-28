@@ -292,22 +292,13 @@
       <table>
          <!-- explicit thead & tbody are important, otherwise the browser assumes incorrect things-->
          <thead>
-         <tr>
-            <th></th>
-            <!-- ko foreach: Object.keys(columns) -->
+         <tr data-bind="foreach: Object.keys(columns)">
             <th data-bind="text: $data">
             </th>
-            <!-- /ko -->
          </tr>
          </thead>
          <tbody data-bind="foreach: {data: itemsOnCurrentPage, as: 'item'}">
-         <tr>
-            <td>
-               <a href="#" data-bind="click: function(){ CWRC.selected(item)}">
-                  View
-               </a>
-            </td>
-
+         <tr data-bind="click: function(){ CWRC.selected(item)}">
             <!-- ko foreach: {data: Object.keys($parent.columns), as: 'columnLabel'} -->
             <td data-bind="html: $parents[1].getData(item, columnLabel) || 'n/a', css: $parents[1].getColumnClass(columnLabel)">
             </td>
