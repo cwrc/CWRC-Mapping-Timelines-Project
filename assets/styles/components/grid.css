@@ -62,29 +62,77 @@ grid a[selected] {
    text-decoration: none;
 }
 
-grid #gridSorting {
+grid .grid-controls {
    font-size: 0.8em;
 }
 
-grid #gridSorting div {
+grid .grid-sorter {
    display: inline-block;
 }
 
-grid #gridSorting > div > div {
+grid .grid-column-chooser {
+   display: inline-block;
+   position: relative;
+   z-index: 10;
+
+   float: right;
+
+   margin-right: 1em;
+}
+
+grid .grid-column-chooser > div:first-of-type {
+   position: absolute;
+   right: 0em;
+
+   box-shadow: 0.25em 0.25em 0.5em rgba(0, 0, 0, 0.66);
+
+   border-radius: 0.25em;
+
+   background: grey;
+}
+
+grid .grid-column-chooser > div:first-of-type label {
+   margin: 0.5em;
+
+   display: block;
+
+   white-space: nowrap;
+
+   cursor: pointer;
+}
+
+grid .grid-column-chooser > div:first-of-type label input {
+   cursor: pointer;
+}
+
+grid .grid-column-chooser-area {
+   position: fixed;
+   top: 0;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   z-index: 9;
+}
+
+grid .grid-sorter div {
+   display: inline-block;
+}
+
+grid .grid-sorter > div > div {
    display: inline-block;
 
    border-radius: 0.25em;
 }
 
-grid #gridSorting > div div:after {
+grid .grid-sorter > div div:after {
    content: '; then';
 }
 
-grid #gridSorting > div > div select {
+grid .grid-sorter > div > div select {
    background: none;
 }
 
-grid #gridSorting > div > div a:last-of-type {
+grid .grid-sorter > div > div a:last-of-type {
    margin-left: 0.5em;
 
    width: 1em;
@@ -94,7 +142,7 @@ grid #gridSorting > div > div a:last-of-type {
    background: #e8e8e8;
 }
 
-grid #gridSorting > div > div a {
+grid .grid-sorter > div > div a {
    /* :last-of-type {*/
    display: inline-block;
 
@@ -109,7 +157,7 @@ grid #gridSorting > div > div a {
    text-decoration: none;
 }
 
-grid #gridSorting > div > div a:hover {
+grid .grid-sorter > div > div a:hover {
    border: 1px outset #ababab;
 
    color: black;

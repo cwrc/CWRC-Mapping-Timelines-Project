@@ -273,32 +273,49 @@
    ===============================================
    -->
    <template id="grid-template">
-      <div id="gridSorting">
-         Sort <span data-bind="visible: sortContexts().length > 0">by</span>
-         <!-- Building a "widget" for editing each sorting context-->
-         <div data-bind="foreach: sortContexts">
-            <div>
-               <select
-                     data-bind="options: $parent.allFields,
+      <div class="grid-controls">
+         <div class="grid-sorter">
+            Sort <span data-bind="visible: sortContexts().length > 0">by</span>
+            <!-- Building a "widget" for editing each sorting context-->
+            <div data-bind="foreach: sortContexts">
+               <div>
+                  <select
+                        data-bind="options: $parent.allContexts,
                                 optionsText: 'displayName',
                                 optionsValue: 'name',
                                 optionsCaption:'Choose...',
                                 value: $data.name"></select>
-               <a href="#"
-                  data-bind="click: function() { $data.reverse() },
+                  <a href="#"
+                     data-bind="click: function() { $data.reverse() },
                              text: $data.getFieldDirectionLabel()"></a>
-               <a href="#" data-bind="click: function() { $parent.removeSortBy($data) }">x</a>
+                  <a href="#" data-bind="click: function() { $parent.removeSortBy($data) }">x</a>
+               </div>
             </div>
+
+            <a href="#" title="Add Sorting Rule" data-bind="click: function(){addContext('')} ">by...</a>
          </div>
 
-         <a href="#" title="Add Sorting Rule" data-bind="click: function(){addContext('')} ">by...</a>
+         <div class="grid-column-chooser">
+            <input type="button" data-bind="click: toggleColumnSelector" value="Columns..." />
+
+            <div data-bind="visible: columnSelectVisible,foreach: Object.keys(columns)">
+               <label>
+                  <input type="checkbox" data-bind="value: $data, checked: $parent.visibleColumns">
+                  <span data-bind="text: $data"></span>
+               </label>
+            </div>
+         </div>
+         <!-- ko if: columnSelectVisible-->
+         <div class="grid-column-chooser-area" data-bind=" click: toggleColumnSelector">
+         </div>
+         <!-- /ko -->
       </div>
 
       <table>
          <!-- explicit thead & tbody are important, otherwise the browser assumes incorrect things-->
          <thead>
          <tr data-bind="foreach: Object.keys(columns)">
-            <th>
+            <th data-bind="visible: $parent.isColumnVisible($data)">
                <a href="#" data-bind="click: function(){ $parent.sortByColumn($data) }">
                   <span data-bind="text: $data"></span>
                   <span data-bind="text: $parent.getArrow($data)"></span>
@@ -309,7 +326,9 @@
          <tbody data-bind="foreach: {data: itemsOnCurrentPage, as: 'item'}">
          <tr data-bind="click: function(){ CWRC.selected(item)}">
             <!-- ko foreach: {data: Object.keys($parent.columns), as: 'columnLabel'} -->
-            <td data-bind="html: $parents[1].getData(item, columnLabel) || 'n/a', css: $parents[1].getColumnClass(columnLabel)">
+            <td data-bind="html: $parents[1].getData(item, columnLabel) || 'n/a',
+                           css: $parents[1].getColumnClass(columnLabel),
+                           visible: $parents[1].isColumnVisible(columnLabel)">
             </td>
             <!-- /ko -->
             <td>

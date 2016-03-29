@@ -12,7 +12,9 @@ ko.components.register('grid', {
         var self = this;
 
         self.columns = params['columns'] || alert("Error: You must provide the 'columns' parameter to <grid>.");
+        self.visibleColumns = ko.observableArray(Object.keys(self.columns));
         self.sortContexts = ko.observableArray();
+        self.columnSelectVisible = ko.observable(false);
 
         var SortContext = function (fieldString) {
             var contextSelf = this;
@@ -46,7 +48,7 @@ ko.components.register('grid', {
         };
 
         // assumes all data objects have same format.
-        self.allFields = ko.pureComputed(function () {
+        self.allContexts = ko.pureComputed(function () {
             return Object.keys(CWRC.rawData()[0] || {}).map(function (fieldString) {
                 return new SortContext(fieldString);
             });
@@ -153,6 +155,14 @@ ko.components.register('grid', {
 
             return pages;
         });
+
+        self['toggleColumnSelector'] = function () {
+            self.columnSelectVisible(!self.columnSelectVisible());
+        };
+
+        self['isColumnVisible'] = function (columnLabel) {
+            return self.visibleColumns().indexOf(columnLabel) > -1;
+        };
 
         self['sortByColumn'] = function (columnLabel) {
             var fieldName, existingContext;
