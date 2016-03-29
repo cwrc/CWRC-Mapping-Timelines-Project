@@ -1,13 +1,11 @@
-filter_reset {
+filter_save_results {
    display: inline-block;
 
    margin: 0em 1em;
 }
 
-filter_reset input {
+filter_save_results input {
    display: block;
 
    width: 100%;
-
-   /*border-radius: 0.25em;*/
 }
