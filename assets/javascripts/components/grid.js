@@ -15,20 +15,33 @@ ko.components.register('grid', {
         self.sortContexts = ko.observableArray();
 
         var SortContext = function (fieldString) {
-            var self = this;
+            var contextSelf = this;
             var split = (fieldString || '').split('-');
 
-            self.name = ko.observable(split[0]);
-            self.direction = ko.observable((split[1] || 'az').toLowerCase());
+            contextSelf.name = ko.observable(split[0]);
+            contextSelf.direction = ko.observable((split[1] || 'az').toLowerCase());
 
-            self['getFieldDirectionLabel'] = function () {
-                return self.direction() == 'az' ? 'A->Z' : 'Z->A';
+            contextSelf.displayName = ko.pureComputed(function () {
+                return Object.keys(self.columns).find(function (key) {
+                        return self.columns[key].toLowerCase() == contextSelf.name().toLowerCase();
+                    }) || contextSelf.name();
+            });
+
+            contextSelf['getFieldDirectionArrow'] = function () {
+                if (contextSelf.direction() == 'az')
+                    return '\u25Be';
+                else
+                    return '\u25B4';
             };
 
-            self['reverse'] = function () {
+            contextSelf['getFieldDirectionLabel'] = function () {
+                return contextSelf.direction() == 'az' ? 'A->Z' : 'Z->A';
+            };
+
+            contextSelf['reverse'] = function () {
                 var index, reversedLabel, direction;
 
-                self.direction(self.direction() == 'az' ? 'za' : 'az');
+                contextSelf.direction(contextSelf.direction() == 'az' ? 'za' : 'az');
             };
         };
 
@@ -39,8 +52,8 @@ ko.components.register('grid', {
             });
         });
 
-        self.addContext = function () {
-            self.sortContexts.push(new SortContext());
+        self.addContext = function (sortString) {
+            self.sortContexts.push(new SortContext(sortString || ''));
         };
 
         self['removeSortBy'] = function (fieldName) {
@@ -134,15 +147,42 @@ ko.components.register('grid', {
         self.pages = ko.computed(function () {
             var pages = [];
 
-            for (var page = 1; page <= self.maxPageIndex(); page++) {
-                pages.push(page);
+            for (var pageNo = 1; pageNo <= self.maxPageIndex(); pageNo++) {
+                pages.push(pageNo);
             }
 
             return pages;
         });
 
+        self['sortByColumn'] = function (columnLabel) {
+            var fieldName, existingContext;
+
+            fieldName = self.columns[columnLabel];
+
+            existingContext = self.sortContexts().find(function (context) {
+                return context.name() == fieldName;
+            });
+
+            if (!existingContext)
+                self.addContext(fieldName + '-az');
+            else
+                existingContext.reverse();
+        };
+
+        self['getArrow'] = function (columnLabel) {
+            var fieldName, existingContext;
+
+            fieldName = self.columns[columnLabel];
+
+            existingContext = self.sortContexts().find(function (context) {
+                return context.name() == fieldName;
+            });
+
+            return existingContext ? existingContext.getFieldDirectionArrow() : '';
+        };
+
         self['getData'] = function (item, label) {
-            var data = item[self.columns[label]]
+            var data = item[self.columns[label]];
 
             return data instanceof Array ? data.join(', ') : data;
         };

@@ -15,6 +15,21 @@ grid table {
    width: 100%;
 }
 
+grid table thead th a {
+   display: inline-block;
+
+   padding: 0.5em 0;
+
+   cursor: pointer;
+
+   text-decoration: none;
+   color: black;
+}
+
+grid table thead th a:hover {
+   text-decoration: underline;
+}
+
 grid table tbody tr {
    cursor: pointer;
 }

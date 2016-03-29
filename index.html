@@ -279,21 +279,30 @@
          <div data-bind="foreach: sortContexts">
             <div>
                <select
-                     data-bind="options: $parent.allFields, optionsText: 'name', optionsValue: 'name', optionsCaption:'Choose...', value: $data.name"></select>
+                     data-bind="options: $parent.allFields,
+                                optionsText: 'displayName',
+                                optionsValue: 'name',
+                                optionsCaption:'Choose...',
+                                value: $data.name"></select>
                <a href="#"
-                  data-bind="click: function() { $data.reverse() }, text: $data.getFieldDirectionLabel()"></a>
+                  data-bind="click: function() { $data.reverse() },
+                             text: $data.getFieldDirectionLabel()"></a>
                <a href="#" data-bind="click: function() { $parent.removeSortBy($data) }">x</a>
             </div>
          </div>
 
-         <a href="#" title="Add Sorting Rule" data-bind="click: addContext ">by...</a>
+         <a href="#" title="Add Sorting Rule" data-bind="click: function(){addContext('')} ">by...</a>
       </div>
 
       <table>
          <!-- explicit thead & tbody are important, otherwise the browser assumes incorrect things-->
          <thead>
          <tr data-bind="foreach: Object.keys(columns)">
-            <th data-bind="text: $data">
+            <th>
+               <a href="#" data-bind="click: function(){ $parent.sortByColumn($data) }">
+                  <span data-bind="text: $data"></span>
+                  <span data-bind="text: $parent.getArrow($data)"></span>
+               </a>
             </th>
          </tr>
          </thead>
