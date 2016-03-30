@@ -24,6 +24,7 @@ grid table thead th a {
 
    text-decoration: none;
    color: black;
+   white-space: nowrap;
 }
 
 grid table thead th a:hover {
@@ -48,12 +49,9 @@ grid table tbody tr:nth-of-type(odd) {
 
 grid table tbody tr:hover {
    background: #ADD8E6;
-
-   text-decoration: underline;
 }
 
 grid table tbody td {
-   /*min-width: 6em;*/
    padding: 0.25em 0.5em;
 }
 
