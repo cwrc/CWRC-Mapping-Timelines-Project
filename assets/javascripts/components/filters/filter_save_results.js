@@ -107,9 +107,9 @@ ko.components.register('filter_save_results', {
 
                         value.forEach(function (innerValue) {
                             lines.push(
-                                '<' + tag + '_element>' +
+                                '<' + self.singularize(tag) + '>' +
                                 sanitize(innerValue) +
-                                '</' + tag + '_element>');
+                                '</' + self.singularize(tag) + '>');
                         });
 
                         lines.push('</' + tag + '>')
@@ -127,6 +127,13 @@ ko.components.register('filter_save_results', {
             lines.push('</items>');
 
             self.triggerDownload('results.xml', 'application/xml', lines.join('\n')); //
+        };
+
+        self['singularize'] = function (str) {
+            if (str.lastIndexOf('s') == str.length - 1)
+                return str.substring(0, str.length - 1);
+            else
+                return str + '_element>';
         };
 
         self['triggerDownload'] = function (name, mime, data) {
