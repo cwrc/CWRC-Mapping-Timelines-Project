@@ -4,8 +4,40 @@ filter_save_results {
    margin: 0em 1em;
 }
 
-filter_save_results input {
-   display: block;
+filter_save_results .save-dialog {
+   position: fixed;
+   top: 0;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   z-index: 100;
 
-   width: 100%;
+   background: rgba(0, 0, 0, 0.4);
+}
+
+filter_save_results .save-dialog > div {
+   margin: 10% auto;
+
+   max-width: 25em;
+
+   padding: 1em;
+
+   background: lightgrey;
+
+   box-shadow: 0.25em 0.25em 0.5em rgba(0, 0, 0, 0.6);
+
+   text-align: left;
+}
+
+filter_save_results .save-dialog > div header {
+   margin-bottom: 1em;
+
+   text-align: center;
+}
+
+filter_save_results .save-dialog > div input {
+   display: inline-block;
+
+   min-width: 8em;
+   min-height: 2.5em;
 }
