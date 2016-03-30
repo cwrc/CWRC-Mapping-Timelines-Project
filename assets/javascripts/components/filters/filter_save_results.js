@@ -5,6 +5,7 @@ ko.components.register('filter_save_results', {
                         <header>Download As</header>\
                         <input type="button" data-bind="value: \'JSON\', click: function(){ saveJSON() }"/>\
                         <input type="button" data-bind="value: \'CSV\', click: function(){ saveCSV() }"/>\
+                        <input type="button" data-bind="value: \'XML\', click: function(){ saveXML() }"/>\
                         <hr>\
                         <input type="button" data-bind="value: \'Cancel\', click: toggleDialog"/>\
                     </div>\
@@ -82,9 +83,50 @@ ko.components.register('filter_save_results', {
         };
 
         self['saveXML'] = function () {
-            alert('make XML data by iterating over the objects, then their keys and inventing tags as needed')
+            var lines, tag, value;
 
-            //self.triggerDownload('results.xml', 'application/xml', data); //
+            lines = ['<items>'];
+
+            sanitize = function (str) {
+                return (str || '').replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&apos;')
+            };
+
+            CWRC.filteredData().forEach(function (item) {
+                lines.push('<item>');
+
+                Object.keys(item).forEach(function (key) {
+                    tag = sanitize(key).replace(/\s/, '_');
+                    value = item[key];
+
+                    if (value instanceof Array) {
+                        lines.push('<' + tag + '>');
+
+                        value.forEach(function (innerValue) {
+                            lines.push(
+                                '<' + tag + '_element>' +
+                                sanitize(innerValue) +
+                                '</' + tag + '_element>');
+                        });
+
+                        lines.push('</' + tag + '>')
+                    } else {
+                        lines.push(
+                            '<' + tag + '>' +
+                            sanitize(value) +
+                            '</' + tag + '>');
+                    }
+                });
+
+                lines.push('</item>')
+            });
+
+            lines.push('</items>');
+
+            self.triggerDownload('results.xml', 'application/xml', lines.join('\n')); //
         };
 
         self['triggerDownload'] = function (name, mime, data) {
