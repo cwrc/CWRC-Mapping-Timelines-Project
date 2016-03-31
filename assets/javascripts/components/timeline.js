@@ -162,8 +162,12 @@ ko.components.register('timeline', {
             return record == CWRC.selected();
         };
 
-        self.viewport = document.getElementById('timeline-viewport');
-        self.ruler = document.getElementById('timeline-ruler');
+        self.viewport = function () {
+            return document.getElementById('timeline-viewport');
+        };
+        self.ruler = function () {
+            return document.getElementById('timeline-ruler');
+        };
 
         // Store state separate from viewport so that it only rounds once at the end, not every step. This eliminates drift
         // Top, left, right, and bottom are in scaled pixels
@@ -171,20 +175,21 @@ ko.components.register('timeline', {
             left: ko.observable(0),
             top: ko.observable(0),
             right: function () {
-                return self.viewportBounds.left() + (self.viewport.offsetWidth * self.scale());
+                return self.viewportBounds.left() + (self.viewport().offsetWidth * self.scale());
             },
             bottom: function () {
-                return self.viewportBounds.top() + (self.viewport.offsetHeight * self.scale());
+                return self.viewportBounds.top() + (self.viewport().offsetHeight * self.scale());
             }
         };
 
         // Wrapped in a timeout to run after the actual canvas is initialized.
+        // TODO: this is a hack, but there isn't currently any event to hook into for when the timeline is done loading
         setTimeout(function () {
             var startFocusStamp = CWRC.toStamp(params['startDate']) || 0;
-            var startOffset = startFocusStamp - self.originStamp()
+            var startOffset = startFocusStamp - self.originStamp();
 
             self.pan(self.toPixels(-startOffset), 0)
-        }, 0);
+        }, 100);
 
         CWRC.selected.subscribe(function (selectedRecord) {
             var viewport, recordLabel, row, col, rows, records, ruler;
@@ -238,11 +243,11 @@ ko.components.register('timeline', {
         });
 
         self.viewportBounds.left.subscribe(function (newVal) {
-            self.viewport.scrollLeft = Math.round(newVal);
+            self.viewport().scrollLeft = Math.round(newVal);
         });
 
         self.viewportBounds.top.subscribe(function (newVal) {
-            self.viewport.scrollTop = Math.round(newVal);
+            self.viewport().scrollTop = Math.round(newVal);
         });
 
         // Moves the viewport X pixels right, and Y pixels down. Both x, y are in unscaled pixels
@@ -251,8 +256,8 @@ ko.components.register('timeline', {
 
             canvas = document.querySelector('#timeline-viewport .canvas');
 
-            maxLeft = canvas.offsetWidth * self.scale() - self.viewport.offsetWidth;
-            maxTop = canvas.offsetHeight * self.scale() - self.viewport.offsetHeight;
+            maxLeft = canvas.offsetWidth * self.scale() - self.viewport().offsetWidth;
+            maxTop = canvas.offsetHeight * self.scale() - self.viewport().offsetHeight;
 
             newLeft = Math.max(0, Math.min(self.viewportBounds.left() - deltaX, maxLeft));
             newTop = Math.max(0, Math.min(self.viewportBounds.top() - deltaY, maxTop));
@@ -315,8 +320,8 @@ ko.components.register('timeline', {
             var mouseX, mouseY;
 
             //  mouseX, Y are relative to viewport, in unscaled pixels
-            mouseX = scrollEvent.clientX - self.viewport.getBoundingClientRect().left;
-            mouseY = scrollEvent.clientY - self.viewport.getBoundingClientRect().top;
+            mouseX = scrollEvent.clientX - self.viewport().getBoundingClientRect().left;
+            mouseY = scrollEvent.clientY - self.viewport().getBoundingClientRect().top;
 
             self.zoom(mouseX, mouseY, scrollEvent.deltaY < 0);
 

@@ -1,9 +1,9 @@
 timeline {
-    display: block;
+   display: block;
 }
 
 timeline > section {
-    text-align: right;
+   text-align: right;
 }
 
 /*timeline > section {*/
@@ -17,113 +17,117 @@ timeline > section {
 /*right: 0em;*/
 /*}*/
 
+timeline resizer .viewport {
+   height: 15em;
+}
+
 timeline #timeline-viewport {
-    height: 15em;
+   height: 100%;
 
-    overflow: hidden;
+   overflow: hidden;
 
-    background: #ccc;
+   background: #ccc;
 }
 
 timeline #timeline-viewport, #timeline-ruler {
-    cursor: -moz-grab;
-    cursor: -webkit-grab;
-    cursor: grab;
+   cursor: -moz-grab;
+   cursor: -webkit-grab;
+   cursor: grab;
 
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
 }
 
 timeline #timeline-ruler > div {
-    -webkit-transform-origin: left;
-    -moz-transform-origin: left;
-    -ms-transform-origin: left;
-    -o-transform-origin: left;
-    transform-origin: left;
+   -webkit-transform-origin: left;
+   -moz-transform-origin: left;
+   -ms-transform-origin: left;
+   -o-transform-origin: left;
+   transform-origin: left;
 }
 
 timeline #timeline-viewport:active, #timeline-ruler:active {
-    cursor: -moz-grabbing;
-    cursor: -webkit-grabbing;
-    cursor: grabbing;
+   cursor: -moz-grabbing;
+   cursor: -webkit-grabbing;
+   cursor: grabbing;
 }
 
 timeline #timeline-viewport .canvas {
-    padding: 1em 0em;
+   padding: 1em 0em;
 
-    background: lightblue;
+   background: lightblue;
 
-    -webkit-transform-origin: 0 0 0;
-    -moz-transform-origin: 0 0 0;
-    -ms-transform-origin: 0 0 0;
-    -o-transform-origin: 0 0 0;
-    transform-origin: 0 0 0;
+   -webkit-transform-origin: 0 0 0;
+   -moz-transform-origin: 0 0 0;
+   -ms-transform-origin: 0 0 0;
+   -o-transform-origin: 0 0 0;
+   transform-origin: 0 0 0;
 }
 
 timeline #timeline-viewport > div.canvas > div.row {
-    position: relative; /* to give a new origin for children  */
+   position: relative; /* to give a new origin for children  */
 
-    margin: 0.25em 0;
+   margin: 0.25em 0;
 
-    min-height: 1.5em;
+   min-height: 1.5em;
 }
 
 timeline #timeline-viewport > div.canvas > div.row > .event {
-    display: inline-block;
-    position: absolute;
-    vertical-align: top;
+   display: inline-block;
+   position: absolute;
+   vertical-align: top;
 
-    border-radius: 0.5em;
+   border-radius: 0.5em;
 
-    padding: 0.25em 0;
+   padding: 0.25em 0;
 
-    overflow: hidden;
+   overflow: hidden;
 
-    background: #EEEDE6;
+   background: #EEEDE6;
 
-    white-space: nowrap;
-    text-overflow: ellipsis;
+   white-space: nowrap;
+   text-overflow: ellipsis;
 }
 
 timeline #timeline-viewport > div.canvas > div.row > .selected {
-    z-index: 10;
+   z-index: 10;
 
-    box-shadow: 0.25em 0.25em 0.25em rgba(0, 0, 0, 0.65);
-    border: 3px dotted red;
+   box-shadow: 0.25em 0.25em 0.25em rgba(0, 0, 0, 0.65);
+   border: 3px dotted red;
 }
 
 timeline #timeline-viewport > div.canvas > div.row > .event > span:first-of-type:after {
-    content: ":";
+   content: ":";
 }
 
 timeline #timeline-viewport > div.canvas > div.row > .event > span {
-    margin-left: 0.25em;
+   margin-left: 0.25em;
 }
 
 timeline #timeline-ruler {
-    position: relative;
+   position: relative;
 
-    overflow: hidden;
+   overflow: hidden;
 
-    height: 1em;
+   height: 1em;
 }
 
 timeline #timeline-ruler > div {
-    overflow: hidden;
+   overflow: hidden;
 }
 
 timeline #timeline-ruler > div > div {
-    position: absolute; /* Must absolute, otherwise time drift will occur (leap years) */
+   position: absolute; /* Must absolute, otherwise time drift will occur (leap years) */
 
-    border-left-color: black;
-    border-left-style: solid;
+   border-left-color: black;
+   border-left-style: solid;
 
-    background: white;
+   background: white;
 }
 
 timeline #timeline-ruler > div > div:nth-of-type(odd) {
-    background: #ccc;
+   background: #ccc;
 }
 
