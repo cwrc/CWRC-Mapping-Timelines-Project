@@ -7,12 +7,9 @@ ko.components.register('expander', {
                <div data-bind="visible: isVisible, template: {nodes: content}">\
                </div>',
 
-    /**
-     * A loading overlay throbber.
-     */
+    // See http://knockoutjs.com/documentation/component-custom-elements.html#passing-markup-into-components
+    // for why this is a little different from most components
     viewModel: {
-        // See http://knockoutjs.com/documentation/component-custom-elements.html#passing-markup-into-components
-        // for why this is a little different from most components
         createViewModel: function (params, componentInfo) {
             /**
              * An expandable/collapsable pane that toggles between states.

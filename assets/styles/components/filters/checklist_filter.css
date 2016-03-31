@@ -1,43 +1,43 @@
 checklist_filter {
-    display: block;
-    margin-bottom: 1em;
+   display: block;
+   /*margin-bottom: 1em;*/
 }
 
 checklist_filter input {
-    margin-right: 0em;
+   margin-right: 0em;
 }
 
 checklist_filter label {
-    border-radius: 0.25em;
+   border-radius: 0.25em;
 }
 
 checklist_filter > div > label {
-    display: block;
+   display: block;
 }
 
 checklist_filter div label > span:last-of-type {
-    font-size: 0.8em;
-    color: darkgrey;
+   font-size: 0.8em;
+   color: darkgrey;
 }
 
 checklist_filter header {
-    position: relative;
+   position: relative;
 }
 
 checklist_filter header label {
-    position: absolute;
-    top: 0em;
-    right: 0em;
+   position: absolute;
+   top: 0em;
+   right: 0em;
 }
 
 checklist_filter header expander > a {
-    font-size: 1em;
+   font-size: 1em;
 
-    color: black;
+   color: black;
 }
 
 checklist_filter header expander > a:hover span,
 checklist_filter header expander > a:active span,
 checklist_filter header expander > a:focus span {
-    color: black;
+   color: black;
 }

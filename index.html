@@ -25,6 +25,7 @@
    <link href="assets/styles/components/filters/filter_save_results.css" type="text/css" rel="stylesheet" />
    <link href="assets/styles/components/tab_pane.css" type="text/css" rel="stylesheet" />
    <link href="assets/styles/components/expander.css" type="text/css" rel="stylesheet" />
+   <link href="assets/styles/components/resizer.css" type="text/css" rel="stylesheet" />
    <link href="assets/styles/components/spotlight.css" type="text/css" rel="stylesheet" />
    <link href="assets/styles/components/map.css" type="text/css" rel="stylesheet" />
    <link href="assets/styles/components/grid.css" type="text/css" rel="stylesheet" />
@@ -54,6 +55,7 @@
    <script src="assets/javascripts/components/filters/filter_save_results.js" type="text/javascript"></script>
    <script src="assets/javascripts/components/tab_pane.js" type="text/javascript"></script>
    <script src="assets/javascripts/components/expander.js" type="text/javascript"></script>
+   <script src="assets/javascripts/components/resizer.js" type="text/javascript"></script>
    <script src="assets/javascripts/components/spotlight.js" type="text/javascript"></script>
    <script src="assets/javascripts/components/timeline.js" type="text/javascript"></script>
    <script src="assets/javascripts/components/map.js" type="text/javascript"></script>
@@ -75,8 +77,9 @@
 
          <date_filter params="label: 'Date Range'"></date_filter>
 
-
-         <checklist_filter params="label: 'Collection', field: 'group'"></checklist_filter>
+         <resizer>
+            <checklist_filter params="label: 'Collection', field: 'group'"></checklist_filter>
+         </resizer>
          <checklist_filter params="label: 'Event Type', field: 'eventType'"></checklist_filter>
       </div>
 
@@ -133,24 +136,27 @@
       }
    </style>
    <expander>
-      <tab_pane>
-         <map data-tab-label="Map View" params="center: '38.479394673276445, -115.361328125',
+      <resizer>
+
+         <tab_pane>
+            <map data-tab-label="Map View" params="center: '38.479394673276445, -115.361328125',
                                                     zoom: 3,
                                                     colorKey: 'group',
                                                     colors: {BIBLIFO: '#f00', Multimedia: '#0f0', OrlandoEvents: '#00f', LGLC: '#ff0'},
                                                     opacity: '0.5',
                                                     markerWidth: 18,
                                                     markerHeight: 18">
-         </map>
-         <grid data-tab-label="Grid View" params="columns: {'Event': 'label',
+            </map>
+            <grid data-tab-label="Grid View" params="columns: {'Event': 'label',
                                                                 'Collection': 'group',
                                                                 'Location': 'location',
                                                                 'Lat/Lng': 'latLng',
                                                                 'Start': 'startDate',
                                                                 'End': 'endDate'},
                                                                 initialSortBy: ['group', 'label-za']">
-         </grid>
-      </tab_pane>
+            </grid>
+         </tab_pane>
+      </resizer>
    </expander>
 </main>
 

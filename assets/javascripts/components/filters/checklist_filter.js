@@ -1,21 +1,21 @@
 ko.components.register('checklist_filter', {
-    template: '<header>\
+    template: ' <header>\
                     <expander params="expandedText: label, collapsedText: label, expandedObservable: isExpanded"></expander>\
                     <label>\
                         <input type="checkbox" title="Select All/None" data-bind="checked: allChecked, enable: allCheckEnabled"/>\
                         All\
                     </label>\
-               </header>\
-               <div data-bind="visible: isExpanded, foreach: rawRecordValues()">\
-                    <div>\
-                         <label>\
-                              <input type="checkbox" data-bind="checkedValue: $data, \
-                                                                checked: $parent.selectedRecordValues"/>\
-                              <span data-bind="text: $data"></span>\
-                              <span>(<span data-bind="text: $parent.filteredRecordValuesToCounts()[$data] || 0"></span>/<span data-bind="text: $parent.rawRecordValuesToCounts()[$data]"></span>)<span>\
-                         </label>\
-                    </div>\
-               </div>',
+                </header>\
+                <div data-bind="visible: isExpanded, foreach: rawRecordValues()">\
+                        <div>\
+                             <label>\
+                                  <input type="checkbox" data-bind="checkedValue: $data, \
+                                                                    checked: $parent.selectedRecordValues"/>\
+                                  <span data-bind="text: $data"></span>\
+                                  <span>(<span data-bind="text: $parent.filteredRecordValuesToCounts()[$data] || 0"></span>/<span data-bind="text: $parent.rawRecordValuesToCounts()[$data]"></span>)<span>\
+                             </label>\
+                        </div>\
+                </div>',
 
     /**
      * A checklist of fields groups by values. Only those fields that are checked will pass the filter.
