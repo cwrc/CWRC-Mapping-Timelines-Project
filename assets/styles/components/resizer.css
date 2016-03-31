@@ -5,7 +5,7 @@ resizer {
 }
 
 resizer .viewport {
-   overflow: auto;
+   overflow: hidden;
 }
 
 resizer .pull-bar {

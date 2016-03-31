@@ -62,6 +62,10 @@ body {
    margin-bottom: 0.25em;
 }
 
+#sidebar resizer .viewport {
+   overflow: auto;
+}
+
 #sidebar .save-reset {
    text-align: center;
 }
