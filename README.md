@@ -270,6 +270,36 @@ Takes an observable in parameter `expandedObservable`. It will toggle that obser
 </expander>
 ```
 
+### `<resizer>`
+A stretchable div. Has two styles of use: as an external control, and as a wrapping control. 
+
+*As Wrapper*
+Wraps its content with a stretching viewport div and grab handle. The content is viewport is made taller/shorter when 
+the handle is dragged. Child elements are reparented to the viewport. 
+
+*As Toggle*
+Takes an observable in parameter `resizerObservable`. It will update that observable with the dragged height. 
+Useful when you cannot have the content be reparented (like in map)
+
+**Parameters**
+
+ * `resizerObservable`: An observable to use instead of its own internal state.
+ * `resizedId`: The string of the HTML element id for the DOM element to resize.  
+
+**Examples**
+```html
+<!-- Using the defaults, controlling the area of some content --> 
+<expander>
+   This area is stretchy.
+</expander>
+```
+
+```html
+<!-- Controlling the area of a map using the map's internal 'canvasHeight' observable --> 
+<map id="map_canvas"></timeline>
+<resizer params="resizerObservable: canvasHeight, resizedId: 'map_canvas'"></resizer>
+```
+
 ### Filters
 #### `<text_filter>`
 Filters the dataset when any text is inputted, immediately after typing is completed. It searches all fields for the requested text. 
