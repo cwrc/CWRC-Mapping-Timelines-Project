@@ -22,6 +22,7 @@ ko.components.register('map', {
         var self = this;
 
         self.isVisible = ko.observable(true);
+        self.canvasHeight = ko.observable();
 
         // === MAP MARKERS, PINS & POLYs ===
         self.colorTable = new CWRC.ColorTable(params.colors, params.colorKey, '#999');

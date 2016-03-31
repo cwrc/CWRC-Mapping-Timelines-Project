@@ -135,16 +135,14 @@
    </style>
    <expander>
       <tab_pane>
-         <resizer data-tab-label="Map View">
-            <map params="center: '38.479394673276445, -115.361328125',
-                                                    zoom: 3,
-                                                    colorKey: 'group',
-                                                    colors: {BIBLIFO: '#f00', Multimedia: '#0f0', OrlandoEvents: '#00f', LGLC: '#ff0'},
-                                                    opacity: '0.5',
-                                                    markerWidth: 18,
-                                                    markerHeight: 18">
-            </map>
-         </resizer>
+         <map data-tab-label="Map View" params=" center: '38.479394673276445, -115.361328125',
+                                                 zoom: 3,
+                                                 colorKey: 'group',
+                                                 colors: {BIBLIFO: '#f00', Multimedia: '#0f0', OrlandoEvents: '#00f', LGLC: '#ff0'},
+                                                 opacity: '0.5',
+                                                 markerWidth: 18,
+                                                 markerHeight: 18">
+         </map>
          <grid data-tab-label="Grid View" params="columns: {'Event': 'label',
                                                                 'Collection': 'group',
                                                                 'Location': 'location',
@@ -236,8 +234,7 @@
          </div>
       </section>
       <resizer>
-      <div data-bind="event: { mousedown: $parent.dragStart, touchstart: $parent.dragStart }">
-
+         <div data-bind="event: { mousedown: $parent.dragStart, touchstart: $parent.dragStart }">
             <section id="timeline-viewport" data-bind="event: {wheel: $parent.scrollHandler}">
                <div class="canvas" data-bind="style: {
                                                         width: $parent.canvasWidth,
@@ -275,7 +272,7 @@
                                                 }"></div>
                             </div>
                         </section>-->
-      </div>
+         </div>
       </resizer>
    </template>
 
@@ -410,8 +407,10 @@
          </label>
       </div>
       <!-- identifying by ID does limit to one map per page, but that works for now -->
-      <div id="map_canvas">
+      <div data-bind="style: {height: canvasHeight}" id="map_canvas">
       </div>
+      <resizer params="resizerObservable: canvasHeight, resizedId: 'map_canvas'">
+      </resizer>
       <section data-bind="visible: colorTable.hasMapping()">
          <header>Legend</header>
          <!-- ko foreach: colorTable.getLegendPairs() -->

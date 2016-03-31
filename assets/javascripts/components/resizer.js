@@ -1,5 +1,5 @@
 ko.components.register('resizer', {
-    template: ' <div class="viewport" data-bind="style:{height: viewportSize}, template: {nodes: content}">\
+    template: ' <div class="viewport" data-bind="visible: isInternal, style:{height: viewportSize}, template: {nodes: content}">\
                 </div>\
                 <div class="pull-bar" data-bind="html: arrow, event: {mousedown: onMouseDown}">\
                </div>\
@@ -9,9 +9,12 @@ ko.components.register('resizer', {
         // for why this is a little different from most components
         createViewModel: function (params, componentInfo) {
             /**
-             * A resizeable pane that controls the height of its viewport.
+             * A resizeable pane that controls the height of its viewport. Use resizerObservable and resizedId to control
+             * a DOM element that isn't a child of the resizer
              *
-             * @param params (none)
+             * @param params
+             *        - resizerObservable: An observable to use instead of its own internal state.
+             *        - resizedId: The id of the external element that this widget controls.
              * @param content the content to expand and collapse
              * @constructor
              */
@@ -23,13 +26,17 @@ ko.components.register('resizer', {
                 self.arrow = '\u25Be';
                 self.lastY = null;
 
-                self.viewportSize = ko.observable(); // px
+                self.isInternal = !params.resizerObservable;
+                self.viewportSize = params.resizerObservable || ko.observable(); // px
 
                 self['onMouseDown'] = function (viewModel, event) {
                     self.lastY = event.pageY;
 
                     // this will need to change if the DOM order changes
-                    self.viewportSize(event.target.previousElementSibling.offsetHeight);
+                    if (self.isInternal)
+                        self.viewportSize(event.target.previousElementSibling.offsetHeight);
+                    else
+                        self.viewportSize(document.getElementById(params.resizedId).offsetHeight)
                 };
 
                 window.addEventListener('mousemove', function (event) {
