@@ -341,6 +341,28 @@ Produces a list of values for the provided facet field the dataset. If any value
 <checklist_filter params="label: 'Collection', field: 'collectionName'"></checklist_filter>
 ```
 
+#### `<filter_save_results>`
+A simple button that opens a dialog to save the filtered results. There are a few format options to choose from:
+
+* **JSON** produces a `.json` file containing a filtered subset of your original JSON dataset
+* **CSV** produces a `.csv` file where:
+    * the first line contains the field names separated by the *separator* character,  
+    * every following line is a data entry whose data is separated by the *separator* character, 
+    * the separator (either `,` `;` `\t` or `|`) is chosen based on the first that does not appear in the data
+* **XML** produces a `.xml` file containing an XML representation of the data. 
+
+*Note:* Some very old browsers will append a `.txt` file extension for all files. This can only be worked 
+around by upgrading to a modern browser. 
+
+**Parameters**
+
+*(none)*
+
+**Examples**
+```html
+<!-- Saves filtered results --> 
+<filter_save_results></filter_save_results>
+```
 
 #### `<filter_reset>`
 A simple button that resets all of the associated filters to their default state. To associate filters with a reset button, nest them all into the same `<div>` HTML element, and give that `<div>` a unique HTML id. Provide that id name as a `<filter_reset>` parameter.
