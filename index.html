@@ -169,14 +169,22 @@
    ===============================================
    -->
    <template id="spotlight-template">
+      <!-- ko if: lightboxVisible -->
+      <div class="spotlight-lightbox" data-bind="click: function(){ toggleLightbox() }">
+         <div>
+            <img data-bind="src: selected().images" />
+         </div>
+      </div>
+      <!-- /ko -->
       <section data-bind="if: selected() == null, visible: selected() == null">
          <p class="placeholder">
             Click an event in the timeline or map to see details
          </p>
       </section>
       <section data-bind="if: selected() != null, visible: selected() != null">
-         <img data-bind="visible: selected().images, src: selected().images" />
-         <iframe allowfullscreen=true data-bind="visible: selected().videos, src: selected().videos">
+         <img data-bind="visible: selected().images, src: selected().images, click: function(){ toggleLightbox() }" />
+         <iframe allowfullscreen=true
+                 data-bind="visible: selected().videos, src: selected().videos">
          </iframe>
          <div>
             <header>

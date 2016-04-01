@@ -5,5 +5,11 @@ ko.components.register('spotlight', {
         var self = this;
 
         self.selected = CWRC.selected;
+
+        self.lightboxVisible = ko.observable(false);
+
+        self['toggleLightbox'] = function () {
+            self.lightboxVisible(!self.lightboxVisible())
+        }
     }
 });
