@@ -43,7 +43,9 @@ ko.components.register('expander', {
                 self.expandedArrow = '\u25Be';
                 self.collapsedArrow = '\u25B4';
 
-                self.expanderContentDiv = domElement.querySelector('.expander-content');
+                self.expanderContentDiv = params.expandedElement || function () {
+                        return domElement.querySelector('.expander-content');
+                    };
 
                 self.labelText = ko.computed(function () {
                     return self.isVisible() ? self.expandedText : self.collapsedText;
@@ -57,12 +59,12 @@ ko.components.register('expander', {
                     var initDelay = 50; // ms
 
                     // CSS Transitions require both the start and end height be explicit numbers. 'auto' is not explicit enough
-                    self.height(self.isVisible() ? self.expanderContentDiv.scrollHeight || '100px' : 0);
+                    self.height(self.isVisible() ? self.expanderContentDiv().scrollHeight : 0);
 
                     // seem to need to use timeout to push this down the event stack to allow the trasnition rendering
                     // engine to notice the new value
                     window.setTimeout(function () {
-                        self.height(self.isVisible() ? 0 : self.expanderContentDiv.scrollHeight || '100px');
+                        self.height(self.isVisible() ? 0 : self.expanderContentDiv().scrollHeight);
                     }, initDelay);
 
                     // clearing the content max height after the animation allows for the content to size 'auto' again
