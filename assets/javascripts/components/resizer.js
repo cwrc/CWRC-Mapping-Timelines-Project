@@ -26,7 +26,7 @@ ko.components.register('resizer', {
                 self.arrow = '\u25Be';
                 self.lastY = null;
 
-                self.isInternal = !params.resizerObservable;
+                self.isInternal = content.length > 0;
                 self.viewportSize = params.resizerObservable || ko.observable(); // px
 
                 self['onMouseDown'] = function (viewModel, event) {
