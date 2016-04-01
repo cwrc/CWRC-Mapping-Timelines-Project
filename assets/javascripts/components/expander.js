@@ -54,19 +54,22 @@ ko.components.register('expander', {
                 });
 
                 self.toggleVisibility = function () {
+                    var initDelay = 50; // ms
+
                     // CSS Transitions require both the start and end height be explicit numbers. 'auto' is not explicit enough
-                    self.height(self.isVisible() ? self.expanderContentDiv.scrollHeight || '100%' : 0);
+                    self.height(self.isVisible() ? self.expanderContentDiv.scrollHeight || '100px' : 0);
 
-                    // need to use timeout to push this down the event stack to allow the rendering engine to update properly
+                    // seem to need to use timeout to push this down the event stack to allow the trasnition rendering
+                    // engine to notice the new value
                     window.setTimeout(function () {
-                        self.height(self.isVisible() ? 0 : self.expanderContentDiv.scrollHeight || '100%');
-                    }, 0);
+                        self.height(self.isVisible() ? 0 : self.expanderContentDiv.scrollHeight || '100px');
+                    }, initDelay);
 
-                    // clearing the content max height allows for the content to size 'auto' again
+                    // clearing the content max height after the animation allows for the content to size 'auto' again
                     window.setTimeout(function () {
                         if (self.isVisible())
                             self.height(null)
-                    }, self.transitionDuration + 10)
+                    }, self.transitionDuration + initDelay)
                 };
             };
 

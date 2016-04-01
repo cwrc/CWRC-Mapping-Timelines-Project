@@ -36,7 +36,7 @@ ko.components.register('checklist_filter', {
         self.recordFieldName = params['field'] || alert('Error: Please provide "field" parameter to <checklist_filter> facet filter.');
 
         self.height = ko.observable();
-        self.transitionDuration = 250; // ms
+        self.transitionDuration = 350; // ms
 
         self.label = params['label'] || ('Property: ' + self.recordFieldName);
 
