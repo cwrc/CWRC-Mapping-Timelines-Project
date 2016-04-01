@@ -43,17 +43,17 @@ ko.components.register('expander', {
                         return domElement.querySelector('.expander-content');
                     };
 
+                // not a normal observable because we can't set it declaratively when the DOM node is provided
                 self.height.subscribe(function (newValue) {
-                    var styles = self.expanderContentDiv().style;
-
-                    styles.maxHeight = newValue;
-
-                    // manage the transition properties.
-                    styles.overflow = 'hidden';
-                    styles.webkitTransition = 'max-height ' + self.transitionDuration + 'ms ease-out';
-                    styles.mozTransition = 'max-height ' + self.transitionDuration + 'ms ease-out';
-                    styles.transition = 'max-height ' + self.transitionDuration + 'ms ease-out';
+                    self.expanderContentDiv().style.maxHeight = newValue;
                 });
+
+                var expanderStyles = self.expanderContentDiv().style;
+                // manage the transition properties.
+                expanderStyles.overflow = 'hidden';
+                expanderStyles.webkitTransition = 'max-height ' + self.transitionDuration + 'ms ease-out';
+                expanderStyles.mozTransition = 'max-height ' + self.transitionDuration + 'ms ease-out';
+                expanderStyles.transition = 'max-height ' + self.transitionDuration + 'ms ease-out';
 
                 self.labelText = ko.computed(function () {
                     return self.isVisible() ? self.expandedText : self.collapsedText;
