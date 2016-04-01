@@ -4,11 +4,7 @@ ko.components.register('expander', {
                     <span style="display: inline-block " data-bind="html: labelText"></span>\
                     <span data-bind="html: labelArrow"></span>\
                </a>\
-               <div class="expander-content" data-bind="style: {\'max-height\': height, \
-                                                                \'-webkit-transition-duration\': transitionDuration + \'ms\',\
-                                                                \'-moz-transition-duration\': transitionDuration + \'ms\',\
-                                                                \'transition-duration\': transitionDuration + \'ms\'}, \
-                                                        template: {nodes: content}">\
+               <div class="expander-content" data-bind="template: {nodes: content}">\
                </div>',
 
     // See http://knockoutjs.com/documentation/component-custom-elements.html#passing-markup-into-components
@@ -46,6 +42,18 @@ ko.components.register('expander', {
                 self.expanderContentDiv = params.expandedElement || function () {
                         return domElement.querySelector('.expander-content');
                     };
+
+                self.height.subscribe(function (newValue) {
+                    var styles = self.expanderContentDiv().style;
+
+                    styles.maxHeight = newValue;
+
+                    // manage the transition properties.
+                    styles.overflow = 'hidden';
+                    styles.webkitTransition = 'max-height ' + self.transitionDuration + 'ms ease-out';
+                    styles.mozTransition = 'max-height ' + self.transitionDuration + 'ms ease-out';
+                    styles.transition = 'max-height ' + self.transitionDuration + 'ms ease-out';
+                });
 
                 self.labelText = ko.computed(function () {
                     return self.isVisible() ? self.expandedText : self.collapsedText;

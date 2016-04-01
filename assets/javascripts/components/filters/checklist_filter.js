@@ -1,15 +1,12 @@
 ko.components.register('checklist_filter', {
     template: ' <header>\
-                    <expander params="expandedText: label, collapsedText: label, expandedObservable: height, expandedElement: getExpandedNode"></expander>\
+                    <expander params="expandedText: label, collapsedText: label, expandedElement: getExpandedNode"></expander>\
                     <label>\
                         <input type="checkbox" title="Select All/None" data-bind="checked: allChecked, enable: allCheckEnabled"/>\
                         All\
                     </label>\
                 </header>\
-                <div class="checklist-content" data-bind="style: {\'max-height\': height, \
-                                        \'-webkit-transition-duration\': transitionDuration + \'ms\',\
-                                        \'-moz-transition-duration\': transitionDuration + \'ms\',\
-                                        \'transition-duration\': transitionDuration + \'ms\'}">\
+                <div class="checklist-content">\
                     <resizer>\
                         <!-- ko foreach: $parent.rawRecordValues()-->\
                             <div class="checklist-row">\
@@ -52,7 +49,6 @@ ko.components.register('checklist_filter', {
 
         self.recordFieldName = params['field'] || alert('Error: Please provide "field" parameter to <checklist_filter> facet filter.');
 
-        self.height = ko.observable();
         self.transitionDuration = 350; // ms
 
         self.label = params['label'] || ('Property: ' + self.recordFieldName);
