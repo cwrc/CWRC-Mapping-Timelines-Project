@@ -1,5 +1,5 @@
 ko.components.register('expander', {
-    template: '<a href="#" data-bind="click: function(){ isVisible(!isVisible()) }">\
+    template: '<a href="#" data-bind="click: function(){ toggleVisibility() }">\
                     <!-- This display inline-block fixes a dirty-rendering problem in chrome --> \
                     <span style="display: inline-block " data-bind="html: labelText"></span>\
                     <span data-bind="html: labelArrow"></span>\
@@ -30,7 +30,10 @@ ko.components.register('expander', {
                 var self = this;
 
                 self.content = content;
-                self.isVisible = params['expandedObservable'] || ko.observable(true);
+                self.height = params['expandedObservable'] || ko.observable();
+                self.isVisible = function () {
+                    return self.height() != 0;
+                };
 
                 self.transitionDuration = 250; //ms
 
@@ -50,25 +53,21 @@ ko.components.register('expander', {
                     return self.isVisible() ? self.expandedArrow : self.collapsedArrow;
                 });
 
-                // CSS Transitions require the height be set explicitly on both before and after, and 'auto' isn't explicit.
-                self.isVisible.subscribe(function (oldValue) {
-                    self.height(oldValue ? self.expanderContentDiv.scrollHeight : 0);
-                }, null, 'beforeChange');
+                self.toggleVisibility = function () {
+                    // CSS Transitions require both the start and end height be explicit numbers. 'auto' is not explicit enough
+                    self.height(self.isVisible() ? self.expanderContentDiv.scrollHeight : 0);
 
-                self.isVisible.subscribe(function (newValue) {
                     // need to use timeout to push this down the event stack to allow the rendering engine to update properly
                     window.setTimeout(function () {
-                        self.height(newValue ? self.expanderContentDiv.scrollHeight : 0)
+                        self.height(self.isVisible() ? 0 : self.expanderContentDiv.scrollHeight);
                     }, 0);
 
-                    // clearing the content max height allows for the content to size auto again
+                    // clearing the content max height allows for the content to size 'auto' again
                     window.setTimeout(function () {
-                        if (self.height() > 0)
-                            self.height('')
+                        if (self.isVisible())
+                            self.height(null)
                     }, self.transitionDuration + 10)
-                });
-
-                self.height = ko.observable();
+                };
             };
 
             return new ExpanderModel(params, componentInfo.templateNodes, componentInfo.element);
