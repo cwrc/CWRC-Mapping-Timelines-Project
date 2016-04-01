@@ -41,3 +41,17 @@ checklist_filter header expander > a:active span,
 checklist_filter header expander > a:focus span {
    color: black;
 }
+
+checklist_filter > div {
+   overflow: hidden;
+
+   -webkit-transition-property: max-height;
+   -moz-transition-property: max-height;
+   transition-property: max-height;
+
+   -webkit-transition-timing-function: ease-out;
+   -moz-transition-timing-function: ease-out;
+   transition-timing-function: ease-out;
+
+   /* Transition-duration is set in knockout */
+}

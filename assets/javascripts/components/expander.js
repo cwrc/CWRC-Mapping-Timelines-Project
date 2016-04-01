@@ -55,11 +55,11 @@ ko.components.register('expander', {
 
                 self.toggleVisibility = function () {
                     // CSS Transitions require both the start and end height be explicit numbers. 'auto' is not explicit enough
-                    self.height(self.isVisible() ? self.expanderContentDiv.scrollHeight : 0);
+                    self.height(self.isVisible() ? self.expanderContentDiv.scrollHeight || '100%' : 0);
 
                     // need to use timeout to push this down the event stack to allow the rendering engine to update properly
                     window.setTimeout(function () {
-                        self.height(self.isVisible() ? 0 : self.expanderContentDiv.scrollHeight);
+                        self.height(self.isVisible() ? 0 : self.expanderContentDiv.scrollHeight || '100%');
                     }, 0);
 
                     // clearing the content max height allows for the content to size 'auto' again

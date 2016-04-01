@@ -1,12 +1,15 @@
 ko.components.register('checklist_filter', {
     template: ' <header>\
-                    <expander params="expandedText: label, collapsedText: label, expandedObservable: isExpanded"></expander>\
+                    <expander params="expandedText: label, collapsedText: label, expandedObservable: height"></expander>\
                     <label>\
                         <input type="checkbox" title="Select All/None" data-bind="checked: allChecked, enable: allCheckEnabled"/>\
                         All\
                     </label>\
                 </header>\
-                <div data-bind="visible: isExpanded">\
+                <div data-bind="style: {\'max-height\': height, \
+                                        \'-webkit-transition-duration\': transitionDuration + \'ms\',\
+                                        \'-moz-transition-duration\': transitionDuration + \'ms\',\
+                                        \'transition-duration\': transitionDuration + \'ms\'}">\
                     <resizer>\
                         <!-- ko foreach: $parent.rawRecordValues()-->\
                             <div class="checklist-row">\
@@ -21,30 +24,6 @@ ko.components.register('checklist_filter', {
                     </resizer>\
                 </div>',
 
-    /*
-     ' <header>\
-     <expander params="expandedText: label, collapsedText: label, expandedObservable: isExpanded"></expander>\
-     <label>\
-     <input type="checkbox" title="Select All/None" data-bind="checked: allChecked, enable: allCheckEnabled"/>\
-     All\
-     </label>\
-     </header>\
-     <!-- ko if: isExpanded -->\
-     <resizer>\
-     <div data-bind="foreach: $parent.rawRecordValues()"><!--visible: $parent.isExpanded-->\
-     <div>\
-     <label>\
-     <input type="checkbox" data-bind="checkedValue: $data, \
-     checked: $parents[1].selectedRecordValues"/>\
-     <span data-bind="text: $data"></span>\
-     <span>(<span data-bind="text: $parents[1].filteredRecordValuesToCounts()[$data] || 0"></span>/<span data-bind="text: $parents[1].rawRecordValuesToCounts()[$data]"></span>)<span>\
-     </label>\
-     </div>\
-     </div>\
-     </resizer>\
-     <!-- /ko -->'
-     */
-
     /**
      * A checklist of fields groups by values. Only those fields that are checked will pass the filter.
      *
@@ -56,11 +35,13 @@ ko.components.register('checklist_filter', {
 
         self.recordFieldName = params['field'] || alert('Error: Please provide "field" parameter to <checklist_filter> facet filter.');
 
+        self.height = ko.observable();
+        self.transitionDuration = 250; // ms
+
         self.label = params['label'] || ('Property: ' + self.recordFieldName);
 
-        self.isExpanded = ko.observable(true);
         self.expandText = ko.pureComputed(function () {
-            return self.isExpanded() ? '\u25Be' : '\u25B4';
+            return self.height() != 0 ? '\u25Be' : '\u25B4';
         });
 
         self.selectedRecordValues = ko.observableArray();
