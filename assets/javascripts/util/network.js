@@ -48,5 +48,16 @@ CWRC.Network = (function (network, undefined) {
         }
     };
 
+    network['getParam'] = function (parameterName) {
+        var regex = new RegExp(parameterName + "=([^&]*)", 'i');
+        var found = window.location.search.match(regex);
+
+        if (found)
+            return decodeURIComponent(found[1]);
+        else
+            return null;
+    };
+
+
     return network;
 }(CWRC.Network || {}));     // TODO: modularize  to depollute the global namespace

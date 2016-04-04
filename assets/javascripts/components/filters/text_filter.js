@@ -16,7 +16,57 @@ ko.components.register('text_filter', {
         self.placeholder = params['placeholder'] || 'eg. University of Alberta';
 
         // Using timeouts to throttle the filtering, otherwise it becomes sluggish
-        self.filterText = ko.observable('').extend({method: 'notifyWhenChangesStop', rateLimit: 300});
+        self.filterText = ko.observable(CWRC.Network.getParam('s') || '').extend({
+            method: 'notifyWhenChangesStop',
+            rateLimit: 300
+        });
+
+        self.updating = false;
+        History.Adapter.bind(window, 'statechange', function () {
+            var state = History.getState();
+            var data = state.data['s'];
+
+            //if (data == undefined)
+            //    return;
+
+            //console.log('READ ' + self.label + ':')
+            //console.log(state.data);
+            //console.log('')
+
+            if (self.filterText() != data) {
+                self.updating = true;
+                self.filterText(data || '');
+                self.updating = false;
+            }
+        });
+
+        self.filterText.subscribe(function (newVal) {
+            var stateData, stateLabel, stateUri, fieldName;
+
+            fieldName = 's';
+
+            if (self.updating)
+                return;
+
+            if (newVal.length > 0) {
+                stateLabel = self.label + ' "' + newVal + '" - ';
+                stateUri = '?' + fieldName + '=' + newVal;
+            } else {
+                stateLabel = '';
+                stateUri = '?';
+            }
+
+            stateData = {};
+            if (newVal)
+                stateData[fieldName] = newVal;
+
+            //console.log('SAVE ' + self.label + ' Filter:')
+            //console.log(stateData)
+            //console.log('')
+
+            History.pushState(stateData, stateLabel + 'PlotIt', stateUri)
+        });
+
 
         self['reset'] = function () {
             self.filterText('');
