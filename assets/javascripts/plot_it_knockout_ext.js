@@ -60,51 +60,56 @@ ko.bindingHandlers.src = {
  * Knockout extender to enhance the behaviour of an observable.
  *
  * @param target the Knockout observable to be extended
- * @param params Includes:
+ * @param opts Options object including:
  *                  - label: the name of the state
  *                  - querySymbol: the variable name for the query string value
+ *                  - ignorableWhen: callback function that receives new values to target and returns true if the value is ignorable (ie. that the URI no longer include it). Defaults to checking against falsey value (undefined, empty string, etc).
  * @returns {*} extended target observable
  */
-ko.extenders.history = function (target, params) {
+ko.extenders.history = function (target, opts) {
     target.__updatingFromHistory__ = false;
 
     History.Adapter.bind(window, 'statechange', function () {
         var data;
 
-        data = History.getState().data[params.querySymbol];
+        data = History.getState().data[opts.querySymbol];
 
-        //console.log('READ ' + params.label + ':')
-        //console.log(state.data);
+        //console.log('READ ' + opts.label + ':')
+        //console.log(History.getState().data);
         //console.log('')
 
         if (target() != data) {
             target.__updatingFromHistory__ = true;
-            target(data || '');
+            target(data);
             target.__updatingFromHistory__ = false;
         }
     });
 
     target.subscribe(function (newVal) {
-        var data, label, uri;
+        var data, label, uri, ignoreableCallback;
 
         if (target.__updatingFromHistory__)
             return;
 
         uri = URI(location.search);
-        data = {};
+        data = History.getState().data;
 
-        // checking length covers strings and arrays
-        if (newVal.length > 0) {
-            uri.setSearch(params.querySymbol, newVal);
-            label = params.label + ' "' + newVal + '" - ';
-            data[params.querySymbol] = newVal;
-        } else {
-            uri.removeSearch(params.querySymbol);
+        ignoreableCallback = opts.ignorableWhen ||
+            function (value) {
+                return !value;
+            };
+
+        if (ignoreableCallback(newVal)) {
+            uri.removeSearch(opts.querySymbol);
             label = '';
-            delete data[params.querySymbol];
+        } else {
+            uri.setSearch(opts.querySymbol, newVal);
+            label = opts.label + ' "' + newVal + '" - ';
         }
 
-        //console.log('SAVE ' + params.label + ' Filter:')
+        data[opts.querySymbol] = newVal;
+
+        //console.log('SAVE ' + opts.label + ' Filter:')
         //console.log(stateData)
         //console.log('')
 

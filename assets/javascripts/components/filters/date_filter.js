@@ -16,23 +16,6 @@ ko.components.register('date_filter', {
 
         self.label = params['label'] || 'Date Range';
 
-        self.rangeMin = ko.observable();
-        self.rangeMax = ko.observable();
-
-        // separated because we don't want to filter until after the slider is done moving, but
-        // we do want to update the displayed min/dax dates live.
-        // Throttling the update can still become sluggish if the user pauses for a second.
-        self.rangeMinDisplay = ko.observable();
-        self.rangeMaxDisplay = ko.observable();
-
-        self.rangeMinDate = ko.pureComputed(function () {
-            return (new Date(Number(self.rangeMinDisplay()))).toLocaleDateString();
-        });
-
-        self.rangeMaxDate = ko.pureComputed(function () {
-            return (new Date(Number(self.rangeMaxDisplay()))).toLocaleDateString();
-        });
-
         // TODO: there's a lot to DRY between this and Timeline.
         self.timedRecords = ko.pureComputed(function () {
             var records, timeDiff;
@@ -65,6 +48,52 @@ ko.components.register('date_filter', {
             return lastRecord ? new Date(lastRecord.endDate || lastRecord.startDate) : new Date();
         });
 
+        self.minQuerySymbol = 'rangeMin';
+        self.maxQuerySymbol = 'rangeMax';
+
+        // TODO: add extender to auto convert to int?
+        self.rangeMin = ko.observable().extend({
+            history: {
+                label: self.label,
+                querySymbol: self.minQuerySymbol,
+                ignorableWhen: function (value) {
+                    return value == self.earliestDate().getTime();
+                }
+            }
+        });
+        self.rangeMax = ko.observable().extend({
+            history: {
+                label: self.label,
+                querySymbol: self.maxQuerySymbol,
+                ignorableWhen: function (value) {
+                    return value == self.latestDate().getTime();
+                }
+            }
+        });
+
+        // separate from initializer to trigger history extender
+        // TODO: can the history extender just load from initial value when applied?
+        self.rangeMin(parseInt(URI.parseQuery(location.search)[self.minQuerySymbol]) || self.earliestDate().getTime());
+        self.rangeMax(parseInt(URI.parseQuery(location.search)[self.maxQuerySymbol]) || self.latestDate().getTime());
+
+        /**
+         * This is separated from rangeMin/Max because we don't want to filter until after the slider is
+         * done moving, but we *do* want to update the displayed min/dax dates immediately.
+         *
+         * The other options, throttling the update, can still be too sluggish if the user hesitates for a second.
+         */
+        self.rangeMinDisplay = ko.observable();
+        self.rangeMaxDisplay = ko.observable();
+
+        // TODO: probably would be better to merge rangeMinDate and rangeMinDisplay (and maxes) into writable computed
+        self.rangeMinDate = ko.pureComputed(function () {
+            return (new Date(Number(self.rangeMinDisplay()))).toLocaleDateString();
+        });
+
+        self.rangeMaxDate = ko.pureComputed(function () {
+            return (new Date(Number(self.rangeMaxDisplay()))).toLocaleDateString();
+        });
+
         // Tried with subscribe, but it ends up out of order. Making a computed fixes the order problem.
         self.sliderElement = ko.computed(function () {
             var sliderElement = document.getElementById('time_filter');
@@ -78,7 +107,7 @@ ko.components.register('date_filter', {
             var latestStamp = self.latestDate().getTime();
 
             var sliderSettings = {
-                start: [earliestStamp, latestStamp], //[self.rangeMin(), self.rangeMax()],
+                start: [self.rangeMin(), self.rangeMax()],// [earliestStamp, latestStamp], //[self.rangeMin(), self.rangeMax()],
                 connect: true,
                 margin: 1, // no closer than 1 together
                 step: 1, // snap to 1-unit increments
@@ -113,10 +142,6 @@ ko.components.register('date_filter', {
                 self.rangeMaxDisplay(parseInt(value[1]));
             });
 
-            sliderElement.noUiSlider.set(
-                [self.rangeMin(earliestStamp), self.rangeMax(latestStamp)]
-            );
-
             return sliderElement;
         });
 
@@ -143,5 +168,4 @@ ko.components.register('date_filter', {
 
         CWRC.filters.push(self['filter']);
     }
-})
-;
+});

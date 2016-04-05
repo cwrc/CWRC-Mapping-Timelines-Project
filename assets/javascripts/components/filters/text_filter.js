@@ -34,7 +34,7 @@ ko.components.register('text_filter', {
         };
 
         self['filter'] = function (item) {
-            var filterText = self.filterText().toLowerCase();
+            var filterText = (self.filterText() || '').toLowerCase();
 
             for (var field in item) {
                 if (item.hasOwnProperty(field)) {
