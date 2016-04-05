@@ -19,7 +19,7 @@ ko.extenders.history = function (target, params) {
         //console.log(state.data);
         //console.log('')
 
-        if (target != data) {
+        if (target() != data) {
             target.__updatingFromHistory__ = true;
             target(data || '');
             target.__updatingFromHistory__ = false;
@@ -27,29 +27,30 @@ ko.extenders.history = function (target, params) {
     });
 
     target.subscribe(function (newVal) {
-        var stateData, stateLabel, stateUri;
+        var data, label, uri;
 
         if (target.__updatingFromHistory__)
             return;
 
-        // TODO: replace the value in the query string & data packet, or remove it entirely if it is empty.
-        if (newVal.length > 0) {
-            stateLabel = params.label + ' "' + newVal + '" - ';
-            stateUri = '?' + params.querySymbol + '=' + newVal;
-        } else {
-            stateLabel = '';
-            stateUri = '?';
-        }
+        uri = URI(location.search);
+        data = {};
 
-        stateData = {};
-        if (newVal)
-            stateData[params.querySymbol] = newVal;
+        // checking length covers strings and arrays
+        if (newVal.length > 0) {
+            uri.setSearch(params.querySymbol, newVal);
+            label = params.label + ' "' + newVal + '" - ';
+            data[params.querySymbol] = newVal;
+        } else {
+            uri.removeSearch(params.querySymbol);
+            label = '';
+            delete data[params.querySymbol];
+        }
 
         //console.log('SAVE ' + params.label + ' Filter:')
         //console.log(stateData)
         //console.log('')
 
-        History.pushState(stateData, stateLabel + 'PlotIt', stateUri)
+        History.pushState(data, label + 'Plot-It', uri.toString() || '?')
     });
 
     return target;
@@ -73,15 +74,19 @@ ko.components.register('text_filter', {
         self.label = params['label'] || 'Search';
         self.placeholder = params['placeholder'] || 'eg. University of Alberta';
 
+        self.querySymbol = 's';
+
         // Using timeouts to throttle the filtering, otherwise it becomes sluggish
-        self.filterText = ko.observable(CWRC.Network.getParam('s') || '').extend({
+        self.filterText = ko.observable().extend({
             method: 'notifyWhenChangesStop',
             rateLimit: 300,
             history: {
                 label: self.label,
-                querySymbol: 's'
+                querySymbol: self.querySymbol
             }
         });
+        // setting default separately to trigger extenders
+        self.filterText(URI.parseQuery(location.search)[self.querySymbol] || '');
 
         self['reset'] = function () {
             self.filterText('');

@@ -58,6 +58,5 @@ CWRC.Network = (function (network, undefined) {
             return null;
     };
 
-
     return network;
 }(CWRC.Network || {}));     // TODO: modularize  to depollute the global namespace
