@@ -85,7 +85,7 @@ ko.extenders.history = function (target, opts) {
         }
     });
 
-    target.subscribe(function (newVal) {
+    target.__updateHistoryHandler__ = function (newVal) {
         var data, label, uri, ignoreableCallback;
 
         if (target.__updatingFromHistory__)
@@ -107,6 +107,10 @@ ko.extenders.history = function (target, opts) {
             label = opts.label + ' "' + newVal + '" - ';
         }
 
+        // TODO: base label off all search parameters? Or maybe just ignore the labelling?
+        // TODO: perhaps just state which fields have been filtered, but not the values? Can't know how to format other
+        // TODO: ones from within one handler.
+
         data[opts.querySymbol] = newVal;
 
         //console.log('SAVE ' + opts.label + ' Filter:')
@@ -114,7 +118,11 @@ ko.extenders.history = function (target, opts) {
         //console.log('')
 
         History.pushState(data, label + 'Plot-It', uri.toString() || '?')
-    });
+    };
+
+    target.subscribe(target.__updateHistoryHandler__);
+    if (target())
+        target.__updateHistoryHandler__(target());
 
     return target;
 };

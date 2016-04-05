@@ -18,7 +18,7 @@ ko.components.register('text_filter', {
         self.querySymbol = 's';
 
         // Using timeouts to throttle the filtering, otherwise it becomes sluggish
-        self.filterText = ko.observable().extend({
+        self.filterText = ko.observable(URI.parseQuery(location.search)[self.querySymbol] || '').extend({
             method: 'notifyWhenChangesStop',
             rateLimit: 300,
             history: {
@@ -26,8 +26,6 @@ ko.components.register('text_filter', {
                 querySymbol: self.querySymbol
             }
         });
-        // setting default separately to trigger extenders
-        self.filterText(URI.parseQuery(location.search)[self.querySymbol] || '');
 
         self['reset'] = function () {
             self.filterText('');
