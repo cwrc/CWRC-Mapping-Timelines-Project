@@ -236,45 +236,6 @@ var CWRC = (function (cwrc, undefined) {
     return cwrc;
 }(CWRC || {}));
 
-ko.bindingHandlers.dynamicHtml = {
-    init: function () {
-        // Mark this as controlling its own descendants
-        // so that KO doesn't try to double-bind on the initial load
-        return {'controlsDescendantBindings': true};
-    },
-
-    update: function (element, valueAccessor, all, data, context) {
-        ko.utils.setHtml(element, valueAccessor());
-
-        ko.applyBindingsToDescendants(context, element);
-    }
-};
-
-// To listen only for left clicks, rather than middle clicks as well.
-ko.bindingHandlers.leftClick = {
-    update: function (element, valueAccessor, all, data, context) {
-        ko.utils.setHtml(element, valueAccessor());
-
-        ko.applyBindingsToDescendants(context, element);
-    }
-};
-
-ko.bindingHandlers.href = {
-    update: function (element, valueAccessor) {
-        ko.bindingHandlers.attr.update(element, function () {
-            return {href: valueAccessor()}
-        });
-    }
-};
-
-ko.bindingHandlers.src = {
-    update: function (element, valueAccessor) {
-        ko.bindingHandlers.attr.update(element, function () {
-            return {src: valueAccessor()}
-        });
-    }
-};
-
 window.addEventListener('load', function () {
     ko.applyBindings();
 });
