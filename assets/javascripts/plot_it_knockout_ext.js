@@ -63,27 +63,34 @@ ko.bindingHandlers.src = {
  * @param opts Options object including:
  *                  - querySymbol: the variable name for the query string value (required)
  *                  - label: the name of the state
- *                  - ignorableWhen: callback function that receives a new value to target and returns true if the value is ignorable (ie. that the URI no longer include it). Defaults to checking against falsey value (undefined, empty string, etc).
  *                  - formatWith: callback function that receives the new value to target and returns the human-friendly version for use in frame title
+ *                  - ignorableWhen: callback function that receives a new value to target and returns true if the value is ignorable (ie. that the URI no longer include it). Default: checks against falsey value (undefined, empty string, etc).
+ *                  - compareWith: callback function that receives a two values and returns true if the values are the same. Default: returns true if ==; both are falsey; or both have length === 0 (eg. empty array).
  * @returns {*} extended target observable
  */
 ko.extenders.history = function (target, opts) {
     if (opts.querySymbol == '' || opts.querySymbol == undefined)
         throw 'querySymbol is required';
 
-
     target.__updatingFromHistory__ = false;
 
     History.Adapter.bind(window, 'statechange', function () {
-        var data;
+        var data, comparator, isFalsey;
 
         data = History.getState().data[opts.querySymbol];
 
-        //console.log('READ ' + opts.label + ':')
-        //console.log(History.getState().data);
-        //console.log('')
+        // this includes empty array along with normal falsey values.
+        isFalsey = function (value) {
+            return (value == null || value.length === 0)
+        };
 
-        if (target() != data) {
+        comparator = opts.compareWith || function (a, b) {
+                return (isFalsey(a) && isFalsey(b)) || a == b;
+            };
+
+        if (!comparator(target(), data)) {
+            console.log('Updating ', opts.querySymbol)
+
             target.__updatingFromHistory__ = true;
             target(data);
             target.__updatingFromHistory__ = false;
