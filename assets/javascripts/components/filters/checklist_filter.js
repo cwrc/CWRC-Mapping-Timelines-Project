@@ -53,57 +53,16 @@ ko.components.register('checklist_filter', {
 
         self.label = params['label'] || ('Property: ' + self.recordFieldName);
 
-        self.selectedRecordValues = ko.observableArray();
-
-        //self['updateFromHistory'] = function () {
-        //    var state = History.getState();
-        //    var data = state.data[self.recordFieldName];
-        //
-        //    if (!data)
-        //        return;
-        //
-        //    console.log('READ ' + self.label + ' Filter:')
-        //    console.log(state.data);
-        //    console.log('')
-        //
-        //    var different = false;
-        //    for (var i = 0; i < Math.max(self.selectedRecordValues().length, data.length); i++) {
-        //        if (self.selectedRecordValues()[i] !== data[i]) {
-        //            different = true;
-        //            break;
-        //        }
-        //    }
-        //
-        //    if (different) {
-        //        self.selectedRecordValues(data);
-        //    }
-        //};
-        //
-        //History.Adapter.bind(window, 'statechange', self.updateFromHistory);
-        //console.log('init:')
-        //console.log(History.getState());
-        //console.log('derp');
-        //console.log(History.store);
-        //console.log(History.getStateById(History.getIdByUrl("http://localhost:4567/?group=Multimedia")));
-        //
-        //self.updateFromHistory();
-        //
-        //self.selectedRecordValues.subscribe(function (newVal) {
-        //    var stateData, stateLabel, stateUri;
-        //
-        //    stateLabel = 'PlotIt - ' + 'Filter ' + self.label;
-        //    stateUri = newVal.length > 0 ? '?' + self.recordFieldName + '=' + newVal : '';
-        //
-        //    stateData = {};
-        //    stateData[self.recordFieldName] = newVal;
-        //
-        //    console.log('SAVE ' + self.label + ' Filter:')
-        //    console.log(stateData)
-        //    console.log('')
-        //
-        //
-        //    History.pushState(stateData, stateLabel)//, stateUri)
-        //});
+        var defaultVal = URI.parseQuery(location.search)[self.label.toLowerCase()];
+        self.selectedRecordValues = ko.observableArray(defaultVal ? [].concat(defaultVal) : []).extend({
+            history: {
+                label: self.label,
+                querySymbol: self.label.toLowerCase(),
+                formatWith: function (value) {
+                    return value.length > 0 ? value.join(', ') : '(All)';
+                }
+            }
+        });
 
         self['countData'] = function (dataList) {
             var recordValue, recordValuesToCounts, observable;

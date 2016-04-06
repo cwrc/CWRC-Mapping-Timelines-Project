@@ -61,13 +61,17 @@ ko.bindingHandlers.src = {
  *
  * @param target the Knockout observable to be extended
  * @param opts Options object including:
+ *                  - querySymbol: the variable name for the query string value (required)
  *                  - label: the name of the state
- *                  - querySymbol: the variable name for the query string value
  *                  - ignorableWhen: callback function that receives a new value to target and returns true if the value is ignorable (ie. that the URI no longer include it). Defaults to checking against falsey value (undefined, empty string, etc).
  *                  - formatWith: callback function that receives the new value to target and returns the human-friendly version for use in frame title
  * @returns {*} extended target observable
  */
 ko.extenders.history = function (target, opts) {
+    if (opts.querySymbol == '' || opts.querySymbol == undefined)
+        throw 'querySymbol is required';
+
+
     target.__updatingFromHistory__ = false;
 
     History.Adapter.bind(window, 'statechange', function () {
@@ -101,9 +105,9 @@ ko.extenders.history = function (target, opts) {
             };
 
         if (ignoreableCallback(newVal)) {
-            uri.removeSearch(opts.querySymbol);
+            uri.removeQuery(opts.querySymbol);
         } else {
-            uri.setSearch(opts.querySymbol, newVal);
+            uri.setQuery(opts.querySymbol, newVal);
         }
 
         valueFormatter = opts.formatWith ||
