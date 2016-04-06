@@ -95,11 +95,6 @@ ko.extenders.history = function (target, opts) {
         uri = URI(location.search);
         data = History.getState().data;
 
-        valueFormatter = opts.formatWith ||
-            function (value) {
-                return value;
-            };
-
         ignoreableCallback = opts.ignorableWhen ||
             function (value) {
                 return !value;
@@ -111,11 +106,12 @@ ko.extenders.history = function (target, opts) {
             uri.setSearch(opts.querySymbol, newVal);
         }
 
-        label = opts.label + ': ' + valueFormatter(newVal);
+        valueFormatter = opts.formatWith ||
+            function (value) {
+                return value || '(none)';
+            };
 
-        // TODO: base label off all search parameters? Or maybe just ignore the labelling?
-        // TODO: perhaps just state which fields have been filtered, but not the values? Can't know how to format other
-        // TODO: ones from within one handler.
+        label = opts.label + ': ' + valueFormatter(newVal);
 
         data[opts.querySymbol] = newVal;
 
@@ -124,9 +120,9 @@ ko.extenders.history = function (target, opts) {
         //console.log('')
 
         if (mergeDown)
-            History.replaceState(data, 'Plot-It', uri.toString() || '?');
+            History.replaceState(data, CWRC.pageTitle, uri.toString() || '?');
         else
-            History.pushState(data, label + ' - Plot-It', uri.toString() || '?');
+            History.pushState(data, label + ' - ' + CWRC.pageTitle, uri.toString() || '?');
     };
 
     target.subscribe(target.__updateHistoryHandler__);

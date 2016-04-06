@@ -23,7 +23,10 @@ ko.components.register('text_filter', {
             rateLimit: 300,
             history: {
                 label: self.label,
-                querySymbol: self.querySymbol
+                querySymbol: self.querySymbol,
+                formatWith: function (value) {
+                    return value ? '"' + value + '"' : '(none)';
+                }
             }
         });
 

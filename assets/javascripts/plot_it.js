@@ -4,7 +4,9 @@
  * There are some "modules" below (eg: (function(window, undefined){...}(window))), that provide some common utility functions.
  */
 var CWRC = (function (cwrc, undefined) {
-    // ========= Map Overlay =========
+    // Save the original title to allow history manipulation to use it
+    cwrc.pageTitle = document.title;
+
     cwrc.rawData = ko.observableArray();
     cwrc.filters = ko.observableArray();
     cwrc.filteredData = ko.pureComputed(function () {
