@@ -51,24 +51,30 @@ ko.components.register('date_filter', {
         self.minQuerySymbol = 'rangeMin';
         self.maxQuerySymbol = 'rangeMax';
 
-        // TODO: add extender to auto convert to int?
+        // TODO: add extender to auto convert to int? would remove the parseInt calls
         self.rangeMin = ko.observable(parseInt(URI.parseQuery(location.search)[self.minQuerySymbol]) || self.earliestDate().getTime())
             .extend({
                 history: {
-                    label: self.label,
+                    label: 'After',
                     querySymbol: self.minQuerySymbol,
                     ignorableWhen: function (value) {
                         return value == self.earliestDate().getTime();
+                    },
+                    formatWith: function (value) {
+                        return CWRC.Transform.humanDateTime(value / 1000);
                     }
                 }
             });
         self.rangeMax = ko.observable(parseInt(URI.parseQuery(location.search)[self.maxQuerySymbol]) || self.latestDate().getTime())
             .extend({
                 history: {
-                    label: self.label,
+                    label: 'Before',
                     querySymbol: self.maxQuerySymbol,
                     ignorableWhen: function (value) {
                         return value == self.latestDate().getTime();
+                    },
+                    formatWith: function (value) {
+                        return CWRC.Transform.humanDateTime(value / 1000);
                     }
                 }
             });

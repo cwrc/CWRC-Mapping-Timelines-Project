@@ -63,7 +63,8 @@ ko.bindingHandlers.src = {
  * @param opts Options object including:
  *                  - label: the name of the state
  *                  - querySymbol: the variable name for the query string value
- *                  - ignorableWhen: callback function that receives new values to target and returns true if the value is ignorable (ie. that the URI no longer include it). Defaults to checking against falsey value (undefined, empty string, etc).
+ *                  - ignorableWhen: callback function that receives a new value to target and returns true if the value is ignorable (ie. that the URI no longer include it). Defaults to checking against falsey value (undefined, empty string, etc).
+ *                  - formatWith: callback function that receives the new value to target and returns the human-friendly version for use in frame title
  * @returns {*} extended target observable
  */
 ko.extenders.history = function (target, opts) {
@@ -86,13 +87,18 @@ ko.extenders.history = function (target, opts) {
     });
 
     target.__updateHistoryHandler__ = function (newVal, mergeDown) {
-        var data, label, uri, ignoreableCallback;
+        var data, label, uri, ignoreableCallback, valueFormatter;
 
         if (target.__updatingFromHistory__)
             return;
 
         uri = URI(location.search);
         data = History.getState().data;
+
+        valueFormatter = opts.formatWith ||
+            function (value) {
+                return value;
+            };
 
         ignoreableCallback = opts.ignorableWhen ||
             function (value) {
@@ -101,11 +107,11 @@ ko.extenders.history = function (target, opts) {
 
         if (ignoreableCallback(newVal)) {
             uri.removeSearch(opts.querySymbol);
-            label = '';
         } else {
             uri.setSearch(opts.querySymbol, newVal);
-            label = opts.label + ' "' + newVal + '" - ';
         }
+
+        label = opts.label + ': ' + valueFormatter(newVal);
 
         // TODO: base label off all search parameters? Or maybe just ignore the labelling?
         // TODO: perhaps just state which fields have been filtered, but not the values? Can't know how to format other
@@ -118,9 +124,9 @@ ko.extenders.history = function (target, opts) {
         //console.log('')
 
         if (mergeDown)
-            History.replaceState(data, label + 'Plot-It', uri.toString() || '?');
+            History.replaceState(data, 'Plot-It', uri.toString() || '?');
         else
-            History.pushState(data, label + 'Plot-It', uri.toString() || '?');
+            History.pushState(data, label + ' - Plot-It', uri.toString() || '?');
     };
 
     target.subscribe(target.__updateHistoryHandler__);
