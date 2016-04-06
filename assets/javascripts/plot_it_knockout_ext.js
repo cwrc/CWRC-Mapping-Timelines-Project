@@ -85,7 +85,7 @@ ko.extenders.history = function (target, opts) {
         }
     });
 
-    target.__updateHistoryHandler__ = function (newVal) {
+    target.__updateHistoryHandler__ = function (newVal, mergeDown) {
         var data, label, uri, ignoreableCallback;
 
         if (target.__updatingFromHistory__)
@@ -117,12 +117,16 @@ ko.extenders.history = function (target, opts) {
         //console.log(stateData)
         //console.log('')
 
-        History.pushState(data, label + 'Plot-It', uri.toString() || '?')
+        if (mergeDown)
+            History.replaceState(data, label + 'Plot-It', uri.toString() || '?');
+        else
+            History.pushState(data, label + 'Plot-It', uri.toString() || '?');
     };
 
     target.subscribe(target.__updateHistoryHandler__);
+
     if (target())
-        target.__updateHistoryHandler__(target());
+        target.__updateHistoryHandler__(target(), true);
 
     return target;
 };
