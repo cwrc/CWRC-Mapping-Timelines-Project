@@ -59,9 +59,6 @@ ko.components.register('checklist_filter', {
                 querySymbol: self.label.toLowerCase(),
                 formatWith: function (value) {
                     return value.length > 0 ? value.join(', ') : '(All)';
-                },
-                ignorableWhen: function (value) {
-                    return !value || value.length <= 0;
                 }
             }
         });

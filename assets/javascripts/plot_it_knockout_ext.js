@@ -70,12 +70,12 @@ ko.bindingHandlers.src = {
  *                  - querySymbol: the variable name for the query string value (required)
  *                  - label: the name of the state
  *                  - formatWith: callback function that receives the new value to target and returns the human-friendly version for use in frame title
- *                  - ignorableWhen: callback function that receives a new value to target and returns true if the value is ignorable (ie. that the URI no longer include it). Default: checks against falsey value (undefined, empty string, etc).
+ *                  - inUriWhen: callback function that receives a new value to target and returns true if the value should be included in the URI. Default: checks against falsey value (undefined, empty string, etc).
  *                  - compareWith: callback function that receives a two values and returns true if the values are the same. Default: returns true if ==; both are falsey; or both have length === 0 (eg. empty array).
  * @returns {*} extended target observable
  */
 ko.extenders.history = function (target, opts) {
-    var defaultValue, comparator, isFalsey, ignoreableCallback, valueFormatter, valueChangeListener, historyChangeListener;
+    var defaultValue, comparator, isFalsey, includeInURI, valueFormatter, valueChangeListener, historyChangeListener;
 
     if (opts.querySymbol == '' || opts.querySymbol == undefined)
         throw 'querySymbol is required';
@@ -91,9 +91,9 @@ ko.extenders.history = function (target, opts) {
             return (isFalsey(a) && isFalsey(b)) || a == b;
         };
 
-    ignoreableCallback = opts.ignorableWhen ||
+    includeInURI = opts.inUriWhen ||
         function (value) {
-            return !value;
+            return !isFalsey(value);
         };
 
     valueFormatter = opts.formatWith ||
@@ -112,10 +112,11 @@ ko.extenders.history = function (target, opts) {
 
         data[opts.querySymbol] = newVal;
 
-        if (ignoreableCallback(newVal))
-            uri.removeQuery(opts.querySymbol);
-        else
+        if (includeInURI(newVal))
             uri.setQuery(opts.querySymbol, newVal);
+        else
+            uri.removeQuery(opts.querySymbol);
+
 
         if (replace) {
             History.replaceState(data, CWRC.pageTitle, uri.toString() || '?');

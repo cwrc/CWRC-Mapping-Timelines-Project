@@ -53,8 +53,8 @@ ko.components.register('date_filter', {
             history: {
                 label: 'After',
                 querySymbol: 'rangeMin',
-                ignorableWhen: function (value) {
-                    return value == self.earliestDate().getTime();
+                inUriWhen: function (value) {
+                    return value != self.earliestDate().getTime();
                 },
                 formatWith: function (value) {
                     return CWRC.Transform.humanDateTime(value / 1000);
@@ -68,8 +68,8 @@ ko.components.register('date_filter', {
             history: {
                 label: 'Before',
                 querySymbol: 'rangeMax',
-                ignorableWhen: function (value) {
-                    return value == self.latestDate().getTime();
+                inUriWhen: function (value) {
+                    return value != self.latestDate().getTime();
                 },
                 formatWith: function (value) {
                     return CWRC.Transform.humanDateTime(value / 1000);
