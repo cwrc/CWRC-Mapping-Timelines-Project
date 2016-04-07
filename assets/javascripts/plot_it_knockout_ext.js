@@ -59,6 +59,12 @@ ko.bindingHandlers.src = {
 /**
  * Knockout extender to enhance the behaviour of an observable.
  *
+ * Initial values are loaded first from data in the URI (under the keyword stored in querySymbol), and then
+ * from the value provided to the observable's constructor.
+ *
+ * Note: because this is altering the defaults, any rate limiting or event trigger modification
+ * (eg. method: 'notifyWhenChangesStop') extenders should be applied after this one.
+ *
  * @param target the Knockout observable to be extended
  * @param opts Options object including:
  *                  - querySymbol: the variable name for the query string value (required)
@@ -69,36 +75,34 @@ ko.bindingHandlers.src = {
  * @returns {*} extended target observable
  */
 ko.extenders.history = function (target, opts) {
+    var defaultValue, comparator, isFalsey, ignoreableCallback, valueFormatter, valueChangeListener, historyChangeListener;
+
     if (opts.querySymbol == '' || opts.querySymbol == undefined)
         throw 'querySymbol is required';
 
     target.__updatingFromHistory__ = false;
 
-    History.Adapter.bind(window, 'statechange', function () {
-        var data, comparator, isFalsey;
-
-        data = History.getState().data[opts.querySymbol];
-
+    isFalsey = function (value) {
         // this includes empty array along with normal falsey values.
-        isFalsey = function (value) {
-            return (value == null || value.length === 0)
+        return (value == null || value.length === 0)
+    };
+
+    comparator = opts.compareWith || function (a, b) {
+            return (isFalsey(a) && isFalsey(b)) || a == b;
         };
 
-        comparator = opts.compareWith || function (a, b) {
-                return (isFalsey(a) && isFalsey(b)) || a == b;
-            };
+    ignoreableCallback = opts.ignorableWhen ||
+        function (value) {
+            return !value;
+        };
 
-        if (!comparator(target(), data)) {
-            console.log('Updating ', opts.querySymbol)
+    valueFormatter = opts.formatWith ||
+        function (value) {
+            return value || '(none)';
+        };
 
-            target.__updatingFromHistory__ = true;
-            target(data);
-            target.__updatingFromHistory__ = false;
-        }
-    });
-
-    target.__updateHistoryHandler__ = function (newVal, mergeDown) {
-        var data, label, uri, ignoreableCallback, valueFormatter;
+    valueChangeListener = function (newVal, replace) {
+        var data, label, uri;
 
         if (target.__updatingFromHistory__)
             return;
@@ -106,40 +110,48 @@ ko.extenders.history = function (target, opts) {
         uri = URI(location.search);
         data = History.getState().data;
 
-        ignoreableCallback = opts.ignorableWhen ||
-            function (value) {
-                return !value;
-            };
-
-        if (ignoreableCallback(newVal)) {
-            uri.removeQuery(opts.querySymbol);
-        } else {
-            uri.setQuery(opts.querySymbol, newVal);
-        }
-
-        valueFormatter = opts.formatWith ||
-            function (value) {
-                return value || '(none)';
-            };
-
-        label = opts.label + ': ' + valueFormatter(newVal);
-
         data[opts.querySymbol] = newVal;
 
-        //console.log('SAVE ' + opts.label + ' Filter:')
-        //console.log(stateData)
-        //console.log('')
-
-        if (mergeDown)
-            History.replaceState(data, CWRC.pageTitle, uri.toString() || '?');
+        if (ignoreableCallback(newVal))
+            uri.removeQuery(opts.querySymbol);
         else
-            History.pushState(data, label + ' - ' + CWRC.pageTitle, uri.toString() || '?');
+            uri.setQuery(opts.querySymbol, newVal);
+
+        if (replace) {
+            History.replaceState(data, CWRC.pageTitle, uri.toString() || '?');
+        } else {
+            label = opts.label + ': ' + valueFormatter(newVal) + ' - ' + CWRC.pageTitle;
+
+            History.pushState(data, label, uri.toString() || '?');
+        }
     };
 
-    target.subscribe(target.__updateHistoryHandler__);
+    historyChangeListener = function () {
+        var storedValue;
 
-    if (target())
-        target.__updateHistoryHandler__(target(), true);
+        storedValue = History.getState().data[opts.querySymbol];
+
+        if (comparator(target(), storedValue))
+            return;
+
+        target.__updatingFromHistory__ = true;
+        target(storedValue);
+        target.__updatingFromHistory__ = false;
+    };
+
+    defaultValue = URI.parseQuery(location.search)[opts.querySymbol] || target();
+
+    if (target() instanceof Array && target.sort) // make sure computedObservables are wrapped in array
+        defaultValue = [].concat(defaultValue);
+
+    if (defaultValue) {
+        // have to manually trigger listener immediatelyto be able to pass in mergeDown
+        target(defaultValue);
+        valueChangeListener(defaultValue, true);
+    }
+
+    History.Adapter.bind(window, 'statechange', historyChangeListener);
+    target.subscribe(valueChangeListener);
 
     return target;
 };

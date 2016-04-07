@@ -48,41 +48,37 @@ ko.components.register('date_filter', {
             return lastRecord ? new Date(lastRecord.endDate || lastRecord.startDate) : new Date();
         });
 
-        self.minQuerySymbol = 'rangeMin';
-        self.maxQuerySymbol = 'rangeMax';
-
         // TODO: add extender to auto convert to int? would remove the parseInt calls
-        self.rangeMin = ko.observable(parseInt(URI.parseQuery(location.search)[self.minQuerySymbol]) || self.earliestDate().getTime())
-            .extend({
-                history: {
-                    label: 'After',
-                    querySymbol: self.minQuerySymbol,
-                    ignorableWhen: function (value) {
-                        return value == self.earliestDate().getTime();
-                    },
-                    formatWith: function (value) {
-                        return CWRC.Transform.humanDateTime(value / 1000);
-                    }
+        self.rangeMin = ko.observable(self.earliestDate().getTime()).extend({
+            history: {
+                label: 'After',
+                querySymbol: 'rangeMin',
+                ignorableWhen: function (value) {
+                    return value == self.earliestDate().getTime();
+                },
+                formatWith: function (value) {
+                    return CWRC.Transform.humanDateTime(value / 1000);
+                },
+                compareWith: function (a, b) {
+                    return !a || !b || a === b;
                 }
-            });
-        self.rangeMax = ko.observable(parseInt(URI.parseQuery(location.search)[self.maxQuerySymbol]) || self.latestDate().getTime())
-            .extend({
-                history: {
-                    label: 'Before',
-                    querySymbol: self.maxQuerySymbol,
-                    ignorableWhen: function (value) {
-                        return value == self.latestDate().getTime();
-                    },
-                    formatWith: function (value) {
-                        return CWRC.Transform.humanDateTime(value / 1000);
-                    }
+            }
+        });
+        self.rangeMax = ko.observable(self.latestDate().getTime()).extend({
+            history: {
+                label: 'Before',
+                querySymbol: 'rangeMax',
+                ignorableWhen: function (value) {
+                    return value == self.latestDate().getTime();
+                },
+                formatWith: function (value) {
+                    return CWRC.Transform.humanDateTime(value / 1000);
+                },
+                compareWith: function (a, b) {
+                    return !a || !b || a === b;
                 }
-            });
-
-        // separate from initializer to trigger history extender
-        // TODO: can the history extender just load from initial value when applied?
-        self.rangeMin();
-        self.rangeMax();
+            }
+        });
 
         /**
          * This is separated from rangeMin/Max because we don't want to filter until after the slider is

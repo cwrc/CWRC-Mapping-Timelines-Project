@@ -53,8 +53,7 @@ ko.components.register('checklist_filter', {
 
         self.label = params['label'] || ('Property: ' + self.recordFieldName);
 
-        var defaultVal = URI.parseQuery(location.search)[self.label.toLowerCase()];
-        self.selectedRecordValues = ko.observableArray(defaultVal ? [].concat(defaultVal) : []).extend({
+        self.selectedRecordValues = ko.observableArray().extend({
             history: {
                 label: self.label,
                 querySymbol: self.label.toLowerCase(),

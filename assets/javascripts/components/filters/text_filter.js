@@ -15,19 +15,19 @@ ko.components.register('text_filter', {
         self.label = params['label'] || 'Search';
         self.placeholder = params['placeholder'] || 'eg. University of Alberta';
 
-        self.querySymbol = 's';
-
         // Using timeouts to throttle the filtering, otherwise it becomes sluggish
-        self.filterText = ko.observable(URI.parseQuery(location.search)[self.querySymbol] || '').extend({
-            method: 'notifyWhenChangesStop',
-            rateLimit: 300,
+        // Also, history extender *must* be before the 'method' and 'rateLimit' extenders, otherwise
+        // it and other observables using history have problems with setting defaults
+        self.filterText = ko.observable().extend({
             history: {
                 label: self.label,
-                querySymbol: self.querySymbol,
+                querySymbol: 's',
                 formatWith: function (value) {
                     return value ? '"' + value + '"' : '(none)';
                 }
-            }
+            },
+            method: 'notifyWhenChangesStop',
+            rateLimit: 300
         });
 
         self['reset'] = function () {
