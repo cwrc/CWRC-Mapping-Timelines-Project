@@ -7,6 +7,17 @@ var CWRC = (function (cwrc, undefined) {
     // Save the original title to allow history manipulation to use it
     cwrc.pageTitle = document.title;
 
+    cwrc.groupHistory = function (title, callback, flatten) {
+        if (!flatten)
+            History.pushState(History.getState().data);
+
+        CWRC.historyGroupName = title;
+
+        callback();
+
+        CWRC.historyGroupName = '';
+    };
+
     cwrc.rawData = ko.observableArray();
     cwrc.filters = ko.observableArray();
     cwrc.filteredData = ko.pureComputed(function () {

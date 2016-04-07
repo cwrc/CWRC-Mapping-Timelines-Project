@@ -101,7 +101,7 @@ ko.extenders.history = function (target, opts) {
             return value || '(none)';
         };
 
-    valueChangeListener = function (newVal, replace) {
+    valueChangeListener = function (newVal) {
         var data, label, uri;
 
         if (target.__updatingFromHistory__)
@@ -118,8 +118,8 @@ ko.extenders.history = function (target, opts) {
             uri.removeQuery(opts.querySymbol);
 
 
-        if (CWRC.historyReplace) {// || data.replacers.indexOf(target.viewModel())) {
-            History.replaceState(data, CWRC.historyReplace, uri.toString() || '?');
+        if (CWRC.historyGroupName) {// || data.replacers.indexOf(target.viewModel())) {
+            History.replaceState(data, CWRC.historyGroupName + ' - ' + CWRC.pageTitle, uri.toString() || '?');
         } else {
             label = opts.label + ': ' + valueFormatter(newVal) + ' - ' + CWRC.pageTitle;
 
@@ -146,11 +146,11 @@ ko.extenders.history = function (target, opts) {
         defaultValue = [].concat(defaultValue);
 
     if (defaultValue) {
-        // have to manually trigger listener immediatelyto be able to pass in mergeDown
+        // have to manually trigger listener immediately to be able to pass in mergeDown
         target(defaultValue);
-        CWRC.historyReplace = CWRC.pageTitle || 'Plot-It';
-        valueChangeListener(defaultValue, true);
-        CWRC.historyReplace = '';
+        CWRC.groupHistory(CWRC.pageTitle || 'Plot-It', function () {
+            valueChangeListener(defaultValue);
+        }, true);
     }
 
     History.Adapter.bind(window, 'statechange', historyChangeListener);

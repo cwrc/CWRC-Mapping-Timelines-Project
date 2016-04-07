@@ -20,20 +20,16 @@ ko.components.register('filter_reset', {
 
             filters = filterGroup.querySelectorAll('text_filter, date_filter, checklist_filter');
 
-            var data = History.getState().data;
-            //data.replacers = filters
-            History.pushState(data);
-            CWRC.historyReplace = 'Reset Filters';
+            CWRC.groupHistory('Reset Filters', function () {
+                for (var i = 0; i < filters.length; i++) {
+                    filter = filters[i];
 
-            for (var i = 0; i < filters.length; i++) {
-                filter = filters[i];
+                    // doing this query for all eliminates text nodes, which aren't mapped in dataFor
+                    filterModel = ko.dataFor(filter.querySelector('*'));
 
-                // doing this query for all eliminates text nodes, which aren't mapped in dataFor
-                filterModel = ko.dataFor(filter.querySelector('*'));
-
-                filterModel.reset();
-            }
-            CWRC.historyReplace = '';
+                    filterModel.reset();
+                }
+            });
         };
     }
 });
