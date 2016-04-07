@@ -14,19 +14,19 @@ ko.components.register('filter_reset', {
         self.filterGroupId = params['filterGroupId'] || alert("Error: You must provide the 'filterGroupId' parameter to <filter_reset>.");
 
         self['resetFilters'] = function () {
-            var filter, filterGroup, children, child;
+            var filter, filterGroup, children, child, filters, filterModel;
 
             filterGroup = document.getElementById(self.filterGroupId);
-            children = filterGroup.childNodes;
 
-            for (var i = 0; i < children.length; i++) {
-                child = children[i];
+            filters = filterGroup.querySelectorAll('text_filter, date_filter, checklist_filter');
 
-                if (child.nodeType === 1) {
-                    filter = ko.dataFor(child.childNodes[0]);
+            for (var i = 0; i < filters.length; i++) {
+                filter = filters[i];
 
-                    filter.reset();
-                }
+                // doing this query for all eliminates text nodes, which aren't mapped in dataFor
+                filterModel = ko.dataFor(filter.querySelector('*'));
+
+                filterModel.reset();
             }
         };
     }
