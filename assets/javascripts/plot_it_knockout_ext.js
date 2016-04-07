@@ -118,8 +118,8 @@ ko.extenders.history = function (target, opts) {
             uri.removeQuery(opts.querySymbol);
 
 
-        if (replace) {
-            History.replaceState(data, CWRC.pageTitle, uri.toString() || '?');
+        if (CWRC.historyReplace) {// || data.replacers.indexOf(target.viewModel())) {
+            History.replaceState(data, CWRC.historyReplace, uri.toString() || '?');
         } else {
             label = opts.label + ': ' + valueFormatter(newVal) + ' - ' + CWRC.pageTitle;
 
@@ -148,7 +148,9 @@ ko.extenders.history = function (target, opts) {
     if (defaultValue) {
         // have to manually trigger listener immediatelyto be able to pass in mergeDown
         target(defaultValue);
+        CWRC.historyReplace = CWRC.pageTitle || 'Plot-It';
         valueChangeListener(defaultValue, true);
+        CWRC.historyReplace = '';
     }
 
     History.Adapter.bind(window, 'statechange', historyChangeListener);

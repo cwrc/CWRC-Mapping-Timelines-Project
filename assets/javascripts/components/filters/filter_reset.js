@@ -20,6 +20,11 @@ ko.components.register('filter_reset', {
 
             filters = filterGroup.querySelectorAll('text_filter, date_filter, checklist_filter');
 
+            var data = History.getState().data;
+            //data.replacers = filters
+            History.pushState(data);
+            CWRC.historyReplace = 'Reset Filters';
+
             for (var i = 0; i < filters.length; i++) {
                 filter = filters[i];
 
@@ -28,6 +33,7 @@ ko.components.register('filter_reset', {
 
                 filterModel.reset();
             }
+            CWRC.historyReplace = '';
         };
     }
 });
