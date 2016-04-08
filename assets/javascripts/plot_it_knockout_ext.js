@@ -119,7 +119,9 @@ ko.extenders.history = function (target, opts) {
 
 
         if (CWRC.historyGroupName) {// || data.replacers.indexOf(target.viewModel())) {
-            History.replaceState(data, CWRC.historyGroupName + ' - ' + CWRC.pageTitle, uri.toString() || '?');
+            label = (CWRC.historyGroupName == CWRC.pageTitle) ? CWRC.pageTitle : (CWRC.historyGroupName + ' - ' + CWRC.pageTitle);
+
+            History.replaceState(data, label, uri.toString() || '?');
         } else {
             label = opts.label + ': ' + valueFormatter(newVal) + ' - ' + CWRC.pageTitle;
 
@@ -146,7 +148,6 @@ ko.extenders.history = function (target, opts) {
         defaultValue = [].concat(defaultValue);
 
     if (defaultValue) {
-        // have to manually trigger listener immediately to be able to pass in mergeDown
         target(defaultValue);
         CWRC.groupHistory(CWRC.pageTitle || 'Plot-It', function () {
             valueChangeListener(defaultValue);
