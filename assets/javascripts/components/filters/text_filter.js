@@ -26,8 +26,10 @@ ko.components.register('text_filter', {
                     return value ? '"' + value + '"' : '(none)';
                 }
             },
-            method: 'notifyWhenChangesStop',
-            rateLimit: 300
+            rateLimit: {
+                timeout: 300,
+                method: 'notifyWhenChangesStop'
+            }
         });
 
         self['reset'] = function () {
