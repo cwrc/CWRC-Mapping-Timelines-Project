@@ -17,7 +17,7 @@ ko.components.register('timeline', {
 
         self.pixelsPerMs = 1 / CWRC.toMillisec('day');
         self.labelSize = CWRC.toMillisec('year') * self.pixelsPerMs; // px
-        self.recordsToPinInfos = Object.create(null);
+        self.tokens = [];
 
         self.scale = ko.observable(1.0);
 
@@ -116,10 +116,11 @@ ko.components.register('timeline', {
                 // duration can be artificially set to label size to ensure there's enough room for a label
                 duration = Math.max(Math.abs(endStamp - startStamp), toMilliSecs(self.labelSize));
 
-                self.recordsToPinInfos[ko.toJSON(record)] = new CWRC.Timeline.Token({
+                self.tokens.push(new CWRC.Timeline.Token({
                     xPos: toPixels(startStamp - self.originStamp()),
-                    width: toPixels(duration)
-                });
+                    width: toPixels(duration),
+                    data: record
+                }));
 
                 cutoff = startStamp + duration;
 
@@ -149,7 +150,9 @@ ko.components.register('timeline', {
         };
 
         self.getPinInfo = function (item) {
-            return self.recordsToPinInfos[ko.toJSON(item)];
+            return self.tokens.find(function (token) {
+                return token.data == item;
+            })
         };
 
         self.unplottableCount = ko.pureComputed(function () {
