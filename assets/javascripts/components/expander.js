@@ -4,7 +4,7 @@ ko.components.register('expander', {
                     <span style="display: inline-block " data-bind="html: labelText"></span>\
                     <span data-bind="html: labelArrow"></span>\
                </a>\
-               <div class="expander-content" data-bind="template: {nodes: content}">\
+               <div class="expander-content" data-bind="template: {nodes: $componentTemplateNodes}">\
                </div>',
 
     // See http://knockoutjs.com/documentation/component-custom-elements.html#passing-markup-into-components
@@ -18,14 +18,12 @@ ko.components.register('expander', {
              *        - expandedObservable: An observable to use instead of its own internal state.
              *        - expandedText: The text to display while content is expanded.
              *        - collapsedText: The text to display while the content is collapsed
-             * @param content the content to expand and collapse
              * @param domElement the DOM node that this component is bound to
              * @constructor
              */
-            var ExpanderModel = function (params, content, domElement) {
+            var ExpanderModel = function (params, domElement) {
                 var self = this;
 
-                self.content = content;
                 self.height = params['expandedObservable'] || ko.observable();
                 self.isVisible = function () {
                     return self.height() != 0;
@@ -83,7 +81,7 @@ ko.components.register('expander', {
                 };
             };
 
-            return new ExpanderModel(params, componentInfo.templateNodes, componentInfo.element);
+            return new ExpanderModel(params, componentInfo.element);
         }
     }
 });
