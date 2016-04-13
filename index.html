@@ -254,15 +254,20 @@
                                                         '-ms-transform': $parent.zoomTransform,
                                                         '-webkit-transform': $parent.zoomTransform
                                                       },
-                                              foreach: $parent.timelineRows">
-                  <div class="row" data-bind="foreach: $data">
-                     <a href="#" class="event" data-bind="css: { selected: $parents[2].getPinInfo($data).isSelected() },
-                                                          style: {
-                                                                     left: $parents[2].getPinInfo($data).xPos,
-                                                                     width: $parents[2].getPinInfo($data).width,
-                                                                     color: $data.endDate ? 'red' : 'black'
-                                                                 },
-                                                          event: {mouseup: $parents[2].recordMouseUp, mousedown: $parents[2].recordMouseDown}">
+                                              foreach: $parent.timelineTokens">
+                  <div class="event" data-bind=" css: { selected: $parents[1].getPinInfo($data).isSelected() },
+                                                 style: {
+                                                            left: $parents[1].getPinInfo($data).xPos,
+                                                            width: $parents[1].getPinInfo($data).width,
+                                                            height: $parents[1].getPinInfo($data).height,
+                                                            color: $parents[1].getPinInfo($data).data.endDate ? 'red' : 'black',
+                                                            'z-index': $parents[1].getPinInfo($data).layer
+                                                        },
+                                                 event: {
+                                                            mouseup: $parents[1].recordMouseUp,
+                                                            mousedown: $parents[1].recordMouseDown
+                                                }">
+                     <a href="#">
                         <span data-bind="text: $data.startDate"></span>
                         <span data-bind="html: $data.label"></span>
                      </a>

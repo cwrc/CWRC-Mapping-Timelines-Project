@@ -73,11 +73,11 @@ ko.components.register('timeline', {
             return CWRC.toStamp(self.years()[0].toString());
         };
 
-        self.timelineRows = ko.computed(function () {
-            var startStamp, endStamp, duration, rows, unplacedRecords, cutoff, rowIndex, toMilliSecs, toPixels, nextRecordIndex;
+        self.timelineTokens = ko.computed(function () {
+            var startStamp, endStamp, duration, tokens, unplacedRecords, cutoff, rowIndex, toMilliSecs, toPixels, nextRecordIndex;
 
             unplacedRecords = self.records().slice(); // slice to duplicate array, otherwise we would alter the cached value
-            rows = [];
+            tokens = [];
             rowIndex = -1;
 
             nextRecordIndex = function (cutoff, records) {
@@ -100,7 +100,7 @@ ko.components.register('timeline', {
 
                 if (typeof cutoff === 'undefined' || isPastCutoff) {
                     cutoff = CWRC.toStamp(unplacedRecords[0]);
-                    rows[++rowIndex] = [];
+                    rowIndex++;
                 }
 
                 recordIndex = nextRecordIndex(cutoff, unplacedRecords);
@@ -115,16 +115,17 @@ ko.components.register('timeline', {
 
                 self.tokens.push(new CWRC.Timeline.Token({
                     xPos: toPixels(startStamp - self.originStamp()),
+                    row: rowIndex,
                     width: toPixels(duration),
                     data: record
                 }));
 
                 cutoff = startStamp + duration;
 
-                rows[rowIndex].push(record);
+                tokens.push(record);
             }
 
-            return rows;
+            return tokens;
         });
 
         self.canvasWidth = ko.pureComputed(function () {
@@ -191,7 +192,7 @@ ko.components.register('timeline', {
         CWRC.selected.subscribe(function (selectedRecord) {
             var viewport, recordLabel, row, col, rows, records, ruler;
 
-            rows = self.timelineRows();
+            rows = self.timelineTokens();
 
             // this is awful, but is so far the only way to find the event label.
             // applying an ID is arbitrary *and* fragile, and no other unique data exists.
@@ -401,10 +402,13 @@ CWRC.Timeline.Token = function (params) {
 
     this.xPos = params.xPos;
     this.width = params.width;
+    this.height = (params.row + 2) * 1.5 + 'em';
 
     this.data = params.data;
 
     this.isSelected = ko.pureComputed(function () {
         return self.data == CWRC.selected();
     });
+
+    this.layer = -params.row
 };

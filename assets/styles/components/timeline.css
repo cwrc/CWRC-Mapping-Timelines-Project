@@ -66,43 +66,48 @@ timeline #timeline-viewport .canvas {
    transform-origin: 0 0 0;
 }
 
-timeline #timeline-viewport > div.canvas > div.row {
-   position: relative; /* to give a new origin for children  */
+/*timeline #timeline-viewport > div.canvas > div.row {*/
+/*position: relative; !* to give a new origin for children  *!*/
 
-   margin: 0.25em 0;
+/*margin: 0.25em 0;*/
 
-   min-height: 1.5em;
+/*min-height: 1.5em;*/
+/*}*/
+
+timeline #timeline-viewport > div.canvas .event {
+   position: absolute;
+
+   border-left: 2px dotted black;
 }
 
-timeline #timeline-viewport > div.canvas > div.row > .event {
-   display: inline-block;
+timeline #timeline-viewport > div.canvas .event a {
    position: absolute;
-   vertical-align: top;
+   bottom: 0;
 
    border-radius: 0.5em;
 
-   padding: 0.25em 0;
-
-   overflow: hidden;
-
    background: #EEEDE6;
 
-   white-space: nowrap;
+   overflow: hidden;
    text-overflow: ellipsis;
+
+   padding: 0.25em 0;
+
+   white-space: nowrap;
 }
 
-timeline #timeline-viewport > div.canvas > div.row > .selected {
+timeline #timeline-viewport > div.canvas .selected a {
    z-index: 10;
 
    box-shadow: 0.25em 0.25em 0.25em rgba(0, 0, 0, 0.65);
    border: 3px dotted red;
 }
 
-timeline #timeline-viewport > div.canvas > div.row > .event > span:first-of-type:after {
+timeline #timeline-viewport > div.canvas .event span:first-of-type:after {
    content: ":";
 }
 
-timeline #timeline-viewport > div.canvas > div.row > .event > span {
+timeline #timeline-viewport > div.canvas .event span {
    margin-left: 0.25em;
 }
 
