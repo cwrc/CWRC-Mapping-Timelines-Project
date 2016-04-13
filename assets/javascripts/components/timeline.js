@@ -77,9 +77,9 @@ ko.components.register('timeline', {
         };
 
         self.timelineRows = ko.computed(function () {
-            var startStamp, endStamp, duration, rows, records, cutoff, rowIndex, toMilliSecs, toPixels, nextRecordIndex;
+            var startStamp, endStamp, duration, rows, unplacedRecords, cutoff, rowIndex, toMilliSecs, toPixels, nextRecordIndex;
 
-            records = self.records().slice(); // slice to duplicate array, otherwise we would alter the cached value
+            unplacedRecords = self.records().slice(); // slice to duplicate array, otherwise we would alter the cached value
             rows = [];
             rowIndex = -1;
 
@@ -96,19 +96,19 @@ ko.components.register('timeline', {
 
             toPixels = self.toPixels;
 
-            while (records.length > 0) {
-                var record, recordIndex, beyond;
+            while (unplacedRecords.length > 0) {
+                var record, recordIndex, isPastCutoff;
 
-                beyond = cutoff > CWRC.toStamp(records[records.length - 1]);
+                isPastCutoff = cutoff > CWRC.toStamp(unplacedRecords[unplacedRecords.length - 1]);
 
-                if (typeof cutoff === 'undefined' || beyond) {
-                    cutoff = CWRC.toStamp(records[0]);
+                if (typeof cutoff === 'undefined' || isPastCutoff) {
+                    cutoff = CWRC.toStamp(unplacedRecords[0]);
                     rows[++rowIndex] = [];
                 }
 
-                recordIndex = nextRecordIndex(cutoff, records);
+                recordIndex = nextRecordIndex(cutoff, unplacedRecords);
 
-                record = records.splice(recordIndex, 1)[0];
+                record = unplacedRecords.splice(recordIndex, 1)[0];
 
                 startStamp = CWRC.toStamp(record.startDate);
                 endStamp = CWRC.toStamp(record.endDate) || startStamp;
@@ -116,10 +116,10 @@ ko.components.register('timeline', {
                 // duration can be artificially set to label size to ensure there's enough room for a label
                 duration = Math.max(Math.abs(endStamp - startStamp), toMilliSecs(self.labelSize));
 
-                self.recordsToPinInfos[ko.toJSON(record)] = {
+                self.recordsToPinInfos[ko.toJSON(record)] = new CWRC.Timeline.Token({
                     xPos: toPixels(startStamp - self.originStamp()),
                     width: toPixels(duration)
-                };
+                });
 
                 cutoff = startStamp + duration;
 
@@ -397,3 +397,18 @@ ko.components.register('timeline', {
         });
     }
 });
+
+CWRC.Timeline = CWRC.Timeline || {};
+
+CWRC.Timeline.Token = function (params) {
+    this.xPos = params.xPos;
+    this.width = params.width;
+
+    this.data = params.data;
+
+    //this.isSelected // TODO: make the selected state a computed here
+};
+
+//CWRC.Timeline.Token.prototype.isSelected = ko.computed(function () {
+//    this.data == CWRC.selected;
+//});
