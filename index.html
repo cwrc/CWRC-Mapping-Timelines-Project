@@ -256,13 +256,13 @@
                                                       },
                                               foreach: $parent.timelineRows">
                   <div class="row" data-bind="foreach: $data">
-                     <a href="#" class="event" data-bind="css: { selected: $parents[2].isSelected($data) },
-                                                             style: {
-                                                                        left: $parents[2].getPinInfo($data).xPos,
-                                                                        width: $parents[2].getPinInfo($data).width,
-                                                                        color: $data.endDate ? 'red' : 'black'
-                                                                    },
-                                                             event: {mouseup: $parents[2].recordMouseUp, mousedown: $parents[2].recordMouseDown}">
+                     <a href="#" class="event" data-bind="css: { selected: $parents[2].getPinInfo($data).isSelected() },
+                                                          style: {
+                                                                     left: $parents[2].getPinInfo($data).xPos,
+                                                                     width: $parents[2].getPinInfo($data).width,
+                                                                     color: $data.endDate ? 'red' : 'black'
+                                                                 },
+                                                          event: {mouseup: $parents[2].recordMouseUp, mousedown: $parents[2].recordMouseDown}">
                         <span data-bind="text: $data.startDate"></span>
                         <span data-bind="html: $data.label"></span>
                      </a>

@@ -21,9 +21,6 @@ ko.components.register('timeline', {
 
         self.scale = ko.observable(1.0);
 
-        //self.translateX = ko.observable(0);
-        //self.translateY = ko.observable(0);
-
         self.rulerTransform = ko.computed(function () {
             return 'scaleX(' + self.scale() + ')';
         });
@@ -161,10 +158,6 @@ ko.components.register('timeline', {
                     return item.startDate;
                 }).length;
         });
-
-        self.isSelected = function (record) {
-            return record == CWRC.selected();
-        };
 
         self.viewport = function () {
             return document.getElementById('timeline-viewport');
@@ -404,14 +397,14 @@ ko.components.register('timeline', {
 CWRC.Timeline = CWRC.Timeline || {};
 
 CWRC.Timeline.Token = function (params) {
+    var self = this;
+
     this.xPos = params.xPos;
     this.width = params.width;
 
     this.data = params.data;
 
-    //this.isSelected // TODO: make the selected state a computed here
+    this.isSelected = ko.pureComputed(function () {
+        return self.data == CWRC.selected();
+    });
 };
-
-//CWRC.Timeline.Token.prototype.isSelected = ko.computed(function () {
-//    this.data == CWRC.selected;
-//});
