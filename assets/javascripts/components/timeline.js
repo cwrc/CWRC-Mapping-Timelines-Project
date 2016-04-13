@@ -33,7 +33,7 @@ ko.components.register('timeline', {
         });
 
         // full filtered records, sorted by start
-        self.records = ko.computed(function () {
+        self.records = ko.pureComputed(function () {
             var records, timeDiff;
 
             // fetch only the data that have non-null start dates, sort by start date.
@@ -43,7 +43,7 @@ ko.components.register('timeline', {
                 timeDiff = CWRC.toStamp(a) - CWRC.toStamp(b);
 
                 if (timeDiff == 0)
-                    return a.label.localeCompare(b.label); // break ties alphabetically for determinism
+                    return a.label.localeCompare(b.label);
                 else
                     return timeDiff;
             });
@@ -51,20 +51,20 @@ ko.components.register('timeline', {
             return records;
         });
 
-        self.earliestDate = ko.computed(function () {
+        self.earliestDate = ko.pureComputed(function () {
             var firstRecord = self.records()[0];
 
             return firstRecord ? new Date(firstRecord.startDate) : new Date();
         });
 
-        self.latestDate = ko.computed(function () {
+        self.latestDate = ko.pureComputed(function () {
             var sortedRecords = self.records();
             var lastRecord = sortedRecords[sortedRecords.size];
 
             return lastRecord ? new Date(lastRecord.endDate || lastRecord.startDate) : new Date();
         });
 
-        self.years = ko.computed(function () {
+        self.years = ko.pureComputed(function () {
             return ko.utils.range(self.earliestDate().getUTCFullYear(), self.latestDate().getUTCFullYear());
         });
 
@@ -129,7 +129,7 @@ ko.components.register('timeline', {
             return rows;
         });
 
-        self.canvasWidth = ko.computed(function () {
+        self.canvasWidth = ko.pureComputed(function () {
             var timespan, startStamp, endStamp;
 
             startStamp = CWRC.toStamp(self.earliestDate());
@@ -153,6 +153,7 @@ ko.components.register('timeline', {
         };
 
         self.unplottableCount = ko.pureComputed(function () {
+            // can't use self.records here, because records is filtered.
             return CWRC.rawData().length - CWRC.select(CWRC.rawData(), function (item) {
                     return item.startDate;
                 }).length;
