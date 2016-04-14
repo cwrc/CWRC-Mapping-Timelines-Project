@@ -73,7 +73,7 @@ ko.components.register('timeline', {
             return CWRC.toStamp(self.years()[0].toString());
         };
 
-        self.timelineTokens = ko.computed(function () {
+        self.timelineTokens = ko.pureComputed(function () {
             var startStamp, endStamp, duration, tokens, unplacedRecords, cutoff, rowIndex, toMilliSecs, toPixels, nextRecordIndex;
 
             unplacedRecords = self.records().slice(); // slice to duplicate array, otherwise we would alter the cached value
@@ -113,7 +113,7 @@ ko.components.register('timeline', {
                 // duration can be artificially set to label size to ensure there's enough room for a label
                 duration = Math.max(Math.abs(endStamp - startStamp), toMilliSecs(self.labelSize));
 
-                self.tokens.push(new CWRC.Timeline.Token({
+                tokens.push(new CWRC.Timeline.Token({
                     xPos: toPixels(startStamp - self.originStamp()),
                     row: rowIndex,
                     width: toPixels(duration),
@@ -121,8 +121,6 @@ ko.components.register('timeline', {
                 }));
 
                 cutoff = startStamp + duration;
-
-                tokens.push(record);
             }
 
             return tokens;
@@ -145,12 +143,6 @@ ko.components.register('timeline', {
 
         self.labelPosition = function (year) {
             return self.toPixels(CWRC.toStamp(year.toString()) - self.originStamp())
-        };
-
-        self.getPinInfo = function (item) {
-            return self.tokens.find(function (token) {
-                return token.data == item;
-            })
         };
 
         self.unplottableCount = ko.pureComputed(function () {
@@ -330,9 +322,9 @@ ko.components.register('timeline', {
          * recordMouseUp and recordMouseDown are split (ie. not recordClick) to allow drag to abort the event
          * so that it doesn't select when you drag over a record. - retm
          */
-        self.recordMouseUp = function (record) {
+        self.recordMouseUp = function (token) {
             if (self.clickingOnRecord)
-                CWRC.selected(record)
+                CWRC.selected(token.data)
         };
 
         self.recordMouseDown = function (record) {
