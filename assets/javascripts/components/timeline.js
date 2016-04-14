@@ -164,7 +164,7 @@ ko.components.register('timeline', {
         };
 
         // Store state separate from viewport so that it only rounds once at the end, not every step. This eliminates drift
-        // Top, left, right, and bottom are in scaled pixels
+        // Top, left, right, and bottom are in scaled pixels, as are width and height
         self.viewportBounds = {
             left: ko.observable(0),
             top: ko.observable(0),
@@ -173,6 +173,12 @@ ko.components.register('timeline', {
             },
             bottom: function () {
                 return self.viewportBounds.top() + (self.viewport().offsetHeight * self.scale());
+            },
+            width: function () {
+                return this.right() - this.left();
+            },
+            height: function () {
+                return this.bottom() - this.top();
             }
         };
 
@@ -186,53 +192,35 @@ ko.components.register('timeline', {
         }, 100);
 
         CWRC.selected.subscribe(function (selectedRecord) {
-            var viewport, recordLabel, row, col, rows, records, ruler;
+            var viewport, recordLabel, row, col, tokens, token, records, ruler;
 
-            rows = self.timelineTokens();
+            tokens = self.timelineTokens();
 
-            // this is awful, but is so far the only way to find the event label.
-            // applying an ID is arbitrary *and* fragile, and no other unique data exists.
-            // So we just rely on he expected correlation of their location because this class
-            // is also doing the layout. - retm
-            for (row = 0; row < rows.length; row++) {
-                records = rows[row];
+            token = tokens.find(function (token) {
+                return token.data == selectedRecord;
+            });
 
-                for (col = 0; col < records.length; col++) {
-                    var record = records[col];
+            recordLabel = self.viewport().querySelector('div#token-' + token.id);
 
-                    if (record === selectedRecord) {
-                        recordLabel = document.querySelector('#timeline-viewport .row:nth-of-type(' + (row + 1) + ') .event:nth-of-type(' + (col + 1) + ')'); // gets the first one
+            var elementBounds;
 
-                        break;
-                    }
-                }
+            // element x,y are in unscaled pixels, so scale them
+            elementBounds = {
+                left: Math.round(parseInt(recordLabel.offsetLeft) * self.scale()),
+                top: Math.round(parseInt(recordLabel.offsetHeight) * self.scale())
+            };
 
-                if (recordLabel)
-                    break;
+            if (elementBounds.left < self.viewportBounds.left() ||
+                elementBounds.left > self.viewportBounds.right()) {
+
+                self.viewportBounds.left(elementBounds.left - (self.viewportBounds.width() / 2));
+
+                if (ruler) // todo: remove when ruler rebuilt
+                    ruler.scrollLeft = elementBounds.left;
             }
 
-            if (recordLabel) {
-                var elementBounds;
-
-                // element x,y are in unscaled pixels, so scale them
-                elementBounds = {
-                    left: Math.round(parseInt(recordLabel.offsetLeft) * self.scale()),
-                    // Using the row index times the row height is cheating, but it works
-                    top: Math.round((parseInt(recordLabel.parentNode.offsetHeight) * row) * self.scale())
-                };
-
-                if (elementBounds.left < self.viewportBounds.left() ||
-                    elementBounds.left > self.viewportBounds.right()) {
-
-                    self.viewportBounds.left(elementBounds.left);
-
-                    if (ruler) // todo: remove when ruler rebuilt
-                        ruler.scrollLeft = elementBounds.left;
-                }
-
-                if (elementBounds.top < self.viewportBounds.top || elementBounds.top > self.viewportBounds.bottom) {
-                    self.viewportBounds.top(elementBounds.top);
-                }
+            if (elementBounds.top < self.viewportBounds.top() || elementBounds.top > self.viewportBounds.bottom()) {
+                self.viewportBounds.top(elementBounds.top - (self.viewportBounds.height() / 2));
             }
         });
 
@@ -396,12 +384,18 @@ CWRC.Timeline = CWRC.Timeline || {};
 CWRC.Timeline.LABEL_HEIGHT = 1.5; //em
 CWRC.Timeline.SELECTED_LAYER = 10;
 
+CWRC.Timeline.__tokenId = 1;
+
 CWRC.Timeline.Token = function (params) {
     var self = this;
 
+    this.id = CWRC.Timeline.__tokenId++;
+
     this.xPos = params.xPos;
+    this.row = params.row;
+
     this.width = params.width;
-    this.height = (params.row + 2) * CWRC.Timeline.LABEL_HEIGHT + 'em';
+    this.height = (this.row + 2) * CWRC.Timeline.LABEL_HEIGHT + 'em';
 
     this.data = params.data;
 
@@ -410,6 +404,6 @@ CWRC.Timeline.Token = function (params) {
     });
 
     this.layer = function () {
-        return this.isSelected() ? CWRC.Timeline.SELECTED_LAYER : -params.row;
+        return this.isSelected() ? CWRC.Timeline.SELECTED_LAYER : -this.row;
     };
 };
