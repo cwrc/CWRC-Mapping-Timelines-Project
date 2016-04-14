@@ -250,6 +250,7 @@
             <section id="timeline-viewport" data-bind="event: {wheel: $parent.scrollHandler}">
                <div class="canvas" data-bind="style: {
                                                         width: $parent.canvasWidth,
+                                                        height: $parent.canvasHeight() + 'em',
                                                         transform: $parent.zoomTransform,
                                                         '-ms-transform': $parent.zoomTransform,
                                                         '-webkit-transform': $parent.zoomTransform

@@ -73,7 +73,24 @@ ko.components.register('timeline', {
             return CWRC.toStamp(self.years()[0].toString());
         };
 
-        self.timelineTokens = ko.pureComputed(function () {
+        self.canvasHeight = ko.observable();
+
+        self.canvasWidth = ko.pureComputed(function () {
+            var timespan, startStamp, endStamp;
+
+            startStamp = CWRC.toStamp(self.earliestDate());
+            endStamp = CWRC.toStamp(self.latestDate());
+
+            if (startStamp == endStamp) {
+                return '100%';
+            } else {
+                timespan = (endStamp - startStamp); // in ms
+
+                return (timespan * self.pixelsPerMs) + (self.pixelsPerMs * CWRC.toMillisec('year')); // convert to px
+            }
+        });
+
+        self.timelineTokens = ko.computed(function () {
             var startStamp, endStamp, duration, tokens, unplacedRecords, cutoff, rowIndex, toMilliSecs, toPixels, nextRecordIndex;
 
             unplacedRecords = self.records().slice(); // slice to duplicate array, otherwise we would alter the cached value
@@ -123,22 +140,9 @@ ko.components.register('timeline', {
                 cutoff = startStamp + duration;
             }
 
+            self.canvasHeight((rowIndex + 10) * CWRC.Timeline.LABEL_HEIGHT);
+
             return tokens;
-        });
-
-        self.canvasWidth = ko.pureComputed(function () {
-            var timespan, startStamp, endStamp;
-
-            startStamp = CWRC.toStamp(self.earliestDate());
-            endStamp = CWRC.toStamp(self.latestDate());
-
-            if (startStamp == endStamp) {
-                return '100%';
-            } else {
-                timespan = (endStamp - startStamp); // in ms
-
-                return (timespan * self.pixelsPerMs) + (self.pixelsPerMs * CWRC.toMillisec('year')); // convert to px
-            }
         });
 
         self.labelPosition = function (year) {
@@ -389,15 +393,15 @@ ko.components.register('timeline', {
 
 CWRC.Timeline = CWRC.Timeline || {};
 
+CWRC.Timeline.LABEL_HEIGHT = 1.5; //em
+CWRC.Timeline.SELECTED_LAYER = 10;
+
 CWRC.Timeline.Token = function (params) {
     var self = this;
 
-    var selectedLayer = 10;
-    var labelHeight = 1.5; // ems
-
     this.xPos = params.xPos;
     this.width = params.width;
-    this.height = (params.row + 2) * labelHeight + 'em';
+    this.height = (params.row + 2) * CWRC.Timeline.LABEL_HEIGHT + 'em';
 
     this.data = params.data;
 
@@ -406,6 +410,6 @@ CWRC.Timeline.Token = function (params) {
     });
 
     this.layer = function () {
-        return this.isSelected() ? selectedLayer : -params.row;
+        return this.isSelected() ? CWRC.Timeline.SELECTED_LAYER : -params.row;
     };
 };
