@@ -258,10 +258,9 @@
                   <div class="event" data-bind=" css: { selected: $parents[1].getPinInfo($data).isSelected() },
                                                  style: {
                                                             left: $parents[1].getPinInfo($data).xPos,
-                                                            width: $parents[1].getPinInfo($data).width,
                                                             height: $parents[1].getPinInfo($data).height,
                                                             color: $parents[1].getPinInfo($data).data.endDate ? 'red' : 'black',
-                                                            'z-index': $parents[1].getPinInfo($data).layer
+                                                            'z-index': $parents[1].getPinInfo($data).layer()
                                                         },
                                                  event: {
                                                             mouseup: $parents[1].recordMouseUp,

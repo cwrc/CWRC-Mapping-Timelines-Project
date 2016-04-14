@@ -400,9 +400,12 @@ CWRC.Timeline = CWRC.Timeline || {};
 CWRC.Timeline.Token = function (params) {
     var self = this;
 
+    var selectedLayer = 10;
+    var labelHeight = 1.5; // ems
+
     this.xPos = params.xPos;
     this.width = params.width;
-    this.height = (params.row + 2) * 1.5 + 'em';
+    this.height = (params.row + 2) * labelHeight + 'em';
 
     this.data = params.data;
 
@@ -410,5 +413,7 @@ CWRC.Timeline.Token = function (params) {
         return self.data == CWRC.selected();
     });
 
-    this.layer = -params.row
+    this.layer = function () {
+        return this.isSelected() ? selectedLayer : -params.row;
+    };
 };

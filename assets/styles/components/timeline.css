@@ -66,23 +66,22 @@ timeline #timeline-viewport .canvas {
    transform-origin: 0 0 0;
 }
 
-/*timeline #timeline-viewport > div.canvas > div.row {*/
-/*position: relative; !* to give a new origin for children  *!*/
-
-/*margin: 0.25em 0;*/
-
-/*min-height: 1.5em;*/
-/*}*/
-
 timeline #timeline-viewport > div.canvas .event {
    position: absolute;
 
-   border-left: 2px dotted black;
+   width: 2em;
+
+   border: 2px dotted black;
+   border-top: none;
+   border-right: none;
+
+   border-radius: 0 0 0 0.5em;
 }
 
 timeline #timeline-viewport > div.canvas .event a {
    position: absolute;
-   bottom: 0;
+   left: 0.5em;
+   bottom: -0.9em;
 
    max-width: 10em;
 
@@ -104,6 +103,10 @@ timeline #timeline-viewport > div.canvas .event a:hover {
    max-width: 100em;
 
    z-index: 10;
+}
+
+timeline #timeline-viewport > div.canvas .selected {
+   border-color: red;
 }
 
 timeline #timeline-viewport > div.canvas .selected a {
