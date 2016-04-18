@@ -2,7 +2,7 @@ timeline {
    display: block;
 }
 
-timeline > section {
+timeline > section:first-of-type {
    text-align: right;
 }
 
@@ -131,7 +131,7 @@ timeline #timeline-ruler {
 
    overflow: hidden;
 
-   height: 1em;
+   /*height: 1em;*/
 }
 
 timeline #timeline-ruler > div {

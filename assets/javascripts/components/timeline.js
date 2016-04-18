@@ -145,10 +145,6 @@ ko.components.register('timeline', {
             return tokens;
         });
 
-        self.labelPosition = function (year) {
-            return self.toPixels(CWRC.toStamp(year.toString()) - self.originStamp())
-        };
-
         self.unplottableCount = ko.pureComputed(function () {
             // can't use self.records here, because records is filtered.
             return CWRC.rawData().length - CWRC.select(CWRC.rawData(), function (item) {
@@ -158,9 +154,6 @@ ko.components.register('timeline', {
 
         self.viewport = function () {
             return document.getElementById('timeline-viewport');
-        };
-        self.ruler = function () {
-            return document.getElementById('timeline-ruler');
         };
 
         // Store state separate from viewport so that it only rounds once at the end, not every step. This eliminates drift
@@ -179,8 +172,17 @@ ko.components.register('timeline', {
             },
             height: function () {
                 return this.bottom() - this.top();
+            },
+            startStamp: function () {
+                return self.originStamp() + self.viewportBounds.left() / self.pixelsPerMs;
+            },
+            endStamp: function () {
+                return self.originStamp() + self.viewportBounds.right() / self.pixelsPerMs;
             }
         };
+
+
+        self.ruler = new CWRC.Timeline.Ruler(self.viewportBounds, self.pixelsPerMs, self.scale)
 
         // Wrapped in a timeout to run after the actual canvas is initialized.
         // TODO: this is a hack, but there isn't currently any event to hook into for when the timeline is done loading
@@ -406,4 +408,130 @@ CWRC.Timeline.Token = function (params) {
     this.layer = function () {
         return this.isSelected() ? CWRC.Timeline.SELECTED_LAYER : -this.row;
     };
+};
+
+CWRC.Timeline.Ruler = function (viewportBounds, pixelsPerMs, scale) {
+    var self = this;
+
+    this.startStamp = ko.pureComputed(function () {
+        return viewportBounds.startStamp();
+    });
+
+    this.endStamp = ko.pureComputed(function () {
+        return viewportBounds.endStamp();
+    });
+
+    this.startDate = ko.pureComputed(function () {
+        return new Date(self.startStamp());
+    });
+
+    this.endDate = ko.pureComputed(function () {
+        return new Date(self.endStamp());
+    });
+
+    this.minorUnit = ko.pureComputed(function () {
+        var msSpan = (self.getElement().offsetWidth / pixelsPerMs) / scale();
+
+        if (msSpan < CWRC.toMillisec('minute'))
+            return 'seconds';
+        else if (msSpan < CWRC.toMillisec('hour'))
+            return 'minutes';
+        else if (msSpan < CWRC.toMillisec('day'))
+            return 'hours';
+        else if (msSpan < CWRC.toMillisec('month'))
+            return 'days';
+        else if (msSpan < CWRC.toMillisec('year'))
+            return 'months';
+        else if (msSpan < CWRC.toMillisec('decade'))
+            return 'years';
+        else if (msSpan < CWRC.toMillisec('century'))
+            return 'decades';
+        else if (msSpan < CWRC.toMillisec('year') * 1000)
+            return 'centuries';
+        else
+            return 'milennia';
+    })
+
+    this.majorUnit = ko.pureComputed(function () {
+        var msSpan = (self.getElement().offsetWidth / pixelsPerMs) / scale();
+
+        if (msSpan < CWRC.toMillisec('minute'))
+            return 'minutes';
+        else if (msSpan < CWRC.toMillisec('hour'))
+            return 'hours';
+        else if (msSpan < CWRC.toMillisec('day'))
+            return 'days';
+        else if (msSpan < CWRC.toMillisec('month'))
+            return 'months';
+        else if (msSpan < CWRC.toMillisec('year'))
+            return 'years';
+        else if (msSpan < CWRC.toMillisec('decade'))
+            return 'decades';
+        else if (msSpan < CWRC.toMillisec('century'))
+            return 'centuries';
+        else
+            return 'milennia';
+    })
+
+    this.step = function (unit) {
+        var spanDate = new Date(this.startStamp());
+        var dates = [];
+        var label;
+
+        var hardLimit = 0;
+
+        while (spanDate.getTime() < this.endStamp() && hardLimit < 25) {
+            // TODO: merge this block together
+            if (unit == 'days') {
+                label = spanDate.getDate();
+                //spanDate.setDate(spanDate.getDate() + 1);
+            } else if (unit == 'months') {
+                // toLocalString options aren't supported in IE 9 & 10.
+                label = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][spanDate.getMonth()];
+                //spanDate.setMonth(spanDate.getMonth() + 1);
+            } else if (unit == 'years') {
+                label = spanDate.getFullYear();
+                //spanDate.setFullYear(spanDate.getFullYear() + 1);
+            } else if (unit == 'decades') {
+                label = spanDate.getFullYear();
+                //spanDate.setFullYear(Math.round(spanDate.getFullYear() / 10) * 10 + 10);
+            } else if (unit == 'centuries') {
+                label = spanDate.getFullYear();
+                //spanDate.setFullYear(Math.round(spanDate.getFullYear() / 100) * 100 + 100);
+            } else {
+                label = spanDate.getFullYear();
+                //spanDate.setFullYear(Math.round(spanDate.getFullYear() / 1000) * 1000 + 1000);
+            }
+
+            this.advance(spanDate, unit);
+
+            dates.push({label: label, position: this.startStamp() * pixelsPerMs})
+
+            hardLimit++; // todo: remove
+        }
+
+        return dates;
+    };
+
+    this.getElement = function () {
+        return document.getElementById('timeline-ruler');
+    };
+
+    this.advance = function (date, unit, amount) {
+        amount = amount || 1;
+
+        if (unit == 'days') { ///days?/i.test(unit)
+            date.setDate(date.getDate() + amount);
+        } else if (unit == 'months') {
+            date.setMonth(date.getMonth() + amount);
+        } else if (unit == 'years') {
+            date.setFullYear(date.getFullYear() + amount);
+        } else if (unit == 'decades') {
+            date.setFullYear(Math.round(date.getFullYear() / 10) * 10 + amount * 10);
+        } else if (unit == 'centuries') {
+            date.setFullYear(Math.round(date.getFullYear() / 100) * 100 + amount * 100);
+        } else {
+            date.setFullYear(Math.round(date.getFullYear() / 1000) * 1000 + amount * 1000);
+        }
+    }
 };

@@ -111,15 +111,19 @@ var CWRC = (function (cwrc, undefined) {
     };
 
     cwrc.toMillisec = function (unit) {
+        // unit to (avg) duration in seconds
         var conversionChart = {
-            minute: 60 * 1000,
-            hour: 3600 * 1000,
-            day: 86400 * 1000,
-            month: 86400 * 31 * 1000,
-            year: 31536000 * 1000
+            minute: 60,
+            hour: 3600,
+            day: 86400,
+            month: 86400 * 31,
+            year: 31536000,
+            decade: 315360000,
+            century: 3153600000,
+            millenium: 31536000000
         };
 
-        return conversionChart[unit];
+        return conversionChart[unit] * 1000;
     };
 
     cwrc.createMarkerIcon = function (params) {
