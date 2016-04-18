@@ -474,40 +474,30 @@ CWRC.Timeline.Ruler = function (viewportBounds, pixelsPerMs, scale) {
     })
 
     this.step = function (unit) {
-        var spanDate = new Date(this.startStamp());
-        var dates = [];
-        var label;
+        var spanDate, dates, label;
 
-        var hardLimit = 0;
+        dates = [];
+        spanDate = new Date(this.startStamp());
 
-        while (spanDate.getTime() < this.endStamp() && hardLimit < 25) {
-            // TODO: merge this block together
-            if (unit == 'days') {
+        while (spanDate.getTime() <= this.endStamp()) {
+            if (/days?/i.test(unit))
                 label = spanDate.getDate();
-                //spanDate.setDate(spanDate.getDate() + 1);
-            } else if (unit == 'months') {
-                // toLocalString options aren't supported in IE 9 & 10.
+            else if (/months?/i.test(unit))
+            // toLocalString options aren't supported in IE 9 & 10.
                 label = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][spanDate.getMonth()];
-                //spanDate.setMonth(spanDate.getMonth() + 1);
-            } else if (unit == 'years') {
+            else if (/years/i.test(unit))
                 label = spanDate.getFullYear();
-                //spanDate.setFullYear(spanDate.getFullYear() + 1);
-            } else if (unit == 'decades') {
-                label = spanDate.getFullYear();
-                //spanDate.setFullYear(Math.round(spanDate.getFullYear() / 10) * 10 + 10);
-            } else if (unit == 'centuries') {
-                label = spanDate.getFullYear();
-                //spanDate.setFullYear(Math.round(spanDate.getFullYear() / 100) * 100 + 100);
-            } else {
-                label = spanDate.getFullYear();
-                //spanDate.setFullYear(Math.round(spanDate.getFullYear() / 1000) * 1000 + 1000);
+            else if (/decades/i.test(unit))
+                label = this.convertToGranularity(spanDate, 10);
+            else if (/centuries/i.test(unit))
+                label = this.convertToGranularity(spanDate, 100);
+            else {
+                label = this.convertToGranularity(spanDate, 1000);
             }
 
             this.advance(spanDate, unit);
 
-            dates.push({label: label, position: this.startStamp() * pixelsPerMs})
-
-            hardLimit++; // todo: remove
+            dates.push({label: label, position: this.startStamp() * pixelsPerMs});
         }
 
         return dates;
@@ -520,18 +510,22 @@ CWRC.Timeline.Ruler = function (viewportBounds, pixelsPerMs, scale) {
     this.advance = function (date, unit, amount) {
         amount = amount || 1;
 
-        if (unit == 'days') { ///days?/i.test(unit)
+        if (/days?/i.test(unit))
             date.setDate(date.getDate() + amount);
-        } else if (unit == 'months') {
+        else if (/months/i.test(unit))
             date.setMonth(date.getMonth() + amount);
-        } else if (unit == 'years') {
+        else if (/years/i.test(unit))
             date.setFullYear(date.getFullYear() + amount);
-        } else if (unit == 'decades') {
-            date.setFullYear(Math.round(date.getFullYear() / 10) * 10 + amount * 10);
-        } else if (unit == 'centuries') {
-            date.setFullYear(Math.round(date.getFullYear() / 100) * 100 + amount * 100);
-        } else {
-            date.setFullYear(Math.round(date.getFullYear() / 1000) * 1000 + amount * 1000);
-        }
+        else if (/decades/i.test(unit))
+            date.setFullYear(this.convertToGranularity(date, 10) + amount * 10);
+        else if (/centuries/i.test(unit))
+            date.setFullYear(this.convertToGranularity(date, 100) + amount * 100);
+        else
+            date.setFullYear(this.convertToGranularity(date, 1000) + amount * 1000);
+
+    };
+
+    this.convertToGranularity = function (date, granularity) {
+        return Math.floor(date.getFullYear() / granularity) * granularity;
     }
 };
