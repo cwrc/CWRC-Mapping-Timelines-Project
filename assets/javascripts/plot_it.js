@@ -120,7 +120,7 @@ var CWRC = (function (cwrc, undefined) {
             year: 31536000,
             decade: 315360000,
             century: 3153600000,
-            millenium: 31536000000
+            millennium: 31536000000
         };
 
         return conversionChart[unit] * 1000;

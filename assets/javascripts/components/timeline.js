@@ -449,8 +449,8 @@ CWRC.Timeline.Ruler = function (viewportBounds, pixelsPerMs, scale) {
         else if (msSpan < CWRC.toMillisec('year') * 1000)
             return 'centuries';
         else
-            return 'milennia';
-    })
+            return 'millennia';
+    });
 
     this.majorUnit = ko.pureComputed(function () {
         var msSpan = (self.getElement().offsetWidth / pixelsPerMs) / scale();
@@ -470,8 +470,8 @@ CWRC.Timeline.Ruler = function (viewportBounds, pixelsPerMs, scale) {
         else if (msSpan < CWRC.toMillisec('century'))
             return 'centuries';
         else
-            return 'milennia';
-    })
+            return 'millennia';
+    });
 
     this.step = function (unit) {
         var spanDate, dates, label;
