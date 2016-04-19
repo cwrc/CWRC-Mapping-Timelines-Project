@@ -482,11 +482,7 @@ CWRC.Timeline.Ruler = function (viewportBounds, pixelsPerMs, scale) {
         dates = [];
         spanDate = new Date(self.startStamp());
 
-
-        if (/years?/i.test(unit)) {
-            spanDate.setFullYear(spanDate.getFullYear(), 0, 1)
-            spanDate.setHours(0, 0, 0)
-        }
+        self.floorDate(spanDate, unit);
 
         while (spanDate.getTime() <= self.endStamp()) {
             if (/days?/i.test(unit))
@@ -494,15 +490,8 @@ CWRC.Timeline.Ruler = function (viewportBounds, pixelsPerMs, scale) {
             else if (/months?/i.test(unit))
             // toLocalString options aren't supported in IE 9 & 10.
                 label = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][spanDate.getMonth()];
-            else if (/years/i.test(unit))
+            else
                 label = spanDate.getFullYear();
-            else if (/decades/i.test(unit))
-                label = self.convertToGranularity(spanDate, 10);
-            else if (/centuries/i.test(unit))
-                label = self.convertToGranularity(spanDate, 100);
-            else {
-                label = self.convertToGranularity(spanDate, 1000);
-            }
 
             dates.push({
                 label: label,
@@ -529,15 +518,38 @@ CWRC.Timeline.Ruler = function (viewportBounds, pixelsPerMs, scale) {
         else if (/years/i.test(unit))
             date.setFullYear(date.getFullYear() + amount);
         else if (/decades/i.test(unit))
-            date.setFullYear(this.convertToGranularity(date, 10) + amount * 10);
+            date.setFullYear(date.getFullYear() + amount * 10);
         else if (/centuries/i.test(unit))
-            date.setFullYear(this.convertToGranularity(date, 100) + amount * 100);
+            date.setFullYear(date.getFullYear() + amount * 100);
         else
-            date.setFullYear(this.convertToGranularity(date, 1000) + amount * 1000);
-
+            date.setFullYear(date.getFullYear() + amount * 1000);
     };
 
-    this.convertToGranularity = function (date, granularity) {
-        return Math.floor(date.getFullYear() / granularity) * granularity;
+    this.floorDate = function (date, unit) {
+        var granularity, yearsBy;
+
+        if (/months/i.test(unit))
+            date.setMonth(date.getMonth(), 1);
+        else {
+            yearsBy = function (granularity, source) {
+                return Math.floor(source.getFullYear() / granularity) * granularity
+            };
+
+            if (/years/i.test(unit))
+                granularity = 1;
+            else if (/decades/i.test(unit))
+                granularity = 10;
+            else if (/centuries/i.test(unit))
+                granularity = 100;
+            else
+                granularity = 1000;
+
+            date.setFullYear(yearsBy(granularity, date), 0, 1);
+        }
+
+        // assumes that the minimum unit is day, so we can ignore everything lower.
+        date.setHours(0, 0, 0);
+
+        return date;
     }
 };
