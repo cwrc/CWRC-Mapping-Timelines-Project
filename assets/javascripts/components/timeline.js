@@ -490,6 +490,8 @@ CWRC.Timeline.Ruler = function (viewportBounds, pixelsPerMs, scale) {
             else if (/months?/i.test(unit))
             // toLocalString options aren't supported in IE 9 & 10.
                 label = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][spanDate.getMonth()];
+            else if (/decades?|centuries|century|millenium|millenia/i.test(unit))
+                label = spanDate.getFullYear() + 's';
             else
                 label = spanDate.getFullYear();
 
