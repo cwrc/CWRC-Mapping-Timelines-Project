@@ -156,8 +156,9 @@ ko.components.register('timeline', {
             return document.getElementById('timeline-viewport');
         };
 
-        // Store state separate from viewport so that it only rounds once at the end, not every step. This eliminates drift
-        // Top, left, right, and bottom are in scaled pixels, as are width and height
+        // Store state separate from viewport so that it only rounds once at the end, not every step.
+        // Separating them eliminates drift from rounding errors.
+        // Top, left, right, and bottom are SCALED pixels, as are width and height
         self.viewportBounds = {
             left: ko.observable(0),
             top: ko.observable(0),
@@ -177,10 +178,10 @@ ko.components.register('timeline', {
                 return self.originStamp();
             },
             startStamp: function () {
-                return this.originStamp() + self.viewportBounds.left() / self.pixelsPerMs;
+                return this.originStamp() + ( (self.viewportBounds.left() / self.scale()) / self.pixelsPerMs );
             },
             endStamp: function () {
-                return this.originStamp() + self.viewportBounds.right() / self.pixelsPerMs;
+                return this.originStamp() + ( (self.viewportBounds.right() / self.scale()) / self.pixelsPerMs );
             }
         };
 
@@ -433,7 +434,7 @@ CWRC.Timeline.Ruler = function (viewportBounds, pixelsPerMs, scale) {
     });
 
     this.minorUnit = ko.pureComputed(function () {
-        var msSpan = (self.getElement().offsetWidth / pixelsPerMs) / scale();
+        var msSpan = (self.getElement().offsetWidth / pixelsPerMs);
 
         if (msSpan < CWRC.toMillisec('minute'))
             return 'seconds';
@@ -456,7 +457,7 @@ CWRC.Timeline.Ruler = function (viewportBounds, pixelsPerMs, scale) {
     });
 
     this.majorUnit = ko.pureComputed(function () {
-        var msSpan = (self.getElement().offsetWidth / pixelsPerMs) / scale();
+        var msSpan = (self.getElement().offsetWidth / pixelsPerMs);
 
         if (msSpan < CWRC.toMillisec('minute'))
             return 'minutes';
@@ -497,7 +498,7 @@ CWRC.Timeline.Ruler = function (viewportBounds, pixelsPerMs, scale) {
 
             dates.push({
                 label: label,
-                position: (spanDate.getTime() - self.startStamp()) * pixelsPerMs + 'px'
+                position: (spanDate.getTime() - self.startStamp()) * pixelsPerMs * scale() + 'px'
             });
 
             self.advance(spanDate, unit);
