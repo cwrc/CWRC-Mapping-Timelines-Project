@@ -173,11 +173,14 @@ ko.components.register('timeline', {
             height: function () {
                 return this.bottom() - this.top();
             },
+            originStamp: function () {
+                return self.originStamp();
+            },
             startStamp: function () {
-                return self.originStamp() + self.viewportBounds.left() / self.pixelsPerMs;
+                return this.originStamp() + self.viewportBounds.left() / self.pixelsPerMs;
             },
             endStamp: function () {
-                return self.originStamp() + self.viewportBounds.right() / self.pixelsPerMs;
+                return this.originStamp() + self.viewportBounds.right() / self.pixelsPerMs;
             }
         };
 
@@ -477,9 +480,15 @@ CWRC.Timeline.Ruler = function (viewportBounds, pixelsPerMs, scale) {
         var spanDate, dates, label;
 
         dates = [];
-        spanDate = new Date(this.startStamp());
+        spanDate = new Date(self.startStamp());
 
-        while (spanDate.getTime() <= this.endStamp()) {
+
+        if (/years?/i.test(unit)) {
+            spanDate.setFullYear(spanDate.getFullYear(), 0, 1)
+            spanDate.setHours(0, 0, 0)
+        }
+
+        while (spanDate.getTime() <= self.endStamp()) {
             if (/days?/i.test(unit))
                 label = spanDate.getDate();
             else if (/months?/i.test(unit))
@@ -488,16 +497,19 @@ CWRC.Timeline.Ruler = function (viewportBounds, pixelsPerMs, scale) {
             else if (/years/i.test(unit))
                 label = spanDate.getFullYear();
             else if (/decades/i.test(unit))
-                label = this.convertToGranularity(spanDate, 10);
+                label = self.convertToGranularity(spanDate, 10);
             else if (/centuries/i.test(unit))
-                label = this.convertToGranularity(spanDate, 100);
+                label = self.convertToGranularity(spanDate, 100);
             else {
-                label = this.convertToGranularity(spanDate, 1000);
+                label = self.convertToGranularity(spanDate, 1000);
             }
 
-            this.advance(spanDate, unit);
+            dates.push({
+                label: label,
+                position: (spanDate.getTime() - self.startStamp()) * pixelsPerMs + 'px'
+            });
 
-            dates.push({label: label, position: this.startStamp() * pixelsPerMs});
+            self.advance(spanDate, unit);
         }
 
         return dates;

@@ -255,12 +255,12 @@
          minor: <span data-bind="text: ruler.minorUnit()"></span>
          <br>
 
-         <div data-bind="foreach: ruler.step(ruler.majorUnit())">
-            <span style="border-left: 1px solid black"
+         <div style="height: 1em" data-bind="foreach: ruler.step(ruler.majorUnit())">
+            <span style="border-left: 1px solid black; position: absolute"
                   data-bind="text: $data.label, style: {left: $data.position}"></span>
          </div>
-         <div data-bind="foreach: ruler.step(ruler.minorUnit())">
-            <span style="border-left: 1px solid black"
+         <div style="height: 1em" data-bind="foreach: ruler.step(ruler.minorUnit())">
+            <span style="border-left: 1px solid black; position: absolute"
                   data-bind="text: $data.label, style: {left: $data.position}"></span>
          </div>
          <!-- Ruler disabled until further production available
@@ -294,7 +294,7 @@
                                                          left: $data.xPos,
                                                          height: $data.height,
                                                          color: $data.data.endDate ? 'red' : 'black',
-                                                         'z-index': $data.layer()
+                                                         zIndex: $data.layer()
                                                        },
                                                 attr: {id: 'token-' + $data.id},
                                                 event: {
