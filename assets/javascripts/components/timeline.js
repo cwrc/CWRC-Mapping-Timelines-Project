@@ -187,9 +187,25 @@ ko.components.register('timeline', {
                 if (row < viewportBounds.topRow() || row > viewportBounds.bottomRow()) {
                     viewportBounds.topRow(row - (viewportBounds.visibleRows() / 2));
                 }
+            },
+            // Moves the viewport X pixels right, and Y pixels down. Both x, y are in unscaled pixels
+            panPixels: function (deltaX, deltaY) {
+                var newLeft, newTop, maxLeft, maxTop, canvas;
+
+                canvas = document.querySelector('#timeline-viewport .canvas');
+
+                maxLeft = canvas.offsetWidth * self.scale() - self.viewport.getElement().offsetWidth;
+                maxTop = canvas.offsetHeight * self.scale() - self.viewport.getElement().offsetHeight;
+
+                newLeft = Math.max(0, Math.min(self.viewport.bounds.leftStamp() - deltaX, maxLeft));
+                newTop = Math.max(0, Math.min(self.viewport.bounds.topRow() - deltaY, maxTop));
+
+                self.viewport.bounds.leftStamp(newLeft);
+                self.viewport.bounds.topRow(newTop);
             }
         };
 
+        // TODO: re-enable
         //self.ruler = new CWRC.Timeline.Ruler(self.viewport.bounds, self.canvas.pixelsPerMs());
 
         // Wrapped in a timeout to run after the actual canvas is initialized.
@@ -222,25 +238,6 @@ ko.components.register('timeline', {
         self.viewport.bounds.topRow.subscribe(function (newVal) {
             self.viewport.getElement().scrollTop = Math.round(newVal);
         });
-
-        // Moves the viewport X pixels right, and Y pixels down. Both x, y are in unscaled pixels
-        self.pan = function (deltaX, deltaY) {
-            var newLeft, newTop, maxLeft, maxTop, canvas;
-
-            canvas = document.querySelector('#timeline-viewport .canvas');
-
-            maxLeft = canvas.offsetWidth * self.scale() - self.viewport().offsetWidth;
-            maxTop = canvas.offsetHeight * self.scale() - self.viewport().offsetHeight;
-
-            newLeft = Math.max(0, Math.min(self.viewport.bounds.left() - deltaX, maxLeft));
-            newTop = Math.max(0, Math.min(self.viewport.bounds.top() - deltaY, maxTop));
-
-            self.viewport.bounds.left(newLeft);
-            self.viewport.bounds.top(newTop);
-
-            if (self.ruler) // todo: remove when ruler rebuilt
-                self.ruler.scrollLeft -= deltaX;
-        };
 
         /**
          *
@@ -284,17 +281,14 @@ ko.components.register('timeline', {
 
             self.viewport.bounds.left(( self.viewport.bounds.left() + viewFocusX ) * (self.scale() / oldScale) - viewFocusX);
             self.viewport.bounds.top(( self.viewport.bounds.top() + viewFocusY ) * (self.scale() / oldScale) - viewFocusY);
-
-            if (self.ruler) // todo: remove when ruler rebuilt
-                self.ruler.scrollLeft *= stepScaleFactor;
         };
 
         self.scrollHandler = function (viewModel, scrollEvent) {
             var mouseX, mouseY;
 
             //  mouseX, Y are relative to viewport, in unscaled pixels
-            mouseX = scrollEvent.clientX - self.viewport().getBoundingClientRect().left;
-            mouseY = scrollEvent.clientY - self.viewport().getBoundingClientRect().top;
+            mouseX = scrollEvent.clientX - self.viewport.getElement().getBoundingClientRect().left;
+            mouseY = scrollEvent.clientY - self.viewport.getElement().getBoundingClientRect().top;
 
             self.zoom(mouseX, mouseY, scrollEvent.deltaY < 0);
 
@@ -342,7 +336,7 @@ ko.components.register('timeline', {
             deltaX = mouseX - self.previousDragPosition.screenX;
             deltaY = mouseY - self.previousDragPosition.screenY;
 
-            self.pan(deltaX, deltaY);
+            self.viewport.panPixels(deltaX, deltaY);
 
             var x = mouseEvent.screenX || mouseEvent.touches[0].screenX;
             var y = mouseEvent.screenY || mouseEvent.touches[0].screenY;
