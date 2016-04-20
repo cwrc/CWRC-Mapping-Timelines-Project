@@ -15,17 +15,18 @@ ko.components.register('timeline', {
 
         self.previousDragPosition = null;
 
-        self.pixelsPerMs = 1 / CWRC.toMillisec('day');
-        self.labelSize = CWRC.toMillisec('year') * self.pixelsPerMs; // px
+        self.unplottableCount = ko.pureComputed(function () {
+            // can't use self.records here, because records is filtered.
+            return CWRC.rawData().length - CWRC.select(CWRC.rawData(), function (item) {
+                    return item.startDate;
+                }).length;
+        });
+
         self.tokens = [];
 
         self.scale = ko.observable(1.0);
 
-        self.rulerTransform = ko.computed(function () {
-            return 'scaleX(' + self.scale() + ')';
-        });
-
-        self.zoomTransform = ko.computed(function () {
+        self.zoomTransform = ko.pureComputed(function () {
             return 'scale(' + self.scale() + ',' + self.scale() + ')';
         });
 
@@ -39,7 +40,7 @@ ko.components.register('timeline', {
             }).sort(function (a, b) {
                 timeDiff = CWRC.toStamp(a) - CWRC.toStamp(b);
 
-                if (timeDiff == 0)
+                if (timeDiff == 0 && a.label)
                     return a.label.localeCompare(b.label);
                 else
                     return timeDiff;
@@ -48,50 +49,54 @@ ko.components.register('timeline', {
             return records;
         });
 
-        self.earliestDate = ko.pureComputed(function () {
-            var firstRecord = self.records()[0];
+        self.canvas = {
+            pixelsPerMs: ko.observable(1 / CWRC.toMillisec('day')),
+            bounds: {
+                height: ko.observable(), // TODO: would it be better to compute this based on sorting tokens into rows? like, Math.max(self.tokens().collect{token.row})
+                width: ko.pureComputed(function () {
+                    var timespan, startStamp, endStamp;
 
-            return firstRecord ? new Date(firstRecord.startDate) : new Date();
-        });
+                    startStamp = self.canvas.earliestStamp();
+                    endStamp = self.canvas.latestStamp();
 
-        self.latestDate = ko.pureComputed(function () {
-            var sortedRecords = self.records();
-            var lastRecord = sortedRecords[sortedRecords.size];
+                    if (startStamp == endStamp) {
+                        return '100%';
+                    } else {
+                        timespan = (endStamp - startStamp); // in ms
 
-            return lastRecord ? new Date(lastRecord.endDate || lastRecord.startDate) : new Date();
-        });
+                        return (timespan * self.canvas.pixelsPerMs()) + (self.canvas.pixelsPerMs() * CWRC.toMillisec('year')); // convert to px
+                    }
+                })
+            },
+            earliestStamp: ko.pureComputed(function () {
+                var firstRecord = self.records()[0];
 
-        self.years = ko.pureComputed(function () {
-            return ko.utils.range(self.earliestDate().getUTCFullYear(), self.latestDate().getUTCFullYear());
-        });
+                return (firstRecord ? new Date(firstRecord.startDate) : new Date()).getTime();
+            }),
+            latestStamp: ko.pureComputed(function () {
+                var records, lastRecord;
 
-        self['toPixels'] = function (stamp) {
-            return stamp * self.pixelsPerMs;
-        };
+                records = self.records();
+                lastRecord = records[records.size];
 
-        self['originStamp'] = function () {
-            return CWRC.toStamp(self.years()[0].toString());
-        };
-
-        self.canvasHeight = ko.observable();
-
-        self.canvasWidth = ko.pureComputed(function () {
-            var timespan, startStamp, endStamp;
-
-            startStamp = CWRC.toStamp(self.earliestDate());
-            endStamp = CWRC.toStamp(self.latestDate());
-
-            if (startStamp == endStamp) {
-                return '100%';
-            } else {
-                timespan = (endStamp - startStamp); // in ms
-
-                return (timespan * self.pixelsPerMs) + (self.pixelsPerMs * CWRC.toMillisec('year')); // convert to px
+                return (lastRecord ? new Date(lastRecord.endDate || lastRecord.startDate) : new Date()).getTime();
+            }),
+            earliestDate: ko.pureComputed(function () {
+                return new Date(self.canvas.earliestStamp());
+            }),
+            latestDate: ko.pureComputed(function () {
+                return new Date(self.canvas.latestStamp());
+            }),
+            stampToPixels: function (stamp) {
+                return stamp * self.canvas.pixelsPerMs();
+            },
+            pixelsToStamp: function (px) {
+                return px / self.canvas.pixelsPerMs();
             }
-        });
-
-        self.timelineTokens = ko.computed(function () {
-            var startStamp, endStamp, duration, tokens, unplacedRecords, cutoff, rowIndex, toMilliSecs, toPixels, nextRecordIndex;
+        };
+        // TODO: merge into class
+        self.canvas.timelineTokens = ko.computed(function () {
+            var startStamp, endStamp, duration, tokens, unplacedRecords, cutoff, rowIndex, nextRecordIndex;
 
             unplacedRecords = self.records().slice(); // slice to duplicate array, otherwise we would alter the cached value
             tokens = [];
@@ -103,12 +108,6 @@ ko.components.register('timeline', {
                         return i;
                 }
             };
-
-            toMilliSecs = function (pixels) {
-                return pixels / self.pixelsPerMs;
-            };
-
-            toPixels = self.toPixels;
 
             while (unplacedRecords.length > 0) {
                 var record, recordIndex, isPastCutoff;
@@ -122,120 +121,106 @@ ko.components.register('timeline', {
 
                 recordIndex = nextRecordIndex(cutoff, unplacedRecords);
 
+                // TODO: switch to using findIndex
+                //recordIndex = unplacedRecords.findIndex(function (record) {
+                //    return CWRC.toStamp(record) >= cutoff;
+                //});
+
                 record = unplacedRecords.splice(recordIndex, 1)[0];
 
                 startStamp = CWRC.toStamp(record.startDate);
                 endStamp = CWRC.toStamp(record.endDate) || startStamp;
 
                 // duration can be artificially set to label size to ensure there's enough room for a label
-                duration = Math.max(Math.abs(endStamp - startStamp), toMilliSecs(self.labelSize));
+                // TODO: replace this with actual sizing for points
+                duration = Math.max(Math.abs(endStamp - startStamp), self.canvas.pixelsToStamp(CWRC.toMillisec('year') * self.canvas.pixelsPerMs()));
 
                 tokens.push(new CWRC.Timeline.Token({
-                    xPos: toPixels(startStamp - self.originStamp()),
+                    xPos: self.canvas.stampToPixels(startStamp - self.canvas.earliestStamp()),
                     row: rowIndex,
-                    width: toPixels(duration),
+                    width: self.canvas.stampToPixels(duration),
                     data: record
                 }));
 
                 cutoff = startStamp + duration;
             }
 
-            self.canvasHeight((rowIndex + 10) * CWRC.Timeline.LABEL_HEIGHT);
+            self.canvas.bounds.height((rowIndex + 10) * CWRC.Timeline.LABEL_HEIGHT);
 
             return tokens;
         });
 
-        self.unplottableCount = ko.pureComputed(function () {
-            // can't use self.records here, because records is filtered.
-            return CWRC.rawData().length - CWRC.select(CWRC.rawData(), function (item) {
-                    return item.startDate;
-                }).length;
-        });
+        self.viewport = {
+            canvas: self.canvas, // TODO: pass into constructor
+            getElement: function () {
+                return document.getElementById('timeline-viewport');
+            },
+            // Bounds are stored as time stamps on X axis, number of rows as Y axis. Both are doubles to be
+            // rounded only once when converted to pixels
+            bounds: {
+                leftStamp: ko.observable(0), // TODO: see if we can init this to the param (better than the timeout)
+                topRow: ko.observable(0),
+                rightStamp: function () {
+                    // TODO: redefine this
+                    return self.viewport.bounds.leftStamp() + (self.viewport.getElement().offsetWidth * self.scale());
+                },
+                bottomRow: function () {
+                    // TODO: redefine this
+                    return self.viewport.bounds.topRow() + (self.viewport.getElement().offsetHeight * self.scale());
+                },
+                span: function () {
+                    return this.rightStamp() - this.leftStamp();
+                },
+                visibleRows: function () {
+                    return this.bottomRow() - this.topRow();
+                }
+            },
+            panTo: function (stamp, row) {
+                var viewportBounds;
 
-        self.viewport = function () {
-            return document.getElementById('timeline-viewport');
-        };
+                viewportBounds = self.viewport.bounds;
 
-        // Store state separate from viewport so that it only rounds once at the end, not every step.
-        // Separating them eliminates drift from rounding errors.
-        // Top, left, right, and bottom are SCALED pixels, as are width and height
-        self.viewportBounds = {
-            left: ko.observable(0),
-            top: ko.observable(0),
-            right: function () {
-                return self.viewportBounds.left() + (self.viewport().offsetWidth * self.scale());
-            },
-            bottom: function () {
-                return self.viewportBounds.top() + (self.viewport().offsetHeight * self.scale());
-            },
-            width: function () {
-                return this.right() - this.left();
-            },
-            height: function () {
-                return this.bottom() - this.top();
-            },
-            originStamp: function () {
-                return self.originStamp();
-            },
-            startStamp: function () {
-                return this.originStamp() + ( (self.viewportBounds.left() / self.scale()) / self.pixelsPerMs );
-            },
-            endStamp: function () {
-                return this.originStamp() + ( (self.viewportBounds.right() / self.scale()) / self.pixelsPerMs );
+                if (stamp < viewportBounds.leftStamp() || stamp > viewportBounds.rightStamp()) {
+                    viewportBounds.leftStamp(stamp - (viewportBounds.span() / 2));
+                }
+
+                if (row < viewportBounds.topRow() || row > viewportBounds.bottomRow()) {
+                    viewportBounds.topRow(row - (viewportBounds.visibleRows() / 2));
+                }
             }
         };
 
-
-        self.ruler = new CWRC.Timeline.Ruler(self.viewportBounds, self.pixelsPerMs, self.scale)
+        //self.ruler = new CWRC.Timeline.Ruler(self.viewport.bounds, self.canvas.pixelsPerMs());
 
         // Wrapped in a timeout to run after the actual canvas is initialized.
         // TODO: this is a hack, but there isn't currently any event to hook into for when the timeline is done loading
         setTimeout(function () {
             var startFocusStamp = CWRC.toStamp(params['startDate']) || 0;
-            var startOffset = startFocusStamp - self.originStamp();
 
-            self.pan(self.toPixels(-startOffset), 0)
+            self.viewport.panTo(startFocusStamp, 0)
         }, 100);
 
         CWRC.selected.subscribe(function (selectedRecord) {
-            var viewport, recordLabel, row, col, tokens, token, records, ruler;
+            var token, recordStamp;
 
-            tokens = self.timelineTokens();
+            // TODO: make startDate generic
+            recordStamp = CWRC.toStamp(selectedRecord.startDate);
 
-            token = tokens.find(function (token) {
+            token = self.canvas.timelineTokens().find(function (token) {
                 return token.data == selectedRecord;
             });
 
-            recordLabel = self.viewport().querySelector('div#token-' + token.id);
-
-            var elementBounds;
-
-            // element x,y are in unscaled pixels, so scale them
-            elementBounds = {
-                left: Math.round(parseInt(recordLabel.offsetLeft) * self.scale()),
-                top: Math.round(parseInt(recordLabel.offsetHeight) * self.scale())
-            };
-
-            if (elementBounds.left < self.viewportBounds.left() ||
-                elementBounds.left > self.viewportBounds.right()) {
-
-                self.viewportBounds.left(elementBounds.left - (self.viewportBounds.width() / 2));
-
-                if (ruler) // todo: remove when ruler rebuilt
-                    ruler.scrollLeft = elementBounds.left;
-            }
-
-            if (elementBounds.top < self.viewportBounds.top() || elementBounds.top > self.viewportBounds.bottom()) {
-                self.viewportBounds.top(elementBounds.top - (self.viewportBounds.height() / 2));
-            }
+            if (!self.viewport.bounds.contains(recordStamp, token.row))
+                self.viewport.panTo(recordStamp, token.row);
         });
 
-        self.viewportBounds.left.subscribe(function (newVal) {
-            self.viewport().scrollLeft = Math.round(newVal);
+        // TODO: is this needed still? Like, could it not just directly set it?
+        self.viewport.bounds.leftStamp.subscribe(function (newVal) {
+            self.viewport.getElement().scrollLeft = Math.round(newVal);
         });
 
-        self.viewportBounds.top.subscribe(function (newVal) {
-            self.viewport().scrollTop = Math.round(newVal);
+        self.viewport.bounds.topRow.subscribe(function (newVal) {
+            self.viewport.getElement().scrollTop = Math.round(newVal);
         });
 
         // Moves the viewport X pixels right, and Y pixels down. Both x, y are in unscaled pixels
@@ -247,11 +232,11 @@ ko.components.register('timeline', {
             maxLeft = canvas.offsetWidth * self.scale() - self.viewport().offsetWidth;
             maxTop = canvas.offsetHeight * self.scale() - self.viewport().offsetHeight;
 
-            newLeft = Math.max(0, Math.min(self.viewportBounds.left() - deltaX, maxLeft));
-            newTop = Math.max(0, Math.min(self.viewportBounds.top() - deltaY, maxTop));
+            newLeft = Math.max(0, Math.min(self.viewport.bounds.left() - deltaX, maxLeft));
+            newTop = Math.max(0, Math.min(self.viewport.bounds.top() - deltaY, maxTop));
 
-            self.viewportBounds.left(newLeft);
-            self.viewportBounds.top(newTop);
+            self.viewport.bounds.left(newLeft);
+            self.viewport.bounds.top(newTop);
 
             if (self.ruler) // todo: remove when ruler rebuilt
                 self.ruler.scrollLeft -= deltaX;
@@ -297,8 +282,8 @@ ko.components.register('timeline', {
 
             self.scale(self.scale() * stepScaleFactor);
 
-            self.viewportBounds.left(( self.viewportBounds.left() + viewFocusX ) * (self.scale() / oldScale) - viewFocusX);
-            self.viewportBounds.top(( self.viewportBounds.top() + viewFocusY ) * (self.scale() / oldScale) - viewFocusY);
+            self.viewport.bounds.left(( self.viewport.bounds.left() + viewFocusX ) * (self.scale() / oldScale) - viewFocusX);
+            self.viewport.bounds.top(( self.viewport.bounds.top() + viewFocusY ) * (self.scale() / oldScale) - viewFocusY);
 
             if (self.ruler) // todo: remove when ruler rebuilt
                 self.ruler.scrollLeft *= stepScaleFactor;
@@ -414,15 +399,15 @@ CWRC.Timeline.Token = function (params) {
     };
 };
 
-CWRC.Timeline.Ruler = function (viewportBounds, pixelsPerMs, scale) {
+CWRC.Timeline.Ruler = function (viewport, pixelsPerMs) {
     var self = this;
 
     this.startStamp = ko.pureComputed(function () {
-        return viewportBounds.startStamp();
+        return viewport.bounds.startStamp();
     });
 
     this.endStamp = ko.pureComputed(function () {
-        return viewportBounds.endStamp();
+        return viewport.bounds.endStamp();
     });
 
     this.startDate = ko.pureComputed(function () {
@@ -555,4 +540,5 @@ CWRC.Timeline.Ruler = function (viewportBounds, pixelsPerMs, scale) {
 
         return date;
     }
-};
+}
+;
