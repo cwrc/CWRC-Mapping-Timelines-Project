@@ -55,7 +55,9 @@ ko.components.register('timeline', {
             },
             pixelsPerMs: ko.observable(1 / CWRC.toMillisec('day')),
             bounds: {
-                height: ko.observable(), // TODO: would it be better to compute this based on sorting tokens into rows? like, Math.max(self.tokens().collect{token.row})
+                height: ko.pureComputed(function () {
+                    return self.canvas.rowCount() * CWRC.Timeline.LABEL_HEIGHT;
+                }),
                 width: ko.pureComputed(function () {
                     var timespan, startStamp, endStamp;
 
@@ -90,13 +92,21 @@ ko.components.register('timeline', {
             latestDate: ko.pureComputed(function () {
                 return new Date(self.canvas.latestStamp());
             }),
+            rowCount: ko.observable(),
             stampToPixels: function (stamp) {
                 return stamp * self.canvas.pixelsPerMs();
             },
             pixelsToStamp: function (px) {
                 return px / self.canvas.pixelsPerMs();
+            },
+            rowToPixels: function (row) {
+                return row * CWRC.Timeline.LABEL_HEIGHT; // TODO: this is 1.5em. It would be nice to do conversion. Also, use a constant
+            },
+            pixelsToRow: function (px) {
+                return px / CWRC.Timeline.LABEL_HEIGHT; // todo: constant this, too
             }
         };
+
         // TODO: merge into class
         self.canvas.timelineTokens = ko.computed(function () {
             var startStamp, endStamp, duration, tokens, unplacedRecords, cutoff, rowIndex, nextRecordIndex;
@@ -148,7 +158,7 @@ ko.components.register('timeline', {
                 cutoff = startStamp + duration;
             }
 
-            self.canvas.bounds.height((rowIndex + 10) * CWRC.Timeline.LABEL_HEIGHT);
+            self.canvas.rowCount(rowIndex + 10);
 
             return tokens;
         });
@@ -164,12 +174,12 @@ ko.components.register('timeline', {
                 leftStamp: ko.observable(0), // TODO: see if we can init this to the param (better than the timeout)
                 topRow: ko.observable(0),
                 rightStamp: function () {
-                    // TODO: redefine this
-                    return self.viewport.bounds.leftStamp() + (self.viewport.getElement().offsetWidth * self.scale());
+                    return self.viewport.bounds.leftStamp() +
+                        self.canvas.pixelsToStamp(self.viewport.getElement().offsetWidth);
                 },
                 bottomRow: function () {
-                    // TODO: redefine this
-                    return self.viewport.bounds.topRow() + (self.viewport.getElement().offsetHeight * self.scale());
+                    return self.viewport.bounds.topRow() +
+                        self.canvas.pixelsToRow(self.viewport.getElement().offsetHeight);
                 },
                 timespan: function () {
                     return this.rightStamp() - this.leftStamp();
@@ -186,21 +196,23 @@ ko.components.register('timeline', {
                         (row >= viewportBounds.topRow() && row <= viewportBounds.bottomRow())
                 }
             },
-            contains: function () {
-
-            },
             panTo: function (stamp, row) {
                 var viewportBounds;
 
                 viewportBounds = self.viewport.bounds; // todo: remove this once in class
 
                 viewportBounds.leftStamp(stamp - (viewportBounds.timespan() / 2));
-                viewportBounds.topRow(row - (viewportBounds.visibleRows() / 2));
+                viewportBounds.topRow(row - (viewportBounds.visibleRows() / 2) + 0.5); // 0.5 b/c labels are offset by a half row
             },
-            // Moves the viewport X pixels right, and Y pixels down. Both x, y are in unscaled pixels
+            // Moves the viewport X pixels right, and Y pixels down.
             panPixels: function (deltaX, deltaY) {
-                self.viewport.bounds.leftStamp(self.viewport.bounds.leftStamp() - self.canvas.pixelsToStamp(deltaX));
-                self.viewport.bounds.topRow(self.viewport.bounds.topRow() - self.canvas.pixelsToStamp(deltaY));
+                var newStamp, newRow;
+
+                newStamp = self.viewport.bounds.leftStamp() - self.canvas.pixelsToStamp(deltaX)
+                newRow = self.viewport.bounds.topRow() - self.canvas.pixelsToRow(deltaY)
+
+                self.viewport.bounds.leftStamp(Math.max(Math.min(newStamp, self.canvas.latestStamp()), self.canvas.earliestStamp()));
+                self.viewport.bounds.topRow(Math.max(Math.min(newRow, self.canvas.rowCount()), 0));
             }
         };
 
@@ -229,15 +241,15 @@ ko.components.register('timeline', {
                 self.viewport.panTo(recordStamp, token.row);
         });
 
-        // TODO: is this needed still? Like, could it not just directly set it?
+        // TODO move to viewport constructor
         self.viewport.bounds.leftStamp.subscribe(function (newVal) {
-            var stampDistance = newVal - self.canvas.earliestStamp()
+            var stampDistance = newVal - self.canvas.earliestStamp();
 
-            self.viewport.getElement().scrollLeft = Math.max(Math.round(self.canvas.stampToPixels(stampDistance)), 0);
+            self.viewport.getElement().scrollLeft = Math.round(self.canvas.stampToPixels(stampDistance));
         });
 
         self.viewport.bounds.topRow.subscribe(function (newVal) {
-            self.viewport.getElement().scrollTop = Math.max(Math.round(self.canvas.stampToPixels(newVal)), 0);
+            self.viewport.getElement().scrollTop = Math.round(self.canvas.rowToPixels(newVal));
         });
 
         /**
@@ -247,13 +259,13 @@ ko.components.register('timeline', {
          * @param zoomIn Boolean: true zoom in, false zoom out
          */
         self.zoom = function (viewFocusX, viewFocusY, zoomIn) {
-            var stepScaleFactor, oldScale;
+            var stepScaleFactor;
 
             stepScaleFactor = zoomIn ? (1.1) : (1 / 1.1);
 
             self.scale(self.scale() * stepScaleFactor);
 
-            self.viewport.panTo(viewFocusX, viewFocusY)
+            self.viewport.panTo(self.canvas.pixelsToStamp(viewFocusX), self.canvas.pixelsToStamp(viewFocusY))
         };
 
         self.scrollHandler = function (viewModel, scrollEvent) {
@@ -339,7 +351,7 @@ ko.components.register('timeline', {
 
 CWRC.Timeline = CWRC.Timeline || {};
 
-CWRC.Timeline.LABEL_HEIGHT = 1.5; //em
+CWRC.Timeline.LABEL_HEIGHT = 24;//px   //or 1.5; //em
 CWRC.Timeline.SELECTED_LAYER = 10;
 
 CWRC.Timeline.__tokenId = 1;
@@ -354,7 +366,7 @@ CWRC.Timeline.__tokenId = 1;
         this.row = params.row;
 
         this.width = params.width;
-        this.height = (this.row + 2) * CWRC.Timeline.LABEL_HEIGHT + 'em';
+        this.height = (this.row + 1) * CWRC.Timeline.LABEL_HEIGHT + 'px';
 
         this.data = params.data;
 

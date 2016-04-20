@@ -264,10 +264,11 @@
       <!--data-bind="text: $data.label, style: {left: $data.position}"></span>-->
       <!--</div>-->
       <!--</section>-->
+      <div>
+         <span data-bind="text: new Date(viewport.bounds.leftStamp())"></span> TO <br>
+         <span data-bind="text: new Date(viewport.bounds.rightStamp())"></span>
+      </div>
       <resizer>
-         <div>
-            <span data-bind="text: new Date($parent.viewport.bounds.leftStamp())"></span>
-         </div>
          <div data-bind="event: { mousedown: $parent.dragStart, touchstart: $parent.dragStart }">
             <section id="timeline-viewport" data-bind="event: {wheel: $parent.scrollHandler}">
                <div class="canvas" data-bind="style: {
