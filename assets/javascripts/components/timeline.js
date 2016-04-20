@@ -50,6 +50,9 @@ ko.components.register('timeline', {
         });
 
         self.canvas = {
+            getElement: function () {
+                return document.querySelector('#timeline-viewport .canvas');
+            },
             pixelsPerMs: ko.observable(1 / CWRC.toMillisec('day')),
             bounds: {
                 height: ko.observable(), // TODO: would it be better to compute this based on sorting tokens into rows? like, Math.max(self.tokens().collect{token.row})
@@ -168,40 +171,36 @@ ko.components.register('timeline', {
                     // TODO: redefine this
                     return self.viewport.bounds.topRow() + (self.viewport.getElement().offsetHeight * self.scale());
                 },
-                span: function () {
+                timespan: function () {
                     return this.rightStamp() - this.leftStamp();
                 },
                 visibleRows: function () {
                     return this.bottomRow() - this.topRow();
+                },
+                contains: function (stamp, row) {
+                    var viewportBounds;
+
+                    viewportBounds = self.viewport.bounds; // todo: remove this once in class
+
+                    return (stamp >= viewportBounds.leftStamp() && stamp <= viewportBounds.rightStamp()) &&
+                        (row >= viewportBounds.topRow() && row <= viewportBounds.bottomRow())
                 }
+            },
+            contains: function () {
+
             },
             panTo: function (stamp, row) {
                 var viewportBounds;
 
-                viewportBounds = self.viewport.bounds;
+                viewportBounds = self.viewport.bounds; // todo: remove this once in class
 
-                if (stamp < viewportBounds.leftStamp() || stamp > viewportBounds.rightStamp()) {
-                    viewportBounds.leftStamp(stamp - (viewportBounds.span() / 2));
-                }
-
-                if (row < viewportBounds.topRow() || row > viewportBounds.bottomRow()) {
-                    viewportBounds.topRow(row - (viewportBounds.visibleRows() / 2));
-                }
+                viewportBounds.leftStamp(stamp - (viewportBounds.timespan() / 2));
+                viewportBounds.topRow(row - (viewportBounds.visibleRows() / 2));
             },
             // Moves the viewport X pixels right, and Y pixels down. Both x, y are in unscaled pixels
             panPixels: function (deltaX, deltaY) {
-                var newLeft, newTop, maxLeft, maxTop, canvas;
-
-                canvas = document.querySelector('#timeline-viewport .canvas');
-
-                maxLeft = canvas.offsetWidth * self.scale() - self.viewport.getElement().offsetWidth;
-                maxTop = canvas.offsetHeight * self.scale() - self.viewport.getElement().offsetHeight;
-
-                newLeft = Math.max(0, Math.min(self.viewport.bounds.leftStamp() - deltaX, maxLeft));
-                newTop = Math.max(0, Math.min(self.viewport.bounds.topRow() - deltaY, maxTop));
-
-                self.viewport.bounds.leftStamp(newLeft);
-                self.viewport.bounds.topRow(newTop);
+                self.viewport.bounds.leftStamp(self.viewport.bounds.leftStamp() - self.canvas.pixelsToStamp(deltaX));
+                self.viewport.bounds.topRow(self.viewport.bounds.topRow() - self.canvas.pixelsToStamp(deltaY));
             }
         };
 
@@ -232,11 +231,13 @@ ko.components.register('timeline', {
 
         // TODO: is this needed still? Like, could it not just directly set it?
         self.viewport.bounds.leftStamp.subscribe(function (newVal) {
-            self.viewport.getElement().scrollLeft = Math.round(newVal);
+            var stampDistance = newVal - self.canvas.earliestStamp()
+
+            self.viewport.getElement().scrollLeft = Math.max(Math.round(self.canvas.stampToPixels(stampDistance)), 0);
         });
 
         self.viewport.bounds.topRow.subscribe(function (newVal) {
-            self.viewport.getElement().scrollTop = Math.round(newVal);
+            self.viewport.getElement().scrollTop = Math.max(Math.round(self.canvas.stampToPixels(newVal)), 0);
         });
 
         /**
@@ -250,37 +251,9 @@ ko.components.register('timeline', {
 
             stepScaleFactor = zoomIn ? (1.1) : (1 / 1.1);
 
-            /*
-             * We know that the zoom focus point, relative to the canvas (Xfc) can be described by this formula:
-             * [units in square brackets]
-             *
-             *              Xvc [px] + Xfv [px]
-             * Xfc [can] =  ------------------
-             *                S [px/can]              # Divide by scale, because we're scaling the canvas, not the viewport.
-             *
-             * We also know that the after-scale, the focus point equals this:
-             *
-             *               X'vc [px] + X'fv [px]
-             * X'fc [can] =   ------------------
-             *                 S' [px/can]
-             *
-             * We also know that X'fv [px] = Xfv [px], because they are both the focus point, relative to the viewport
-             * in raw px, and so does not change. Further, we know that  X'fc [can] = Xfc [can], as they're both
-             * referring to the exact same logical location relative to the canvas and in canvas units.
-             *
-             * Sub in eqivalencies, and rearrange to solve for the new view offset, relative to canvas, in px (X'vc):
-             *
-             *       X'vc [px] = ( Xvc [px] + Xvf [px] ) * (S' [px/can] / S [px/can]) - Xfv [px]
-             *
-             *
-             * - retm
-             */
-            oldScale = self.scale();
-
             self.scale(self.scale() * stepScaleFactor);
 
-            self.viewport.bounds.left(( self.viewport.bounds.left() + viewFocusX ) * (self.scale() / oldScale) - viewFocusX);
-            self.viewport.bounds.top(( self.viewport.bounds.top() + viewFocusY ) * (self.scale() / oldScale) - viewFocusY);
+            self.viewport.panTo(viewFocusX, viewFocusY)
         };
 
         self.scrollHandler = function (viewModel, scrollEvent) {
@@ -371,168 +344,169 @@ CWRC.Timeline.SELECTED_LAYER = 10;
 
 CWRC.Timeline.__tokenId = 1;
 
-CWRC.Timeline.Token = function (params) {
-    var self = this;
+(function () {
+    CWRC.Timeline.Token = function (params) {
+        var self = this;
 
-    this.id = CWRC.Timeline.__tokenId++;
+        this.id = CWRC.Timeline.__tokenId++;
 
-    this.xPos = params.xPos;
-    this.row = params.row;
+        this.xPos = params.xPos;
+        this.row = params.row;
 
-    this.width = params.width;
-    this.height = (this.row + 2) * CWRC.Timeline.LABEL_HEIGHT + 'em';
+        this.width = params.width;
+        this.height = (this.row + 2) * CWRC.Timeline.LABEL_HEIGHT + 'em';
 
-    this.data = params.data;
+        this.data = params.data;
 
-    this.isSelected = ko.pureComputed(function () {
-        return self.data == CWRC.selected();
-    });
+        this.isSelected = ko.pureComputed(function () {
+            return self.data == CWRC.selected();
+        });
 
-    this.layer = function () {
-        return this.isSelected() ? CWRC.Timeline.SELECTED_LAYER : -this.row;
+        this.layer = function () {
+            return this.isSelected() ? CWRC.Timeline.SELECTED_LAYER : -this.row;
+        };
     };
-};
 
-CWRC.Timeline.Ruler = function (viewport, pixelsPerMs) {
-    var self = this;
+    CWRC.Timeline.Ruler = function (viewport, pixelsPerMs) {
+        var self = this;
 
-    this.startStamp = ko.pureComputed(function () {
-        return viewport.bounds.startStamp();
-    });
+        this.startStamp = ko.pureComputed(function () {
+            return viewport.bounds.startStamp();
+        });
 
-    this.endStamp = ko.pureComputed(function () {
-        return viewport.bounds.endStamp();
-    });
+        this.endStamp = ko.pureComputed(function () {
+            return viewport.bounds.endStamp();
+        });
 
-    this.startDate = ko.pureComputed(function () {
-        return new Date(self.startStamp());
-    });
+        this.startDate = ko.pureComputed(function () {
+            return new Date(self.startStamp());
+        });
 
-    this.endDate = ko.pureComputed(function () {
-        return new Date(self.endStamp());
-    });
+        this.endDate = ko.pureComputed(function () {
+            return new Date(self.endStamp());
+        });
 
-    this.minorUnit = ko.pureComputed(function () {
-        var msSpan = (self.getElement().offsetWidth / pixelsPerMs);
+        this.minorUnit = ko.pureComputed(function () {
+            var msSpan = (self.getElement().offsetWidth / pixelsPerMs);
 
-        if (msSpan < CWRC.toMillisec('minute'))
-            return 'seconds';
-        else if (msSpan < CWRC.toMillisec('hour'))
-            return 'minutes';
-        else if (msSpan < CWRC.toMillisec('day'))
-            return 'hours';
-        else if (msSpan < CWRC.toMillisec('month'))
-            return 'days';
-        else if (msSpan < CWRC.toMillisec('year'))
-            return 'months';
-        else if (msSpan < CWRC.toMillisec('decade'))
-            return 'years';
-        else if (msSpan < CWRC.toMillisec('century'))
-            return 'decades';
-        else if (msSpan < CWRC.toMillisec('year') * 1000)
-            return 'centuries';
-        else
-            return 'millennia';
-    });
+            if (msSpan < CWRC.toMillisec('minute'))
+                return 'seconds';
+            else if (msSpan < CWRC.toMillisec('hour'))
+                return 'minutes';
+            else if (msSpan < CWRC.toMillisec('day'))
+                return 'hours';
+            else if (msSpan < CWRC.toMillisec('month'))
+                return 'days';
+            else if (msSpan < CWRC.toMillisec('year'))
+                return 'months';
+            else if (msSpan < CWRC.toMillisec('decade'))
+                return 'years';
+            else if (msSpan < CWRC.toMillisec('century'))
+                return 'decades';
+            else if (msSpan < CWRC.toMillisec('year') * 1000)
+                return 'centuries';
+            else
+                return 'millennia';
+        });
 
-    this.majorUnit = ko.pureComputed(function () {
-        var msSpan = (self.getElement().offsetWidth / pixelsPerMs);
+        this.majorUnit = ko.pureComputed(function () {
+            var msSpan = (self.getElement().offsetWidth / pixelsPerMs);
 
-        if (msSpan < CWRC.toMillisec('minute'))
-            return 'minutes';
-        else if (msSpan < CWRC.toMillisec('hour'))
-            return 'hours';
-        else if (msSpan < CWRC.toMillisec('day'))
-            return 'days';
-        else if (msSpan < CWRC.toMillisec('month'))
-            return 'months';
-        else if (msSpan < CWRC.toMillisec('year'))
-            return 'years';
-        else if (msSpan < CWRC.toMillisec('decade'))
-            return 'decades';
-        else if (msSpan < CWRC.toMillisec('century'))
-            return 'centuries';
-        else
-            return 'millennia';
-    });
+            if (msSpan < CWRC.toMillisec('minute'))
+                return 'minutes';
+            else if (msSpan < CWRC.toMillisec('hour'))
+                return 'hours';
+            else if (msSpan < CWRC.toMillisec('day'))
+                return 'days';
+            else if (msSpan < CWRC.toMillisec('month'))
+                return 'months';
+            else if (msSpan < CWRC.toMillisec('year'))
+                return 'years';
+            else if (msSpan < CWRC.toMillisec('decade'))
+                return 'decades';
+            else if (msSpan < CWRC.toMillisec('century'))
+                return 'centuries';
+            else
+                return 'millennia';
+        });
 
-    this.step = function (unit) {
-        var spanDate, dates, label;
+        this.step = function (unit) {
+            var spanDate, dates, label;
 
-        dates = [];
-        spanDate = new Date(self.startStamp());
+            dates = [];
+            spanDate = new Date(self.startStamp());
 
-        self.floorDate(spanDate, unit);
+            self.floorDate(spanDate, unit);
 
-        while (spanDate.getTime() <= self.endStamp()) {
+            while (spanDate.getTime() <= self.endStamp()) {
+                if (/days?/i.test(unit))
+                    label = spanDate.getDate();
+                else if (/months?/i.test(unit))
+                // toLocalString options aren't supported in IE 9 & 10.
+                    label = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][spanDate.getMonth()];
+                else if (/decades?|centuries|century|millenium|millenia/i.test(unit))
+                    label = spanDate.getFullYear() + 's';
+                else
+                    label = spanDate.getFullYear();
+
+                dates.push({
+                    label: label,
+                    position: (spanDate.getTime() - self.startStamp()) * pixelsPerMs * scale() + 'px'
+                });
+
+                self.advance(spanDate, unit);
+            }
+
+            return dates;
+        };
+
+        this.getElement = function () {
+            return document.getElementById('timeline-ruler');
+        };
+
+        this.advance = function (date, unit, amount) {
+            amount = amount || 1;
+
             if (/days?/i.test(unit))
-                label = spanDate.getDate();
-            else if (/months?/i.test(unit))
-            // toLocalString options aren't supported in IE 9 & 10.
-                label = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][spanDate.getMonth()];
-            else if (/decades?|centuries|century|millenium|millenia/i.test(unit))
-                label = spanDate.getFullYear() + 's';
-            else
-                label = spanDate.getFullYear();
-
-            dates.push({
-                label: label,
-                position: (spanDate.getTime() - self.startStamp()) * pixelsPerMs * scale() + 'px'
-            });
-
-            self.advance(spanDate, unit);
-        }
-
-        return dates;
-    };
-
-    this.getElement = function () {
-        return document.getElementById('timeline-ruler');
-    };
-
-    this.advance = function (date, unit, amount) {
-        amount = amount || 1;
-
-        if (/days?/i.test(unit))
-            date.setDate(date.getDate() + amount);
-        else if (/months/i.test(unit))
-            date.setMonth(date.getMonth() + amount);
-        else if (/years/i.test(unit))
-            date.setFullYear(date.getFullYear() + amount);
-        else if (/decades/i.test(unit))
-            date.setFullYear(date.getFullYear() + amount * 10);
-        else if (/centuries/i.test(unit))
-            date.setFullYear(date.getFullYear() + amount * 100);
-        else
-            date.setFullYear(date.getFullYear() + amount * 1000);
-    };
-
-    this.floorDate = function (date, unit) {
-        var granularity, yearsBy;
-
-        if (/months/i.test(unit))
-            date.setMonth(date.getMonth(), 1);
-        else {
-            yearsBy = function (granularity, source) {
-                return Math.floor(source.getFullYear() / granularity) * granularity
-            };
-
-            if (/years/i.test(unit))
-                granularity = 1;
+                date.setDate(date.getDate() + amount);
+            else if (/months/i.test(unit))
+                date.setMonth(date.getMonth() + amount);
+            else if (/years/i.test(unit))
+                date.setFullYear(date.getFullYear() + amount);
             else if (/decades/i.test(unit))
-                granularity = 10;
+                date.setFullYear(date.getFullYear() + amount * 10);
             else if (/centuries/i.test(unit))
-                granularity = 100;
+                date.setFullYear(date.getFullYear() + amount * 100);
             else
-                granularity = 1000;
+                date.setFullYear(date.getFullYear() + amount * 1000);
+        };
 
-            date.setFullYear(yearsBy(granularity, date), 0, 1);
+        this.floorDate = function (date, unit) {
+            var granularity, yearsBy;
+
+            if (/months/i.test(unit))
+                date.setMonth(date.getMonth(), 1);
+            else {
+                yearsBy = function (granularity, source) {
+                    return Math.floor(source.getFullYear() / granularity) * granularity
+                };
+
+                if (/years/i.test(unit))
+                    granularity = 1;
+                else if (/decades/i.test(unit))
+                    granularity = 10;
+                else if (/centuries/i.test(unit))
+                    granularity = 100;
+                else
+                    granularity = 1000;
+
+                date.setFullYear(yearsBy(granularity, date), 0, 1);
+            }
+
+            // assumes that the minimum unit is day, so we can ignore everything lower.
+            date.setHours(0, 0, 0);
+
+            return date;
         }
-
-        // assumes that the minimum unit is day, so we can ignore everything lower.
-        date.setHours(0, 0, 0);
-
-        return date;
-    }
-}
-;
+    };
+})();
