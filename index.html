@@ -120,7 +120,7 @@
 
 <main>
    <expander params="expandedText: 'Hide Timeline', collapsedText: 'Show Timeline'">
-      <timeline params="startDate: '1964'"></timeline>
+      <timeline params="startDate: '2010'"></timeline>
    </expander>
 
    <spotlight></spotlight>
@@ -271,14 +271,16 @@
       <resizer>
          <div data-bind="event: { mousedown: $parent.dragStart, touchstart: $parent.dragStart }">
             <section id="timeline-viewport" data-bind="event: {wheel: $parent.scrollHandler}">
-               <div class="canvas" data-bind="style: {
-                                                        width: $parent.canvas.bounds.width,
-                                                        height: $parent.canvas.bounds.height() + 'em',
-                                                        transform: $parent.zoomTransform,
-                                                        '-ms-transform': $parent.zoomTransform,
-                                                        '-webkit-transform': $parent.zoomTransform
+               <div class="canvas" style="position: relative" data-bind="style: {
+                                                        width: $parent.canvas.bounds.width(),
+                                                        height: $parent.canvas.bounds.height() + 'em'
                                                       },
                                               foreach: $parent.canvas.timelineTokens">
+                  <!--
+                  transform: $parent.canvas.zoomTransform,
+                                                        '-ms-transform': $parent.canvas.zoomTransform,
+                                                        '-webkit-transform': $parent.canvas.zoomTransform
+                  -->
                   <div class="event" data-bind="css: { selected: $data.isSelected() },
                                                 style: {
                                                          left: $data.xPos,

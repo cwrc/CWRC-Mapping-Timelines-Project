@@ -22,14 +22,6 @@ ko.components.register('timeline', {
                 }).length;
         });
 
-        self.tokens = [];
-
-        self.scale = ko.observable(1.0);
-
-        self.zoomTransform = ko.pureComputed(function () {
-            return 'scale(' + self.scale() + ',' + self.scale() + ')';
-        });
-
         // full filtered records, sorted by start
         self.records = ko.pureComputed(function () {
             var records, timeDiff;
@@ -54,9 +46,15 @@ ko.components.register('timeline', {
                 return document.querySelector('#timeline-viewport .canvas');
             },
             pixelsPerMs: ko.observable(1 / CWRC.toMillisec('day')),
+            rowHeight: ko.observable(CWRC.Timeline.LABEL_HEIGHT),
+            zoomTransform: ko.pureComputed(function () {
+                var scale = 1.0; // TODO: actually do this
+
+                return 'scale(' + scale + ',' + scale + ')';
+            }),
             bounds: {
                 height: ko.pureComputed(function () {
-                    return self.canvas.rowCount() * CWRC.Timeline.LABEL_HEIGHT;
+                    return self.canvas.rowCount() * self.canvas.rowHeight();
                 }),
                 width: ko.pureComputed(function () {
                     var timespan, startStamp, endStamp;
@@ -69,7 +67,7 @@ ko.components.register('timeline', {
                     } else {
                         timespan = (endStamp - startStamp); // in ms
 
-                        return (timespan * self.canvas.pixelsPerMs()) + (self.canvas.pixelsPerMs() * CWRC.toMillisec('year')); // convert to px
+                        return self.canvas.stampToPixels(timespan) + self.canvas.stampToPixels(CWRC.toMillisec('year')) + 'px'; // convert to px
                     }
                 })
             },
@@ -82,7 +80,7 @@ ko.components.register('timeline', {
                 var records, lastRecord;
 
                 records = self.records();
-                lastRecord = records[records.size];
+                lastRecord = records[records.length - 1];
 
                 return (lastRecord ? new Date(lastRecord.endDate || lastRecord.startDate) : new Date()).getTime();
             }),
@@ -100,10 +98,10 @@ ko.components.register('timeline', {
                 return px / self.canvas.pixelsPerMs();
             },
             rowToPixels: function (row) {
-                return row * CWRC.Timeline.LABEL_HEIGHT; // TODO: this is 1.5em. It would be nice to do conversion. Also, use a constant
+                return row * self.canvas.rowHeight();
             },
             pixelsToRow: function (px) {
-                return px / CWRC.Timeline.LABEL_HEIGHT; // todo: constant this, too
+                return px / self.canvas.rowHeight();
             }
         };
 
@@ -171,7 +169,7 @@ ko.components.register('timeline', {
             // Bounds are stored as time stamps on X axis, number of rows as Y axis. Both are doubles to be
             // rounded only once when converted to pixels
             bounds: {
-                leftStamp: ko.observable(0), // TODO: see if we can init this to the param (better than the timeout)
+                leftStamp: ko.observable(self.canvas.earliestStamp()), // TODO: see if we can init this to the param (better than the timeout)
                 topRow: ko.observable(0),
                 rightStamp: function () {
                     return self.viewport.bounds.leftStamp() +
@@ -208,11 +206,19 @@ ko.components.register('timeline', {
             panPixels: function (deltaX, deltaY) {
                 var newStamp, newRow;
 
-                newStamp = self.viewport.bounds.leftStamp() - self.canvas.pixelsToStamp(deltaX)
-                newRow = self.viewport.bounds.topRow() - self.canvas.pixelsToRow(deltaY)
+                newStamp = self.viewport.bounds.leftStamp() - self.canvas.pixelsToStamp(deltaX);
+                newRow = self.viewport.bounds.topRow() - self.canvas.pixelsToRow(deltaY);
 
-                self.viewport.bounds.leftStamp(Math.max(Math.min(newStamp, self.canvas.latestStamp()), self.canvas.earliestStamp()));
-                self.viewport.bounds.topRow(Math.max(Math.min(newRow, self.canvas.rowCount()), 0));
+                // TODO: either remove these limits and use a transform, or make these limits an extender on the obervable
+                // limit panning to ~ the canvas size
+                newStamp = Math.max(newStamp, self.canvas.earliestStamp());
+                newStamp = Math.min(newStamp, self.canvas.latestStamp() + CWRC.toMillisec('year') - self.viewport.bounds.timespan())
+
+                newRow = Math.max(newRow, 0);
+                newRow = Math.min(newRow, self.canvas.rowCount() - self.viewport.bounds.visibleRows());
+
+                self.viewport.bounds.leftStamp(newStamp);
+                self.viewport.bounds.topRow(newRow);
             }
         };
 
@@ -222,9 +228,10 @@ ko.components.register('timeline', {
         // Wrapped in a timeout to run after the actual canvas is initialized.
         // TODO: this is a hack, but there isn't currently any event to hook into for when the timeline is done loading
         setTimeout(function () {
-            var startFocusStamp = CWRC.toStamp(params['startDate']) || 0;
+            var startFocusStamp = CWRC.toStamp(params['startDate']);
 
-            self.viewport.panTo(startFocusStamp, 0)
+            if (startFocusStamp)
+                self.viewport.panTo(startFocusStamp, 0)
         }, 100);
 
         CWRC.selected.subscribe(function (selectedRecord) {
@@ -258,14 +265,21 @@ ko.components.register('timeline', {
          * @param viewFocusY In raw pixels, relative to viewport
          * @param zoomIn Boolean: true zoom in, false zoom out
          */
-        self.zoom = function (viewFocusX, viewFocusY, zoomIn) {
+        self.zoom = function (viewFocusX, viewFocusY, zoomIn) { // TODO: move into canvas or viewport
             var stepScaleFactor;
 
             stepScaleFactor = zoomIn ? (1.1) : (1 / 1.1);
 
-            self.scale(self.scale() * stepScaleFactor);
+            //console.log('focuxX ', viewFocusX)
+            //console.log('stamp ', self.canvas.pixelsToStamp(viewFocusX))
+            //console.log('zoom focus at ', new Date(self.canvas.pixelsToStamp(viewFocusX)))
 
-            self.viewport.panTo(self.canvas.pixelsToStamp(viewFocusX), self.canvas.pixelsToStamp(viewFocusY))
+            self.canvas.pixelsPerMs(self.canvas.pixelsPerMs() * stepScaleFactor);
+            self.canvas.rowHeight(self.canvas.rowHeight() * stepScaleFactor);
+
+            //self.viewport.panTo(self.viewport.bounds.leftStamp() + self.canvas.pixelsToStamp(viewFocusX),
+            //    self.viewport.bounds.topRow() + self.canvas.pixelsToRow(viewFocusY))
+
         };
 
         self.scrollHandler = function (viewModel, scrollEvent) {
