@@ -171,14 +171,14 @@ ko.components.register('timeline', {
             bounds: {
                 leftStamp: ko.observable(self.canvas.earliestStamp()), // TODO: see if we can init this to the param (better than the timeout)
                 topRow: ko.observable(0),
-                rightStamp: function () {
+                rightStamp: ko.pureComputed(function () {
                     return self.viewport.bounds.leftStamp() +
                         self.canvas.pixelsToStamp(self.viewport.getElement().offsetWidth);
-                },
-                bottomRow: function () {
+                }),
+                bottomRow: ko.pureComputed(function () {
                     return self.viewport.bounds.topRow() +
                         self.canvas.pixelsToRow(self.viewport.getElement().offsetHeight);
-                },
+                }),
                 timespan: function () {
                     return this.rightStamp() - this.leftStamp();
                 },
@@ -266,20 +266,18 @@ ko.components.register('timeline', {
          * @param zoomIn Boolean: true zoom in, false zoom out
          */
         self.zoom = function (viewFocusX, viewFocusY, zoomIn) { // TODO: move into canvas or viewport
-            var stepScaleFactor;
+            var stepScaleFactor, beforeZoomFocusStamp, afterZoomFocusStamp;
 
             stepScaleFactor = zoomIn ? (1.1) : (1 / 1.1);
 
-            //console.log('focuxX ', viewFocusX)
-            //console.log('stamp ', self.canvas.pixelsToStamp(viewFocusX))
-            //console.log('zoom focus at ', new Date(self.canvas.pixelsToStamp(viewFocusX)))
+            beforeZoomFocusStamp = self.viewport.bounds.leftStamp() + self.canvas.pixelsToStamp(viewFocusX);
 
             self.canvas.pixelsPerMs(self.canvas.pixelsPerMs() * stepScaleFactor);
             self.canvas.rowHeight(self.canvas.rowHeight() * stepScaleFactor);
 
-            //self.viewport.panTo(self.viewport.bounds.leftStamp() + self.canvas.pixelsToStamp(viewFocusX),
-            //    self.viewport.bounds.topRow() + self.canvas.pixelsToRow(viewFocusY))
+            afterZoomFocusStamp = self.viewport.bounds.leftStamp() + self.canvas.pixelsToStamp(viewFocusX);
 
+            self.viewport.bounds.leftStamp(self.viewport.bounds.leftStamp() - (afterZoomFocusStamp - beforeZoomFocusStamp));
         };
 
         self.scrollHandler = function (viewModel, scrollEvent) {
