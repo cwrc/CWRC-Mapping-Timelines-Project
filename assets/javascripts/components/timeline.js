@@ -464,12 +464,10 @@ CWRC.Timeline.__tokenId = 1;
 
         this.scaleStep = 1.1;
 
-        var initialStamp = startDate ? CWRC.toStamp(startDate) : self.canvas.earliestStamp();
-
         // Bounds are stored as time stamps on X axis, number of rows as Y axis. Both are doubles to be
         // rounded only once when converted to pixels
         this.bounds = {
-            leftStamp: ko.observable(initialStamp),
+            leftStamp: ko.observable(self.canvas.earliestStamp()),
             topRow: ko.observable(0),
             rightStamp: ko.pureComputed(function () {
                 return self.bounds.leftStamp() +
@@ -506,9 +504,8 @@ CWRC.Timeline.__tokenId = 1;
         // TODO: it could be removed if the canvas wasn't panned to via scrolling.
         // Wrapped in a timeout to run after the actual canvas is initialized.
         setTimeout(function () {
-            // trigger initial sync of the viewport scollers
-            self.bounds.leftStamp.valueHasMutated();
-            self.bounds.topRow.valueHasMutated();
+            if (startDate)
+                self.panTo(CWRC.toStamp(startDate), 0)
         }, 100);
     };
 
