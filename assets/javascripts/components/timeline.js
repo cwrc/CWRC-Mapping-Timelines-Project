@@ -99,66 +99,7 @@ ko.components.register('timeline', {
             return tokens;
         });
 
-        self.viewport = {
-            canvas: self.canvas, // TODO: pass into constructor
-            getElement: function () {
-                return document.getElementById('timeline-viewport');
-            },
-            // Bounds are stored as time stamps on X axis, number of rows as Y axis. Both are doubles to be
-            // rounded only once when converted to pixels
-            bounds: {
-                leftStamp: ko.observable(self.canvas.earliestStamp()), // TODO: see if we can init this to the param (better than the timeout)
-                topRow: ko.observable(0),
-                rightStamp: ko.pureComputed(function () {
-                    return self.viewport.bounds.leftStamp() +
-                        self.canvas.pixelsToStamp(self.viewport.getElement().offsetWidth);
-                }),
-                bottomRow: ko.pureComputed(function () {
-                    return self.viewport.bounds.topRow() +
-                        self.canvas.pixelsToRow(self.viewport.getElement().offsetHeight);
-                }),
-                timespan: function () {
-                    return this.rightStamp() - this.leftStamp();
-                },
-                visibleRows: function () {
-                    return this.bottomRow() - this.topRow();
-                },
-                contains: function (stamp, row) {
-                    var viewportBounds;
-
-                    viewportBounds = self.viewport.bounds; // todo: remove this once in class
-
-                    return (stamp >= viewportBounds.leftStamp() && stamp <= viewportBounds.rightStamp()) &&
-                        (row >= viewportBounds.topRow() && row <= viewportBounds.bottomRow())
-                }
-            },
-            panTo: function (stamp, row) {
-                var viewportBounds;
-
-                viewportBounds = self.viewport.bounds; // todo: remove this once in class
-
-                viewportBounds.leftStamp(stamp - (viewportBounds.timespan() / 2));
-                viewportBounds.topRow(row - (viewportBounds.visibleRows() / 2) + 0.5); // 0.5 b/c labels are offset by a half row
-            },
-            // Moves the viewport X pixels right, and Y pixels down.
-            panPixels: function (deltaX, deltaY) {
-                var newStamp, newRow;
-
-                newStamp = self.viewport.bounds.leftStamp() - self.canvas.pixelsToStamp(deltaX);
-                newRow = self.viewport.bounds.topRow() - self.canvas.pixelsToRow(deltaY);
-
-                // TODO: either remove these limits and use a transform, or make these limits an extender on the obervable
-                // limit panning to ~ the canvas size
-                newStamp = Math.max(newStamp, self.canvas.earliestStamp());
-                newStamp = Math.min(newStamp, self.canvas.latestStamp() + CWRC.toMillisec('year') - self.viewport.bounds.timespan())
-
-                newRow = Math.max(newRow, 0);
-                newRow = Math.min(newRow, self.canvas.rowCount() - self.viewport.bounds.visibleRows());
-
-                self.viewport.bounds.leftStamp(newStamp);
-                self.viewport.bounds.topRow(newRow);
-            }
-        };
+        self.viewport = new CWRC.Timeline.Viewport(self.canvas);
 
         self.ruler = new CWRC.Timeline.Ruler(self.viewport);
 
@@ -542,4 +483,74 @@ CWRC.Timeline.__tokenId = 1;
     CWRC.Timeline.Canvas.prototype.pixelsToRow = function (px) {
         return px / this.rowHeight();
     }
+})();
+
+(function Viewport() {
+    CWRC.Timeline.Viewport = function (canvas) {
+        var self = this;
+
+        this.canvas = canvas;
+
+        // Bounds are stored as time stamps on X axis, number of rows as Y axis. Both are doubles to be
+        // rounded only once when converted to pixels
+        this.bounds = {
+            leftStamp: ko.observable(self.canvas.earliestStamp()), // TODO: see if we can init this to the param (better than the timeout)
+            topRow: ko.observable(0),
+            rightStamp: ko.pureComputed(function () {
+                return self.bounds.leftStamp() +
+                    self.canvas.pixelsToStamp(self.getElement().offsetWidth);
+            }),
+            bottomRow: ko.pureComputed(function () {
+                return self.bounds.topRow() +
+                    self.canvas.pixelsToRow(self.getElement().offsetHeight);
+            }),
+            timespan: function () {
+                return this.rightStamp() - this.leftStamp();
+            },
+            visibleRows: function () {
+                return this.bottomRow() - this.topRow();
+            },
+            contains: function (stamp, row) {
+                var viewportBounds;
+
+                viewportBounds = self.bounds; // todo: remove this once in class
+
+                return (stamp >= viewportBounds.leftStamp() && stamp <= viewportBounds.rightStamp()) &&
+                    (row >= viewportBounds.topRow() && row <= viewportBounds.bottomRow())
+            }
+        };
+    };
+
+    CWRC.Timeline.Viewport.prototype.getElement = function () {
+        return document.getElementById('timeline-viewport');
+    };
+
+    CWRC.Timeline.Viewport.prototype.panTo = function (stamp, row) {
+        var viewportBounds;
+
+        viewportBounds = this.bounds; // todo: remove this once in class
+
+        viewportBounds.leftStamp(stamp - (viewportBounds.timespan() / 2));
+        viewportBounds.topRow(row - (viewportBounds.visibleRows() / 2) + 0.5); // 0.5 b/c labels are offset by a half row
+    };
+
+    // Moves the viewport X pixels right, and Y pixels down.
+    CWRC.Timeline.Viewport.prototype.panPixels = function (deltaX, deltaY) {
+        var newStamp, newRow;
+
+        newStamp = this.bounds.leftStamp() - this.canvas.pixelsToStamp(deltaX);
+        newRow = this.bounds.topRow() - this.canvas.pixelsToRow(deltaY);
+
+        // TODO: either remove these limits and use a transform, or make these limits an extender on the obervable
+        // limit panning to ~ the canvas size
+        newStamp = Math.max(newStamp, this.canvas.earliestStamp());
+        newStamp = Math.min(newStamp, this.canvas.latestStamp() + CWRC.toMillisec('year') - this.bounds.timespan());
+
+        newRow = Math.max(newRow, 0);
+        newRow = Math.min(newRow, this.canvas.rowCount() - this.bounds.visibleRows());
+
+        this.bounds.leftStamp(newStamp);
+        this.bounds.topRow(newRow);
+    }
+
 })();
