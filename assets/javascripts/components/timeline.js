@@ -103,17 +103,8 @@ ko.components.register('timeline', {
             return tokens;
         });
 
-        self.viewport = new CWRC.Timeline.Viewport(self.canvas);
+        self.viewport = new CWRC.Timeline.Viewport(self.canvas, params['startDate']);
         self.ruler = new CWRC.Timeline.Ruler(self.viewport);
-
-        // Wrapped in a timeout to run after the actual canvas is initialized.
-        // TODO: this is a hack, but there isn't currently any event to hook into for when the timeline is done loading
-        setTimeout(function () {
-            var startFocusStamp = CWRC.toStamp(params['startDate']);
-
-            if (startFocusStamp)
-                self.viewport.panTo(startFocusStamp, 0)
-        }, 100);
 
         CWRC.selected.subscribe(function (selectedRecord) {
             var token, recordStamp;
@@ -127,17 +118,6 @@ ko.components.register('timeline', {
 
             if (!self.viewport.bounds.contains(recordStamp, token.row))
                 self.viewport.panTo(recordStamp, token.row);
-        });
-
-        // TODO move to viewport constructor
-        self.viewport.bounds.leftStamp.subscribe(function (newVal) {
-            var stampDistance = newVal - self.canvas.earliestStamp();
-
-            self.viewport.getElement().scrollLeft = Math.round(self.canvas.stampToPixels(stampDistance));
-        });
-
-        self.viewport.bounds.topRow.subscribe(function (newVal) {
-            self.viewport.getElement().scrollTop = Math.round(self.canvas.rowToPixels(newVal));
         });
 
         /**
@@ -417,7 +397,7 @@ CWRC.Timeline.__tokenId = 1;
         this.rowCount = ko.observable();
 
         //this.zoomTransform = ko.pureComputed(function () {
-        //    var scale = 1.0; // TODO: actually do this
+        //    var scale = 1.0;
         //
         //    return 'scale(' + scale + ',' + scale + ')';
         //});
@@ -489,15 +469,17 @@ CWRC.Timeline.__tokenId = 1;
 })();
 
 (function Viewport() {
-    CWRC.Timeline.Viewport = function (canvas) {
+    CWRC.Timeline.Viewport = function (canvas, startDate) {
         var self = this;
 
         this.canvas = canvas;
 
+        var initialStamp = startDate ? CWRC.toStamp(startDate) : self.canvas.earliestStamp();
+
         // Bounds are stored as time stamps on X axis, number of rows as Y axis. Both are doubles to be
         // rounded only once when converted to pixels
         this.bounds = {
-            leftStamp: ko.observable(self.canvas.earliestStamp()), // TODO: see if we can init this to the param (better than the timeout)
+            leftStamp: ko.observable(initialStamp),
             topRow: ko.observable(0),
             rightStamp: ko.pureComputed(function () {
                 return self.bounds.leftStamp() +
@@ -514,14 +496,30 @@ CWRC.Timeline.__tokenId = 1;
                 return this.bottomRow() - this.topRow();
             },
             contains: function (stamp, row) {
-                var viewportBounds;
-
-                viewportBounds = self.bounds; // todo: remove this once in class
-
-                return (stamp >= viewportBounds.leftStamp() && stamp <= viewportBounds.rightStamp()) &&
-                    (row >= viewportBounds.topRow() && row <= viewportBounds.bottomRow())
+                return (stamp >= self.bounds.leftStamp() && stamp <= self.bounds.rightStamp()) &&
+                    (row >= self.bounds.topRow() && row <= self.bounds.bottomRow())
             }
         };
+
+        this.bounds.leftStamp.subscribe(function (newVal) {
+            var stampDistance = newVal - self.canvas.earliestStamp();
+
+            self.getElement().scrollLeft = Math.round(self.canvas.stampToPixels(stampDistance));
+        });
+
+        this.bounds.topRow.subscribe(function (newVal) {
+            self.getElement().scrollTop = Math.round(self.canvas.rowToPixels(newVal));
+        });
+
+
+        // TODO: this timeout is a hack, but there isn't currently any event to hook into for when the timeline is done loading
+        // TODO: it could be removed if the canvas wasn't panned to via scrolling.
+        // Wrapped in a timeout to run after the actual canvas is initialized.
+        setTimeout(function () {
+            // trigger initial sync to the leftscroll
+            self.bounds.leftStamp.valueHasMutated();
+            self.bounds.topRow.valueHasMutated();
+        }, 100);
     };
 
     CWRC.Timeline.Viewport.prototype.getElement = function () {
