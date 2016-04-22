@@ -384,8 +384,10 @@ CWRC.Timeline.__tokenId = 1;
             return self.data == CWRC.selected();
         });
 
+        this.isHovered = ko.observable(false);
+
         this.layer = function () {
-            return this.isSelected() ? CWRC.Timeline.SELECTED_LAYER : -this.row;
+            return this.isSelected() || this.isHovered() ? CWRC.Timeline.SELECTED_LAYER : -this.row;
         };
     };
 })();
