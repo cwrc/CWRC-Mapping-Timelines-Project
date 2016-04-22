@@ -222,8 +222,7 @@ ko.components.register('timeline', {
             }
         };
 
-        // TODO: re-enable
-        //self.ruler = new CWRC.Timeline.Ruler(self.viewport.bounds, self.canvas.pixelsPerMs());
+        self.ruler = new CWRC.Timeline.Ruler(self.viewport);
 
         // Wrapped in a timeout to run after the actual canvas is initialized.
         // TODO: this is a hack, but there isn't currently any event to hook into for when the timeline is done loading
@@ -368,7 +367,7 @@ CWRC.Timeline.SELECTED_LAYER = 10;
 
 CWRC.Timeline.__tokenId = 1;
 
-(function () {
+(function Token() {
     CWRC.Timeline.Token = function (params) {
         var self = this;
 
@@ -390,20 +389,18 @@ CWRC.Timeline.__tokenId = 1;
             return this.isSelected() ? CWRC.Timeline.SELECTED_LAYER : -this.row;
         };
     };
+})();
 
-    CWRC.Timeline.Ruler = function (viewport, pixelsPerMs) {
+(function Ruler() {
+    CWRC.Timeline.Ruler = function (viewport) {
         var self = this;
 
-        this.startStamp = ko.pureComputed(function () {
-            return viewport.bounds.startStamp();
-        });
-
         this.endStamp = ko.pureComputed(function () {
-            return viewport.bounds.endStamp();
+            return viewport.bounds.rightStamp();
         });
 
         this.startDate = ko.pureComputed(function () {
-            return new Date(self.startStamp());
+            return new Date(viewport.bounds.leftStamp());
         });
 
         this.endDate = ko.pureComputed(function () {
@@ -411,7 +408,7 @@ CWRC.Timeline.__tokenId = 1;
         });
 
         this.minorUnit = ko.pureComputed(function () {
-            var msSpan = (self.getElement().offsetWidth / pixelsPerMs);
+            var msSpan = (self.getElement().offsetWidth / viewport.canvas.pixelsPerMs());
 
             if (msSpan < CWRC.toMillisec('minute'))
                 return 'seconds';
@@ -434,7 +431,7 @@ CWRC.Timeline.__tokenId = 1;
         });
 
         this.majorUnit = ko.pureComputed(function () {
-            var msSpan = (self.getElement().offsetWidth / pixelsPerMs);
+            var msSpan = (self.getElement().offsetWidth / viewport.canvas.pixelsPerMs());
 
             if (msSpan < CWRC.toMillisec('minute'))
                 return 'minutes';
@@ -458,7 +455,7 @@ CWRC.Timeline.__tokenId = 1;
             var spanDate, dates, label;
 
             dates = [];
-            spanDate = new Date(self.startStamp());
+            spanDate = new Date(viewport.bounds.leftStamp());
 
             self.floorDate(spanDate, unit);
 
@@ -475,7 +472,7 @@ CWRC.Timeline.__tokenId = 1;
 
                 dates.push({
                     label: label,
-                    position: (spanDate.getTime() - self.startStamp()) * pixelsPerMs * scale() + 'px'
+                    position: (spanDate.getTime() - viewport.bounds.leftStamp()) * viewport.canvas.pixelsPerMs() + 'px'
                 });
 
                 self.advance(spanDate, unit);

@@ -245,29 +245,17 @@
             lack time data
          </div>
       </section>
-      <!--<section id="timeline-ruler">-->
-      <!--<span data-bind="text: ruler.startDate()"></span><br>-->
-      <!--to-->
-      <!--<span data-bind="text: ruler.endDate()"></span><br>-->
-
-
-      <!--major: <span data-bind="text: ruler.majorUnit()"></span>-->
-      <!--minor: <span data-bind="text: ruler.minorUnit()"></span>-->
-      <!--<br>-->
-
-      <!--<div style="height: 1em" data-bind="foreach: ruler.step(ruler.majorUnit())">-->
-      <!--<span style="border-left: 1px solid black; position: absolute"-->
-      <!--data-bind="text: $data.label, style: {left: $data.position}"></span>-->
-      <!--</div>-->
-      <!--<div style="height: 1em" data-bind="foreach: ruler.step(ruler.minorUnit())">-->
-      <!--<span style="border-left: 1px solid black; position: absolute"-->
-      <!--data-bind="text: $data.label, style: {left: $data.position}"></span>-->
-      <!--</div>-->
-      <!--</section>-->
-      <div>
-         <span data-bind="text: new Date(viewport.bounds.leftStamp())"></span> TO <br>
-         <span data-bind="text: new Date(viewport.bounds.rightStamp())"></span>
-      </div>
+      <section id="timeline-ruler">
+         <div style="height: 1em" data-bind="foreach: ruler.step(ruler.majorUnit())">
+            <span style="border-left: 1px solid black; position: absolute"
+                  data-bind="text: $data.label, style: {left: $data.position}">
+            </span>
+         </div>
+         <div style="height: 1em" data-bind="foreach: ruler.step(ruler.minorUnit())">
+            <span style="border-left: 1px solid black; position: absolute"
+                  data-bind="text: $data.label, style: {left: $data.position}"></span>
+         </div>
+      </section>
       <resizer>
          <div data-bind="event: { mousedown: $parent.dragStart, touchstart: $parent.dragStart }">
             <section id="timeline-viewport" data-bind="event: {wheel: $parent.scrollHandler}">
