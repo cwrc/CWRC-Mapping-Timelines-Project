@@ -96,7 +96,8 @@ timeline #timeline-viewport > div.canvas .event a {
    overflow: hidden;
    text-overflow: ellipsis;
 
-   padding: 0.25em 0;
+   padding: 0.25em 0.5em 0.25em 0;
+   box-sizing: border-box;
 
    text-decoration: none;
    white-space: nowrap;

@@ -7,8 +7,12 @@ ko.components.register('timeline', {
      * Records with multiple locations have all markers "linked", so that selecting one will highlight all.
      *
      * For developers:
-     * The coordianate systems can get confusing sometimes. Remember that each measurement is either going to be in
-     * true pixels or scaled pixels. Please leave comments to make it clear what unit a distance is in.
+     * This widget is split into multiple parts, each with these responsiblities
+     * 1. The base viewModel - handles raw input and coordinates it between the other parts
+     * 2. Token    - Data model for an individual event
+     * 3. Canvas   - Conceptually the full dataset
+     * 4. Viewport - Pannable, zoomable visiable area over the canvas
+     * 5. Ruler    - The scale for the widget
      */
     viewModel: function (params) {
         var self = this;
@@ -100,7 +104,6 @@ ko.components.register('timeline', {
         });
 
         self.viewport = new CWRC.Timeline.Viewport(self.canvas);
-
         self.ruler = new CWRC.Timeline.Ruler(self.viewport);
 
         // Wrapped in a timeout to run after the actual canvas is initialized.
