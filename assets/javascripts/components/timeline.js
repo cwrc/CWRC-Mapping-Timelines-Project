@@ -49,18 +49,11 @@ ko.components.register('timeline', {
 
         // TODO: merge into class
         self.canvas.timelineTokens = ko.computed(function () {
-            var startStamp, endStamp, duration, tokens, unplacedRecords, cutoff, rowIndex, nextRecordIndex;
+            var startStamp, endStamp, duration, tokens, unplacedRecords, cutoff, rowIndex;
 
             unplacedRecords = self.records().slice(); // slice to duplicate array, otherwise we would alter the cached value
             tokens = [];
             rowIndex = -1;
-
-            nextRecordIndex = function (cutoff, records) {
-                for (var i = 0; i < records.length; i++) {
-                    if (CWRC.toStamp(records[i]) >= cutoff)
-                        return i;
-                }
-            };
 
             while (unplacedRecords.length > 0) {
                 var record, recordIndex, isPastCutoff;
@@ -72,12 +65,12 @@ ko.components.register('timeline', {
                     rowIndex++;
                 }
 
-                recordIndex = nextRecordIndex(cutoff, unplacedRecords);
-
-                // TODO: switch to using findIndex
-                //recordIndex = unplacedRecords.findIndex(function (record) {
-                //    return CWRC.toStamp(record) >= cutoff;
-                //});
+                // this 'extra' function layer is to avoid touching a mutable var in a closure, which is apparently bad.
+                recordIndex = function (cutoff) {
+                    return unplacedRecords.findIndex(function (record) {
+                        return CWRC.toStamp(record) >= cutoff;
+                    })
+                }(cutoff);
 
                 record = unplacedRecords.splice(recordIndex, 1)[0];
 
