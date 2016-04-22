@@ -54,7 +54,7 @@ ko.components.register('timeline', {
             }),
             bounds: {
                 height: ko.pureComputed(function () {
-                    return self.canvas.rowCount() * self.canvas.rowHeight();
+                    return self.canvas.rowCount() * self.canvas.rowHeight() + 'em';
                 }),
                 width: ko.pureComputed(function () {
                     var timespan, startStamp, endStamp;
@@ -272,7 +272,6 @@ ko.components.register('timeline', {
             beforeZoomFocusStamp = self.viewport.bounds.leftStamp() + self.canvas.pixelsToStamp(viewFocusX);
 
             self.canvas.pixelsPerMs(self.canvas.pixelsPerMs() * stepScaleFactor);
-            self.canvas.rowHeight(self.canvas.rowHeight() * stepScaleFactor);
 
             afterZoomFocusStamp = self.viewport.bounds.leftStamp() + self.canvas.pixelsToStamp(viewFocusX);
 
