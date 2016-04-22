@@ -146,16 +146,8 @@ timeline #timeline-ruler > div {
    overflow: hidden;
 }
 
-timeline #timeline-ruler > div > div {
-   position: absolute; /* Must absolute, otherwise time drift will occur (leap years) */
+timeline #timeline-ruler > div > span {
+   position: absolute;
 
-   border-left-color: black;
-   border-left-style: solid;
-
-   background: white;
+   border-left: 1px solid black;
 }
-
-timeline #timeline-ruler > div > div:nth-of-type(odd) {
-   background: #ccc;
-}
-
