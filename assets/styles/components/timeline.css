@@ -125,9 +125,9 @@ timeline #timeline-viewport > div.canvas .selected a {
    border: 3px dotted red;
 }
 
-timeline #timeline-viewport > div.canvas .event span:first-of-type:after {
+/*timeline #timeline-viewport > div.canvas .event span:first-of-type:after {
    content: ":";
-}
+}*/
 
 timeline #timeline-viewport > div.canvas .event span {
    margin-left: 0.25em;

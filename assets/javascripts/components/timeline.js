@@ -41,69 +41,7 @@ ko.components.register('timeline', {
             return records;
         });
 
-        self.canvas = {
-            getElement: function () {
-                return document.querySelector('#timeline-viewport .canvas');
-            },
-            pixelsPerMs: ko.observable(1 / CWRC.toMillisec('day')),
-            rowHeight: ko.observable(CWRC.Timeline.LABEL_HEIGHT),
-            zoomTransform: ko.pureComputed(function () {
-                var scale = 1.0; // TODO: actually do this
-
-                return 'scale(' + scale + ',' + scale + ')';
-            }),
-            bounds: {
-                height: ko.pureComputed(function () {
-                    return self.canvas.rowCount() * self.canvas.rowHeight() + 'em';
-                }),
-                width: ko.pureComputed(function () {
-                    var timespan, startStamp, endStamp;
-
-                    startStamp = self.canvas.earliestStamp();
-                    endStamp = self.canvas.latestStamp();
-
-                    if (startStamp == endStamp) {
-                        return '100%';
-                    } else {
-                        timespan = (endStamp - startStamp); // in ms
-
-                        return self.canvas.stampToPixels(timespan) + self.canvas.stampToPixels(CWRC.toMillisec('year')) + 'px'; // convert to px
-                    }
-                })
-            },
-            earliestStamp: ko.pureComputed(function () {
-                var firstRecord = self.records()[0];
-
-                return (firstRecord ? new Date(firstRecord.startDate) : new Date()).getTime();
-            }),
-            latestStamp: ko.pureComputed(function () {
-                var records, lastRecord;
-
-                records = self.records();
-                lastRecord = records[records.length - 1];
-
-                return (lastRecord ? new Date(lastRecord.endDate || lastRecord.startDate) : new Date()).getTime();
-            }),
-            earliestDate: ko.pureComputed(function () {
-                return new Date(self.canvas.earliestStamp());
-            }),
-            latestDate: ko.pureComputed(function () {
-                return new Date(self.canvas.latestStamp());
-            }),
-            rowCount: ko.observable(),
-            stampToPixels: function (stamp) {
-                return stamp * self.canvas.pixelsPerMs();
-            },
-            pixelsToStamp: function (px) {
-                return px / self.canvas.pixelsPerMs();
-            },
-            rowToPixels: function (row) {
-                return row * self.canvas.rowHeight();
-            },
-            pixelsToRow: function (px) {
-                return px / self.canvas.rowHeight();
-            }
-        };
+        self.canvas = new CWRC.Timeline.Canvas(self.records);
 
         // TODO: merge into class
         self.canvas.timelineTokens = ko.computed(function () {
@@ -531,4 +469,85 @@ CWRC.Timeline.__tokenId = 1;
             return date;
         }
     };
+})();
+
+
+(function Canvas() {
+    CWRC.Timeline.Canvas = function (recordsObservable) {
+        var self = this;
+
+        this.pixelsPerMs = ko.observable(1 / CWRC.toMillisec('day'));
+        this.rowHeight = ko.observable(CWRC.Timeline.LABEL_HEIGHT);
+        this.rowCount = ko.observable();
+
+        //this.zoomTransform = ko.pureComputed(function () {
+        //    var scale = 1.0; // TODO: actually do this
+        //
+        //    return 'scale(' + scale + ',' + scale + ')';
+        //});
+
+        this.bounds = {
+            height: ko.pureComputed(function () {
+                return self.rowCount() * self.rowHeight() + 'em';
+            }),
+            width: ko.pureComputed(function () {
+                var timespan, startStamp, endStamp;
+
+                startStamp = self.earliestStamp();
+                endStamp = self.latestStamp();
+
+                if (startStamp == endStamp) {
+                    return '100%';
+                } else {
+                    timespan = (endStamp - startStamp); // in ms
+
+                    return self.stampToPixels(timespan) + self.stampToPixels(CWRC.toMillisec('year')) + 'px';
+                }
+            })
+        };
+
+        this.earliestStamp = ko.pureComputed(function () {
+            var firstRecord = recordsObservable()[0];
+
+            return (firstRecord ? new Date(firstRecord.startDate) : new Date()).getTime();
+        });
+
+        this.latestStamp = ko.pureComputed(function () {
+            var records, lastRecord;
+
+            records = recordsObservable();
+            lastRecord = records[records.length - 1];
+
+            return (lastRecord ? new Date(lastRecord.endDate || lastRecord.startDate) : new Date()).getTime();
+        });
+
+        this.earliestDate = ko.pureComputed(function () {
+            return new Date(self.earliestStamp());
+        });
+
+        this.latestDate = ko.pureComputed(function () {
+            return new Date(self.latestStamp());
+        });
+
+    };
+
+    CWRC.Timeline.Canvas.prototype.getElement = function () {
+        return document.querySelector('#timeline-viewport .canvas');
+    };
+
+    CWRC.Timeline.Canvas.prototype.stampToPixels = function (stamp) {
+        return stamp * this.pixelsPerMs();
+    };
+
+    CWRC.Timeline.Canvas.prototype.pixelsToStamp = function (px) {
+        return px / this.pixelsPerMs();
+    };
+
+    CWRC.Timeline.Canvas.prototype.rowToPixels = function (row) {
+        return row * this.rowHeight();
+    };
+
+    CWRC.Timeline.Canvas.prototype.pixelsToRow = function (px) {
+        return px / this.rowHeight();
+    }
 })();
