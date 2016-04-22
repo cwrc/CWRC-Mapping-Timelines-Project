@@ -334,18 +334,9 @@ CWRC.Timeline.__tokenId = 1;
     CWRC.Timeline.Ruler = function (viewport) {
         var self = this;
 
-        this.endStamp = ko.pureComputed(function () {
-            return viewport.bounds.rightStamp();
-        });
+        this.viewport = viewport;
 
-        this.startDate = ko.pureComputed(function () {
-            return new Date(viewport.bounds.leftStamp());
-        });
-
-        this.endDate = ko.pureComputed(function () {
-            return new Date(self.endStamp());
-        });
-
+        // can we make these simpler by removing the words?
         this.minorUnit = ko.pureComputed(function () {
             var msSpan = (self.getElement().offsetWidth / viewport.canvas.pixelsPerMs());
 
@@ -389,86 +380,87 @@ CWRC.Timeline.__tokenId = 1;
             else
                 return 'millennia';
         });
-
-        this.step = function (unit) {
-            var spanDate, dates, label;
-
-            dates = [];
-            spanDate = new Date(viewport.bounds.leftStamp());
-
-            self.floorDate(spanDate, unit);
-
-            while (spanDate.getTime() <= self.endStamp()) {
-                if (/days?/i.test(unit))
-                    label = spanDate.getDate();
-                else if (/months?/i.test(unit))
-                // toLocalString options aren't supported in IE 9 & 10.
-                    label = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][spanDate.getMonth()];
-                else if (/decades?|centuries|century|millenium|millenia/i.test(unit))
-                    label = spanDate.getFullYear() + 's';
-                else
-                    label = spanDate.getFullYear();
-
-                dates.push({
-                    label: label,
-                    position: (spanDate.getTime() - viewport.bounds.leftStamp()) * viewport.canvas.pixelsPerMs() + 'px'
-                });
-
-                self.advance(spanDate, unit);
-            }
-
-            return dates;
-        };
-
-        this.getElement = function () {
-            return document.getElementById('timeline-ruler');
-        };
-
-        this.advance = function (date, unit, amount) {
-            amount = amount || 1;
-
-            if (/days?/i.test(unit))
-                date.setDate(date.getDate() + amount);
-            else if (/months/i.test(unit))
-                date.setMonth(date.getMonth() + amount);
-            else if (/years/i.test(unit))
-                date.setFullYear(date.getFullYear() + amount);
-            else if (/decades/i.test(unit))
-                date.setFullYear(date.getFullYear() + amount * 10);
-            else if (/centuries/i.test(unit))
-                date.setFullYear(date.getFullYear() + amount * 100);
-            else
-                date.setFullYear(date.getFullYear() + amount * 1000);
-        };
-
-        this.floorDate = function (date, unit) {
-            var granularity, yearsBy;
-
-            if (/months/i.test(unit))
-                date.setMonth(date.getMonth(), 1);
-            else {
-                yearsBy = function (granularity, source) {
-                    return Math.floor(source.getFullYear() / granularity) * granularity
-                };
-
-                if (/years/i.test(unit))
-                    granularity = 1;
-                else if (/decades/i.test(unit))
-                    granularity = 10;
-                else if (/centuries/i.test(unit))
-                    granularity = 100;
-                else
-                    granularity = 1000;
-
-                date.setFullYear(yearsBy(granularity, date), 0, 1);
-            }
-
-            // assumes that the minimum unit is day, so we can ignore everything lower.
-            date.setHours(0, 0, 0);
-
-            return date;
-        }
     };
+
+    CWRC.Timeline.Ruler.prototype.step = function (unit) {
+        var spanDate, dates, label, viewportBounds;
+
+        dates = [];
+        viewportBounds = this.viewport.bounds;
+        spanDate = new Date(viewportBounds.leftStamp());
+
+        this.floorDate(spanDate, unit);
+
+        while (spanDate.getTime() <= viewportBounds.rightStamp()) {
+            if (/days?/i.test(unit))
+                label = spanDate.getDate();
+            else if (/months?/i.test(unit))
+            // toLocalString options aren't supported in IE 9 & 10.
+                label = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][spanDate.getMonth()];
+            else if (/decades?|centuries|century|millenium|millenia/i.test(unit))
+                label = spanDate.getFullYear() + 's';
+            else
+                label = spanDate.getFullYear();
+
+            dates.push({
+                label: label,
+                position: (spanDate.getTime() - viewportBounds.leftStamp()) * this.viewport.canvas.pixelsPerMs() + 'px'
+            });
+
+            this.advance(spanDate, unit);
+        }
+
+        return dates;
+    };
+
+    CWRC.Timeline.Ruler.prototype.getElement = function () {
+        return document.getElementById('timeline-ruler');
+    };
+
+    CWRC.Timeline.Ruler.prototype.advance = function (date, unit, amount) {
+        amount = amount || 1;
+
+        if (/days?/i.test(unit))
+            date.setDate(date.getDate() + amount);
+        else if (/months/i.test(unit))
+            date.setMonth(date.getMonth() + amount);
+        else if (/years/i.test(unit))
+            date.setFullYear(date.getFullYear() + amount);
+        else if (/decades/i.test(unit))
+            date.setFullYear(date.getFullYear() + amount * 10);
+        else if (/centuries/i.test(unit))
+            date.setFullYear(date.getFullYear() + amount * 100);
+        else
+            date.setFullYear(date.getFullYear() + amount * 1000);
+    };
+
+    CWRC.Timeline.Ruler.prototype.floorDate = function (date, unit) {
+        var granularity, yearsBy;
+
+        if (/months/i.test(unit))
+            date.setMonth(date.getMonth(), 1);
+        else {
+            yearsBy = function (granularity, source) {
+                return Math.floor(source.getFullYear() / granularity) * granularity
+            };
+
+            if (/years/i.test(unit))
+                granularity = 1;
+            else if (/decades/i.test(unit))
+                granularity = 10;
+            else if (/centuries/i.test(unit))
+                granularity = 100;
+            else
+                granularity = 1000;
+
+            date.setFullYear(yearsBy(granularity, date), 0, 1);
+        }
+
+        // assumes that the minimum unit is day, so we can ignore everything lower.
+        date.setHours(0, 0, 0);
+
+        return date;
+    }
 })();
 
 
