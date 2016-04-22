@@ -120,34 +120,16 @@ ko.components.register('timeline', {
                 self.viewport.panTo(recordStamp, token.row);
         });
 
-        /**
-         *
-         * @param viewFocusX In raw pixels, relative to viewport
-         * @param viewFocusY In raw pixels, relative to viewport
-         * @param zoomIn Boolean: true zoom in, false zoom out
-         */
-        self.zoom = function (viewFocusX, viewFocusY, zoomIn) { // TODO: move into canvas or viewport
-            var stepScaleFactor, beforeZoomFocusStamp, afterZoomFocusStamp;
-
-            stepScaleFactor = zoomIn ? (1.1) : (1 / 1.1);
-
-            beforeZoomFocusStamp = self.viewport.bounds.leftStamp() + self.canvas.pixelsToStamp(viewFocusX);
-
-            self.canvas.pixelsPerMs(self.canvas.pixelsPerMs() * stepScaleFactor);
-
-            afterZoomFocusStamp = self.viewport.bounds.leftStamp() + self.canvas.pixelsToStamp(viewFocusX);
-
-            self.viewport.bounds.leftStamp(self.viewport.bounds.leftStamp() - (afterZoomFocusStamp - beforeZoomFocusStamp));
-        };
-
         self.scrollHandler = function (viewModel, scrollEvent) {
-            var mouseX, mouseY;
+            var mouseX, mouseY, viewportRect;
+
+            viewportRect = self.viewport.getElement().getBoundingClientRect();
 
             //  mouseX, Y are relative to viewport, in unscaled pixels
-            mouseX = scrollEvent.clientX - self.viewport.getElement().getBoundingClientRect().left;
-            mouseY = scrollEvent.clientY - self.viewport.getElement().getBoundingClientRect().top;
+            mouseX = scrollEvent.clientX - viewportRect.left;
+            mouseY = scrollEvent.clientY - viewportRect.top;
 
-            self.zoom(mouseX, mouseY, scrollEvent.deltaY < 0);
+            self.viewport.zoom(mouseX, mouseY, scrollEvent.deltaY < 0);
 
             return false; // prevent regular page scrolling.
         };
@@ -474,6 +456,8 @@ CWRC.Timeline.__tokenId = 1;
 
         this.canvas = canvas;
 
+        this.scaleStep = 1.1;
+
         var initialStamp = startDate ? CWRC.toStamp(startDate) : self.canvas.earliestStamp();
 
         // Bounds are stored as time stamps on X axis, number of rows as Y axis. Both are doubles to be
@@ -516,7 +500,7 @@ CWRC.Timeline.__tokenId = 1;
         // TODO: it could be removed if the canvas wasn't panned to via scrolling.
         // Wrapped in a timeout to run after the actual canvas is initialized.
         setTimeout(function () {
-            // trigger initial sync to the leftscroll
+            // trigger initial sync of the viewport scollers
             self.bounds.leftStamp.valueHasMutated();
             self.bounds.topRow.valueHasMutated();
         }, 100);
@@ -524,6 +508,29 @@ CWRC.Timeline.__tokenId = 1;
 
     CWRC.Timeline.Viewport.prototype.getElement = function () {
         return document.getElementById('timeline-viewport');
+    };
+
+    /**
+     *
+     * @param viewFocusX In raw pixels, relative to viewport
+     * @param viewFocusY In raw pixels, relative to viewport
+     * @param zoomIn Boolean: true zoom in, false zoom out
+     */
+    CWRC.Timeline.Viewport.prototype.zoom = function (viewFocusX, viewFocusY, zoomIn) {
+        var scaleFactor, beforeZoomFocusStamp, afterZoomFocusStamp, canvas;
+
+        canvas = this.canvas;
+
+        scaleFactor = zoomIn ? (this.scaleStep) : (1 / this.scaleStep);
+
+        beforeZoomFocusStamp = this.bounds.leftStamp() + canvas.pixelsToStamp(viewFocusX);
+
+        canvas.pixelsPerMs(canvas.pixelsPerMs() * scaleFactor);
+
+        afterZoomFocusStamp = this.bounds.leftStamp() + canvas.pixelsToStamp(viewFocusX);
+
+        // readjusting to keep the mouse-hovered point consistent is better for UX and behaviourally matches the map
+        this.bounds.leftStamp(this.bounds.leftStamp() - (afterZoomFocusStamp - beforeZoomFocusStamp));
     };
 
     CWRC.Timeline.Viewport.prototype.panTo = function (stamp, row) {
