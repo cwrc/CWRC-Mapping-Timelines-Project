@@ -139,7 +139,7 @@ timeline #timeline-ruler {
 
    overflow: hidden;
 
-   /*height: 1em;*/
+   background: #BBBBBB;
 }
 
 timeline #timeline-ruler > div {

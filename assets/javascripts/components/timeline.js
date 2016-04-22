@@ -51,7 +51,9 @@ ko.components.register('timeline', {
         self.canvas.timelineTokens = ko.computed(function () {
             var startStamp, endStamp, duration, tokens, unplacedRecords, cutoff, rowIndex;
 
-            unplacedRecords = self.records().slice(); // slice to duplicate array, otherwise we would alter the cached value
+            unplacedRecords = self.records().filter(function () {
+                return true;
+            }); // slice to duplicate array, otherwise we would alter the cached value
             tokens = [];
             rowIndex = -1;
 
@@ -98,6 +100,17 @@ ko.components.register('timeline', {
 
         self.viewport = new CWRC.Timeline.Viewport(self.canvas, params['startDate']);
         self.ruler = new CWRC.Timeline.Ruler(self.viewport);
+
+        // TODO: move this somewhere?
+        self.viewport.timelineTokens = ko.pureComputed(function () {
+            return self.canvas.timelineTokens().filter(function (token) {
+                var startStamp = CWRC.toStamp(token.data.startDate);
+                var endStamp = token.data.endDate ? CWRC.toStamp(token.data.endDate) : startStamp + CWRC.toMillisec('year');
+
+                return endStamp >= self.viewport.bounds.leftStamp() &&
+                    startStamp <= self.viewport.bounds.rightStamp();
+            })
+        });
 
         CWRC.selected.subscribe(function (selectedRecord) {
             var token, recordStamp;
