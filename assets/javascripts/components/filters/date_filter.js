@@ -21,7 +21,7 @@ ko.components.register('date_filter', {
             var records, timeDiff;
 
             // fetch only the data that have non-null start dates, sort by start date.
-            records = CWRC.select(CWRC.rawData(), function (item) { // TODO: <- filteredData in timeline; pretty much only diff
+            records = CWRC.rawData().filter(function (item) { // TODO: <- filteredData in timeline; pretty much only diff
                 return item.startDate;
             }).sort(function (a, b) {
                 timeDiff = CWRC.toStamp(a) - CWRC.toStamp(b);

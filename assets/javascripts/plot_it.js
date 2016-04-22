@@ -26,32 +26,13 @@ var CWRC = (function (cwrc, undefined) {
         for (var i = 0; i < cwrc.filters().length; i++) {
             var filterFunc = cwrc.filters()[i];
 
-            filteredData = cwrc.select(filteredData, filterFunc);
+            filteredData = filteredData.filter(filterFunc);
         }
 
         return filteredData;
     });
 
     cwrc.selected = ko.observable();
-
-    /**
-     * Filters the given data array by the given block.
-     *
-     * @param data An array of objects to be filtered.
-     * @param filterBlock A functon that receives a datum and returns true if it meets the filtering criteria
-     * @returns {Array}
-     */
-    cwrc['select'] = function (data, filterBlock) {
-        var result = [];
-
-        for (var i = 0; i < data.length; i++) {
-            if (filterBlock(data[i]))
-                result.push(data[i]);
-        }
-
-        return result;
-    };
-
 
     cwrc.isLoading = ko.observable();
 

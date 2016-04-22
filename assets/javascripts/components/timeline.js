@@ -21,7 +21,7 @@ ko.components.register('timeline', {
 
         self.unplottableCount = ko.pureComputed(function () {
             // can't use self.records here, because records is filtered.
-            return CWRC.rawData().length - CWRC.select(CWRC.rawData(), function (item) {
+            return CWRC.rawData().length - CWRC.rawData().filter(function (item) {
                     return item.startDate;
                 }).length;
         });
@@ -31,7 +31,7 @@ ko.components.register('timeline', {
             var records, timeDiff;
 
             // fetch only the data that have non-null start dates, sort by start date.
-            records = CWRC.select(CWRC.filteredData(), function (item) {
+            records = CWRC.filteredData().filter(function (item) {
                 return item.startDate;
             }).sort(function (a, b) {
                 timeDiff = CWRC.toStamp(a) - CWRC.toStamp(b);
