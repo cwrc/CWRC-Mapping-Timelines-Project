@@ -73,7 +73,7 @@ timeline #timeline-viewport > div.canvas .event {
 
    width: 2em;
 
-   border: 1px solid black;
+   border:2px groove darkgrey;
    border-top: none;
    border-right: none;
 
@@ -115,8 +115,7 @@ timeline #timeline-viewport > div.canvas .event a:hover {
 }
 
 timeline #timeline-viewport > div.canvas .period {
-   border-right-style: solid;
-   border-right-width: 1px;
+   border-right-style: groove;
 }
 
 timeline #timeline-viewport > div.canvas .selected {
