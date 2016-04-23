@@ -120,7 +120,7 @@
 
 <main>
    <expander params="expandedText: 'Hide Timeline', collapsedText: 'Show Timeline'">
-      <timeline params="startDate: '1967'"></timeline>
+      <timeline params="startDate: '1957'"></timeline>
    </expander>
 
    <spotlight></spotlight>
@@ -266,18 +266,20 @@
                                                         '-ms-transform': $parent.canvas.zoomTransform,
                                                         '-webkit-transform': $parent.canvas.zoomTransform
                   -->
-                  <div class="event" data-bind="css: { selected: $data.isSelected() },
+                  <div class="event" data-bind="css: { selected: $data.isSelected(),
+                                                       period: $data.data.endDate
+                                                     },
                                                 style: {
                                                          left: $data.xPos,
                                                          height: $data.height,
-                                                         color: $data.data.endDate ? 'red' : 'black',
+                                                         width: $data.pxDuration,
                                                          zIndex: $data.layer()
                                                        },
                                                 attr: {id: 'token-' + $data.id}">
                      <a href="#" data-bind="event: {mouseup: $parents[1].recordMouseUp,
                                                     mousedown: $parents[1].recordMouseDown,
-                                                    mouseover: function(){$data.isHovered(true)},
-                                                    mouseout:  function(){$data.isHovered(false)}
+                                                    mouseover: function(){ $data.isHovered(true) },
+                                                    mouseout:  function(){ $data.isHovered(false) }
                                                     }">
                         <span data-bind="html: $data.data.label"></span>
                      </a>

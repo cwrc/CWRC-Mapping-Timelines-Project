@@ -77,7 +77,7 @@ timeline #timeline-viewport > div.canvas .event {
    border-top: none;
    border-right: none;
 
-   border-radius: 0 0 0 0.5em;
+   border-radius: 0 0 0.5em 0.5em;
 }
 
 timeline #timeline-viewport > div.canvas .event a {
@@ -99,6 +99,7 @@ timeline #timeline-viewport > div.canvas .event a {
    padding: 0.25em 0.5em 0.25em 0;
    box-sizing: border-box;
 
+   color: black;
    text-decoration: none;
    white-space: nowrap;
 
@@ -111,6 +112,11 @@ timeline #timeline-viewport > div.canvas .event a:hover {
    z-index: 10;
 
    background: #d7d6cf;
+}
+
+timeline #timeline-viewport > div.canvas .period {
+   border-right-style: solid;
+   border-right-width: 1px;
 }
 
 timeline #timeline-viewport > div.canvas .selected {

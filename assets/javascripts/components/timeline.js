@@ -83,7 +83,7 @@ ko.components.register('timeline', {
                 // TODO: replace this with actual sizing for points
                 duration = Math.max(Math.abs(endStamp - startStamp), self.canvas.pixelsToStamp(CWRC.toMillisec('year') * self.canvas.pixelsPerMs()));
 
-                tokens.push(new CWRC.Timeline.Token({
+                tokens.push(new CWRC.Timeline.Token(self.canvas, {
                     xPos: self.canvas.stampToPixels(startStamp - self.canvas.earliestStamp()),
                     row: rowIndex,
                     width: self.canvas.stampToPixels(duration),
@@ -217,7 +217,7 @@ CWRC.Timeline.SELECTED_LAYER = 10;
 CWRC.Timeline.__tokenId = 1;
 
 (function Token() {
-    CWRC.Timeline.Token = function (params) {
+    CWRC.Timeline.Token = function (canvas, params) {
         var self = this;
 
         this.id = CWRC.Timeline.__tokenId++;
@@ -225,10 +225,14 @@ CWRC.Timeline.__tokenId = 1;
         this.xPos = params.xPos;
         this.row = params.row;
 
-        this.width = params.width;
+        this.width = params.width; // in px
         this.height = (this.row + 1) * CWRC.Timeline.LABEL_HEIGHT + 'px';
 
         this.data = params.data;
+
+        // in px... which is grossish
+        var pointWidth = 20; //px
+        this.pxDuration = (this.data.endDate ? canvas.stampToPixels(CWRC.toStamp(this.data.endDate) - CWRC.toStamp(this.data.startDate)) : pointWidth) + 'px';
 
         this.isSelected = ko.pureComputed(function () {
             return self.data == CWRC.selected();
