@@ -153,11 +153,16 @@ Records with multiple time points have all markers "linked", so that selecting o
 
 **Parameters**
  * `startDate` A date string (eg. `"Jan 1 2016"`) that will be the starting focus of the timeline.
+ * `zoomStep` A decimal number greater than `1.0` (eg. `1.1` or `3.0`) that is the factor for each step of zooming. (ie. how much it zooms each step) 
+
 
 **Examples**
 ```html
 <!-- Using the defaults --> 
 <timeline></timeline>
+
+<!-- Setting the initial focus and zoom step --> 
+<timeline params="startDate: 'May 11 1988', zoomStep: 1.1"></timeline>
 ```
 
 ### `<grid>`
@@ -296,7 +301,7 @@ Useful when you cannot have the content be reparented (like in map)
 
 ```html
 <!-- Controlling the area of a map using the map's internal 'canvasHeight' observable --> 
-<map id="map_canvas"></timeline>
+<map id="map_canvas"></map>
 <resizer params="resizerObservable: canvasHeight, resizedId: 'map_canvas'"></resizer>
 ```
 
