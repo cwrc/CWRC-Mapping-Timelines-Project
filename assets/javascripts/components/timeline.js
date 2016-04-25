@@ -147,6 +147,9 @@ ko.components.register('timeline', {
         self.dragStart = function (element, mouseEvent) {
             var x, y;
 
+            if (mouseEvent.buttons != 1)
+                return;
+
             if (mouseEvent.touches && mouseEvent.touches.length >= 2) {
                 self.pinching = true;
             } else {
