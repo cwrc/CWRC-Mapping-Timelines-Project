@@ -10,7 +10,7 @@ ko.components.register('map', {
      *
      * Records that have multiple locations have all pins "linked", so that selecting one will highlight all.
      *
-     * @param zoom: Zoom level as an integer number. Default: 4
+     * @param zoom: Initial zoom level as an integer number. Default: 4
      * @param center: LatLng coordinates as a string. Default: '53.5267891,-113.5270909' (University of Alberta)
      * @param colorKey: The data label to group by colour
      * @param colors: The mapping between values and their color. Keys are case-sensitive.

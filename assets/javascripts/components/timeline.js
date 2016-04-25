@@ -6,8 +6,11 @@ ko.components.register('timeline', {
      *
      * Records with multiple locations have all markers "linked", so that selecting one will highlight all.
      *
-     * For developers:
-     * This widget is split into multiple parts, each with these responsiblities
+     * @param startDate: The initial date to focus on.
+     * @param zoomStep: Decimal number if the zooming factor to apply at at zoom step. eg. 1.5 will zoom in by 50% each step.
+     *
+     * *** For developers ***
+     * This widget is split into multiple parts, each with these responsibilities
      * 1. The base viewModel - handles raw input and coordinates it between the other parts
      * 2. Token    - Data model for an individual event
      * 3. Canvas   - Conceptually the full dataset
@@ -89,7 +92,7 @@ ko.components.register('timeline', {
             return tokens;
         });
 
-        self.viewport = new CWRC.Timeline.Viewport(self.canvas, params['startDate']);
+        self.viewport = new CWRC.Timeline.Viewport(self.canvas, params['startDate'], params['zoomStep'] || CWRC.Timeline.DEFAULT_SCALE_STEP);
         self.ruler = new CWRC.Timeline.Ruler(self.viewport);
 
         // TODO: move this somewhere?
@@ -205,16 +208,16 @@ ko.components.register('timeline', {
 
 CWRC.Timeline = CWRC.Timeline || {};
 
+CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
 CWRC.Timeline.LABEL_HEIGHT = 24;//px   //or 1.5; //em
-CWRC.Timeline.SELECTED_LAYER = 10;
 
-CWRC.Timeline.__tokenId = 1;
+CWRC.Timeline.__tokenId__ = 1;
 
 (function Token() {
     CWRC.Timeline.Token = function (canvas, record, row) {
         var self = this;
 
-        this.id = CWRC.Timeline.__tokenId++;
+        this.id = CWRC.Timeline.__tokenId__++;
 
         this.data = record;
 
@@ -462,12 +465,12 @@ CWRC.Timeline.__tokenId = 1;
 })();
 
 (function Viewport() {
-    CWRC.Timeline.Viewport = function (canvas, startDate) {
+    CWRC.Timeline.Viewport = function (canvas, startDate, scaleStep) {
         var self = this;
 
         this.canvas = canvas;
 
-        this.scaleStep = 1.1;
+        this.scaleStep = scaleStep;
 
         // Bounds are stored as time stamps on X axis, number of rows as Y axis. Both are doubles to be
         // rounded only once when converted to pixels
