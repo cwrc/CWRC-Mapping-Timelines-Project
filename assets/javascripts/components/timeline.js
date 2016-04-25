@@ -216,38 +216,32 @@ CWRC.Timeline.__tokenId = 1;
         this.data = record;
         this.canvas = canvas;
 
-        this.startStamp = function () {
-            return CWRC.toStamp(self.data.startDate);
-        };
-
-        this.endStamp = function () {
-            return CWRC.toStamp(self.data.endDate || self.data.startDate);
-        };
-
-        this.duration = function () {
-            return Math.max(Math.abs(this.endStamp() - this.startStamp()), self.canvas.pixelsToStamp(CWRC.toMillisec('year') * self.canvas.pixelsPerMs()));
-        };
-
-        this.xPos = self.canvas.stampToPixels(CWRC.toStamp(self.data.startDate) - self.canvas.earliestStamp());
         this.row = row;
 
-        this.width = self.canvas.stampToPixels(this.duration()); // in px
+        this.xPos = self.canvas.stampToPixels(this.startStamp() - self.canvas.earliestStamp());
+        this.width = (this.canvas.stampToPixels(this.duration()) || '') + 'px';
         this.height = (this.row + 1) * CWRC.Timeline.LABEL_HEIGHT + 'px';
 
-        // in px... which is grossish // TODO: remove this?
-        var pointWidth = 20; //px
-        this.pxDuration = (this.data.endDate ? this.canvas.stampToPixels(CWRC.toStamp(this.data.endDate) - CWRC.toStamp(this.data.startDate)) : pointWidth) + 'px';
-
-
+        this.isHovered = ko.observable(false);
         this.isSelected = ko.pureComputed(function () {
             return self.data == CWRC.selected();
         });
+    };
 
-        this.isHovered = ko.observable(false);
+    CWRC.Timeline.Token.prototype.duration = function () {
+        return Math.abs(this.endStamp() - this.startStamp());
+    };
 
-        this.layer = function () {
-            return this.isSelected() || this.isHovered() ? CWRC.Timeline.SELECTED_LAYER : -this.row;
-        };
+    CWRC.Timeline.Token.prototype.startStamp = function () {
+        return CWRC.toStamp(this.data.startDate);
+    };
+
+    CWRC.Timeline.Token.prototype.endStamp = function () {
+        return CWRC.toStamp(this.data.endDate || this.data.startDate);
+    };
+
+    CWRC.Timeline.Token.prototype.layer = function () {
+        return this.isSelected() || this.isHovered() ? null : -this.row;
     };
 })();
 
