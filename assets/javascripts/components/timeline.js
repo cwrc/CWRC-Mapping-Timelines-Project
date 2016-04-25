@@ -49,7 +49,7 @@ ko.components.register('timeline', {
 
         // TODO: merge into class
         self.canvas.timelineTokens = ko.computed(function () {
-            var startStamp, endStamp, duration, tokens, unplacedRecords, cutoff, rowIndex;
+            var tokens, token, unplacedRecords, cutoff, rowIndex;
 
             unplacedRecords = self.records().filter(function () {
                 return true;
@@ -76,21 +76,12 @@ ko.components.register('timeline', {
 
                 record = unplacedRecords.splice(recordIndex, 1)[0];
 
-                startStamp = CWRC.toStamp(record.startDate);
-                endStamp = CWRC.toStamp(record.endDate) || startStamp;
+                token = new CWRC.Timeline.Token(self.canvas, record, rowIndex);
 
-                // duration can be artificially set to label size to ensure there's enough room for a label
-                // TODO: replace this with actual sizing for points
-                duration = Math.max(Math.abs(endStamp - startStamp), self.canvas.pixelsToStamp(CWRC.toMillisec('year') * self.canvas.pixelsPerMs()));
+                tokens.push(token);
 
-                tokens.push(new CWRC.Timeline.Token(self.canvas, {
-                    xPos: self.canvas.stampToPixels(startStamp - self.canvas.earliestStamp()),
-                    row: rowIndex,
-                    width: self.canvas.stampToPixels(duration),
-                    data: record
-                }));
-
-                cutoff = startStamp + duration;
+                // duration is artificially inflated in case of points to make room for a label.
+                cutoff = token.startStamp() + (token.duration() || CWRC.toMillisec('year') / 2);
             }
 
             self.canvas.rowCount(rowIndex + 10);
@@ -217,22 +208,36 @@ CWRC.Timeline.SELECTED_LAYER = 10;
 CWRC.Timeline.__tokenId = 1;
 
 (function Token() {
-    CWRC.Timeline.Token = function (canvas, params) {
+    CWRC.Timeline.Token = function (canvas, record, row) {
         var self = this;
 
         this.id = CWRC.Timeline.__tokenId++;
 
-        this.xPos = params.xPos;
-        this.row = params.row;
+        this.data = record;
+        this.canvas = canvas;
 
-        this.width = params.width; // in px
+        this.startStamp = function () {
+            return CWRC.toStamp(self.data.startDate);
+        };
+
+        this.endStamp = function () {
+            return CWRC.toStamp(self.data.endDate || self.data.startDate);
+        };
+
+        this.duration = function () {
+            return Math.max(Math.abs(this.endStamp() - this.startStamp()), self.canvas.pixelsToStamp(CWRC.toMillisec('year') * self.canvas.pixelsPerMs()));
+        };
+
+        this.xPos = self.canvas.stampToPixels(CWRC.toStamp(self.data.startDate) - self.canvas.earliestStamp());
+        this.row = row;
+
+        this.width = self.canvas.stampToPixels(this.duration()); // in px
         this.height = (this.row + 1) * CWRC.Timeline.LABEL_HEIGHT + 'px';
 
-        this.data = params.data;
-
-        // in px... which is grossish
+        // in px... which is grossish // TODO: remove this?
         var pointWidth = 20; //px
-        this.pxDuration = (this.data.endDate ? canvas.stampToPixels(CWRC.toStamp(this.data.endDate) - CWRC.toStamp(this.data.startDate)) : pointWidth) + 'px';
+        this.pxDuration = (this.data.endDate ? this.canvas.stampToPixels(CWRC.toStamp(this.data.endDate) - CWRC.toStamp(this.data.startDate)) : pointWidth) + 'px';
+
 
         this.isSelected = ko.pureComputed(function () {
             return self.data == CWRC.selected();
