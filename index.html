@@ -280,7 +280,10 @@
                                                     mousedown: $parents[1].recordMouseDown,
                                                     mouseover: function(){ $data.isHovered(true) },
                                                     mouseout:  function(){ $data.isHovered(false) }
-                                                    }">
+                                                    },
+                                            style: {
+                                                width: $data.width
+                                            }">
                         <span data-bind="html: $data.data.label"></span>
                      </a>
                   </div>

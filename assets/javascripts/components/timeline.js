@@ -217,12 +217,11 @@ CWRC.Timeline.__tokenId = 1;
         this.id = CWRC.Timeline.__tokenId++;
 
         this.data = record;
-        this.canvas = canvas;
 
         this.row = row;
 
-        this.xPos = self.canvas.stampToPixels(this.startStamp() - self.canvas.earliestStamp());
-        this.width = (this.canvas.stampToPixels(this.duration()) || '') + 'px';
+        this.xPos = canvas.stampToPixels(this.startStamp() - canvas.earliestStamp());
+        this.width = (canvas.stampToPixels(this.duration()) || '') + 'px';
         this.height = (this.row + 1) * CWRC.Timeline.LABEL_HEIGHT + 'px';
 
         this.isHovered = ko.observable(false);
