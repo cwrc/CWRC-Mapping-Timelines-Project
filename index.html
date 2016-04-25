@@ -125,18 +125,6 @@
 
    <spotlight></spotlight>
 
-   <style>
-      grid .grid-start,
-      grid .grid-end {
-         white-space: nowrap;
-      }
-
-      grid .grid-lat-lng {
-         max-width: 12em;
-
-         overflow: auto;
-      }
-   </style>
    <expander>
       <tab_pane>
          <map data-tab-label="Map View" params=" center: '38.479394673276445, -115.361328125',
@@ -147,6 +135,18 @@
                                                  markerWidth: 18,
                                                  markerHeight: 18">
          </map>
+         <style>
+            grid .grid-start,
+            grid .grid-end {
+               white-space: nowrap;
+            }
+
+            grid .grid-lat-lng {
+               max-width: 12em;
+
+               overflow: auto;
+            }
+         </style>
          <grid data-tab-label="Grid View" params="columns: {'Event': 'label',
                                                                 'Collection': 'group',
                                                                 'Location': 'location',

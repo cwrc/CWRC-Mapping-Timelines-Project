@@ -27,7 +27,7 @@ ko.components.register('tab_pane', {
             var switchableNodes;
 
             switchableNodes = componentInfo.templateNodes.filter(function (node) {
-                return node.nodeType == Node.ELEMENT_NODE;
+                return node.nodeType == Node.ELEMENT_NODE && !/^(script|style)$/i.test(node.nodeName);
             });
 
             return new TabsModel(params, switchableNodes)
