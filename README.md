@@ -177,7 +177,7 @@ Records with multiple time points have all markers "linked", so that selecting o
 
 **Parameters**
  * `startDate` A date string (eg. `"Jan 1 2016"`) that will be the starting focus of the timeline.
- * `zoomStep` A decimal number greater than `1.0` (eg. `1.1` or `3.0`) that is the factor for each step of zooming. (ie. how much it zooms each step) 
+ * `zoomStep` A decimal number greater than `1.0` (eg. `1.1` or `3.0`) that is the factor for each step of zooming. (ie. how much it zooms each step). Defaults to `1.25` 
 
 
 **Examples**

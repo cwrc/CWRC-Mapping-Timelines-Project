@@ -206,35 +206,25 @@ CWRC.Timeline.__tokenId__ = 1;
 
         this.viewport = viewport;
 
-        // can we make these simpler by removing the words?
+        self.units = ['second', 'minute', 'hour', 'day', 'month', 'year', 'decade', 'century', 'millennium'];
+
         this.unit = ko.pureComputed(function () {
             var msSpan = viewport.canvas.pixelsToStamp(self.getElement().offsetWidth);
 
-            if (msSpan < CWRC.toMillisec('minute'))
-                return 'seconds';
-            else if (msSpan < CWRC.toMillisec('hour'))
-                return 'minutes';
-            else if (msSpan < CWRC.toMillisec('day'))
-                return 'hours';
-            else if (msSpan < CWRC.toMillisec('month'))
-                return 'days';
-            else if (msSpan < CWRC.toMillisec('year'))
-                return 'months';
-            else if (msSpan < CWRC.toMillisec('decade'))
-                return 'years';
-            else if (msSpan < CWRC.toMillisec('century'))
-                return 'decades';
-            else if (msSpan < CWRC.toMillisec('year') * 1000)
-                return 'centuries';
-            else
-                return 'millennia';
+            return self.shiftUnit(self.units.find(function (unit) {
+                        return msSpan < CWRC.toMillisec(unit)
+                    }), - 1) ||
+                self.units[self.units.length - 1];
         });
+    };
 
-        this.increaseUnit = function (unit) {
-            var units = ['seconds', 'minutes', 'hours', 'days', 'months', 'years', 'decades', 'centuries', 'millennia'];
+    CWRC.Timeline.Ruler.prototype.shiftUnit = function (unit, step) {
+        var newUnitIndex = this.units.indexOf(unit) + step;
 
-            return units[units.indexOf(unit) + 1] || units[units.length - 1];
-        };
+        newUnitIndex = Math.max(newUnitIndex, 0);
+        newUnitIndex = Math.min(newUnitIndex, this.units.length - 1);
+
+        return this.units[newUnitIndex];
     };
 
     CWRC.Timeline.Ruler.prototype.step = function (unit) {
@@ -252,7 +242,7 @@ CWRC.Timeline.__tokenId__ = 1;
             else if (/months?/i.test(unit))
             // toLocalString options aren't supported in IE 9 & 10.
                 label = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][spanDate.getMonth()];
-            else if (/decades?|centuries|century|millenium|millenia/i.test(unit))
+            else if (/decades?|centur(ies|y)|millenni(um|a)/i.test(unit))
                 label = spanDate.getFullYear() + 's';
             else
                 label = spanDate.getFullYear();
@@ -277,13 +267,13 @@ CWRC.Timeline.__tokenId__ = 1;
 
         if (/days?/i.test(unit))
             date.setDate(date.getDate() + amount);
-        else if (/months/i.test(unit))
+        else if (/months?/i.test(unit))
             date.setMonth(date.getMonth() + amount);
-        else if (/years/i.test(unit))
+        else if (/years?/i.test(unit))
             date.setFullYear(date.getFullYear() + amount);
-        else if (/decades/i.test(unit))
+        else if (/decades?/i.test(unit))
             date.setFullYear(date.getFullYear() + amount * 10);
-        else if (/centuries/i.test(unit))
+        else if (/centur(ies|y)/i.test(unit))
             date.setFullYear(date.getFullYear() + amount * 100);
         else
             date.setFullYear(date.getFullYear() + amount * 1000);
@@ -299,11 +289,11 @@ CWRC.Timeline.__tokenId__ = 1;
                 return Math.floor(source.getFullYear() / granularity) * granularity
             };
 
-            if (/years/i.test(unit))
+            if (/years?/i.test(unit))
                 granularity = 1;
-            else if (/decades/i.test(unit))
+            else if (/decades?/i.test(unit))
                 granularity = 10;
-            else if (/centuries/i.test(unit))
+            else if (/centur(ies|y)/i.test(unit))
                 granularity = 100;
             else
                 granularity = 1000;
