@@ -54,9 +54,8 @@ var CWRC = (function (cwrc, undefined) {
                 if (loadedData.length >= dataSources.length) {
                     flattenedData = [].concat.apply([], loadedData);
 
-                    // Freezing all data to avoid any modifications by widgets, plus this is a read-only tool.
-                    flattenedData.forEach(function (item) {
-                        Object.freeze(item);
+                    flattenedData = flattenedData.map(function (rawRecord) {
+                        return new cwrc.DataRecord(rawRecord);
                     });
 
                     cwrc.rawData(flattenedData);
@@ -75,21 +74,56 @@ var CWRC = (function (cwrc, undefined) {
     });
 
     /**
-     * Accepts any of:
-     *   1. date string (eg. "January 1, 2015");
-     *   2. record; or
-     *   3. Date object;
-     * and converts it into a Unix Epoch timestamp.  If the given object is a record, it will convert the startDate.
-     *
-     * @param data
-     * @returns {number} timestamp
+     * Class that augments the raw JSON data with useful behaviours.
      */
-    cwrc['toStamp'] = function (data) {
-        if (data && data.startDate)     // records need coersion
-            data = data.startDate;
+    (function DataRecord() {
+        /**
+         * Builds a new DataRecord
+         * @param rawData
+         * @constructor
+         */
+        cwrc.DataRecord = function (rawData) {
+            // todo: turn these into parameters read from the file
+            // TODO: can we just share the same hash for all records? and pass it in?
+            this.__cwrcFieldData__ = {
+                timeStartField: 'startDate',
+                timeEndField: 'endDate'
+            };
 
-        return (new Date(data)).getTime();
-    };
+            // TODO: can we embed a separate data object instead?
+            for (var field in rawData) {
+                if (rawData.hasOwnProperty(field))
+                    this[field] = rawData[field];
+            }
+
+            // Freezing all source data avoids any accidental modifications by widgets.
+            Object.freeze(this);
+        };
+
+        cwrc.DataRecord.prototype.getStartDate = function () {
+            var date = this[this.__cwrcFieldData__.timeStartField];
+
+            return date ? new Date(date) : date;
+        };
+
+        cwrc.DataRecord.prototype.getEndDate = function () {
+            var date = this[this.__cwrcFieldData__.timeEndField];
+
+            return date ? new Date(date) : date;
+        };
+
+        cwrc.DataRecord.prototype.getStartStamp = function () {
+            var date = this.getStartDate();
+
+            return date ? date.getTime() : date;
+        };
+
+        cwrc.DataRecord.prototype.getEndStamp = function () {
+            var date = this.getEndDate();
+
+            return date ? date.getTime() : date;
+        };
+    })();
 
     cwrc.toMillisec = function (unit) {
         // unit to (avg) duration in seconds

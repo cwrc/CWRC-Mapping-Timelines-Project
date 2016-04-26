@@ -37,7 +37,7 @@ ko.components.register('timeline', {
             records = CWRC.filteredData().filter(function (item) {
                 return item.startDate;
             }).sort(function (a, b) {
-                timeDiff = CWRC.toStamp(a) - CWRC.toStamp(b);
+                timeDiff = a.getStartStamp() - b.getStartStamp();
 
                 if (timeDiff == 0 && a.label)
                     return a.label.localeCompare(b.label);
@@ -63,17 +63,17 @@ ko.components.register('timeline', {
             while (unplacedRecords.length > 0) {
                 var record, recordIndex, isPastCutoff;
 
-                isPastCutoff = cutoff > CWRC.toStamp(unplacedRecords[unplacedRecords.length - 1]);
+                isPastCutoff = cutoff > unplacedRecords[unplacedRecords.length - 1].getStartStamp();
 
                 if (typeof cutoff === 'undefined' || isPastCutoff) {
-                    cutoff = CWRC.toStamp(unplacedRecords[0]);
+                    cutoff = unplacedRecords[0].getStartStamp();
                     rowIndex++;
                 }
 
                 // this 'extra' function layer is to avoid touching a mutable var in a closure, which is apparently bad.
                 recordIndex = function (cutoff) {
                     return unplacedRecords.findIndex(function (record) {
-                        return CWRC.toStamp(record) >= cutoff;
+                        return record.getStartStamp() >= cutoff;
                     })
                 }(cutoff);
 
@@ -98,8 +98,8 @@ ko.components.register('timeline', {
         // TODO: move this somewhere?
         self.viewport.timelineTokens = ko.pureComputed(function () {
             return self.canvas.timelineTokens().filter(function (token) {
-                var startStamp = CWRC.toStamp(token.data.startDate);
-                var endStamp = token.data.endDate ? CWRC.toStamp(token.data.endDate) : startStamp + CWRC.toMillisec('year');
+                var startStamp = token.data.getStartStamp();
+                var endStamp = token.data.getEndStamp() || (startStamp + CWRC.toMillisec('year'));
 
                 return endStamp >= self.viewport.bounds.leftStamp() &&
                     startStamp <= self.viewport.bounds.rightStamp();
@@ -109,8 +109,7 @@ ko.components.register('timeline', {
         CWRC.selected.subscribe(function (selectedRecord) {
             var token, recordStamp;
 
-            // TODO: make startDate generic
-            recordStamp = CWRC.toStamp(selectedRecord.startDate);
+            recordStamp = selectedRecord.getStartStamp();
 
             token = self.canvas.timelineTokens().find(function (token) {
                 return token.data == selectedRecord;
@@ -238,11 +237,11 @@ CWRC.Timeline.__tokenId__ = 1;
     };
 
     CWRC.Timeline.Token.prototype.startStamp = function () {
-        return CWRC.toStamp(this.data.startDate);
+        return this.data.getStartStamp();
     };
 
     CWRC.Timeline.Token.prototype.endStamp = function () {
-        return CWRC.toStamp(this.data.endDate || this.data.startDate);
+        return this.data.getEndStamp() || this.data.getStartStamp();
     };
 
     CWRC.Timeline.Token.prototype.layer = function () {
@@ -513,7 +512,7 @@ CWRC.Timeline.__tokenId__ = 1;
         // Wrapped in a timeout to run after the actual canvas is initialized.
         setTimeout(function () {
             if (startDate)
-                self.panTo(CWRC.toStamp(startDate), 0)
+                self.panTo((new Date(startDate)).getTime(), 0)
         }, 100);
     };
 

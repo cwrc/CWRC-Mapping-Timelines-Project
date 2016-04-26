@@ -22,11 +22,11 @@ ko.components.register('date_filter', {
 
             // fetch only the data that have non-null start dates, sort by start date.
             records = CWRC.rawData().filter(function (item) { // TODO: <- filteredData in timeline; pretty much only diff
-                return item.startDate;
+                return item.getStartDate();
             }).sort(function (a, b) {
-                timeDiff = CWRC.toStamp(a) - CWRC.toStamp(b);
+                timeDiff = a.getStartStamp() - b.getStartStamp();
 
-                if (timeDiff == 0)
+                if (timeDiff == 0 && a.label)
                     return a.label.localeCompare(b.label); // break ties alphabetically for determinism
                 else
                     return timeDiff;
@@ -151,8 +151,8 @@ ko.components.register('date_filter', {
 
         self['filter'] = function (item) {
             if (item.startDate || item.endDate) {
-                var startStamp = CWRC.toStamp(item.startDate);
-                var endStamp = CWRC.toStamp(item.endDate);
+                var startStamp = item.getStartStamp();
+                var endStamp = item.getEndStamp();
 
                 return startStamp >= self.rangeMin() && startStamp <= self.rangeMax()
                     || endStamp >= self.rangeMin() && endStamp <= self.rangeMax()
