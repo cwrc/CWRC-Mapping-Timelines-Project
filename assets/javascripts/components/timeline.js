@@ -356,9 +356,9 @@ CWRC.Timeline.__tokenId__ = 1;
     CWRC.Timeline.Ruler.prototype.floorDate = function (date, unit) {
         var granularity, yearsBy;
 
-        if (/months/i.test(unit))
+        if (/months?/i.test(unit))
             date.setMonth(date.getMonth(), 1);
-        else {
+        else if(!/days?/i.test(unit)){
             yearsBy = function (granularity, source) {
                 return Math.floor(source.getFullYear() / granularity) * granularity
             };
