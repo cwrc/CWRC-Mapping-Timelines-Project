@@ -207,7 +207,7 @@ CWRC.Timeline.__tokenId__ = 1;
         this.viewport = viewport;
 
         // can we make these simpler by removing the words?
-        this.minorUnit = ko.pureComputed(function () {
+        this.unit = ko.pureComputed(function () {
             var msSpan = viewport.canvas.pixelsToStamp(self.getElement().offsetWidth);
 
             if (msSpan < CWRC.toMillisec('minute'))
@@ -230,26 +230,11 @@ CWRC.Timeline.__tokenId__ = 1;
                 return 'millennia';
         });
 
-        this.majorUnit = ko.pureComputed(function () {
-            var msSpan = viewport.canvas.pixelsToStamp(self.getElement().offsetWidth);
+        this.increaseUnit = function (unit) {
+            var units = ['seconds', 'minutes', 'hours', 'days', 'months', 'years', 'decades', 'centuries', 'millennia'];
 
-            if (msSpan < CWRC.toMillisec('minute'))
-                return 'minutes';
-            else if (msSpan < CWRC.toMillisec('hour'))
-                return 'hours';
-            else if (msSpan < CWRC.toMillisec('day'))
-                return 'days';
-            else if (msSpan < CWRC.toMillisec('month'))
-                return 'months';
-            else if (msSpan < CWRC.toMillisec('year'))
-                return 'years';
-            else if (msSpan < CWRC.toMillisec('decade'))
-                return 'decades';
-            else if (msSpan < CWRC.toMillisec('century'))
-                return 'centuries';
-            else
-                return 'millennia';
-        });
+            return units[units.indexOf(unit) + 1] || units[units.length - 1];
+        };
     };
 
     CWRC.Timeline.Ruler.prototype.step = function (unit) {
