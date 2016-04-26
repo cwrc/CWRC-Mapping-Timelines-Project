@@ -59,6 +59,8 @@ var CWRC = (function (cwrc, undefined) {
                     fieldData[field] = fieldData[field] || cwrc.DEFAULT_FIELD_NAMES[field];
 
             CWRC.Network.ajax('get', dataSource, null, (function (fieldData) {
+                // this 'extra' function wrapper to pass in fieldData locks in the value of fieldData within the ajax call.
+                // if it were missing, it could allow for non-deterministic bugs.
                 return function (result) {
                     loadedData.push(result.items);
 

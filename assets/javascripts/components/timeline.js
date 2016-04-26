@@ -51,7 +51,7 @@ ko.components.register('timeline', {
         self.canvas = new CWRC.Timeline.Canvas(self.records);
 
         // TODO: merge into class
-        self.canvas.timelineTokens = ko.computed(function () {
+        self.canvas.allTokens = ko.computed(function () {
             var tokens, token, unplacedRecords, cutoff, rowIndex;
 
             unplacedRecords = self.records().filter(function () {
@@ -97,7 +97,7 @@ ko.components.register('timeline', {
 
         // TODO: move this somewhere?
         self.viewport.timelineTokens = ko.pureComputed(function () {
-            return self.canvas.timelineTokens().filter(function (token) {
+            return self.canvas.allTokens().filter(function (token) {
                 var startStamp = token.data.getStartStamp();
                 var endStamp = token.data.getEndStamp() || (startStamp + CWRC.toMillisec('year'));
 
@@ -164,42 +164,46 @@ ko.components.register('timeline', {
 
         // Note: These are on window rather than the component so that dragging doesn't cut off when the
         // mouse leaves the widget. This is Google Maps behaviour adopted for consistency.
-        var dragHandler = function (mouseEvent) {
+        self.dragHandler = function (mouseEvent) {
             var deltaX, deltaY, mouseX, mouseY;
 
             if (!self.previousDragPosition)
                 return;
 
             // would've used simpler event.movementX and movementY, but Firefox doesn't support yet.
-            mouseX = mouseEvent.screenX || mouseEvent.touches[0].screenX;
-            mouseY = mouseEvent.screenY || mouseEvent.touches[0].screenY;
+
+            if (mouseEvent.touches && mouseEvent.touches.length > 0) {
+                mouseX = mouseEvent.touches[0].screenX;
+                mouseY = mouseEvent.touches[0].screenY;
+            } else {
+                mouseX = mouseEvent.screenX;
+                mouseY = mouseEvent.screenY;
+            }
 
             deltaX = mouseX - self.previousDragPosition.screenX;
             deltaY = mouseY - self.previousDragPosition.screenY;
 
             self.viewport.panPixels(deltaX, deltaY);
 
-            var x = mouseEvent.screenX || mouseEvent.touches[0].screenX;
-            var y = mouseEvent.screenY || mouseEvent.touches[0].screenY;
-            self.previousDragPosition = {screenX: x, screenY: y};
+            self.previousDragPosition = {screenX: mouseX, screenY: mouseY};
 
             self.clickingOnRecord = false;
         };
 
-        var stopDragHandler = function (mouseEvent) {
+        self.stopDragHandler = function (mouseEvent) {
             self.previousDragPosition = null;
         };
 
-        window.addEventListener('mouseup', stopDragHandler);
-        window.addEventListener('touchend', stopDragHandler);
+        window.addEventListener('mouseup', self.stopDragHandler);
+        window.addEventListener('touchend', self.stopDragHandler);
 
-        window.addEventListener('mousemove', dragHandler);
+        window.addEventListener('mousemove', self.dragHandler);
         window.addEventListener('touchmove', function (touchEvent) {
             if (touchEvent.touches.length > 1) {
                 alert('Zoom not yet supported on touch.');
                 //self.zoom(something)
             } else {
-                dragHandler(touchEvent);
+                self.dragHandler(touchEvent);
             }
         });
     }
@@ -358,7 +362,7 @@ CWRC.Timeline.__tokenId__ = 1;
 
         if (/months?/i.test(unit))
             date.setMonth(date.getMonth(), 1);
-        else if(!/days?/i.test(unit)){
+        else if (!/days?/i.test(unit)) {
             yearsBy = function (granularity, source) {
                 return Math.floor(source.getFullYear() / granularity) * granularity
             };
