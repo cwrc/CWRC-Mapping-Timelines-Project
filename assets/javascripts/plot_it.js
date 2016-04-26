@@ -36,8 +36,13 @@ var CWRC = (function (cwrc, undefined) {
 
     cwrc.isLoading = ko.observable();
 
+    cwrc.DEFAULT_FIELD_NAMES = {
+        timeStartField: 'startDate',
+        timeEndField: 'endDate'
+    };
+
     cwrc['loadData'] = function () {
-        var dataSources, dataSource, loadedData, flattenedData, finishLoading;
+        var dataSources, dataSource, loadedData, flattenedData, fieldData;
 
         dataSources = document.querySelectorAll('link[rel="cwrc/data"]');
         loadedData = [];
@@ -46,23 +51,30 @@ var CWRC = (function (cwrc, undefined) {
 
         for (var i = 0; i < dataSources.length; i++) {
             dataSource = dataSources[i].getAttribute('href');
+            eval('fieldData = {' + (dataSources[i].getAttribute('data-fields') || '') + '}');
 
-            CWRC.Network.ajax('get', dataSource, null, function (result) {
-                loadedData.push(result.items);
+            for (var field in cwrc.DEFAULT_FIELD_NAMES)
+                if (cwrc.DEFAULT_FIELD_NAMES.hasOwnProperty(field))
+                    fieldData[field] = fieldData[field] || cwrc.DEFAULT_FIELD_NAMES[field];
 
-                // if this is the last one, we can finish loading.
-                if (loadedData.length >= dataSources.length) {
-                    flattenedData = [].concat.apply([], loadedData);
+            CWRC.Network.ajax('get', dataSource, null, (function (fieldData) {
+                return function (result) {
+                    loadedData.push(result.items);
 
-                    flattenedData = flattenedData.map(function (rawRecord) {
-                        return new cwrc.DataRecord(rawRecord);
-                    });
+                    // if this is the last one, we can finish loading.
+                    if (loadedData.length >= dataSources.length) {
+                        flattenedData = [].concat.apply([], loadedData);
 
-                    cwrc.rawData(flattenedData);
+                        flattenedData = flattenedData.map(function (rawRecord) {
+                            return new cwrc.DataRecord(rawRecord, fieldData);
+                        });
 
-                    cwrc.isLoading(false);
+                        cwrc.rawData(flattenedData);
+
+                        cwrc.isLoading(false);
+                    }
                 }
-            });
+            })(fieldData));
         }
     };
 
@@ -82,13 +94,8 @@ var CWRC = (function (cwrc, undefined) {
          * @param rawData
          * @constructor
          */
-        cwrc.DataRecord = function (rawData) {
-            // todo: turn these into parameters read from the file
-            // TODO: can we just share the same hash for all records? and pass it in?
-            this.__cwrcFieldData__ = {
-                timeStartField: 'startDate',
-                timeEndField: 'endDate'
-            };
+        cwrc.DataRecord = function (rawData, fieldData) {
+            this.__cwrcFieldData__ = fieldData;
 
             // TODO: can we embed a separate data object instead?
             for (var field in rawData) {

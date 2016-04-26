@@ -11,6 +11,15 @@ PlotIt is designed for modern browsers, including Firefox, Chome, Internet Explo
 To install Plot-It, download it to a web server's application directory that supports PHP scripts. This release has been tested on the Apache server using a MySQL database. The Geonames database will also need to be set up, please see the `geonames` folder for documentation about that. Plot-It requires data in a specific JSON schema, please see the `transformers` folder for details about the schemas. Pre-processed datasets in the required schema are included with the code files. Plot-It also supports additional map overlays, please see the `assets/images/maps` folder for further details.
 
 ## Data 
+Datafiles are linked using `<link>` tags in the document `<head>` section with `rel="cwrc/data". 
+
+```html
+<!-- Example: linking to a file called multimedia.json , in the datasets directory on the server -->
+<head>
+   <link href="datasets/multimedia.json" type="application/json" rel="cwrc/data" />
+</head>
+```
+
 PlotIt expects JSON record data in an “items" list:
 
 ```javascript
@@ -35,7 +44,22 @@ Each record is a JSON object like the following:
 },
 ```
 
-Timeline & spotlight expect the fields above; if your dataset uses different field names, you must modify the references in the templates at the end of `index.html`.
+Timeline & spotlight expect the fields above; if your dataset uses different field names, you must modify the 
+references in the templates at the end of `index.html`. 
+
+In the case of date/time fields, field names can be customized by providing the `data-fields` attribute to the data link with a
+javascript object mapping from these canonical field names to your data's field names:
+ 
+   * `timeStart`
+   * `timeEnd` 
+
+```html
+<!-- Example: customizing the start and end fields to "startDate" and "endDate" -->
+<head>
+   <link href="datasets/multimedia.json" type="application/json" rel="cwrc/data" data-fields="timeStart: 'startDate', timeEnd: 'endDate'" />
+</head>
+```
+
 
 **Map Points, Paths, and Areas**
 
