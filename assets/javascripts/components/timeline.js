@@ -50,68 +50,15 @@ ko.components.register('timeline', {
 
         self.canvas = new CWRC.Timeline.Canvas(self.records);
 
-        // TODO: merge into class
-        self.canvas.allTokens = ko.computed(function () {
-            var tokens, token, unplacedRecords, cutoff, rowIndex;
-
-            unplacedRecords = self.records().filter(function () {
-                return true;
-            }); // slice to duplicate array, otherwise we would alter the cached value
-            tokens = [];
-            rowIndex = -1;
-
-            while (unplacedRecords.length > 0) {
-                var record, recordIndex, isPastCutoff;
-
-                isPastCutoff = cutoff > unplacedRecords[unplacedRecords.length - 1].getStartStamp();
-
-                if (typeof cutoff === 'undefined' || isPastCutoff) {
-                    cutoff = unplacedRecords[0].getStartStamp();
-                    rowIndex++;
-                }
-
-                // this 'extra' function layer is to avoid touching a mutable var in a closure, which is apparently bad.
-                recordIndex = function (cutoff) {
-                    return unplacedRecords.findIndex(function (record) {
-                        return record.getStartStamp() >= cutoff;
-                    })
-                }(cutoff);
-
-                record = unplacedRecords.splice(recordIndex, 1)[0];
-
-                token = new CWRC.Timeline.Token(self.canvas, record, rowIndex);
-
-                tokens.push(token);
-
-                // duration is artificially inflated in case of points to make room for a label.
-                cutoff = token.startStamp() + (token.duration() || CWRC.toMillisec('year') / 2);
-            }
-
-            self.canvas.rowCount(rowIndex + 10);
-
-            return tokens;
-        });
-
         self.viewport = new CWRC.Timeline.Viewport(self.canvas, params['startDate'], params['zoomStep'] || CWRC.Timeline.DEFAULT_SCALE_STEP);
         self.ruler = new CWRC.Timeline.Ruler(self.viewport);
-
-        // TODO: move this somewhere?
-        self.viewport.timelineTokens = ko.pureComputed(function () {
-            return self.canvas.allTokens().filter(function (token) {
-                var startStamp = token.data.getStartStamp();
-                var endStamp = token.data.getEndStamp() || (startStamp + CWRC.toMillisec('year'));
-
-                return endStamp >= self.viewport.bounds.leftStamp() &&
-                    startStamp <= self.viewport.bounds.rightStamp();
-            })
-        });
 
         CWRC.selected.subscribe(function (selectedRecord) {
             var token, recordStamp;
 
             recordStamp = selectedRecord.getStartStamp();
 
-            token = self.canvas.timelineTokens().find(function (token) {
+            token = self.canvas.allTokens().find(function (token) {
                 return token.data == selectedRecord;
             });
 
@@ -261,7 +208,7 @@ CWRC.Timeline.__tokenId__ = 1;
 
         // can we make these simpler by removing the words?
         this.minorUnit = ko.pureComputed(function () {
-            var msSpan = (self.getElement().offsetWidth / viewport.canvas.pixelsPerMs());
+            var msSpan = viewport.canvas.pixelsToStamp(self.getElement().offsetWidth);
 
             if (msSpan < CWRC.toMillisec('minute'))
                 return 'seconds';
@@ -284,7 +231,7 @@ CWRC.Timeline.__tokenId__ = 1;
         });
 
         this.majorUnit = ko.pureComputed(function () {
-            var msSpan = (self.getElement().offsetWidth / viewport.canvas.pixelsPerMs());
+            var msSpan = viewport.canvas.pixelsToStamp(self.getElement().offsetWidth);
 
             if (msSpan < CWRC.toMillisec('minute'))
                 return 'minutes';
@@ -327,7 +274,7 @@ CWRC.Timeline.__tokenId__ = 1;
 
             dates.push({
                 label: label,
-                position: (spanDate.getTime() - viewportBounds.leftStamp()) * this.viewport.canvas.pixelsPerMs() + 'px'
+                position: this.viewport.canvas.stampToPixels(spanDate.getTime() - viewportBounds.leftStamp()) + 'px'
             });
 
             this.advance(spanDate, unit);
@@ -391,9 +338,13 @@ CWRC.Timeline.__tokenId__ = 1;
     CWRC.Timeline.Canvas = function (recordsObservable) {
         var self = this;
 
-        this.pixelsPerMs = ko.observable(1 / CWRC.toMillisec('day'));
+        this.__pixelsPerMs = ko.observable(1 / CWRC.toMillisec('day'));
         this.rowHeight = ko.observable(CWRC.Timeline.LABEL_HEIGHT);
-        this.rowCount = ko.observable();
+        this.rowCount = ko.pureComputed(function () {
+            return Math.max.apply(null, self.allTokens().map(function (token) {
+                    return token.row;
+                })) + 5;
+        });
 
         //this.zoomTransform = ko.pureComputed(function () {
         //    var scale = 1.0;
@@ -444,6 +395,44 @@ CWRC.Timeline.__tokenId__ = 1;
             return new Date(self.latestStamp());
         });
 
+        this.allTokens = ko.pureComputed(function () {
+            var tokens, token, unplacedRecords, cutoff, rowIndex;
+
+            unplacedRecords = recordsObservable().filter(function () {
+                return true;
+            }); // slice to duplicate array, otherwise we would alter the cached value
+            tokens = [];
+            rowIndex = -1;
+
+            while (unplacedRecords.length > 0) {
+                var record, recordIndex, isPastCutoff;
+
+                isPastCutoff = cutoff > unplacedRecords[unplacedRecords.length - 1].getStartStamp();
+
+                if (typeof cutoff === 'undefined' || isPastCutoff) {
+                    cutoff = unplacedRecords[0].getStartStamp();
+                    rowIndex++;
+                }
+
+                // this 'extra' function layer is to avoid touching a mutable var in a closure, which is apparently bad.
+                recordIndex = function (cutoff) {
+                    return unplacedRecords.findIndex(function (record) {
+                        return record.getStartStamp() >= cutoff;
+                    })
+                }(cutoff);
+
+                record = unplacedRecords.splice(recordIndex, 1)[0];
+
+                token = new CWRC.Timeline.Token(self, record, rowIndex);
+
+                tokens.push(token);
+
+                // duration is artificially inflated in case of points to make room for a label.
+                cutoff = token.startStamp() + (token.duration() || CWRC.toMillisec('year') / 2);
+            }
+
+            return tokens;
+        });
     };
 
     CWRC.Timeline.Canvas.prototype.getElement = function () {
@@ -451,11 +440,11 @@ CWRC.Timeline.__tokenId__ = 1;
     };
 
     CWRC.Timeline.Canvas.prototype.stampToPixels = function (stamp) {
-        return stamp * this.pixelsPerMs();
+        return stamp * this.__pixelsPerMs();
     };
 
     CWRC.Timeline.Canvas.prototype.pixelsToStamp = function (px) {
-        return px / this.pixelsPerMs();
+        return px / this.__pixelsPerMs();
     };
 
     CWRC.Timeline.Canvas.prototype.rowToPixels = function (row) {
@@ -464,6 +453,10 @@ CWRC.Timeline.__tokenId__ = 1;
 
     CWRC.Timeline.Canvas.prototype.pixelsToRow = function (px) {
         return px / this.rowHeight();
+    };
+
+    CWRC.Timeline.Canvas.prototype.scaleBy = function (scaleFactor) {
+        this.__pixelsPerMs(this.__pixelsPerMs() * scaleFactor);
     }
 })();
 
@@ -518,6 +511,16 @@ CWRC.Timeline.__tokenId__ = 1;
             if (startDate)
                 self.panTo((new Date(startDate)).getTime(), 0)
         }, 100);
+
+        this.visibleTokens = ko.pureComputed(function () {
+            return self.canvas.allTokens().filter(function (token) {
+                var startStamp = token.data.getStartStamp();
+                var endStamp = token.data.getEndStamp() || (startStamp + CWRC.toMillisec('year'));
+
+                return endStamp >= self.bounds.leftStamp() &&
+                    startStamp <= self.bounds.rightStamp();
+            });
+        });
     };
 
     CWRC.Timeline.Viewport.prototype.getElement = function () {
@@ -539,7 +542,7 @@ CWRC.Timeline.__tokenId__ = 1;
 
         beforeZoomFocusStamp = this.bounds.leftStamp() + canvas.pixelsToStamp(viewFocusX);
 
-        canvas.pixelsPerMs(canvas.pixelsPerMs() * scaleFactor);
+        canvas.scaleBy(scaleFactor);
 
         afterZoomFocusStamp = this.bounds.leftStamp() + canvas.pixelsToStamp(viewFocusX);
 
