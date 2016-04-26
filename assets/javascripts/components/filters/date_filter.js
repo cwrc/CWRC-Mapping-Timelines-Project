@@ -26,8 +26,8 @@ ko.components.register('date_filter', {
             }).sort(function (a, b) {
                 timeDiff = a.getStartStamp() - b.getStartStamp();
 
-                if (timeDiff == 0 && a.label)
-                    return a.label.localeCompare(b.label); // break ties alphabetically for determinism
+                if (timeDiff == 0)
+                    return a.getLabel().localeCompare(b.getLabel()); // break ties alphabetically for determinism
                 else
                     return timeDiff;
             });

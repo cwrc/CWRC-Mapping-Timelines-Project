@@ -39,8 +39,8 @@ ko.components.register('timeline', {
             }).sort(function (a, b) {
                 timeDiff = a.getStartStamp() - b.getStartStamp();
 
-                if (timeDiff == 0 && a.label)
-                    return a.label.localeCompare(b.label);
+                if (timeDiff == 0)
+                    return a.getLabel().localeCompare(b.getLabel());
                 else
                     return timeDiff;
             });

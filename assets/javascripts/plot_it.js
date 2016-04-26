@@ -38,7 +38,8 @@ var CWRC = (function (cwrc, undefined) {
 
     cwrc.DEFAULT_FIELD_NAMES = {
         timeStartField: 'startDate',
-        timeEndField: 'endDate'
+        timeEndField: 'endDate',
+        labelField: 'label'
     };
 
     cwrc['loadData'] = function () {
@@ -130,6 +131,10 @@ var CWRC = (function (cwrc, undefined) {
 
             return date ? date.getTime() : date;
         };
+
+        cwrc.DataRecord.prototype.getLabel = function () {
+            return this[this.__cwrcFieldData__.labelField] || '';
+        }
     })();
 
     cwrc.toMillisec = function (unit) {
