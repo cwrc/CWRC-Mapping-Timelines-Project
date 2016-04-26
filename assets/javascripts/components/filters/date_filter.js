@@ -38,14 +38,14 @@ ko.components.register('date_filter', {
         self.earliestDate = ko.pureComputed(function () {
             var firstRecord = self.timedRecords()[0];
 
-            return firstRecord ? new Date(firstRecord.startDate) : new Date();
+            return firstRecord ? firstRecord.getStartDate() : new Date();
         });
 
         self.latestDate = ko.pureComputed(function () {
             var sortedRecords = self.timedRecords();
             var lastRecord = sortedRecords[sortedRecords.length - 1];
 
-            return lastRecord ? new Date(lastRecord.endDate || lastRecord.startDate) : new Date();
+            return lastRecord ? (lastRecord.getEndDate() || lastRecord.getStartDate()) : new Date();
         });
 
         // TODO: add extender to auto convert to int? would remove the parseInt calls
@@ -150,7 +150,7 @@ ko.components.register('date_filter', {
         });
 
         self['filter'] = function (item) {
-            if (item.startDate || item.endDate) {
+            if (item.getStartDate() || item.getEndDate()) {
                 var startStamp = item.getStartStamp();
                 var endStamp = item.getEndStamp();
 

@@ -260,31 +260,31 @@
                                                         width: $parent.canvas.bounds.width(),
                                                         height: $parent.canvas.bounds.height()
                                                       },
-                                              foreach: $parent.viewport.timelineTokens">
+                                              foreach: {data: $parent.viewport.timelineTokens, as: 'token'} ">
                   <!--
                   transform: $parent.canvas.zoomTransform,
                                                         '-ms-transform': $parent.canvas.zoomTransform,
                                                         '-webkit-transform': $parent.canvas.zoomTransform
                   -->
-                  <div class="event" data-bind="css: { selected: $data.isSelected(),
-                                                       period: $data.data.endDate
+                  <div class="event" data-bind="css: { selected: token.isSelected(),
+                                                       period: token.data.endDate
                                                      },
                                                 style: {
-                                                         left: $data.xPos,
-                                                         height: $data.height,
-                                                         width: $data.width,
-                                                         zIndex: $data.layer()
+                                                         left: token.xPos,
+                                                         height: token.height,
+                                                         width: token.width,
+                                                         zIndex: token.layer()
                                                        },
-                                                attr: {id: 'token-' + $data.id}">
+                                                attr: {id: 'token-' + token.id}">
                      <a href="#" data-bind="event: {mouseup: $parents[1].recordMouseUp,
                                                     mousedown: $parents[1].recordMouseDown,
-                                                    mouseover: function(){ $data.isHovered(true) },
-                                                    mouseout:  function(){ $data.isHovered(false) }
+                                                    mouseover: function(){ token.isHovered(true) },
+                                                    mouseout:  function(){ token.isHovered(false) }
                                                     },
                                             style: {
-                                                width: $data.width
+                                                width: token.width
                                             }">
-                        <span data-bind="html: $data.data.label"></span>
+                        <span data-bind="html: token.data.label"></span>
                      </a>
                   </div>
                </div>
