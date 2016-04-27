@@ -121,7 +121,7 @@
 
 <main>
    <expander params="expandedText: 'Hide Timeline', collapsedText: 'Show Timeline'">
-      <timeline params="startDate: '1957'"></timeline>
+      <timeline params="startDate: '1950'"></timeline>
    </expander>
 
    <spotlight></spotlight>
@@ -272,9 +272,10 @@
                                                      },
                                                 style: {
                                                          left: token.xPos,
-                                                         height: token.height,
-                                                         width: token.width,
-                                                         zIndex: token.layer()
+                                                         height: token.height() + 'px',
+                                                         width: token.width() + 'px',
+                                                         zIndex: token.layer(),
+                                                         maxWidth: token.maxWidth()
                                                        },
                                                 attr: {id: 'token-' + token.id}">
                      <a href="#" data-bind="event: {mouseup: $parents[1].recordMouseUp,

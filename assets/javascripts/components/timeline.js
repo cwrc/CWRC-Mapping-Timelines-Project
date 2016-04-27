@@ -48,22 +48,30 @@ ko.components.register('timeline', {
             return records;
         });
 
-        self.canvas = new CWRC.Timeline.Canvas(self.records);
+        self.canvas = new CWRC.Timeline.Canvas();
 
         self.viewport = new CWRC.Timeline.Viewport(self.canvas, params['startDate'], params['zoomStep'] || CWRC.Timeline.DEFAULT_SCALE_STEP);
         self.ruler = new CWRC.Timeline.Ruler(self.viewport);
+
+        self.allTokens = ko.pureComputed(function () {
+            return self.records().map(function (record) {
+                return new CWRC.Timeline.Token(record, self.canvas, self.viewport);
+            });
+        });
+
+        self.canvas.tokens(self.allTokens());
 
         CWRC.selected.subscribe(function (selectedRecord) {
             var token, recordStamp;
 
             recordStamp = selectedRecord.getStartStamp();
 
-            token = self.canvas.allTokens().find(function (token) {
+            token = self.allTokens().find(function (token) {
                 return token.data == selectedRecord;
             });
 
-            if (!self.viewport.bounds.contains(recordStamp, token.row))
-                self.viewport.panTo(recordStamp, token.row);
+            if (!self.viewport.bounds.contains(recordStamp, token.row()))
+                self.viewport.panTo(recordStamp, token.row());
         });
 
         self.scrollHandler = function (viewModel, scrollEvent) {
@@ -164,18 +172,56 @@ CWRC.Timeline.LABEL_HEIGHT = 24;//px   //or 1.5; //em
 CWRC.Timeline.__tokenId__ = 1;
 
 (function Token() {
-    CWRC.Timeline.Token = function (canvas, record, row) {
+    CWRC.Timeline.Token = function (record, canvas, viewport) {
         var self = this;
 
         this.id = CWRC.Timeline.__tokenId__++;
 
         this.data = record;
 
-        this.row = row;
+        this.xPos = ko.pureComputed(function () {
+            return canvas.stampToPixels(self.startStamp() - canvas.earliestStamp());
+        });
+        this.width = ko.pureComputed(function () {
+            return canvas.stampToPixels(self.duration()) || '';
+        });
+        this.maxWidth = ko.pureComputed(function () {
+            return canvas.stampToPixels(self.duration() || (CWRC.toMillisec('year') / 2));
+        });
+        this.height = ko.pureComputed(function () {
+            return (self.row() + 1) * CWRC.Timeline.LABEL_HEIGHT;
+        });
 
-        this.xPos = canvas.stampToPixels(this.startStamp() - canvas.earliestStamp());
-        this.width = (canvas.stampToPixels(this.duration()) || '') + 'px';
-        this.height = (this.row + 1) * CWRC.Timeline.LABEL_HEIGHT + 'px';
+        this.row = ko.computed(function () {
+            var intersectors, durationDiff, startDiff;
+
+            // intersectors array will always at least include 'this'
+            intersectors = canvas.tokens().filter(function (otherToken) {
+                return self.sharesHorizontal(otherToken);
+            });
+
+            // sort by duration, then by start time, then by label to get consistent row order
+            intersectors.sort(function (a, b) {
+                durationDiff = b.duration() - a.duration();
+                startDiff = a.data.getStartStamp() - b.data.getStartStamp();
+
+                return durationDiff || startDiff || a.id - b.id;
+            });
+
+            var takenRows = intersectors.map(function (token) {
+                return token === self ? -1 : token.row();
+            });
+
+            var maxRow = Math.max.apply(null, takenRows);
+            var row;
+
+            for (row = 0; row <= maxRow; row++) {
+                if (takenRows.indexOf(row) < 0)
+                    break;
+            }
+
+            return row;
+        });
 
         this.isHovered = ko.observable(false);
         this.isSelected = ko.pureComputed(function () {
@@ -195,8 +241,15 @@ CWRC.Timeline.__tokenId__ = 1;
         return this.data.getEndStamp() || this.data.getStartStamp();
     };
 
+    CWRC.Timeline.Token.prototype.sharesHorizontal = function (other) {
+        var thisRight = this.xPos() + (this.width() || this.maxWidth());
+        var otherRight = other.xPos() + (other.width() || other.maxWidth());
+
+        return ((this.xPos() >= other.xPos() && this.xPos() <= otherRight) || (thisRight >= other.xPos() && thisRight <= otherRight));
+    };
+
     CWRC.Timeline.Token.prototype.layer = function () {
-        return this.isSelected() || this.isHovered() ? null : -this.row;
+        return this.isSelected() || this.isHovered() ? null : -this.row();
     };
 })();
 
@@ -212,8 +265,8 @@ CWRC.Timeline.__tokenId__ = 1;
             var msSpan = viewport.canvas.pixelsToStamp(self.getElement().offsetWidth);
 
             return self.shiftUnit(self.units.find(function (unit) {
-                        return msSpan < CWRC.toMillisec(unit)
-                    }), - 1) ||
+                    return msSpan < CWRC.toMillisec(unit)
+                }), -1) ||
                 self.units[self.units.length - 1];
         });
     };
@@ -310,16 +363,18 @@ CWRC.Timeline.__tokenId__ = 1;
 
 
 (function Canvas() {
-    CWRC.Timeline.Canvas = function (recordsObservable) {
+    CWRC.Timeline.Canvas = function () {
         var self = this;
 
         this.__pixelsPerMs = ko.observable(1 / CWRC.toMillisec('day'));
         this.rowHeight = ko.observable(CWRC.Timeline.LABEL_HEIGHT);
         this.rowCount = ko.pureComputed(function () {
-            return Math.max.apply(null, self.allTokens().map(function (token) {
-                    return token.row;
+            return Math.max.apply(null, self.tokens().map(function (token) {
+                    return token.row();
                 })) + 5;
         });
+
+        this.tokens = ko.observableArray();
 
         //this.zoomTransform = ko.pureComputed(function () {
         //    var scale = 1.0;
@@ -348,18 +403,19 @@ CWRC.Timeline.__tokenId__ = 1;
         };
 
         this.earliestStamp = ko.pureComputed(function () {
-            var firstRecord = recordsObservable()[0];
+            var options = [(new Date()).getTime()].concat(self.tokens().map(function (token) {
+                return token.data.getStartStamp()
+            }));
 
-            return firstRecord ? firstRecord.getStartStamp() : (new Date()).getTime();
+            return Math.min.apply(null, options);
         });
 
         this.latestStamp = ko.pureComputed(function () {
-            var records, lastRecord;
+            var options = [(new Date()).getTime()].concat(self.tokens().map(function (token) {
+                return token.data.getEndStamp() || token.data.getStartStamp()
+            }));
 
-            records = recordsObservable();
-            lastRecord = records[records.length - 1];
-
-            return lastRecord ? (lastRecord.getEndStamp() || lastRecord.getStartStamp()) : (new Date()).getTime();
+            return Math.max.apply(null, options);
         });
 
         this.earliestDate = ko.pureComputed(function () {
@@ -368,45 +424,6 @@ CWRC.Timeline.__tokenId__ = 1;
 
         this.latestDate = ko.pureComputed(function () {
             return new Date(self.latestStamp());
-        });
-
-        this.allTokens = ko.pureComputed(function () {
-            var tokens, token, unplacedRecords, cutoff, rowIndex;
-
-            unplacedRecords = recordsObservable().filter(function () {
-                return true;
-            }); // slice to duplicate array, otherwise we would alter the cached value
-            tokens = [];
-            rowIndex = -1;
-
-            while (unplacedRecords.length > 0) {
-                var record, recordIndex, isPastCutoff;
-
-                isPastCutoff = cutoff > unplacedRecords[unplacedRecords.length - 1].getStartStamp();
-
-                if (typeof cutoff === 'undefined' || isPastCutoff) {
-                    cutoff = unplacedRecords[0].getStartStamp();
-                    rowIndex++;
-                }
-
-                // this 'extra' function layer is to avoid touching a mutable var in a closure, which is apparently bad.
-                recordIndex = function (cutoff) {
-                    return unplacedRecords.findIndex(function (record) {
-                        return record.getStartStamp() >= cutoff;
-                    })
-                }(cutoff);
-
-                record = unplacedRecords.splice(recordIndex, 1)[0];
-
-                token = new CWRC.Timeline.Token(self, record, rowIndex);
-
-                tokens.push(token);
-
-                // duration is artificially inflated in case of points to make room for a label.
-                cutoff = token.startStamp() + (token.duration() || CWRC.toMillisec('year') / 2);
-            }
-
-            return tokens;
         });
     };
 
@@ -488,7 +505,7 @@ CWRC.Timeline.__tokenId__ = 1;
         }, 100);
 
         this.visibleTokens = ko.pureComputed(function () {
-            return self.canvas.allTokens().filter(function (token) {
+            return self.canvas.tokens().filter(function (token) {
                 var startStamp = token.data.getStartStamp();
                 var endStamp = token.data.getEndStamp() || (startStamp + CWRC.toMillisec('year'));
 
