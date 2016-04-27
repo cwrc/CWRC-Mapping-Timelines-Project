@@ -48,12 +48,12 @@ ko.components.register('timeline', {
             return records;
         });
 
-        self.canvas = new CWRC.Timeline.Canvas();
+        self.canvas = new CWRC.Timeline.Canvas(self.records());
 
         self.viewport = new CWRC.Timeline.Viewport(self.canvas, params['startDate'], params['zoomStep'] || CWRC.Timeline.DEFAULT_SCALE_STEP);
         self.ruler = new CWRC.Timeline.Ruler(self.viewport);
 
-        self.allTokens = ko.pureComputed(function () {
+        self.allTokens = ko.pureComputed(function () { // TODO: move this into canvas again
             return self.records().map(function (record) {
                 return new CWRC.Timeline.Token(record, self.canvas, self.viewport);
             });
@@ -186,8 +186,9 @@ CWRC.Timeline.__tokenId__ = 1;
             return canvas.stampToPixels(self.duration()) || '';
         });
         this.maxWidth = ko.pureComputed(function () {
-            return canvas.stampToPixels(self.duration() || (CWRC.toMillisec('year') / 2));
+            return canvas.stampToPixels(Math.max(self.duration(), (CWRC.toMillisec('year') / 2)));
         });
+
         this.height = ko.pureComputed(function () {
             return (self.row() + 1) * CWRC.Timeline.LABEL_HEIGHT;
         });
@@ -242,10 +243,12 @@ CWRC.Timeline.__tokenId__ = 1;
     };
 
     CWRC.Timeline.Token.prototype.sharesHorizontal = function (other) {
-        var thisRight = this.xPos() + (this.width() || this.maxWidth());
-        var otherRight = other.xPos() + (other.width() || other.maxWidth());
+        var thisleft = ko.utils.unwrapObservable(this.xPos);
+        var thisRight = thisleft + (ko.utils.unwrapObservable(this.width) || ko.utils.unwrapObservable(this.maxWidth));
+        var otherleft = ko.utils.unwrapObservable(other.xPos);
+        var otherRight = otherleft + (ko.utils.unwrapObservable(other.width) || ko.utils.unwrapObservable(other.maxWidth));
 
-        return ((this.xPos() >= other.xPos() && this.xPos() <= otherRight) || (thisRight >= other.xPos() && thisRight <= otherRight));
+        return ((thisleft >= otherleft && thisleft <= otherRight) || (thisRight >= otherleft && thisRight <= otherRight));
     };
 
     CWRC.Timeline.Token.prototype.layer = function () {
@@ -363,7 +366,7 @@ CWRC.Timeline.__tokenId__ = 1;
 
 
 (function Canvas() {
-    CWRC.Timeline.Canvas = function () {
+    CWRC.Timeline.Canvas = function (records) {
         var self = this;
 
         this.__pixelsPerMs = ko.observable(1 / CWRC.toMillisec('day'));
@@ -403,16 +406,16 @@ CWRC.Timeline.__tokenId__ = 1;
         };
 
         this.earliestStamp = ko.pureComputed(function () {
-            var options = [(new Date()).getTime()].concat(self.tokens().map(function (token) {
-                return token.data.getStartStamp()
+            var options = [(new Date()).getTime()].concat(records.map(function (record) {
+                return record.getStartStamp()
             }));
 
             return Math.min.apply(null, options);
         });
 
         this.latestStamp = ko.pureComputed(function () {
-            var options = [(new Date()).getTime()].concat(self.tokens().map(function (token) {
-                return token.data.getEndStamp() || token.data.getStartStamp()
+            var options = [(new Date()).getTime()].concat(records.map(function (record) {
+                return record.getEndStamp() || record.getStartStamp()
             }));
 
             return Math.max.apply(null, options);

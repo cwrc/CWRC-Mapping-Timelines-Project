@@ -274,8 +274,7 @@
                                                          left: token.xPos,
                                                          height: token.height() + 'px',
                                                          width: token.width() + 'px',
-                                                         zIndex: token.layer(),
-                                                         maxWidth: token.maxWidth()
+                                                         zIndex: token.layer()
                                                        },
                                                 attr: {id: 'token-' + token.id}">
                      <a href="#" data-bind="event: {mouseup: $parents[1].recordMouseUp,
@@ -284,7 +283,8 @@
                                                     mouseout:  function(){ token.isHovered(false) }
                                                     },
                                             style: {
-                                                width: token.width
+                                                width: token.width,
+                                                maxWidth: token.maxWidth
                                             }">
                         <span data-bind="html: token.data.label"></span>
                      </a>
