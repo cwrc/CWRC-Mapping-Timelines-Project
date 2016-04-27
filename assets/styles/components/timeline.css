@@ -132,7 +132,7 @@ timeline #timeline-viewport > div.canvas .selected {
 timeline #timeline-viewport > div.canvas .selected a {
    z-index: 10;
 
-   max-width: 100em;
+   max-width: none;
 
    box-shadow: 0.25em 0.25em 0.25em rgba(0, 0, 0, 0.65);
    border: 3px dotted red;
