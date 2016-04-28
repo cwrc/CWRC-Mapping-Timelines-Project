@@ -164,7 +164,7 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
             return self.canvas.stampToPixels(Math.max(self.duration(), (CWRC.toMillisec('year') / 2)));
         });
 
-        this.row = ko.observable(0)
+        this.row = ko.observable(0);
         //this.row = ko.computed(this.__calculateNewRow)
         // .extend({rateLimit: {timeout: 500, method: "notifyWhenChangesStop"}});
 
@@ -175,6 +175,10 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
         this.isHovered = ko.observable(false);
         this.isSelected = ko.pureComputed(function () {
             return self.data == CWRC.selected();
+        });
+
+        self.visible = ko.pureComputed(function () {
+            return CWRC.filteredData().indexOf(self.data) >= 0;
         });
     };
 

@@ -266,7 +266,8 @@
                                                         '-ms-transform': $parent.canvas.zoomTransform,
                                                         '-webkit-transform': $parent.canvas.zoomTransform
                   -->
-                  <div class="event" data-bind="css: { selected: token.isSelected(),
+                  <div class="event" data-bind="visible: token.visible,
+                                                css: { selected: token.isSelected(),
                                                        period: token.data.endDate
                                                      },
                                                 style: {
