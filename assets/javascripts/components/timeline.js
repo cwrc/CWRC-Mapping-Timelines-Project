@@ -309,9 +309,11 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
 
         // TODO: this is a hack to force the correct order. It non-deterministically isn't updaitng rows on load all the time
         window.setTimeout(function () {
+            CWRC.isLoading(true);
             self.tokens().forEach(function (token) {
                 token.updateRow();
             });
+            CWRC.isLoading(false);
         }, 100)
 
     };
