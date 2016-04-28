@@ -501,16 +501,6 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
             if (startDate)
                 self.panTo((new Date(startDate)).getTime(), 0)
         }, 100);
-
-        this.visibleTokens = ko.pureComputed(function () {
-            return self.canvas.tokens().filter(function (token) {
-                var startStamp = token.data.getStartStamp();
-                var endStamp = token.data.getEndStamp() || (startStamp + CWRC.toMillisec('year'));
-
-                return endStamp >= self.bounds.leftStamp() &&
-                    startStamp <= self.bounds.rightStamp();
-            });
-        });
     };
 
     CWRC.Timeline.Viewport.prototype.getElement = function () {
