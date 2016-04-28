@@ -120,7 +120,7 @@
 
 <main>
    <expander params="expandedText: 'Hide Timeline', collapsedText: 'Show Timeline'">
-      <timeline params="startDate: '1950'"></timeline>
+      <timeline params="startDate: '1951'"></timeline>
    </expander>
 
    <spotlight></spotlight>
@@ -273,7 +273,7 @@
                                                 style: {
                                                          left: token.xPos,
                                                          height: token.height() + 'px',
-                                                         width: token.width() + 'px',
+                                                         width: token.lineWidth() + 'px',
                                                          zIndex: token.layer()
                                                        },
                                                 attr: {id: 'token-' + token.id}">
@@ -283,8 +283,8 @@
                                                     mouseout:  function(){ token.isHovered(false) }
                                                     },
                                             style: {
-                                                width: token.width,
-                                                maxWidth: token.maxWidth
+                                                width: token.labelWidth,
+                                                maxWidth: token.maxLabelWidth
                                             }">
                         <span data-bind="html: token.data.label"></span>
                      </a>

@@ -146,6 +146,8 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
 
     CWRC.Timeline.LABEL_HEIGHT = 24;//px   //or 1.5; //em
 
+    CWRC.Timeline.DEFAULT_LABEL_DURATION = CWRC.toMillisec('year') / 2;
+
     CWRC.Timeline.Token = function (record, canvas) {
         var self = this;
 
@@ -157,11 +159,17 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
         this.xPos = ko.pureComputed(function () {
             return self.canvas.stampToPixels(self.startStamp() - self.canvas.earliestStamp());
         });
-        this.width = ko.pureComputed(function () {
-            return self.canvas.stampToPixels(self.duration()) || '';
+        this.lineWidth = ko.pureComputed(function () {
+            return self.duration() ? self.canvas.stampToPixels(self.duration()) : '';
         });
-        this.maxWidth = ko.pureComputed(function () {
-            return self.canvas.stampToPixels(Math.max(self.duration(), (CWRC.toMillisec('year') / 2)));
+        this.labelWidth = ko.pureComputed(function () {
+            if (self.duration() > CWRC.Timeline.DEFAULT_LABEL_DURATION)
+                return self.lineWidth();
+            else
+                return self.canvas.stampToPixels(CWRC.Timeline.DEFAULT_LABEL_DURATION);
+        });
+        this.maxLabelWidth = ko.pureComputed(function () {
+            return self.canvas.stampToPixels(Math.max(self.duration(), CWRC.Timeline.DEFAULT_LABEL_DURATION));
         });
 
         this.row = ko.observable(0);
@@ -235,9 +243,9 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
 
     CWRC.Timeline.Token.prototype.sharesHorizontal = function (other) {
         var thisleft = ko.utils.unwrapObservable(this.xPos);
-        var thisRight = thisleft + (ko.utils.unwrapObservable(this.width) || ko.utils.unwrapObservable(this.maxWidth));
+        var thisRight = thisleft + (ko.utils.unwrapObservable(this.labelWidth) || ko.utils.unwrapObservable(this.maxLabelWidth));
         var otherleft = ko.utils.unwrapObservable(other.xPos);
-        var otherRight = otherleft + (ko.utils.unwrapObservable(other.width) || ko.utils.unwrapObservable(other.maxWidth));
+        var otherRight = otherleft + (ko.utils.unwrapObservable(other.labelWidth) || ko.utils.unwrapObservable(other.maxLabelWidth));
 
         return ((thisleft >= otherleft && thisleft <= otherRight) || (thisRight >= otherleft && thisRight <= otherRight));
     };
