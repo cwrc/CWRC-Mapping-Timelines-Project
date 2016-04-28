@@ -73,16 +73,11 @@ timeline #timeline-viewport > div.canvas .event {
 
    width: 2em;
 
-   border: 2px groove darkgrey;
-   border-top: none;
-   border-right: none;
-
-   border-radius: 0 0 0.5em 0.5em;
+   border-left: 2px groove darkgrey;
 }
 
 timeline #timeline-viewport > div.canvas .event a {
    position: absolute;
-   left: 0.5em;
    bottom: -0.9em;
 
    max-width: 10em;

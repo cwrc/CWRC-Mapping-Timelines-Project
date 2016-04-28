@@ -32,6 +32,12 @@ var CWRC = (function (cwrc, undefined) {
         return filteredData;
     });
 
+    cwrc.timedData = ko.pureComputed(function () {
+        return CWRC.rawData().filter(function (item) {
+            return item.hasStartDate() || item.hasEndDate();
+        })
+    });
+
     cwrc.selected = ko.observable();
 
     cwrc.isLoading = ko.observable();
@@ -111,15 +117,23 @@ var CWRC = (function (cwrc, undefined) {
         };
 
         cwrc.DataRecord.prototype.getStartDate = function () {
-            var date = this[this.__cwrcFieldData__.timeStartField];
+            var date = new Date(this[this.__cwrcFieldData__.timeStartField]);
 
-            return date ? new Date(date) : date;
+            return isNaN(date.getTime()) ? undefined : date;
         };
 
         cwrc.DataRecord.prototype.getEndDate = function () {
             var date = this[this.__cwrcFieldData__.timeEndField];
 
             return date ? new Date(date) : date;
+        };
+
+        cwrc.DataRecord.prototype.hasStartDate = function () {
+            return !!this.getStartDate();
+        };
+
+        cwrc.DataRecord.prototype.hasEndDate = function () {
+            return !!this.getEndDate();
         };
 
         cwrc.DataRecord.prototype.getStartStamp = function () {
