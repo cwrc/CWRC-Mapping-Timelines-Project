@@ -151,37 +151,47 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
     CWRC.Timeline.Token = function (record, canvas) {
         var self = this;
 
-        this.id = CWRC.Timeline.__tokenId__++;
+        self.id = CWRC.Timeline.__tokenId__++;
 
-        this.data = record;
-        this.canvas = canvas;
+        self.data = record;
+        self.canvas = canvas;
 
-        this.xPos = ko.pureComputed(function () {
+        self.xPos = ko.pureComputed(function () {
             return self.canvas.stampToPixels(self.startStamp() - self.canvas.earliestStamp());
         });
-        this.lineWidth = ko.pureComputed(function () {
+        self.lineWidth = ko.pureComputed(function () {
             return self.duration() ? self.canvas.stampToPixels(self.duration()) : '';
         });
-        this.labelWidth = ko.pureComputed(function () {
+        self.labelWidth = ko.pureComputed(function () {
             if (self.duration() > CWRC.Timeline.DEFAULT_LABEL_DURATION)
                 return self.lineWidth();
             else
                 return self.canvas.stampToPixels(CWRC.Timeline.DEFAULT_LABEL_DURATION);
         });
-        this.maxLabelWidth = ko.pureComputed(function () {
+        self.maxLabelWidth = ko.pureComputed(function () {
             return self.canvas.stampToPixels(Math.max(self.duration(), CWRC.Timeline.DEFAULT_LABEL_DURATION));
         });
 
-        this.row = ko.observable(0);
-        //this.row = ko.computed(this.__calculateNewRow)
+        self.row = ko.observable(0);
+        //self.row = ko.computed(function () {
+        //    return self.__calculateNewRow()
+        //});
         // .extend({rateLimit: {timeout: 500, method: "notifyWhenChangesStop"}});
 
-        this.height = ko.pureComputed(function () {
+        self.height = ko.pureComputed(function () {
             return (self.row() + 1) * CWRC.Timeline.LABEL_HEIGHT;
         });
 
-        this.isHovered = ko.observable(false);
-        this.isSelected = ko.pureComputed(function () {
+        //self.potentialIntersectors = ko.pureComputed(function () {
+        //    self.canvas.tokens().filter(function (otherToken) {
+        //        return self.sharesHorizontal(otherToken) &&
+        //            self.row() == otherToken.row()
+        //            && self != otherToken;
+        //    });
+        //});
+
+        self.isHovered = ko.observable(false);
+        self.isSelected = ko.pureComputed(function () {
             return self.data == CWRC.selected();
         });
 
@@ -198,29 +208,29 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
         var self = this;
         var intersectors, durationDiff, startDiff;
 
-        if (!self.canvas.tokens())
-            return -1;
+        if (!self.canvas.tokens || !self.canvas.tokens())
+            return 10;
 
         // intersectors array will always at least include 'this'
-        intersectors = self.canvas.tokens().filter(function (otherToken) {
-            return self.sharesHorizontal(otherToken);
-        });
+        intersectors =
 
-        // sort by duration, then by start time, then by label to get consistent row order
-        //intersectors.sort(function (a, b) {
-        //    durationDiff = b.duration() - a.duration();
-        //    startDiff = a.data.getStartStamp() - b.data.getStartStamp();
-        //
-        //    return durationDiff || startDiff || a.id - b.id;
-        //});
+            // sort to get consistent row order
+            intersectors.sort(function (a, b) {
+                durationDiff = b.duration() - a.duration();
+                startDiff = a.data.getStartStamp() - b.data.getStartStamp();
 
-        var takenRows = intersectors.map(function (token) {
-            return token === self ? -1 : token.row();
-        });
+                return durationDiff || startDiff || a.id - b.id;
+            });
 
-        var maxRow = Math.max.apply(null, takenRows);
-        var row;
+        var takenRows, maxRow, row;
 
+        takenRows = intersectors.map(function (token) {
+            return token.row();
+        }).sort();
+
+        maxRow = Math.max.apply(null, takenRows);
+
+        // find lowest row value that isn't yet taken
         for (row = 0; row <= maxRow; row++) {
             if (takenRows.indexOf(row) < 0)
                 break;
@@ -315,15 +325,54 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
             return Math.max.apply(null, options);
         });
 
-        // TODO: this is a hack to force the correct order. It non-deterministically isn't updaitng rows on load all the time
-        window.setTimeout(function () {
-            CWRC.isLoading(true);
-            self.tokens().forEach(function (token) {
-                token.updateRow();
-            });
-            CWRC.isLoading(false);
-        }, 100)
+        self.layoutTokens();
 
+        //self.tokens.notifySubscribers();
+        // TODO: this is a hack to force the correct order. It non-deterministically isn't updaitng rows on load all the time
+        //window.setTimeout(function () {
+        //    CWRC.isLoading(true);
+        //    self.tokens().forEach(function (token) {
+        //        token.updateRow();
+        //    });
+        //    CWRC.isLoading(false);
+        //}, 100)
+
+    };
+
+    CWRC.Timeline.Canvas.prototype.layoutTokens = function () {
+        var token, unplacedTokens, cutoff, rowIndex, durationDiff, startDiff, tokenIndex;
+
+        unplacedTokens = this.tokens().slice().sort(function (a, b) {
+            durationDiff = b.duration() - a.duration();
+            startDiff = a.data.getStartStamp() - b.data.getStartStamp();
+
+            return startDiff || durationDiff || a.id - b.id;
+        });
+
+        cutoff = this.earliestStamp();
+        rowIndex = 0;
+
+        while (unplacedTokens.length > 0) {
+            tokenIndex = function (cutoff) { // this 'extra' function layer avoid stouching a mutable var in a closure
+                return unplacedTokens.findIndex(function (token) {
+                    return token.data.getStartStamp() >= cutoff;
+                })
+            }(cutoff);
+
+            if (tokenIndex >= 0) {
+                token = unplacedTokens.splice(tokenIndex, 1)[0];
+
+                token.row(rowIndex);
+
+                cutoff = token.startStamp() + this.pixelsToStamp(token.labelWidth());
+            }
+
+            if (cutoff >= this.latestStamp() || tokenIndex < 0) {
+                // start a new row.
+                cutoff = this.earliestStamp();
+                rowIndex++;
+            }
+        }
     };
 
     CWRC.Timeline.Canvas.prototype.getElement = function () {
