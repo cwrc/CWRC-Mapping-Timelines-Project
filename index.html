@@ -45,6 +45,7 @@
    <link href="assets/javascripts/lib/noUiSlider.8.5.1/nouislider.min.css" rel="stylesheet">
    <script src="assets/javascripts/lib/noUiSlider.8.5.1/nouislider.min.js" type="text/javascript"></script>
 
+   <script src="assets/javascripts/util/loading.js" type="text/javascript"></script>
    <script src="assets/javascripts/util/network.js" type="text/javascript"></script>
    <script src="assets/javascripts/util/transform.js" type="text/javascript"></script>
    <script src="assets/javascripts/plot_it.js" type="text/javascript"></script>
@@ -64,11 +65,14 @@
    <script src="assets/javascripts/components/timeline.js" type="text/javascript"></script>
    <script src="assets/javascripts/components/map.js" type="text/javascript"></script>
    <script src="assets/javascripts/components/grid.js" type="text/javascript"></script>
-   <script src="assets/javascripts/components/loading.js" type="text/javascript"></script>
 </head>
 <body>
 
-<loading_overlay></loading_overlay>
+<div id="loading_overlay">
+   <p>
+      Loading <span></span>
+   </p>
+</div>
 
 <section id="sidebar">
    <header>

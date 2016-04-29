@@ -56,8 +56,6 @@ var CWRC = (function (cwrc, undefined) {
 
     cwrc.selected = ko.observable();
 
-    cwrc.isLoading = ko.observable();
-
     cwrc.DEFAULT_FIELD_NAMES = {
         timeStartField: 'startDate',
         timeEndField: 'endDate',
@@ -65,12 +63,12 @@ var CWRC = (function (cwrc, undefined) {
     };
 
     cwrc['loadData'] = function () {
-        var dataSources, dataSource, loadedData, flattenedData, fieldData;
+        var dataSources, dataSource, loadedData, fieldData, loader;
 
         dataSources = document.querySelectorAll('link[rel="cwrc/data"]');
         loadedData = [];
 
-        cwrc.isLoading(true);
+        loader = new CWRC.Loader();
 
         for (var i = 0; i < dataSources.length; i++) {
             dataSource = dataSources[i].getAttribute('href');
@@ -86,21 +84,25 @@ var CWRC = (function (cwrc, undefined) {
                 return function (result) {
                     loadedData.push(result.items);
 
-                    // if this is the last one, we can finish loading.
-                    if (loadedData.length >= dataSources.length) {
-                        flattenedData = [].concat.apply([], loadedData);
-
-                        flattenedData = flattenedData.map(function (rawRecord) {
-                            return new cwrc.DataRecord(rawRecord, fieldData);
-                        });
-
-                        cwrc.rawData(flattenedData);
-
-                        cwrc.isLoading(false);
-                    }
+                    if (loadedData.length >= dataSources.length) // ie. is this the last one to load?
+                        cwrc.finishLoad(loadedData, fieldData, loader);
                 }
             })(fieldData));
         }
+    };
+
+    cwrc['finishLoad'] = function (loadedData, fieldData, loader) {
+        var flattenedData = [].concat.apply([], loadedData);
+
+        flattenedData = flattenedData.map(function (rawRecord) {
+            return new cwrc.DataRecord(rawRecord, fieldData);
+        });
+
+        cwrc.rawData(flattenedData);
+
+        ko.applyBindings();
+
+        loader.stop();
     };
 
     /**
@@ -109,7 +111,8 @@ var CWRC = (function (cwrc, undefined) {
     (function DataRecord() {
         /**
          * Builds a new DataRecord
-         * @param rawData
+         * @param rawData The data from the data source
+         * @param fieldData Data about field names
          * @constructor
          */
         cwrc.DataRecord = function (rawData, fieldData) {
@@ -360,9 +363,9 @@ if (!Array.prototype.findIndex) {
     };
 }
 
-window.addEventListener('load', function () {
-    ko.applyBindings();
-});
+//window.addEventListener('load', function () {
+//ko.applyBindings();
+//});
 
 window.addEventListener('error', function (msg, url, line, col, error) {
     // Try-catch is needed to avoid infinite loops.
