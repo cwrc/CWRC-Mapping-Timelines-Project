@@ -290,7 +290,7 @@
                                                 width: token.labelWidth,
                                                 maxWidth: token.maxLabelWidth
                                             }">
-                        <span data-bind="html: token.data.label"></span>
+                        <span data-bind="html: token.maxLabelWidth() > 20 ? token.data.label : '...'"></span>
                      </a>
                   </div>
                </div>
