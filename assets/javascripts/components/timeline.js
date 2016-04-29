@@ -157,7 +157,7 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
         self.canvas = canvas;
 
         self.xPos = ko.pureComputed(function () {
-            return self.canvas.stampToPixels(self.startStamp() - self.canvas.earliestStamp());
+            return self.canvas.stampToPixels(self.startStamp() - CWRC.earliestStamp());
         });
         self.lineWidth = ko.pureComputed(function () {
             return self.duration() ? self.canvas.stampToPixels(self.duration()) : '';
@@ -296,8 +296,8 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
             width: ko.pureComputed(function () {
                 var timespan, startStamp, endStamp;
 
-                startStamp = self.earliestStamp();
-                endStamp = self.latestStamp();
+                startStamp = CWRC.earliestStamp();
+                endStamp = CWRC.latestStamp();
 
                 if (startStamp == endStamp) {
                     return '100%';
@@ -308,22 +308,6 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
                 }
             })
         };
-
-        self.earliestStamp = ko.pureComputed(function () {
-            var options = [(new Date()).getTime()].concat(CWRC.timedData().map(function (record) {
-                return record.getStartStamp()
-            }));
-
-            return Math.min.apply(null, options);
-        });
-
-        self.latestStamp = ko.pureComputed(function () {
-            var options = [(new Date()).getTime()].concat(CWRC.timedData().map(function (record) {
-                return record.getEndStamp() || record.getStartStamp()
-            }));
-
-            return Math.max.apply(null, options);
-        });
 
         self.layoutTokens();
 
@@ -349,7 +333,7 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
             return startDiff || durationDiff || a.id - b.id;
         });
 
-        cutoff = this.earliestStamp();
+        cutoff = CWRC.earliestStamp();
         rowIndex = 0;
 
         while (unplacedTokens.length > 0) {
@@ -367,9 +351,9 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
                 cutoff = token.startStamp() + this.pixelsToStamp(token.labelWidth());
             }
 
-            if (cutoff >= this.latestStamp() || tokenIndex < 0) {
+            if (cutoff >= CWRC.latestStamp() || tokenIndex < 0) {
                 // start a new row.
-                cutoff = this.earliestStamp();
+                cutoff = CWRC.earliestStamp();
                 rowIndex++;
             }
         }
@@ -520,7 +504,7 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
         // Bounds are stored as time stamps on X axis, number of rows as Y axis. Both are doubles to be
         // rounded only once when converted to pixels
         this.bounds = {
-            leftStamp: ko.observable(self.canvas.earliestStamp()),
+            leftStamp: ko.observable(CWRC.earliestStamp()),
             topRow: ko.observable(0),
             rightStamp: ko.pureComputed(function () {
                 return self.bounds.leftStamp() +
@@ -543,7 +527,7 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
         };
 
         this.bounds.leftStamp.subscribe(function (newVal) {
-            var stampDistance = newVal - self.canvas.earliestStamp();
+            var stampDistance = newVal - CWRC.earliestStamp();
 
             self.getElement().scrollLeft = Math.round(self.canvas.stampToPixels(stampDistance));
         });
@@ -610,8 +594,8 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
 
         // TODO: either remove these limits and use a transform, or make these limits an extender on the obervable
         // limit panning to ~ the canvas size
-        newStamp = Math.max(newStamp, this.canvas.earliestStamp());
-        newStamp = Math.min(newStamp, this.canvas.latestStamp() + CWRC.toMillisec('year') - this.bounds.timespan());
+        newStamp = Math.max(newStamp, CWRC.earliestStamp());
+        newStamp = Math.min(newStamp, CWRC.latestStamp() + CWRC.toMillisec('year') - this.bounds.timespan());
 
         newRow = Math.max(newRow, 0);
         newRow = Math.min(newRow, this.canvas.rowCount() - this.bounds.visibleRows());

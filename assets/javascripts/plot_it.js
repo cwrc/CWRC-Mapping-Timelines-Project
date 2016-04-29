@@ -38,6 +38,22 @@ var CWRC = (function (cwrc, undefined) {
         })
     });
 
+    cwrc.earliestStamp = ko.pureComputed(function () {
+        var stamps = cwrc.timedData().map(function (record) {
+            return record.getStartStamp()
+        });
+
+        return stamps.length > 0 ? Math.min.apply(null, stamps) : (new Date()).getTime();
+    });
+
+    cwrc.latestStamp = ko.pureComputed(function () {
+        var stamps = cwrc.timedData().map(function (record) {
+            return record.getEndStamp() || record.getStartStamp()
+        });
+
+        return stamps.length > 0 ? Math.max.apply(null, stamps) : (new Date()).getTime();
+    });
+
     cwrc.selected = ko.observable();
 
     cwrc.isLoading = ko.observable();
@@ -86,13 +102,6 @@ var CWRC = (function (cwrc, undefined) {
             })(fieldData));
         }
     };
-
-    /**
-     * Returns all records that have a timestamp associated, sorted by start time.
-     */
-    cwrc.timespan = ko.pureComputed(function () {
-        return ko.utils.range(CWRC.earliestDate().getUTCFullYear(), CWRC.latestDate().getUTCFullYear() - 1);
-    });
 
     /**
      * Class that augments the raw JSON data with useful behaviours.

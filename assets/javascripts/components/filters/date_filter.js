@@ -16,45 +16,13 @@ ko.components.register('date_filter', {
 
         self.label = params['label'] || 'Date Range';
 
-        // TODO: there's a lot to DRY between this and Timeline.
-        self.timedRecords = ko.pureComputed(function () {
-            var records, timeDiff;
-
-            // fetch only the data that have non-null start dates, sort by start date.
-            records = CWRC.rawData().filter(function (item) { // TODO: <- filteredData in timeline; pretty much only diff
-                return item.getStartDate();
-            }).sort(function (a, b) {
-                timeDiff = a.getStartStamp() - b.getStartStamp();
-
-                if (timeDiff == 0)
-                    return a.getLabel().localeCompare(b.getLabel()); // break ties alphabetically for determinism
-                else
-                    return timeDiff;
-            });
-
-            return records;
-        });
-
-        self.earliestDate = ko.pureComputed(function () {
-            var firstRecord = self.timedRecords()[0];
-
-            return firstRecord ? firstRecord.getStartDate() : new Date();
-        });
-
-        self.latestDate = ko.pureComputed(function () {
-            var sortedRecords = self.timedRecords();
-            var lastRecord = sortedRecords[sortedRecords.length - 1];
-
-            return lastRecord ? (lastRecord.getEndDate() || lastRecord.getStartDate()) : new Date();
-        });
-
         // TODO: add extender to auto convert to int? would remove the parseInt calls
-        self.rangeMin = ko.observable(self.earliestDate().getTime()).extend({
+        self.rangeMin = ko.observable(CWRC.earliestStamp()).extend({
             history: {
                 label: 'After',
                 querySymbol: 'rangeMin',
                 inUriWhen: function (value) {
-                    return value != self.earliestDate().getTime();
+                    return value != CWRC.earliestStamp();
                 },
                 formatWith: function (value) {
                     return CWRC.Transform.humanDateTime(value / 1000);
@@ -64,12 +32,12 @@ ko.components.register('date_filter', {
                 }
             }
         });
-        self.rangeMax = ko.observable(self.latestDate().getTime()).extend({
+        self.rangeMax = ko.observable(CWRC.latestStamp()).extend({
             history: {
                 label: 'Before',
                 querySymbol: 'rangeMax',
                 inUriWhen: function (value) {
-                    return value != self.latestDate().getTime();
+                    return value != CWRC.latestStamp();
                 },
                 formatWith: function (value) {
                     return CWRC.Transform.humanDateTime(value / 1000);
@@ -107,8 +75,8 @@ ko.components.register('date_filter', {
             }
 
             // TODO: can refactor this out.
-            var earliestStamp = self.earliestDate().getTime();
-            var latestStamp = self.latestDate().getTime();
+            var earliestStamp = CWRC.earliestStamp();
+            var latestStamp = CWRC.latestStamp();
 
             var sliderSettings = {
                 start: [self.rangeMin(), self.rangeMax()],// [earliestStamp, latestStamp], //[self.rangeMin(), self.rangeMax()],
@@ -164,8 +132,8 @@ ko.components.register('date_filter', {
         self['reset'] = function () {
             var sliderElement = document.getElementById('time_filter');
 
-            var earliestStamp = self.earliestDate().getTime();
-            var latestStamp = self.latestDate().getTime();
+            var earliestStamp = CWRC.earliestStamp();
+            var latestStamp = CWRC.latestStamp();
 
             sliderElement.noUiSlider.set([earliestStamp, latestStamp]);
         };
