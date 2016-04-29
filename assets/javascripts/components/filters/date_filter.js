@@ -2,7 +2,7 @@ ko.components.register('date_filter', {
     template: '<header>\
                     <span data-bind="text: label">\
                     </span>\
-                    (<span data-bind="text: rangeMinDate"></span> - <span data-bind="text: rangeMaxDate"></span>)\
+                    (<span data-bind="text: rangeMinLabelDate"></span> - <span data-bind="text: rangeMaxLabelDate"></span>)\
                </header>\
                <div id="time_filter"></div>',
 
@@ -54,38 +54,34 @@ ko.components.register('date_filter', {
          *
          * The other options, throttling the update, can still be too sluggish if the user hesitates for a second.
          */
-        self.rangeMinDisplay = ko.observable();
-        self.rangeMaxDisplay = ko.observable();
+        self.rangeMinLabel = ko.observable(self.rangeMin());
+        self.rangeMaxLabel = ko.observable(self.rangeMax());
 
-        // TODO: probably would be better to merge rangeMinDate and rangeMinDisplay (and maxes) into writable computed
-        self.rangeMinDate = ko.pureComputed(function () {
-            return (new Date(Number(self.rangeMinDisplay()))).toLocaleDateString();
+        // TODO: probably would be better to merge rangeMinLabelDate and rangeMinLabel (and maxes) into writable computed
+        self.rangeMinLabelDate = ko.pureComputed(function () {
+            return (new Date(Number(self.rangeMinLabel()))).toLocaleDateString();
         });
 
-        self.rangeMaxDate = ko.pureComputed(function () {
-            return (new Date(Number(self.rangeMaxDisplay()))).toLocaleDateString();
+        self.rangeMaxLabelDate = ko.pureComputed(function () {
+            return (new Date(Number(self.rangeMaxLabel()))).toLocaleDateString();
         });
 
-        // Tried with subscribe, but it ends up out of order. Making a computed fixes the order problem.
-        self.sliderElement = ko.computed(function () {
-            var sliderElement = document.getElementById('time_filter');
+        self['constructSlider'] = function () {
+            var domElement, settings;
 
-            if (sliderElement.noUiSlider) {
-                sliderElement.noUiSlider.destroy();
-            }
+            domElement = document.getElementById('time_filter');
 
-            // TODO: can refactor this out.
-            var earliestStamp = CWRC.earliestStamp();
-            var latestStamp = CWRC.latestStamp();
+            if (domElement.noUiSlider)
+                domElement.noUiSlider.destroy();
 
-            var sliderSettings = {
-                start: [self.rangeMin(), self.rangeMax()],// [earliestStamp, latestStamp], //[self.rangeMin(), self.rangeMax()],
+            settings = {
+                start: [self.rangeMin(), self.rangeMax()],
                 connect: true,
                 margin: 1, // no closer than 1 together
                 step: 1, // snap to 1-unit increments
                 range: {
-                    min: earliestStamp, //self.rangeMin(),
-                    max: latestStamp //self.rangeMax()
+                    min: CWRC.earliestStamp(),
+                    max: CWRC.latestStamp()
                 },
                 pips: {
                     mode: 'positions',
@@ -102,19 +98,24 @@ ko.components.register('date_filter', {
                 }
             };
 
-            noUiSlider.create(sliderElement, sliderSettings);
+            noUiSlider.create(domElement, settings);
 
-            sliderElement.noUiSlider.on('set', function (value) {
+            domElement.noUiSlider.on('set', function (value) {
                 self.rangeMin(parseInt(value[0]));
                 self.rangeMax(parseInt(value[1]));
             });
 
-            sliderElement.noUiSlider.on('update', function (value) {
-                self.rangeMinDisplay(parseInt(value[0]));
-                self.rangeMaxDisplay(parseInt(value[1]));
+            domElement.noUiSlider.on('update', function (value) {
+                self.rangeMinLabel(parseInt(value[0]));
+                self.rangeMaxLabel(parseInt(value[1]));
             });
 
-            return sliderElement;
+            return domElement;
+        };
+
+        // Tried with subscribe, but it ends up out of order. Making a computed fixes the order problem.
+        self.sliderElement = ko.computed(function () {
+            return self.constructSlider();
         });
 
         self['filter'] = function (item) {
