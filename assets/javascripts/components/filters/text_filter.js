@@ -68,7 +68,8 @@ ko.components.register('text_filter', {
                 if (item.hasOwnProperty(field)) {
                     var value = item[field].toString().toLowerCase();
 
-                    return value.indexOf(filterText) >= 0;
+                    if (value.indexOf(filterText) >= 0)
+                        return true;
                 }
             }
 
