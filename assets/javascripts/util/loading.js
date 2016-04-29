@@ -2,6 +2,14 @@ var CWRC = CWRC || {};
 
 /**
  * A loading overlay throbber.
+ *
+ * This "widget" can't (easily) be done with KnockoutJS, because it's displaying before knockout is told to initialize.
+ * KO init is delayed to allow for all the data to actually be loaded and correct before loading widgets, which allows
+ * those widgets to init with sane defaults based on the real data.
+ *
+ * But it's a simple enough overlay anyhow, so we can skip Knocking it out, as it were.
+ *
+ * - remiller
  */
 CWRC.Loader = function () {
     var self = this;
