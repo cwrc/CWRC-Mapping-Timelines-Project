@@ -177,6 +177,7 @@ Records with multiple time points have all markers "linked", so that selecting o
 
 **Parameters**
  * `startDate` A date string (eg. `"Jan 1 2016"`) that will be the starting focus of the timeline.
+ * `zooms` The initial zoom level, as an integer, defaulting to. Providing a positive number will zoom out that many steps, and negative will zoom in.    
  * `zoomStep` A decimal number greater than `1.0` (eg. `1.1` or `3.0`) that is the factor for each step of zooming. (ie. how much it zooms each step). Defaults to `1.25` 
 
 
@@ -185,8 +186,8 @@ Records with multiple time points have all markers "linked", so that selecting o
 <!-- Using the defaults --> 
 <timeline></timeline>
 
-<!-- Setting the initial focus and zoom step --> 
-<timeline params="startDate: 'May 11 1988', zoomStep: 1.1"></timeline>
+<!-- Setting the initial focus, zoom level, and zoom step --> 
+<timeline params="startDate: 'May 11 1988', zoom: 10, zoomStep: 1.1"></timeline>
 ```
 
 ### `<grid>`

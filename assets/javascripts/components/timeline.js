@@ -31,7 +31,7 @@ ko.components.register('timeline', {
 
         self.canvas = new CWRC.Timeline.Canvas();
 
-        self.viewport = new CWRC.Timeline.Viewport(self.canvas, params['startDate'], params['zoomStep'] || CWRC.Timeline.DEFAULT_SCALE_STEP);
+        self.viewport = new CWRC.Timeline.Viewport(self.canvas, params['startDate'], params['zoom'], params['zoomStep']);
         self.ruler = new CWRC.Timeline.Ruler(self.viewport);
 
         CWRC.selected.subscribe(function (selectedRecord) {
@@ -510,12 +510,12 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
 
 
 (function Viewport() {
-    CWRC.Timeline.Viewport = function (canvas, startDate, scaleStep) {
+    CWRC.Timeline.Viewport = function (canvas, startDate, initialZoom, scaleStep) {
         var self = this;
 
         this.canvas = canvas;
 
-        this.scaleStep = scaleStep;
+        this.scaleStep = scaleStep || CWRC.Timeline.DEFAULT_SCALE_STEP;
 
         // Bounds are stored as time stamps on X axis, number of rows as Y axis. Both are doubles to be
         // rounded only once when converted to pixels
@@ -552,6 +552,9 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
             self.getElement().scrollTop = Math.round(self.canvas.rowToPixels(newVal));
         });
 
+        for (var i = 0; i < initialZoom; i++) {
+            self.zoom(0, 0, false);
+        }
 
         // TODO: this timeout is a hack, but there isn't currently any event to hook into for when the timeline is done loading
         // TODO: it could be removed if the canvas wasn't panned to via scrolling.
