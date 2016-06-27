@@ -4,7 +4,7 @@ ko.components.register('timeline', {
     /**
      * A timeline with markers at each time point in the data set.
      *
-     * Records with multiple locations have all markers "linked", so that selecting one will highlight all.
+     * Any records with multiple locations have all markers "linked", so that selecting one will highlight all.
      *
      * @param startDate: The initial date to focus on.
      * @param zoomStep: Decimal number if the zooming factor to apply at at zoom step. eg. 1.5 will zoom in by 50% each step.
@@ -23,7 +23,7 @@ ko.components.register('timeline', {
         self.previousDragPosition = null;
 
         self.unplottableCount = ko.pureComputed(function () {
-            // can't use canvas records  here, because that's filtered.
+            // can't use canvas records here, because that's filtered.
             return CWRC.rawData().length - CWRC.rawData().filter(function (item) {
                     return item.getStartDate();
                 }).length;
