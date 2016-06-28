@@ -283,12 +283,6 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
                 })) + 5;
         });
 
-        //self.zoomTransform = ko.pureComputed(function () {
-        //    var scale = 1.0;
-        //
-        //    return 'scale(' + scale + ',' + scale + ')';
-        //});
-
         self.bounds = {
             height: ko.pureComputed(function () {
                 return self.rowCount() * self.rowHeight() + 'em';
@@ -512,18 +506,33 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
             contains: function (stamp, row) {
                 return (stamp >= self.bounds.leftStamp() && stamp <= self.bounds.rightStamp()) &&
                     (row >= self.bounds.topRow() && row <= self.bounds.bottomRow())
+            },
+            toPx: function () {
+                var stampDistance = this.leftStamp() - CWRC.earliestStamp();
+
+                return {
+                    left: Math.round(self.canvas.stampToPixels(stampDistance)),
+                    right: Math.round(self.canvas.stampToPixels(this.rightStamp())),
+                    top: Math.round(self.canvas.rowToPixels(this.topRow())),
+                    bottom: Math.round(self.canvas.rowToPixels(this.bottomRow()))
+                }
             }
         };
 
-        this.bounds.leftStamp.subscribe(function (newVal) {
-            var stampDistance = newVal - CWRC.earliestStamp();
-
-            self.getElement().scrollLeft = Math.round(self.canvas.stampToPixels(stampDistance));
+        self.transformProperties = ko.pureComputed(function () {
+            return 'translate(' + -self.bounds.toPx().left + 'px, ' + -self.bounds.toPx().top + 'px)'
         });
 
-        this.bounds.topRow.subscribe(function (newVal) {
-            self.getElement().scrollTop = Math.round(self.canvas.rowToPixels(newVal));
-        });
+        // update the actual component
+        //this.bounds.leftStamp.subscribe(function (newVal) {
+        //    var stampDistance = newVal - CWRC.earliestStamp();
+        //
+        //    self.getElement().scrollLeft = Math.round(self.canvas.stampToPixels(stampDistance));
+        //});
+
+        //this.bounds.topRow.subscribe(function (newVal) {
+        //    self.getElement().scrollTop = Math.round(self.canvas.rowToPixels(newVal));
+        //});
 
         for (var i = 0; i < initialZoom; i++) {
             self.zoom(0, 0, false);
@@ -568,7 +577,7 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
     CWRC.Timeline.Viewport.prototype.panTo = function (stamp, row) {
         var viewportBounds;
 
-        viewportBounds = this.bounds; // todo: remove this once in class
+        viewportBounds = this.bounds;
 
         viewportBounds.leftStamp(stamp - (viewportBounds.timespan() / 2));
         viewportBounds.topRow(row - (viewportBounds.visibleRows() / 2) + 0.5); // 0.5 b/c labels are offset by a half row
@@ -580,14 +589,6 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
 
         newStamp = this.bounds.leftStamp() - this.canvas.pixelsToStamp(deltaX);
         newRow = this.bounds.topRow() - this.canvas.pixelsToRow(deltaY);
-
-        // TODO: either remove these limits and use a transform, or make these limits an extender on the obervable
-        // limit panning to ~ the canvas size
-        newStamp = Math.max(newStamp, CWRC.earliestStamp());
-        newStamp = Math.min(newStamp, CWRC.latestStamp() + CWRC.toMillisec('year') - this.bounds.timespan());
-
-        newRow = Math.max(newRow, 0);
-        newRow = Math.min(newRow, this.canvas.rowCount() - this.bounds.visibleRows());
 
         this.bounds.leftStamp(newStamp);
         this.bounds.topRow(newRow);

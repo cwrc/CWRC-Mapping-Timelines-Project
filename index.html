@@ -124,7 +124,7 @@
 
 <main>
    <expander params="expandedText: 'Hide Timeline', collapsedText: 'Show Timeline'">
-      <timeline params="startDate: '1950', zoom: 23"></timeline>
+      <timeline params="startDate: '1950', zoom: 5"></timeline>
    </expander>
 
    <spotlight></spotlight>
@@ -258,13 +258,23 @@
          </div>
       </section>
       <resizer>
+         <!--
+         -webkit-transform: translate(1px,1px),
+                                                        -ms-transform: translate(1px,1px),
+                                                        transform: translate(1px,1px),-->
+
          <div data-bind="event: { mousedown: $parent.dragStart, touchstart: $parent.dragStart }">
             <section id="timeline-viewport" data-bind="event: {wheel: $parent.scrollHandler}">
-               <div class="canvas" style="position: relative" data-bind="style: {
-                                                        width: $parent.canvas.bounds.width(),
-                                                        height: $parent.canvas.bounds.height()
-                                                      },
-                                              foreach: {data: $parent.canvas.tokens, as: 'token'} ">
+               <div class="canvas"
+                    style="position: relative"
+                    data-bind="style: {
+                                         width: $parent.canvas.bounds.width(),
+                                         height: $parent.canvas.bounds.height(),
+                                         msTransform: $parent.viewport.transformProperties,
+                                         webkitTransform: $parent.viewport.transformProperties,
+                                         transform: $parent.viewport.transformProperties
+                                       },
+                               foreach: {data: $parent.canvas.tokens, as: 'token'} ">
                   <!--
                   transform: $parent.canvas.zoomTransform,
                                                         '-ms-transform': $parent.canvas.zoomTransform,
