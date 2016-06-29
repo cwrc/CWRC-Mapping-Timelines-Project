@@ -484,14 +484,22 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
 
         this.scaleStep = scaleStep || CWRC.Timeline.DEFAULT_SCALE_STEP;
 
+        var elementWidth = self.getElement().offsetWidth;
+
+        var startStamp;
+        if (startDate == null)
+            startStamp = CWRC.earliestStamp();
+        else
+            startStamp = (new Date(startDate)).getTime() - (self.canvas.pixelsToStamp(elementWidth) / 2);
+
         // Bounds are stored as time stamps on X axis, number of rows as Y axis. Both are doubles to be
         // rounded only once when converted to pixels
         this.bounds = {
-            leftStamp: ko.observable(CWRC.earliestStamp()),
+            leftStamp: ko.observable(startStamp),
             topRow: ko.observable(0).extend({number: {minValue: 0}}),
             rightStamp: ko.pureComputed(function () {
                 return self.bounds.leftStamp() +
-                    self.canvas.pixelsToStamp(self.getElement().offsetWidth);
+                    self.canvas.pixelsToStamp(elementWidth);
             }),
             bottomRow: ko.pureComputed(function () {
                 return self.bounds.topRow() +
@@ -525,16 +533,8 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
 
         // Need to iterate because there's only a zoom-one-step function.
         for (var i = 0; i < initialZoom; i++) {
-            self.zoom(0, 0, false);
+            self.zoom(elementWidth / 2, 0, false);
         }
-
-        // TODO: this timeout is a hack, but there isn't currently any event to hook into for when the timeline is done loading
-        // TODO: it could be removed if the canvas wasn't panned to via scrolling.
-        // Wrapped in a timeout to run after the actual canvas is initialized.
-        setTimeout(function () {
-            if (startDate)
-                self.panTo((new Date(startDate)).getTime(), 0)
-        }, 100);
     };
 
     CWRC.Timeline.Viewport.prototype.getElement = function () {
