@@ -258,11 +258,6 @@
          </div>
       </section>
       <resizer>
-         <!--
-         -webkit-transform: translate(1px,1px),
-                                                        -ms-transform: translate(1px,1px),
-                                                        transform: translate(1px,1px),-->
-
          <div data-bind="event: { mousedown: $parent.dragStart, touchstart: $parent.dragStart }">
             <section id="timeline-viewport" data-bind="event: {wheel: $parent.scrollHandler}">
                <div class="canvas"
@@ -275,11 +270,6 @@
                                          transform: $parent.viewport.transformProperties
                                        },
                                foreach: {data: $parent.canvas.tokens, as: 'token'} ">
-                  <!--
-                  transform: $parent.canvas.zoomTransform,
-                                                        '-ms-transform': $parent.canvas.zoomTransform,
-                                                        '-webkit-transform': $parent.canvas.zoomTransform
-                  -->
                   <div class="event" data-bind="visible: token.visible,
                                                 css: { selected: token.isSelected(),
                                                        period: token.data.endDate

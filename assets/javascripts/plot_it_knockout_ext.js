@@ -159,3 +159,51 @@ ko.extenders.history = function (target, opts) {
 
     return target;
 };
+
+/**
+ * Knockout extender to enhance the behaviour of an observable.
+ *
+ * Forces the value to be numeric, or undefined if allowed by nullable
+ *
+ * @param target the Knockout observable to be extended
+ * @param opts Options object including:
+ *                  - minValue: if supplied, forces the value to be greater than or equal to minValue.
+ *                  - maxValue: if supplied, forces the value to be less than or equal to maxValue
+ *                  - nullable: allows the value to become undefined or null.
+ * @returns {*} extended target observable
+ */
+ko.extenders.number = function (target, opts) {
+    var minValue, maxValue, result;
+
+    minValue = opts['minValue'];
+    maxValue = opts['maxValue'];
+
+    if (minValue == null)
+        minValue = -Infinity;
+
+    if (maxValue == null)
+        maxValue = Infinity;
+
+    result = ko.computed({
+        read: target,
+        write: function (value) {
+            value = parseFloat(value);
+
+            if (isNaN(value)) {
+                if (opts.nullable)
+                    value = value === undefined ? undefined : null;
+                else
+                    value = minValue
+            } else {
+                if (value < minValue)
+                    value = minValue;
+                else if (value > maxValue)
+                    value = maxValue;
+            }
+
+            target(value);
+        }
+    });
+
+    return result;
+};

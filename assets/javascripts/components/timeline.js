@@ -488,7 +488,7 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
         // rounded only once when converted to pixels
         this.bounds = {
             leftStamp: ko.observable(CWRC.earliestStamp()),
-            topRow: ko.observable(0),
+            topRow: ko.observable(0).extend({number: {minValue: 0}}),
             rightStamp: ko.pureComputed(function () {
                 return self.bounds.leftStamp() +
                     self.canvas.pixelsToStamp(self.getElement().offsetWidth);
@@ -523,17 +523,7 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
             return 'translate(' + -self.bounds.toPx().left + 'px, ' + -self.bounds.toPx().top + 'px)'
         });
 
-        // update the actual component
-        //this.bounds.leftStamp.subscribe(function (newVal) {
-        //    var stampDistance = newVal - CWRC.earliestStamp();
-        //
-        //    self.getElement().scrollLeft = Math.round(self.canvas.stampToPixels(stampDistance));
-        //});
-
-        //this.bounds.topRow.subscribe(function (newVal) {
-        //    self.getElement().scrollTop = Math.round(self.canvas.rowToPixels(newVal));
-        //});
-
+        // Need to iterate because there's only a zoom-one-step function.
         for (var i = 0; i < initialZoom; i++) {
             self.zoom(0, 0, false);
         }
