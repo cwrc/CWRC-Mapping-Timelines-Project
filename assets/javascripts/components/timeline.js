@@ -285,7 +285,7 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
 
         self.bounds = {
             height: ko.pureComputed(function () {
-                return self.rowCount() * self.rowHeight() + 'em';
+                return self.rowCount() * self.rowHeight() + 'px';
             }),
             width: ko.pureComputed(function () {
                 var timespan, startStamp, endStamp;
