@@ -80,6 +80,8 @@ ko.components.register('timeline', {
             if (mouseEvent.buttons != 1)
                 return;
 
+            console.log('dragstart')
+
             if (mouseEvent.touches && mouseEvent.touches.length >= 2) {
                 self.pinching = true;
             } else {
@@ -348,7 +350,7 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
     };
 
     CWRC.Timeline.Canvas.prototype.getElement = function () {
-        return document.querySelector('#timeline-viewport .canvas');
+        return document.querySelector('.timeline-viewport .canvas');
     };
 
     CWRC.Timeline.Canvas.prototype.stampToPixels = function (stamp) {
@@ -431,7 +433,7 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
     };
 
     CWRC.Timeline.Ruler.prototype.getElement = function () {
-        return document.getElementById('timeline-ruler');
+        return document.querySelector('.timeline-ruler');
     };
 
     CWRC.Timeline.Ruler.prototype.advance = function (date, unit, amount) {
@@ -543,7 +545,7 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
     };
 
     CWRC.Timeline.Viewport.prototype.getElement = function () {
-        return document.getElementById('timeline-viewport');
+        return document.querySelector('.timeline-viewport');
     };
 
     /**

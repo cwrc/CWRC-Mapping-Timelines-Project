@@ -21,7 +21,7 @@ timeline resizer .viewport {
    height: 15em;
 }
 
-timeline #timeline-viewport {
+timeline .timeline-viewport {
    height: 100%;
 
    overflow: hidden;
@@ -29,18 +29,25 @@ timeline #timeline-viewport {
    background: #ccc;
 }
 
-timeline #timeline-viewport, #timeline-ruler {
+timeline .timeline-viewport {
    cursor: -moz-grab;
    cursor: -webkit-grab;
    cursor: grab;
+}
 
+timeline .timeline-ruler {
+   cursor: default;
+}
+
+timeline .timeline-viewport,
+timeline .timeline-ruler {
    -webkit-user-select: none;
    -moz-user-select: none;
    -ms-user-select: none;
    user-select: none;
 }
 
-timeline #timeline-ruler > div {
+timeline .timeline-ruler > div {
    -webkit-transform-origin: left;
    -moz-transform-origin: left;
    -ms-transform-origin: left;
@@ -48,13 +55,13 @@ timeline #timeline-ruler > div {
    transform-origin: left;
 }
 
-timeline #timeline-viewport:active, #timeline-ruler:active {
+timeline .timeline-viewport:active {
    cursor: -moz-grabbing;
    cursor: -webkit-grabbing;
    cursor: grabbing;
 }
 
-timeline #timeline-viewport .canvas {
+timeline .timeline-viewport .canvas {
    position: relative;
 
    z-index: 1000;
@@ -68,7 +75,7 @@ timeline #timeline-viewport .canvas {
    transform-origin: 0 0 0;
 }
 
-timeline #timeline-viewport > div.canvas .event {
+timeline .timeline-viewport > div.canvas .event {
    position: absolute;
 
    width: 2em;
@@ -76,7 +83,7 @@ timeline #timeline-viewport > div.canvas .event {
    border-left: 2px groove darkgrey;
 }
 
-timeline #timeline-viewport > div.canvas .event a {
+timeline .timeline-viewport > div.canvas .event a {
    position: absolute;
    bottom: -0.9em;
 
@@ -101,7 +108,7 @@ timeline #timeline-viewport > div.canvas .event a {
    transition: max-width 0.5s ease-in-out;
 }
 
-timeline #timeline-viewport > div.canvas .event a:hover {
+timeline .timeline-viewport > div.canvas .event a:hover {
    max-width: 100em;
 
    z-index: 10;
@@ -109,22 +116,22 @@ timeline #timeline-viewport > div.canvas .event a:hover {
    background: #d7d6cf;
 }
 
-timeline #timeline-viewport > div.canvas .period {
+timeline .timeline-viewport > div.canvas .period {
    border-right-style: groove;
 }
 
-timeline #timeline-viewport > div.canvas .period a,
-timeline #timeline-viewport > div.canvas .period a:hover {
+timeline .timeline-viewport > div.canvas .period a,
+timeline .timeline-viewport > div.canvas .period a:hover {
    max-width: none;
 
    left: 0;
 }
 
-timeline #timeline-viewport > div.canvas .selected {
+timeline .timeline-viewport > div.canvas .selected {
    border-color: red;
 }
 
-timeline #timeline-viewport > div.canvas .selected a {
+timeline .timeline-viewport > div.canvas .selected a {
    z-index: 10;
 
    max-width: none;
@@ -133,15 +140,15 @@ timeline #timeline-viewport > div.canvas .selected a {
    border: 3px dotted red;
 }
 
-/*timeline #timeline-viewport > div.canvas .event span:first-of-type:after {
+/*timeline .timeline-viewport > div.canvas .event span:first-of-type:after {
    content: ":";
 }*/
 
-timeline #timeline-viewport > div.canvas .event span {
+timeline .timeline-viewport > div.canvas .event span {
    margin-left: 0.25em;
 }
 
-timeline #timeline-ruler {
+timeline .timeline-ruler {
    position: relative;
 
    overflow: hidden;
@@ -149,11 +156,11 @@ timeline #timeline-ruler {
    background: #BBBBBB;
 }
 
-timeline #timeline-ruler > div {
+timeline .timeline-ruler > div {
    overflow: hidden;
 }
 
-timeline #timeline-ruler > div > span {
+timeline .timeline-ruler > div > span {
    position: absolute;
 
    border-left: 1px solid black;
