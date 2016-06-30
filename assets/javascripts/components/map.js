@@ -1,8 +1,11 @@
-ko.components.register('map', {
-    template: {element: 'map-template'},
+ko.components.register('atlas', {
+    template: {element: 'atlas-template'},
 
     /*
      * A google map with tokens (pins, polylines, or polygons) at each geolocation in the data set.
+     *
+     * Named Atlas as opposed to Map to avoid name conflict within Knockout, and to help distinguish between the component
+     * and its controlled Google map.
      *
      * Pin Stacking
      * If there are multiple pin tokens at the same location, the stack will bear the number of pins in it. When a

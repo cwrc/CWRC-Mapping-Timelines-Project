@@ -8,7 +8,7 @@ PlotIt is designed for modern browsers, including Firefox, Chome, Internet Explo
 
 ## Installation & Setup
 
-To install Plot-It, download it to a web server's application directory that supports PHP scripts. This release has been tested on the Apache server using a MySQL database. The Geonames database will also need to be set up, please see the `geonames` folder for documentation about that. Plot-It requires data in a specific JSON schema, please see the `transformers` folder for details about the schemas. Pre-processed datasets in the required schema are included with the code files. Plot-It also supports additional map overlays, please see the `assets/images/maps` folder for further details.
+To install Plot-It, download it to a web server's application directory that supports PHP scripts. This release has been tested on the Apache server using a MySQL database. The Geonames database will also need to be set up, please see the `geonames` folder for documentation about that. Plot-It requires data in a specific JSON schema, please see the `transformers` folder for details about the schemas. Pre-processed datasets in the required schema are included with the code files. Plot-It also supports additional atlas overlays, please see the `assets/images/maps` folder for further details.
 
 ## Data 
 Datafiles are linked using `<link>` tags in the document `<head>` section with `rel="cwrc/data". 
@@ -121,7 +121,7 @@ Parameters are listed in params as a single JSON declaration; ie. a comma-separa
 
 View each component's documentation to see a description of the component, the parameters it can accept in `params`, any special conditions, and some examples of its use. All parameters are optional, except when otherwise specified. 
 
-### `<map>`
+### `<atlas>`
 A google map adorned with tokens (pins, paths, and areas) for geodata in the data set. See the Data section for how each type must be denoted in the dataset. 
 
 If multiple pin tokens share the same location, the stack will bear the number of points in it and be given the "default" color as defined in the color table. 
@@ -147,27 +147,27 @@ All of a record's tokens are grouped so that selecting one will highlight the ot
 **Examples**
 ```html
 <!-- Using the defaults --> 
-<map></map>
+<atlas></atlas>
 ```
 
 ```html
 <!-- Customizing the starting focus, and legend colours. --> 
-<map params="center: '38.479394673276445, -115.361328125',
+<atlas params="center: '38.479394673276445, -115.361328125',
              colorKey: 'person',
              colors: {'Emily Murphy': '#ff0000', 'Irene Parlby': '#00ff00', 'Nellie McClung': '#0000ff', 'Louise McKinney': 'yellow', 'Henrietta Muir Edwards': 'orange'}">
-</map>
+</atlas>
 ```
 
 ```html
 <!-- Customizing many parameters --> 
-<map params="center: '38.479394673276445, -115.361328125',
+<atlas params="center: '38.479394673276445, -115.361328125',
              zoom: 3,
              colorKey: 'collection',
              colors: {BIBLIFO: '#f00', Multimedia: '#0f0', OrlandoEvents: '#00f', LGLC: '#ff0'},
              opacity: '0.5',
              markerWidth: 18,
              markerHeight: 18">
-</map>
+</atlas>
 ```
 
 ### `<timeline>`
@@ -242,7 +242,7 @@ eg. Column *Author* would get CSS class `grid-author`, and *First Name* gets `gr
 ```                       
                        
 ### `<spotlight>`
-A detailed view of a particular record. When a record is clicked in the map, timeline, or grid, it will become the selected record, and spotlight will automatically display its data. 
+A detailed view of a particular record. When a record is clicked in the atlas, timeline, or grid, it will become the selected record, and spotlight will automatically display its data. 
 
 Unlike the other components, Spotlight does not change it behaviour with `params`. Instead, edit the spotlight template within the Component Templates section of the index.html file. Consult the *Knockout Bindings* section to know more about how to edit this template. 
 
@@ -309,7 +309,7 @@ the handle is dragged. Child elements are reparented to the viewport.
 
 *As Toggle*
 Takes an observable in parameter `resizerObservable`. It will update that observable with the dragged height. 
-Useful when you cannot have the content be reparented (like in map)
+Useful when you cannot have the content be reparented (like in atlas)
 
 **Parameters**
 
@@ -325,9 +325,9 @@ Useful when you cannot have the content be reparented (like in map)
 ```
 
 ```html
-<!-- Controlling the area of a map using the map's internal 'canvasHeight' observable --> 
-<map id="map_canvas"></map>
-<resizer params="resizerObservable: canvasHeight, resizedId: 'map_canvas'"></resizer>
+<!-- Controlling the area of a atlas using the atlas's internal 'canvasHeight' observable --> 
+<atlas id="atlas_canvas"></atlas>
+<resizer params="resizerObservable: canvasHeight, resizedId: 'atlas_canvas'"></resizer>
 ```
 
 ### Filters
