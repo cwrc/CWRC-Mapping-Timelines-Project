@@ -265,9 +265,9 @@
                     data-bind="style: {
                                          width: $parent.canvas.bounds.width(),
                                          height: $parent.canvas.bounds.height(),
-                                         msTransform: $parent.viewport.transformProperties,
-                                         webkitTransform: $parent.viewport.transformProperties,
-                                         transform: $parent.viewport.transformProperties
+                                         msTransform: $parent.viewport.translateTransform,
+                                         webkitTransform: $parent.viewport.translateTransform,
+                                         transform: $parent.viewport.translateTransform
                                        },
                                foreach: {data: $parent.canvas.tokens, as: 'token'} ">
                   <div class="event" data-bind="visible: token.visible,
@@ -275,10 +275,13 @@
                                                        period: token.data.endDate
                                                      },
                                                 style: {
-                                                         left: token.xPos,
+                                                         left: 0,
                                                          height: token.height() + 'px',
                                                          width: token.lineWidth() + 'px',
-                                                         zIndex: token.layer()
+                                                         zIndex: token.layer(),
+                                                         msTransform: token.markerTransform,
+                                                         webkitTransform: token.markerTransform,
+                                                         transform: token.markerTransform
                                                        },
                                                 attr: {id: 'token-' + token.id}">
                      <a href="#" data-bind="event: {mouseup: $parents[1].recordMouseUp,

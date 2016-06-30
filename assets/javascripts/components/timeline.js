@@ -159,6 +159,11 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
         self.xPos = ko.pureComputed(function () {
             return self.canvas.stampToPixels(self.startStamp() - CWRC.earliestStamp());
         });
+
+        self.markerTransform = ko.pureComputed(function () {
+            return 'translateX(' + self.canvas.stampToPixels(self.startStamp() - CWRC.earliestStamp()) + 'px)';
+        });
+
         self.lineWidth = ko.pureComputed(function () {
             return self.duration() ? self.canvas.stampToPixels(self.duration()) : '';
         });
@@ -527,7 +532,7 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
             }
         };
 
-        self.transformProperties = ko.pureComputed(function () {
+        self.translateTransform = ko.pureComputed(function () {
             return 'translate(' + -self.bounds.toPx().left + 'px, ' + -self.bounds.toPx().top + 'px)'
         });
 
