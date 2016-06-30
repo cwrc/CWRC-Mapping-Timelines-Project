@@ -409,18 +409,18 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
         viewportBounds = this.viewport.bounds;
         spanDate = new Date(viewportBounds.leftStamp());
 
-        this.floorDate(spanDate, unit);
+        spanDate = this.floorDate(spanDate, unit);
 
         while (spanDate.getTime() <= viewportBounds.rightStamp()) {
             if (/days?/i.test(unit))
-                label = spanDate.getDate();
+                label = spanDate.getUTCDate();
             else if (/months?/i.test(unit))
             // toLocalString options aren't supported in IE 9 & 10.
-                label = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][spanDate.getMonth()];
+                label = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][spanDate.getUTCMonth()];
             else if (/decades?|centur(ies|y)|millenni(um|a)/i.test(unit))
-                label = spanDate.getFullYear() + 's';
+                label = spanDate.getUTCFullYear() + 's';
             else
-                label = spanDate.getFullYear();
+                label = spanDate.getUTCFullYear();
 
             dates.push({
                 label: label,
@@ -441,27 +441,29 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
         amount = amount || 1;
 
         if (/days?/i.test(unit))
-            date.setDate(date.getDate() + amount);
+            date.setUTCDate(date.getUTCDate() + amount);
         else if (/months?/i.test(unit))
-            date.setMonth(date.getMonth() + amount);
+            date.setUTCMonth(date.getUTCMonth() + amount);
         else if (/years?/i.test(unit))
-            date.setFullYear(date.getFullYear() + amount);
+            date.setUTCFullYear(date.getUTCFullYear() + amount);
         else if (/decades?/i.test(unit))
-            date.setFullYear(date.getFullYear() + amount * 10);
+            date.setUTCFullYear(date.getUTCFullYear() + amount * 10);
         else if (/centur(ies|y)/i.test(unit))
-            date.setFullYear(date.getFullYear() + amount * 100);
+            date.setUTCFullYear(date.getUTCFullYear() + amount * 100);
         else
-            date.setFullYear(date.getFullYear() + amount * 1000);
+            date.setUTCFullYear(date.getUTCFullYear() + amount * 1000);
     };
 
-    CWRC.Timeline.Ruler.prototype.floorDate = function (date, unit) {
-        var granularity, yearsBy;
+    CWRC.Timeline.Ruler.prototype.floorDate = function (sourceDate, unit) {
+        var granularity, yearsBy, floorDate;
+
+        floorDate = new Date(sourceDate);
 
         if (/months?/i.test(unit))
-            date.setMonth(date.getMonth(), 1);
+            floorDate.setUTCMonth(sourceDate.getUTCMonth(), 1);
         else if (!/days?/i.test(unit)) {
             yearsBy = function (granularity, source) {
-                return Math.floor(source.getFullYear() / granularity) * granularity
+                return Math.floor(source.getUTCFullYear() / granularity) * granularity
             };
 
             if (/years?/i.test(unit))
@@ -473,13 +475,13 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
             else
                 granularity = 1000;
 
-            date.setFullYear(yearsBy(granularity, date), 0, 1);
+            floorDate.setUTCFullYear(yearsBy(granularity, sourceDate), 0, 1);
         }
 
         // assumes that the minimum unit is day, so we can ignore everything lower.
-        date.setHours(0, 0, 0);
+        floorDate.setUTCHours(0, 0, 0);
 
-        return date;
+        return floorDate;
     }
 })();
 
