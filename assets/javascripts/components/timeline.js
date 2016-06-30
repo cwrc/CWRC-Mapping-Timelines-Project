@@ -80,8 +80,6 @@ ko.components.register('timeline', {
             if (mouseEvent.buttons != 1)
                 return;
 
-            console.log('dragstart')
-
             if (mouseEvent.touches && mouseEvent.touches.length >= 2) {
                 self.pinching = true;
             } else {
@@ -307,6 +305,9 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
 
                     return self.stampToPixels(timespan) + self.stampToPixels(CWRC.toMillisec('year')) + 'px';
                 }
+            }),
+            timespan: ko.pureComputed(function () {
+                return CWRC.latestStamp() - CWRC.earliestStamp();
             })
         };
 
@@ -558,6 +559,10 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
         var scaleFactor, beforeZoomFocusStamp, afterZoomFocusStamp, canvas;
 
         canvas = this.canvas;
+
+        // limit zooming too far out
+        if (!zoomIn && this.bounds.timespan() > canvas.bounds.timespan())
+            return;
 
         scaleFactor = zoomIn ? (this.scaleStep) : (1 / this.scaleStep);
 
