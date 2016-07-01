@@ -128,18 +128,39 @@ ko.components.register('atlas', {
         });
 
         // ===  Historical Map ===
-        var historicalControlDiv, swBound, neBound;
+        var historicalControlDiv;
 
-        swBound = new google.maps.LatLng(27.87, -181.56);
-        neBound = new google.maps.LatLng(81.69, -17.58);
+        var tmpOverlays = [
+            {
+                label: 'BNA 1854',
+                uri: 'assets/images/maps/BNA_1854.png',
+                swBound: new google.maps.LatLng(27.87, -181.56),
+                neBound: new google.maps.LatLng(81.69, -17.58)
+            },
+            {
+                label: 'BNA 1854 Negative',
+                uri: 'assets/images/maps/BNA_1854_neg.png',
+                swBound: new google.maps.LatLng(27.87, -181.56),
+                neBound: new google.maps.LatLng(81.69, -17.58)
+            }
+        ];
+
+        self.getOverlayName = function (googleOverlay) {
+            return tmpOverlays.find(function (overlay) {
+                return googleOverlay.getUrl() == overlay.uri;
+            }).label;
+        };
 
         self.showHistoricalMap = ko.observable(false);
         self.historicalMapOpacity = ko.observable(0.6);
-        self.historicalOverlay = new google.maps.GroundOverlay(
-            'assets/images/maps/BNA_1854.png',
-            new google.maps.LatLngBounds(swBound, neBound),
-            {opacity: self.historicalMapOpacity()}
-        );
+        self.overlays = ko.observableArray(tmpOverlays.map(function (overlayData) {
+            return new google.maps.GroundOverlay(
+                overlayData.uri,
+                new google.maps.LatLngBounds(overlayData.swBound, overlayData.neBound),
+                {opacity: self.historicalMapOpacity()}
+            )
+        }));
+        self.selectedOverlay = ko.observable(self.overlays()[0]);
 
         historicalControlDiv = document.getElementById('historicalMapControls');
         historicalControlDiv.id = 'cwrc_historical_map_control';
@@ -153,14 +174,24 @@ ko.components.register('atlas', {
 
         self.showHistoricalMap.subscribe(function (isShown) {
             if (isShown) {
-                self.historicalOverlay.setMap(self.map);
+                self.selectedOverlay().setMap(self.map);
             } else {
-                self.historicalOverlay.setMap(null);
+                self.selectedOverlay().setMap(null);
             }
         });
 
+        self.selectedOverlay.subscribe(function (newSelected) {
+            self.overlays().forEach(function (overlay) {
+                if (overlay !== newSelected) {
+                    overlay.setMap(null);
+                }
+            });
+
+            newSelected.setMap(self.map);
+        });
+
         self.historicalMapOpacity.subscribe(function (opacity) {
-            self.historicalOverlay.setOpacity(Number(opacity));
+            self.selectedOverlay().setOpacity(Number(opacity));
         });
     }
 });

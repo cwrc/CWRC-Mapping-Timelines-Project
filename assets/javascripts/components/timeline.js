@@ -77,17 +77,21 @@ ko.components.register('timeline', {
         self.dragStart = function (element, mouseEvent) {
             var x, y;
 
-            if (mouseEvent.buttons != 1)
-                return;
+            //if (mouseEvent instanceof TouchEvent) {
+            //    alert('touchy feely')
+            //} else {
+                if (mouseEvent.buttons != 1)
+                    return;
 
-            if (mouseEvent.touches && mouseEvent.touches.length >= 2) {
-                self.pinching = true;
-            } else {
-                x = mouseEvent.screenX || mouseEvent.touches[0].screenX;
-                y = mouseEvent.screenY || mouseEvent.touches[0].screenY;
+                if (mouseEvent.touches && mouseEvent.touches.length >= 2) {
+                    self.pinching = true;
+                } else {
+                    x = mouseEvent.screenX || mouseEvent.touches[0].screenX;
+                    y = mouseEvent.screenY || mouseEvent.touches[0].screenY;
 
-                self.previousDragPosition = {screenX: x, screenY: y};
-            }
+                    self.previousDragPosition = {screenX: x, screenY: y};
+                }
+            //}
         };
 
         // Note: These are on window rather than the component so that dragging doesn't cut off when the

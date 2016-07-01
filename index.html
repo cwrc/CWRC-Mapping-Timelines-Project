@@ -427,11 +427,20 @@
             <input type="checkbox" data-bind="checked: showHistoricalMap">
             <span>Historical Map</span>
          </label>
-         <label id="historicalOpacityControls" data-bind="visible: showHistoricalMap">
-            <span>Opacity</span>
-            <input id="historicalMapOpacity" type="range" min="0.0" max="1.0" step="0.05"
-                   data-bind="value: historicalMapOpacity" />
-         </label>
+
+         <div data-bind="visible: showHistoricalMap">
+            <label>
+               <span>Map</span>
+               <select data-bind="options: overlays,
+                                  optionsText: getOverlayName,
+                                  value: selectedOverlay"></select>
+            </label>
+            <label>
+               <span>Opacity</span>
+               <input id="historicalMapOpacity" type="range" min="0.0" max="1.0" step="0.05"
+                      data-bind="value: historicalMapOpacity" />
+            </label>
+         </div>
       </div>
       <!-- identifying by ID does limit to one map per page, but that works for now -->
       <div data-bind="style: {height: canvasHeight}" id="map_canvas">
