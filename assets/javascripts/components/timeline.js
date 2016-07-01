@@ -20,8 +20,6 @@ ko.components.register('timeline', {
     viewModel: function (params) {
         var self = this;
 
-        self.previousDragPosition = null;
-
         self.unplottableCount = ko.pureComputed(function () {
             // can't use canvas records here, because that's filtered.
             return CWRC.rawData().length - CWRC.rawData().filter(function (item) {
@@ -47,97 +45,101 @@ ko.components.register('timeline', {
                 self.viewport.panTo(recordStamp, token.row());
         });
 
-        self.scrollHandler = function (viewModel, scrollEvent) {
-            var mouseX, mouseY, viewportRect;
+        self.mouseHandler = {
+            previousDragPosition: null,
+            onDragStart: function (element, mouseEvent) {
+                var x, y;
 
-            viewportRect = self.viewport.getElement().getBoundingClientRect();
-
-            //  mouseX, Y are relative to viewport, in unscaled pixels
-            mouseX = scrollEvent.clientX - viewportRect.left;
-            mouseY = scrollEvent.clientY - viewportRect.top;
-
-            self.viewport.zoom(mouseX, mouseY, scrollEvent.deltaY < 0);
-
-            return false; // prevent regular page scrolling.
-        };
-
-        /*
-         * recordMouseUp and recordMouseDown are split (ie. not recordClick) to allow drag to abort the event
-         * so that it doesn't select when you drag over a record. - retm
-         */
-        self.recordMouseUp = function (token) {
-            if (self.clickingOnRecord)
-                CWRC.selected(token.data)
-        };
-
-        self.recordMouseDown = function (record) {
-            self.clickingOnRecord = true
-        };
-
-        self.dragStart = function (element, mouseEvent) {
-            var x, y;
-
-            //if (mouseEvent instanceof TouchEvent) {
-            //    alert('touchy feely')
-            //} else {
                 if (mouseEvent.buttons != 1)
                     return;
 
-                if (mouseEvent.touches && mouseEvent.touches.length >= 2) {
-                    self.pinching = true;
-                } else {
-                    x = mouseEvent.screenX || mouseEvent.touches[0].screenX;
-                    y = mouseEvent.screenY || mouseEvent.touches[0].screenY;
+                x = mouseEvent.screenX || mouseEvent.touches[0].screenX;
+                y = mouseEvent.screenY || mouseEvent.touches[0].screenY;
 
-                    self.previousDragPosition = {screenX: x, screenY: y};
-                }
-            //}
-        };
+                self.mouseHandler.previousDragPosition = {screenX: x, screenY: y};
+            },
+            onMove: function (mouseEvent) {
+                var deltaX, deltaY, mouseX, mouseY, previousDragPosition;
 
-        // Note: These are on window rather than the component so that dragging doesn't cut off when the
-        // mouse leaves the widget. This is Google Maps behaviour adopted for consistency.
-        self.dragHandler = function (mouseEvent) {
-            var deltaX, deltaY, mouseX, mouseY;
+                previousDragPosition = self.mouseHandler.previousDragPosition;
 
-            if (!self.previousDragPosition)
-                return;
+                if (!previousDragPosition)
+                    return;
 
-            // would've used simpler event.movementX and movementY, but Firefox doesn't support yet.
-
-            if (mouseEvent.touches && mouseEvent.touches.length > 0) {
-                mouseX = mouseEvent.touches[0].screenX;
-                mouseY = mouseEvent.touches[0].screenY;
-            } else {
                 mouseX = mouseEvent.screenX;
                 mouseY = mouseEvent.screenY;
+
+                deltaX = mouseX - previousDragPosition.screenX;
+                deltaY = mouseY - previousDragPosition.screenY;
+
+                self.viewport.panPixels(deltaX, deltaY);
+
+                self.mouseHandler.previousDragPosition = {screenX: mouseX, screenY: mouseY};
+
+                self.clickingOnRecord = false;
+            },
+            onDragEnd: function (mouseEvent) {
+                self.mouseHandler.previousDragPosition = null;
+            },
+            /*
+             * recordMouseUp and recordMouseDown are split (ie. not recordClick) to allow drag to abort the event
+             * so that it doesn't select when you drag over a record. - retm
+             */
+            recordMouseUp: function (token) {
+                if (self.clickingOnRecord)
+                    CWRC.selected(token.data)
+            },
+            recordMouseDown: function (record) {
+                self.clickingOnRecord = true; // this gets reset if the click turns into a drag
+            },
+            onScroll: function (viewModel, scrollEvent) {
+                var mouseX, mouseY, viewportRect;
+
+                viewportRect = self.viewport.getElement().getBoundingClientRect();
+
+                //  mouseX, Y are relative to viewport, in unscaled pixels
+                mouseX = scrollEvent.clientX - viewportRect.left;
+                mouseY = scrollEvent.clientY - viewportRect.top;
+
+                self.viewport.zoom(mouseX, mouseY, scrollEvent.deltaY < 0);
+
+                return false; // prevent regular page scrolling.
             }
-
-            deltaX = mouseX - self.previousDragPosition.screenX;
-            deltaY = mouseY - self.previousDragPosition.screenY;
-
-            self.viewport.panPixels(deltaX, deltaY);
-
-            self.previousDragPosition = {screenX: mouseX, screenY: mouseY};
-
-            self.clickingOnRecord = false;
         };
 
-        self.stopDragHandler = function (mouseEvent) {
-            self.previousDragPosition = null;
+        self.touchHandler = {
+            touchCache: ko.observableArray(),
+            onDragStart: function (element, touchEvent) {
+
+            },
+            onMove: function (touchEvent) {
+                // would've used simpler event.movementX and movementY, but Firefox doesn't support yet.
+                if (mouseEvent.touches && mouseEvent.touches.length > 0) {
+                    var mouseX = mouseEvent.touches[0].screenX;
+                    var mouseY = mouseEvent.touches[0].screenY;
+                }
+
+                if (touchEvent.touches.length <= 1) {
+                    self.mouseHandler.onDrag(touchEvent);
+                } else {
+                    alert('pinch? double move?');
+                }
+            },
+            onDragEnd: function (touchEvent) {
+                self.touchHandler.previousDragPosition = null;
+            }
         };
 
-        window.addEventListener('mouseup', self.stopDragHandler);
-        window.addEventListener('touchend', self.stopDragHandler);
+        /* Note: Most drag events are on window rather than the component so that dragging doesn't
+         * cut off when the mouse leaves the widget.
+         *
+         * This is Google Maps behaviour adopted for consistency and better UX.
+         */
+        window.addEventListener('mousemove', self.mouseHandler.onMove);
+        window.addEventListener('mouseup', self.mouseHandler.onDragEnd);
 
-        window.addEventListener('mousemove', self.dragHandler);
-        window.addEventListener('touchmove', function (touchEvent) {
-            if (touchEvent.touches.length > 1) {
-                alert('Zoom not yet supported on touch.');
-                //self.zoom(something)
-            } else {
-                self.dragHandler(touchEvent);
-            }
-        });
+        window.addEventListener('touchmove', self.touchHandler.onMove);
+        window.addEventListener('touchend', self.touchHandler.onDragEnd);
     }
 });
 

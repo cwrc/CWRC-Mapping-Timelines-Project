@@ -258,8 +258,9 @@
          </div>
       </section>
       <resizer>
-         <div data-bind="event: { mousedown: $parent.dragStart, touchstart: $parent.dragStart }">
-            <section class="timeline-viewport" data-bind="event: {wheel: $parent.scrollHandler}">
+         <div data-bind="event: { mousedown: $parent.mouseHandler.onDragStart,
+                                  touchstart: $parent.touchHandler.onDragStart }">
+            <section class="timeline-viewport" data-bind="event: {wheel: $parent.mouseHandler.onScroll}">
                <div class="canvas"
                     style="position: relative"
                     data-bind="style: {
@@ -285,8 +286,8 @@
                                                        },
                                                 attr: {id: 'token-' + token.id}">
                      <a href="#" data-bind="event: {
-                                                    mouseup: $parents[1].recordMouseUp,
-                                                    mousedown: $parents[1].recordMouseDown,
+                                                    mouseup: $parents[1].mouseHandler.recordMouseUp,
+                                                    mousedown: $parents[1].mouseHandler.recordMouseDown,
                                                     mouseover: function(){ token.isHovered(true) },
                                                     mouseout:  function(){ token.isHovered(false) }
                                                     },
