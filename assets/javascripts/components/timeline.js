@@ -109,24 +109,63 @@ ko.components.register('timeline', {
 
         self.touchHandler = {
             touchCache: ko.observableArray(),
-            onDragStart: function (element, touchEvent) {
+            onTouch: function (element, touchEvent) {
+                console.log('touchy', touchEvent)
 
-            },
-            onMove: function (touchEvent) {
-                // would've used simpler event.movementX and movementY, but Firefox doesn't support yet.
-                if (mouseEvent.touches && mouseEvent.touches.length > 0) {
-                    var mouseX = mouseEvent.touches[0].screenX;
-                    var mouseY = mouseEvent.touches[0].screenY;
+                for (var i = 0; i < touchEvent.targetTouches.length; i++) {
+                    var touch = touchEvent.targetTouches[i];
+
+                    self.touchHandler.touchCache.push(touch);
                 }
 
-                if (touchEvent.touches.length <= 1) {
-                    self.mouseHandler.onDrag(touchEvent);
+                console.log(self.touchHandler.touchCache())
+            },
+            onMove: function (touchEvent) {
+
+                if (touchEvent.touches.length != self.touchHandler.touchCache().length)
+                    return; // nope!
+
+                //if (singletouch) {pan} else if (doubletouch ){zoom}
+
+                console.log(touchEvent)
+
+                // would've used simpler event.movementX and movementY, but Firefox doesn't support yet.
+                //if (touchEvent.touches && touchEvent.touches.length > 0) {
+                //    var mouseX = touchEvent.touches[0].screenX;
+                //    var mouseY = touchEvent.touches[0].screenY;
+                //}
+
+                var cache = self.touchHandler.touchCache();
+
+                if (cache.length == 1) {
+                    var deltaX, deltaY, touchX, touchY;
+
+                    touchX = touchEvent.changedTouches[0].screenX;
+                    touchY = touchEvent.changedTouches[0].screenY;
+
+                    deltaX = touchX - cache[0].screenX;
+                    deltaY = touchY - cache[0].screenY;
+
+                    //console.log(touchEvent)
+                    //console.log('touchEvent move:', touchX, touchY)
+                    //console.log(cache[0])
+                    //console.log('cache:', cache[0].screenX, cache[0].screenY)
+                    //
+                    //console.log(deltaX, deltaY)
+
+                    self.viewport.panPixels(deltaX, deltaY);
+
+                    self.touchHandler.touchCache([touchEvent.changedTouches[0]])
                 } else {
                     alert('pinch? double move?');
                 }
             },
-            onDragEnd: function (touchEvent) {
-                self.touchHandler.previousDragPosition = null;
+            onUntouch: function (touchEvent) {
+                console.log('no touchy', touchEvent)
+
+                self.touchHandler.touchCache([]);
+
+                console.log(self.touchHandler.touchCache())
             }
         };
 
@@ -139,7 +178,7 @@ ko.components.register('timeline', {
         window.addEventListener('mouseup', self.mouseHandler.onDragEnd);
 
         window.addEventListener('touchmove', self.touchHandler.onMove);
-        window.addEventListener('touchend', self.touchHandler.onDragEnd);
+        window.addEventListener('touchend', self.touchHandler.onUntouch);
     }
 });
 
