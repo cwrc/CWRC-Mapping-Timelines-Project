@@ -110,32 +110,21 @@ ko.components.register('timeline', {
         self.touchHandler = {
             touchCache: ko.observableArray(),
             onTouch: function (element, touchEvent) {
-                console.log('touchy', touchEvent)
+                //for (var i = 0; i < touchEvent.targetTouches.length; i++) {
+                //    var touch = touchEvent.targetTouches[i];
+                //
+                //    self.touchHandler.touchCache.push(touch);
+                //}
 
-                for (var i = 0; i < touchEvent.targetTouches.length; i++) {
-                    var touch = touchEvent.targetTouches[i];
-
-                    self.touchHandler.touchCache.push(touch);
-                }
-
-                console.log(self.touchHandler.touchCache())
+                self.touchHandler.touchCache(touchEvent.targetTouches)
             },
             onMove: function (touchEvent) {
+                var cache;
 
                 if (touchEvent.touches.length != self.touchHandler.touchCache().length)
                     return; // nope!
 
-                //if (singletouch) {pan} else if (doubletouch ){zoom}
-
-                console.log(touchEvent)
-
-                // would've used simpler event.movementX and movementY, but Firefox doesn't support yet.
-                //if (touchEvent.touches && touchEvent.touches.length > 0) {
-                //    var mouseX = touchEvent.touches[0].screenX;
-                //    var mouseY = touchEvent.touches[0].screenY;
-                //}
-
-                var cache = self.touchHandler.touchCache();
+                cache = self.touchHandler.touchCache();
 
                 if (cache.length == 1) {
                     var deltaX, deltaY, touchX, touchY;
@@ -146,26 +135,52 @@ ko.components.register('timeline', {
                     deltaX = touchX - cache[0].screenX;
                     deltaY = touchY - cache[0].screenY;
 
-                    //console.log(touchEvent)
-                    //console.log('touchEvent move:', touchX, touchY)
-                    //console.log(cache[0])
-                    //console.log('cache:', cache[0].screenX, cache[0].screenY)
-                    //
-                    //console.log(deltaX, deltaY)
-
                     self.viewport.panPixels(deltaX, deltaY);
 
                     self.touchHandler.touchCache([touchEvent.changedTouches[0]])
                 } else {
-                    alert('pinch? double move?');
+                    var currentTouch1, currentTouch2, previousTouch1, previousTouch2, midpointX, midpointY, previousDistance, currentDistance;
+
+                    currentTouch1 = {
+                        x: touchEvent.touches[0].screenX,
+                        y: touchEvent.touches[0].screenY
+                    };
+                    currentTouch2 = {
+                        x: touchEvent.touches[1].screenX,
+                        y: touchEvent.touches[1].screenY
+                    };
+
+                    previousTouch1 = {
+                        x: self.touchHandler.touchCache()[0].screenX,
+                        y: self.touchHandler.touchCache()[0].screenY
+                    };
+                    previousTouch2 = {
+                        x: self.touchHandler.touchCache()[1].screenX,
+                        y: self.touchHandler.touchCache()[1].screenY
+                    };
+
+                    // I can't believe that JS makes this this hard to read.
+                    previousDistance = Math.sqrt(
+                        Math.pow(previousTouch1.x - previousTouch2.x, 2)
+                        +
+                        Math.pow(previousTouch1.y - previousTouch2.y, 2)
+                    );
+                    currentDistance = Math.sqrt(
+                        Math.pow(currentTouch1.x - currentTouch2.x, 2)
+                        +
+                        Math.pow(currentTouch1.y - currentTouch2.y, 2)
+                    );
+
+                    midpointX = Math.abs(currentTouch1.x - currentTouch2.x) / 2;
+                    midpointY = Math.abs(currentTouch1.y - currentTouch2.y) / 2;
+
+                    self.viewport.zoom(midpointX, midpointY, previousDistance < currentDistance);
+
+                    return false; // prevent regular page-wide zoom
                 }
             },
             onUntouch: function (touchEvent) {
-                console.log('no touchy', touchEvent)
-
                 self.touchHandler.touchCache([]);
-
-                console.log(self.touchHandler.touchCache())
             }
         };
 
