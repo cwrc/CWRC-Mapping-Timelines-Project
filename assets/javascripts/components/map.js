@@ -146,19 +146,31 @@ ko.components.register('atlas', {
         ];
 
         self.getOverlayName = function (googleOverlay) {
-            return tmpOverlays.find(function (overlay) {
-                return googleOverlay.getUrl() == overlay.uri;
-            }).label;
+            //return tmpOverlays.find(function (overlay) {
+            //    return googleOverlay.getUrl() == overlay.uri;
+            //}).label;
+
+            console.log(googleOverlay)
+
+            return googleOverlay.name
         };
 
         self.showHistoricalMap = ko.observable(false);
         self.historicalMapOpacity = ko.observable(0.6);
         self.overlays = ko.observableArray(tmpOverlays.map(function (overlayData) {
-            return new google.maps.GroundOverlay(
-                overlayData.uri,
-                new google.maps.LatLngBounds(overlayData.swBound, overlayData.neBound),
-                {opacity: self.historicalMapOpacity()}
-            )
+            return new google.maps.ImageMapType({
+                getTileUrl: function (coord, zoom) {
+                    return 'assets/images/maps/tiles/' + zoom + '/' + coord.x + '/' + coord.y + '.png';
+                },
+                tileSize: new google.maps.Size(256, 256),
+                name: overlayData.name
+            });
+
+            //return new google.maps.GroundOverlay(
+            //    overlayData.uri,
+            //    new google.maps.LatLngBounds(overlayData.swBound, overlayData.neBound),
+            //    {opacity: self.historicalMapOpacity()}
+            //)
         }));
         self.selectedOverlay = ko.observable(self.overlays()[0]);
 
@@ -173,21 +185,23 @@ ko.components.register('atlas', {
         };
 
         self.showHistoricalMap.subscribe(function (isShown) {
-            if (isShown) {
-                self.selectedOverlay().setMap(self.map);
-            } else {
-                self.selectedOverlay().setMap(null);
-            }
+            //if (isShown) {
+            //    self.selectedOverlay().setMap(self.map);
+            //} else {
+            //    self.selectedOverlay().setMap(null);
+            //}
         });
 
         self.selectedOverlay.subscribe(function (newSelected) {
-            self.overlays().forEach(function (overlay) {
-                if (overlay !== newSelected) {
-                    overlay.setMap(null);
-                }
-            });
+            //self.overlays().forEach(function (overlay) {
+            //    if (overlay !== newSelected) {
+            //        overlay.setMap(null);
+            //    }
+            //});
+            //
+            //newSelected.setMap(self.map);
 
-            newSelected.setMap(self.map);
+            self.map.overlayMapTypes.insertAt(0, newSelected);
         });
 
         self.historicalMapOpacity.subscribe(function (opacity) {
