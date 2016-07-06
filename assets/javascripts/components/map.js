@@ -156,10 +156,15 @@ ko.components.register('atlas', {
         self.overlays = ko.observableArray(tmpOverlays.map(function (overlayData) {
             return new google.maps.ImageMapType({
                 getTileUrl: function (coord, zoom) {
-                    // convert from Google coord to TMS, since that's what the tile slicer produces
-                    var tmsY = Math.pow(2, zoom) - coord.y - 1;
+                    var tmsY, x;
 
-                    return 'assets/images/maps/tiles/' + overlayData.directory + '/' + zoom + '/' + coord.x + '/' + tmsY + '.png';
+                    // convert from Google coord to TMS, since that's what the tile slicer produces
+                    tmsY = Math.pow(2, zoom) - coord.y - 1;
+
+                    // There are 2^zoom tiles per row, so modulo the zoom level to allow repeats for low zoom
+                    x = coord.x % Math.pow(2, zoom);
+
+                    return 'assets/images/maps/tiles/' + overlayData.directory + '/' + zoom + '/' + x + '/' + tmsY + '.png';
                 },
                 tileSize: new google.maps.Size(256, 256),
                 name: overlayData.label,

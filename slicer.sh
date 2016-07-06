@@ -8,6 +8,10 @@
 # sudo add-apt-repository ppa:ubuntugis/ppa && sudo apt-get update
 # sudo apt-get install gdal-bin
 # sudo apt-get install python-gdal
+#
+#
+# You may want to read http://webdesign.tutsplus.com/tutorials/the-google-maps-api-and-custom-overlays--webdesign-13868
+# to get an idea of what's going on.
 
 input_file=assets/images/maps/BNA_1854.png
 
