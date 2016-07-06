@@ -7,7 +7,20 @@
          "northBound": 81.69,
          "eastBound": -17.58,
          "southBound": 27.87,
-         "westBound": -181.56
+         "westBound": -181.56,
+         "minZoom": 0,
+         "maxZoom": 8
+      },
+      {
+         "label": "BNA 1854 Negative",
+         "directory": "BNA_1854_neg",
+         "file": "assets/images/maps/BNA_1854_neg.png",
+         "northBound": 81.69,
+         "eastBound": -17.58,
+         "southBound": 27.87,
+         "westBound": -181.56,
+         "minZoom": 0,
+         "maxZoom": 8
       }
    ]
 }

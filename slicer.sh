@@ -80,6 +80,6 @@ gdalwarp -of VRT -t_srs EPSG:3857 $wgs_coord_file $google_maps_coord_file
 
 # --zoom means the zoom range to support in Google maps; min possible zoom is 0, max is 21
 # --resume is there to avoid clobbering existing data. If the existing data is desired, delete it manually.
-gdal2tiles.py --resume --profile mercator --zoom 0-2 $google_maps_coord_file $output_dir
+gdal2tiles.py --resume --profile mercator --zoom 0-8 $google_maps_coord_file $output_dir
 
 rm -rf $tmp_dir

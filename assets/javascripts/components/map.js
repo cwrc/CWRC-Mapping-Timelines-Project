@@ -133,14 +133,20 @@ ko.components.register('atlas', {
         var tmpOverlays = [
             {
                 label: 'BNA 1854',
-                directory: 'BNA_1854'//,
+                directory: 'BNA_1854',
+                minZoom: 0,
+                maxZoom: 8
+                //,
                 //uri: 'assets/images/maps/BNA_1854.png',
                 //swBound: new google.maps.LatLng(27.87, -181.56),
                 //neBound: new google.maps.LatLng(81.69, -17.58)
             },
             {
                 label: 'BNA 1854 Negative',
-                directory: 'BNA_1854_neg'//,
+                directory: 'BNA_1854_neg',
+                minZoom: 0,
+                maxZoom: 8
+                //,
                 //uri: 'assets/images/maps/BNA_1854_neg.png',
                 //swBound: new google.maps.LatLng(27.87, -181.56),
                 //neBound: new google.maps.LatLng(81.69, -17.58)
@@ -156,6 +162,9 @@ ko.components.register('atlas', {
         self.overlays = ko.observableArray(tmpOverlays.map(function (overlayData) {
             return new google.maps.ImageMapType({
                 getTileUrl: function (coord, zoom) {
+                    if (zoom < overlayData.minZoom || zoom > overlayData.maxZoom)
+                        return null;
+
                     var tmsY, x;
 
                     // convert from Google coord to TMS, since that's what the tile slicer produces
@@ -168,16 +177,28 @@ ko.components.register('atlas', {
                 },
                 tileSize: new google.maps.Size(256, 256),
                 name: overlayData.label,
-                opacity: self.historicalMapOpacity()
+                opacity: self.historicalMapOpacity(),
+                minZoom: overlayData.minZoom,
+                maxZoom: overlayData.maxZoom
             });
         }));
         self.selectedOverlay = ko.observable(self.overlays()[0]);
+        self.overlayZoomSupport = ko.observable();
 
         historicalControlDiv = document.getElementById('historicalMapControls');
         historicalControlDiv.id = 'cwrc_historical_map_control';
         historicalControlDiv.index = 1;
 
         self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(historicalControlDiv);
+
+        self.map.addListener('zoom_changed', function (a, b, c) {
+            var zoom = self.map.getZoom();
+
+            if (zoom > self.selectedOverlay().maxZoom)
+                self.overlayZoomSupport('Map overlay not supported at this zoom')
+            else
+                self.overlayZoomSupport('')
+        });
 
         self['toggleHistoricalMap'] = function () {
             self.showHistoricalMap(!self.showHistoricalMap());
