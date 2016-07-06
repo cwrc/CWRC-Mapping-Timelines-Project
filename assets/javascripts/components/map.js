@@ -133,13 +133,15 @@ ko.components.register('atlas', {
         var tmpOverlays = [
             {
                 label: 'BNA 1854',
-                uri: 'assets/images/maps/BNA_1854.png'//,
+                directory: 'BNA_1854'//,
+                //uri: 'assets/images/maps/BNA_1854.png',
                 //swBound: new google.maps.LatLng(27.87, -181.56),
                 //neBound: new google.maps.LatLng(81.69, -17.58)
             },
             {
                 label: 'BNA 1854 Negative',
-                uri: 'assets/images/maps/BNA_1854_neg.png'//,
+                directory: 'BNA_1854_neg'//,
+                //uri: 'assets/images/maps/BNA_1854_neg.png',
                 //swBound: new google.maps.LatLng(27.87, -181.56),
                 //neBound: new google.maps.LatLng(81.69, -17.58)
             }
@@ -157,7 +159,7 @@ ko.components.register('atlas', {
                     // convert from Google coord to TMS, since that's what the tile slicer produces
                     var tmsY = Math.pow(2, zoom) - coord.y - 1;
 
-                    return 'assets/images/maps/tiles/' + zoom + '/' + coord.x + '/' + tmsY + '.png';
+                    return 'assets/images/maps/tiles/' + overlayData.directory + '/' + zoom + '/' + coord.x + '/' + tmsY + '.png';
                 },
                 tileSize: new google.maps.Size(256, 256),
                 name: overlayData.label,
