@@ -133,25 +133,19 @@ ko.components.register('atlas', {
         var tmpOverlays = [
             {
                 label: 'BNA 1854',
-                uri: 'assets/images/maps/BNA_1854.png',
-                swBound: new google.maps.LatLng(27.87, -181.56),
-                neBound: new google.maps.LatLng(81.69, -17.58)
+                uri: 'assets/images/maps/BNA_1854.png'//,
+                //swBound: new google.maps.LatLng(27.87, -181.56),
+                //neBound: new google.maps.LatLng(81.69, -17.58)
             },
             {
                 label: 'BNA 1854 Negative',
-                uri: 'assets/images/maps/BNA_1854_neg.png',
-                swBound: new google.maps.LatLng(27.87, -181.56),
-                neBound: new google.maps.LatLng(81.69, -17.58)
+                uri: 'assets/images/maps/BNA_1854_neg.png'//,
+                //swBound: new google.maps.LatLng(27.87, -181.56),
+                //neBound: new google.maps.LatLng(81.69, -17.58)
             }
         ];
 
         self.getOverlayName = function (googleOverlay) {
-            //return tmpOverlays.find(function (overlay) {
-            //    return googleOverlay.getUrl() == overlay.uri;
-            //}).label;
-
-            console.log(googleOverlay)
-
             return googleOverlay.name
         };
 
@@ -160,17 +154,15 @@ ko.components.register('atlas', {
         self.overlays = ko.observableArray(tmpOverlays.map(function (overlayData) {
             return new google.maps.ImageMapType({
                 getTileUrl: function (coord, zoom) {
-                    return 'assets/images/maps/tiles/' + zoom + '/' + coord.x + '/' + coord.y + '.png';
+                    // convert from Google coord to TMS, since that's what the tile slicer produces
+                    var tmsY = Math.pow(2, zoom) - coord.y - 1;
+
+                    return 'assets/images/maps/tiles/' + zoom + '/' + coord.x + '/' + tmsY + '.png';
                 },
                 tileSize: new google.maps.Size(256, 256),
-                name: overlayData.name
+                name: overlayData.label,
+                opacity: self.historicalMapOpacity()
             });
-
-            //return new google.maps.GroundOverlay(
-            //    overlayData.uri,
-            //    new google.maps.LatLngBounds(overlayData.swBound, overlayData.neBound),
-            //    {opacity: self.historicalMapOpacity()}
-            //)
         }));
         self.selectedOverlay = ko.observable(self.overlays()[0]);
 
@@ -185,23 +177,15 @@ ko.components.register('atlas', {
         };
 
         self.showHistoricalMap.subscribe(function (isShown) {
-            //if (isShown) {
-            //    self.selectedOverlay().setMap(self.map);
-            //} else {
-            //    self.selectedOverlay().setMap(null);
-            //}
+            self.map.overlayMapTypes.clear();
+
+            if (isShown)
+                self.map.overlayMapTypes.push(self.selectedOverlay());
         });
 
         self.selectedOverlay.subscribe(function (newSelected) {
-            //self.overlays().forEach(function (overlay) {
-            //    if (overlay !== newSelected) {
-            //        overlay.setMap(null);
-            //    }
-            //});
-            //
-            //newSelected.setMap(self.map);
-
-            self.map.overlayMapTypes.insertAt(0, newSelected);
+            self.map.overlayMapTypes.clear();
+            self.map.overlayMapTypes.push(newSelected);
         });
 
         self.historicalMapOpacity.subscribe(function (opacity) {
