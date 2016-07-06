@@ -34,7 +34,7 @@ then
   exit 1
 fi
 
-image_name=$(basename $input_file | cut -f 1 -d '.')
+image_name=$(basename $input_file | cut -f 1 -d '.' | tr '[:upper:]' '[:lower:]')
 output_dir="assets/images/maps/tiles/$image_name"
 
 echo -e "Outputting to $output_dir\n"

@@ -133,7 +133,7 @@ ko.components.register('atlas', {
         var tmpOverlays = [
             {
                 label: 'BNA 1854',
-                directory: 'BNA_1854',
+                directory: 'bna_1854',
                 minZoom: 0,
                 maxZoom: 8
                 //,
@@ -143,7 +143,7 @@ ko.components.register('atlas', {
             },
             {
                 label: 'BNA 1854 Negative',
-                directory: 'BNA_1854_neg',
+                directory: 'bna_1854_neg',
                 minZoom: 0,
                 maxZoom: 8
                 //,
