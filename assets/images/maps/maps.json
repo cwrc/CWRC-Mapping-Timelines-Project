@@ -1,0 +1,13 @@
+{
+   "maps": [
+      {
+         "label": "BNA 1854",
+         "directory": "BNA_1854",
+         "file": "assets/images/maps/BNA_1854.png",
+         "northBound": 81.69,
+         "eastBound": -17.58,
+         "southBound": 27.87,
+         "westBound": -181.56
+      }
+   ]
+}
