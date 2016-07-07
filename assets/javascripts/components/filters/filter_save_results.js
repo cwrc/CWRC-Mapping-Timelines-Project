@@ -4,6 +4,7 @@ ko.components.register('filter_save_results', {
                     <div data-bind="click: function(){}, clickBubble: false">\
                         <header>Download As</header>\
                         <input type="button" data-bind="value: \'JSON\', click: function(){ saveJSON() }"/>\
+                        <input type="button" data-bind="value: \'JSON-LD\', click: function(){ saveJSONLD() }"/>\
                         <input type="button" data-bind="value: \'CSV\', click: function(){ saveCSV() }"/>\
                         <input type="button" data-bind="value: \'XML\', click: function(){ saveXML() }"/>\
                         <hr>\
@@ -24,6 +25,10 @@ ko.components.register('filter_save_results', {
 
         self['saveJSON'] = function () {
             self.triggerDownload('results.json', 'application/json', JSON.stringify(CWRC.filteredData()));
+        };
+
+        self['saveJSONLD'] = function () {
+            self.triggerDownload('results.jsonld', 'application/json', JSON.stringify(CWRC.filteredData()));
         };
 
         self['saveCSV'] = function () {
@@ -74,12 +79,6 @@ ko.components.register('filter_save_results', {
             } else {
                 self.triggerDownload('results.csv', 'text/csv', fileContent);
             }
-        };
-
-        self['saveJSONLD'] = function () {
-            alert('make JSONLD by using magic')
-
-            //self.triggerDownload('results.jsonld', 'application/json', data);
         };
 
         self['saveXML'] = function () {
