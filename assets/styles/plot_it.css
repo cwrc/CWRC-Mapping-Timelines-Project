@@ -120,7 +120,7 @@ body {
 }
 
 /* ===== MAIN ==== */
-main {
+.display {
    display: inline-block;
    max-width: 75%;
    width: 100%;
