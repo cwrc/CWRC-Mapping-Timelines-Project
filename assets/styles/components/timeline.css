@@ -64,7 +64,7 @@ timeline .timeline-viewport:active {
 timeline .timeline-viewport .canvas {
    position: relative;
 
-   z-index: 1000;
+   z-index: 10;
 
    background: lightblue;
 

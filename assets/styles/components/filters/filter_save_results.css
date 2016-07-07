@@ -16,17 +16,16 @@ filter_save_results .save-dialog {
 }
 
 filter_save_results .save-dialog > div {
+   position: relative;
+
    margin: 10% auto;
-
-   max-width: 25em;
-
+   max-width: 27.5em;
    padding: 1em;
-
-   background: lightgrey;
 
    box-shadow: 0.25em 0.25em 0.5em rgba(0, 0, 0, 0.6);
 
    text-align: left;
+   background: lightgrey;
 }
 
 filter_save_results .save-dialog > div header {
@@ -40,4 +39,6 @@ filter_save_results .save-dialog > div input {
 
    min-width: 8em;
    min-height: 2.5em;
+
+   cursor: pointer;
 }
