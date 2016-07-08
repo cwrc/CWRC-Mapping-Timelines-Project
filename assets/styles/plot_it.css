@@ -4,8 +4,31 @@ body {
    min-height: 100%;
 
    font-size: 0;
-   font-family: "Lucida Grande", "Tahoma", "Helvetica", "Arial", sans-serif;
+   font-family: "Lato", "Arial", sans-serif;
    color: #222;
+}
+
+body input[type=button],
+body input[type=submit] {
+   border: none;
+   border-radius: 0.5em;
+
+   padding: 1em 2em;
+
+   background: #336699;
+   color: white;
+   font-family: "Lato", "Arial", sans-serif;
+   cursor: pointer;
+}
+
+body input[type=button]:hover,
+body input[type=submit]:hover {
+   box-shadow: 0.1em 0.1em 0.25em rgba(0, 0, 0, 0.5);
+}
+
+body input[type=button]:active,
+body input[type=submit]:active {
+   box-shadow: none;
 }
 
 /* ==== SIDEBAR ==== */
