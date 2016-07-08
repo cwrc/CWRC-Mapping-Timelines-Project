@@ -1,5 +1,9 @@
 date_filter {
    display: block;
+
+   box-sizing: border-box;
+
+   padding: 0 0.5em;
 }
 
 date_filter input {
@@ -25,4 +29,8 @@ date_filter .noUi-value-horizontal {
    font-size: 0.8em;
 
    cursor: default;
+}
+
+date_filter .noUi-connect {
+   background: #336699
 }
