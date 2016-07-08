@@ -1,13 +1,29 @@
 text_filter {
-    display: block;
+   display: block;
+}
+
+text_filter header {
+   margin-bottom: 0.25em;
 }
 
 text_filter input {
-    display: block;
+   display: block;
 
-    width: 100%;
+   width: 100%;
 
-    border-radius: 0.25em;
+   box-shadow: 0 0.15em 0.35em -0px rgba(0, 0, 0, 0.35) inset;
+   border: none;
+   border-radius: 0.5em;
+
+   padding: 0.75em 3em 0.75em 0.5em;
+
+   background: #eff0ef url(/assets/images/loupe.svg) no-repeat scroll 95% 0.6em;
+   font-family: "Lato", "Arial", sans-serif;
+}
+
+text_filter img {
+   content: '.';
+   background-image: url('assets/images/loupe.svg')
 }
 
 /* Hide the placeholder text on focus, because users expect this behaviour, and it is nonstandard.  */
@@ -17,5 +33,6 @@ input:focus::-moz-placeholder, /* Firefox 19+ */
 input:focus:-ms-input-placeholder,
 input:focus:input-placeholder,
 input:focus:placeholder {
-    color: transparent;
+   color: transparent;
+   content: ''
 }
