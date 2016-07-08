@@ -81,6 +81,8 @@ timeline .timeline-viewport > div.canvas .event {
    width: 2em;
 
    border-left: 2px groove darkgrey;
+
+   font-size: 0.8em;
 }
 
 timeline .timeline-viewport > div.canvas .event a {
@@ -158,10 +160,16 @@ timeline .timeline-ruler {
 
 timeline .timeline-ruler > div {
    overflow: hidden;
+
+   min-height: 1.25em;
 }
 
 timeline .timeline-ruler > div > span {
    position: absolute;
 
+   min-height: 1.25em;
+
    border-left: 1px solid black;
+
+   padding-left: 0.25em;
 }

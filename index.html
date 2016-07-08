@@ -251,10 +251,10 @@
          </div>
       </section>
       <section class="timeline-ruler">
-         <div style="height: 1em" data-bind="foreach: ruler.step(ruler.shiftUnit(ruler.unit(), 1))">
+         <div data-bind="foreach: ruler.step(ruler.shiftUnit(ruler.unit(), 1))">
             <span data-bind="text: $data.label, style: {left: $data.position}"></span>
          </div>
-         <div style="height: 1em" data-bind="foreach: ruler.step(ruler.unit())">
+         <div data-bind="foreach: ruler.step(ruler.unit())">
             <span data-bind="text: $data.label, style: {left: $data.position}"></span>
          </div>
       </section>
