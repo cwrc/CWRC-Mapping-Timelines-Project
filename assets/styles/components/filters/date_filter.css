@@ -34,3 +34,15 @@ date_filter .noUi-value-horizontal {
 date_filter .noUi-connect {
    background: #336699
 }
+
+date_filter .noUi-handle {
+   cursor: -moz-grab;
+   cursor: -webkit-grab;
+   cursor: grab;
+}
+
+date_filter .noUi-handle:active {
+   cursor: -moz-grabbing;
+   cursor: -webkit-grabbing;
+   cursor: grabbing;
+}
