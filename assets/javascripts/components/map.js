@@ -421,7 +421,7 @@ CWRC.Map.TokenBuilder.prototype.buildPolylineForItem = function (item) {
 
     line.cwrc.selected.subscribe(function (isSelected) {
         line.setOptions({
-            strokeColor: isSelected ? '#FF0000' : color,
+            strokeColor: isSelected ? '#CC0000' : color,
             strokeWeight: isSelected ? 3 : 2
         });
     });

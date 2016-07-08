@@ -21,7 +21,7 @@ tab_pane > header > form > label + label::before {
 }
 
 tab_pane > header > form > label > input[type="radio"]:checked + span {
-    border-bottom: 3px solid red;
+    border-bottom: 3px solid #CC0000;
 }
 
 tab_pane > header > form > label > input[type="radio"] {
