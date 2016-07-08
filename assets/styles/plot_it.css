@@ -44,12 +44,16 @@ body input[type=submit]:active {
 }
 
 #sidebar > header {
-   margin-bottom: 0.25em;
+   max-width: 6em;
+   margin: 0 auto;
+   padding: 0.5em;
+
+   border-bottom: 1px solid #B3BBBE;
 
    text-align: center;
 
+   color: #CC0000;
    font-size: 2em;
-   text-decoration: none;
    font-weight: bold;
 }
 
@@ -63,6 +67,15 @@ body input[type=submit]:active {
 
    border-bottom: 1px solid black;
    padding-bottom: 1em;
+}
+
+#sidebar > section hr {
+   margin: 1em auto;
+
+   border: none;
+   border-bottom: 1px solid #B3BBBE;
+
+   max-width: 12em;
 }
 
 #sidebar > section > p {

@@ -12,7 +12,10 @@ ko.components.register('text_filter', {
     viewModel: function (params) {
         var self = this;
 
-        self.label = params['label'] || 'Search';
+        self.label = params['label'];
+        if (self.label == null)
+            self.label = 'Search';
+
         self.placeholder = params['placeholder'] || 'eg. University of Alberta';
 
         self.rateLimitTimeout = 300; // ms
