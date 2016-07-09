@@ -21,6 +21,7 @@ atlas > section:first-of-type {
 
 atlas > section:first-of-type div.unplottable {
    display: inline-block;
+   font-size: 0.8em;
 }
 
 atlas > section:last-of-type div {

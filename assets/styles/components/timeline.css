@@ -6,6 +6,10 @@ timeline > section:first-of-type {
    text-align: right;
 }
 
+timeline .unplottable {
+   font-size: 0.8em;
+}
+
 /*timeline > section {*/
 /*position: relative;*/
 /*}*/
