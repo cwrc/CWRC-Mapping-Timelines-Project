@@ -41,7 +41,7 @@ ko.components.register('timeline', {
                 return token.data == selectedRecord;
             });
 
-            if (!self.viewport.bounds.contains(recordStamp, token.row()))
+            if (token && !self.viewport.bounds.contains(recordStamp, token.row()))
                 self.viewport.panTo(recordStamp, token.row());
         });
 
