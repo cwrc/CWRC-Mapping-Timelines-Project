@@ -8,6 +8,11 @@ expander > a {
    font-size: 0.75em;
 }
 
+
+expander > a > span:first-of-type {
+   margin-left: 0.5em;
+}
+
 expander > a:hover > span:first-of-type {
    text-decoration: underline;
 }
