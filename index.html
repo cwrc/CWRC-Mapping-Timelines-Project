@@ -314,7 +314,7 @@
    <template id="grid-template">
       <div class="grid-controls">
          <div class="grid-sorter">
-            Sort <span data-bind="visible: sortContexts().length > 0">by</span>
+            <p class="prompt">Sort <span data-bind="visible: sortContexts().length > 0">by</span></p>
             <!-- Building a "widget" for editing each sorting context-->
             <div data-bind="foreach: sortContexts">
                <div>

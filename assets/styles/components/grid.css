@@ -48,7 +48,8 @@ grid table tbody tr:nth-of-type(odd) {
 }
 
 grid table tbody tr:hover {
-   background: #ADD8E6;
+   background: #336699;
+   color: white;
 }
 
 grid table tbody td {
@@ -116,18 +117,32 @@ grid .grid-sorter div {
    display: inline-block;
 }
 
-grid .grid-sorter > div > div {
+grid .grid-sorter > a {
    display: inline-block;
 
-   border-radius: 0.25em;
+   margin-top: 0.25em;
+}
+
+grid .grid-sorter .prompt {
+   display: inline-block;
+
+   margin-top: 0.25em;
+
+   vertical-align: top;
+}
+
+grid .grid-sorter > div div {
+   display: block;
 }
 
 grid .grid-sorter > div div:after {
-   content: '; then';
+   content: ' then';
 }
 
 grid .grid-sorter > div > div select {
    background: none;
+
+   cursor: pointer;
 }
 
 grid .grid-sorter > div > div a:last-of-type {
@@ -137,7 +152,16 @@ grid .grid-sorter > div > div a:last-of-type {
 
    border-radius: 100%;
 
-   background: #e8e8e8;
+   background: #336699;
+   color: white;
+
+   text-decoration: none;
+}
+
+grid .grid-sorter > div > div a:last-of-type:hover {
+   color: white;
+
+   text-decoration: underline;
 }
 
 grid .grid-sorter > div > div a {
