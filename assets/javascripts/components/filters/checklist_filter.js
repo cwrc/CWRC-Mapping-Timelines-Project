@@ -118,7 +118,21 @@ ko.components.register('checklist_filter', {
         });
 
         self['filter'] = function (record) {
-            return self.allChecked() || self.selectedRecordValues.indexOf(record[self.recordFieldName]) >= 0;
+            if (self.allChecked())
+                return true;
+
+            var isLegalValue, value;
+
+            value = record[self.recordFieldName];
+
+            if (value instanceof Array)
+                isLegalValue = value.some(function (element) {
+                    return self.selectedRecordValues.indexOf(element) >= 0;
+                });
+            else
+                isLegalValue = self.selectedRecordValues.indexOf(value) >= 0;
+
+            return isLegalValue;
         };
 
         self['reset'] = function () {
