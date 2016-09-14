@@ -19,6 +19,7 @@ text_filter input {
 
    background: #eff0ef url(/assets/images/loupe.svg) no-repeat scroll 95% 0.6em;
    font-family: "Lato", "Arial", sans-serif;
+   font-size: 0.8em;
 }
 
 text_filter img {
