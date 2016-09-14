@@ -15,6 +15,10 @@ grid table {
    width: 100%;
 }
 
+grid table thead th {
+   padding: 0.25em;
+}
+
 grid table thead th a {
    display: inline-block;
 
