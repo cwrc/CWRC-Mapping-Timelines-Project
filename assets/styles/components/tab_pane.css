@@ -1,29 +1,31 @@
 tab_pane {
-    display: block;
+   display: block;
 
-    margin: 0em;
+   margin: 0em;
 
-    width: 100%;
-    min-height: 10em;
+   width: 100%;
+   min-height: 10em;
 }
 
 tab_pane > header {
-    text-align: center;
+   text-align: center;
 }
 
 tab_pane > header > form > label {
-    cursor: pointer;
+   display: inline-block;
+
+   cursor: pointer;
 }
 
 /* the + operator is for "next-to" */
 tab_pane > header > form > label + label::before {
-    content: '•'
+   content: '•'
 }
 
 tab_pane > header > form > label > input[type="radio"]:checked + span {
-    border-bottom: 3px solid #CC0000;
+   border-bottom: 3px solid #CC0000;
 }
 
 tab_pane > header > form > label > input[type="radio"] {
-    display: none;
+   display: none;
 }
