@@ -22,6 +22,8 @@ checklist_filter div label > span:last-of-type {
 
 checklist_filter header {
    position: relative;
+
+   margin-bottom: 0.25em;
 }
 
 checklist_filter header label {
