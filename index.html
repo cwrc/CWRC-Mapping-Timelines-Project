@@ -10,6 +10,7 @@
    <link href="datasets/biblifo.json" type="application/json" rel="cwrc/data" />
    <link href="datasets/lglc.json" type="application/json" rel="cwrc/data" />
    <link href="datasets/orlando.json" type="application/json" rel="cwrc/data" />
+   <!--<link href="datasets/test_integration.json" type="application/json" rel="cwrc/data" />-->
 
    <!-- Content Styles -->
    <link href="assets/styles/content/tei.css" type="text/css" rel="stylesheet" />
@@ -447,8 +448,7 @@
       <!-- identifying by ID does limit to one map per page, but that works for now -->
       <div data-bind="style: {height: canvasHeight}" id="map_canvas">
       </div>
-      <resizer params="resizerObservable: canvasHeight, resizedId: 'map_canvas'">
-      </resizer>
+      <resizer params="resizerObservable: canvasHeight, resizedId: 'map_canvas'"></resizer>
       <section data-bind="visible: colorTable.hasMapping()">
          <header>Legend</header>
          <!-- ko foreach: colorTable.getLegendPairs() -->
