@@ -82,12 +82,22 @@ atlas #cwrc_historical_map_control div label:last-of-type span {
 }
 
 /* === Legend === */
-atlas > section:last-of-type {
+atlas > section.legend {
    margin-top: 0.5em;
 
    text-align: center;
 }
 
-atlas > section:last-of-type > header {
+atlas > section.legend > header {
+   margin-bottom: 0.25em;
+
    text-transform: uppercase;
+}
+
+atlas > section.legend div {
+   margin-right: 0.5em;
+}
+
+atlas > section.legend div img {
+   vertical-align: bottom;
 }
