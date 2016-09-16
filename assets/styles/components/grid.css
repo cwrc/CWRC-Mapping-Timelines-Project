@@ -81,6 +81,7 @@ grid .grid-column-chooser {
    float: right;
 
    margin-right: 1em;
+   margin-bottom: 0.5em;
 }
 
 grid .grid-column-chooser > div:first-of-type {
@@ -91,7 +92,8 @@ grid .grid-column-chooser > div:first-of-type {
 
    border-radius: 0.25em;
 
-   background: grey;
+   background: #336699;
+   color: white;
 }
 
 grid .grid-column-chooser > div:first-of-type label {
@@ -102,6 +104,10 @@ grid .grid-column-chooser > div:first-of-type label {
    white-space: nowrap;
 
    cursor: pointer;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
 }
 
 grid .grid-column-chooser > div:first-of-type label input {
