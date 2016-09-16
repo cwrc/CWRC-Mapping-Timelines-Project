@@ -15,6 +15,7 @@ text_filter input {
    border: none;
    border-radius: 0.5em;
 
+   box-sizing: border-box;
    padding: 0.75em 3em 0.75em 0.5em;
 
    background: #eff0ef url(../../../images/loupe.svg) no-repeat scroll 95% 0.6em;
