@@ -15,35 +15,37 @@ ko.components.register('resizer', {
              * @param params
              *        - resizerObservable: An observable to use instead of its own internal state.
              *        - resizedId: The id of the external element that this widget controls.
-             * @param content the content to expand and collapse
+             * @param componentInfo component context information
              * @constructor
              */
-            var ResizerModel = function (params, content) {
+            var ResizerModel = function (params, componentInfo) {
                 var self = this;
-
-                self.content = content;
 
                 self.arrow = '\u25Be';
                 self.lastY = null;
 
-                self.isInternal = content.length > 0;
+                self.content = componentInfo.templateNodes;
+
+                self.isInternal = self.content.some(function (node) {
+                    return [Node.ELEMENT_NODE, Node.DOCUMENT_NODE, Node.DOCUMENT_FRAGMENT_NODE].indexOf(node.nodeType) >= 0;
+                });
                 self.viewportSize = params.resizerObservable || ko.observable(); // px
+
+                // better to use the natural size as a default, rather than some probably-wrong constant.
+                if (self.isInternal)
+                    self.viewportSize(componentInfo.element.querySelector('.viewport').offsetHeight);
+                else
+                    self.viewportSize(document.getElementById(params.resizedId).offsetHeight);
 
                 self['onMouseDown'] = function (viewModel, event) {
                     self.lastY = event.pageY;
-
-                    // this will need to change if the DOM order changes
-                    if (self.isInternal)
-                        self.viewportSize(event.target.previousElementSibling.offsetHeight);
-                    else
-                        self.viewportSize(document.getElementById(params.resizedId).offsetHeight)
                 };
 
                 window.addEventListener('mousemove', function (event) {
                     if (self.lastY && event.buttons == 1) {
                         var delta = event.pageY - self.lastY;
 
-                        self.viewportSize(self.viewportSize() + delta);
+                        self.viewportSize(Math.max(self.viewportSize() + delta, 0));
 
                         self.lastY = event.pageY;
                     }
@@ -54,7 +56,7 @@ ko.components.register('resizer', {
                 });
             };
 
-            return new ResizerModel(params, componentInfo.templateNodes);
+            return new ResizerModel(params, componentInfo);
         }
     }
 });
