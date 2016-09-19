@@ -42,13 +42,13 @@ ko.components.register('resizer', {
                     }
                 });
 
-                // better to use the natural size as a default, rather than some probably-wrong constant.
-                if (self.isInternal)
-                    self.viewportSize(componentInfo.element.querySelector('.viewport').offsetHeight);
-                else
-                    self.viewportSize(document.getElementById(params.resizedId).offsetHeight);
-
                 self['onMouseDown'] = function (viewModel, event) {
+                    // better to use the natural size as a default, rather than some probably-wrong constant.
+                    if (self.isInternal)
+                        self.viewportSize(componentInfo.element.querySelector('.viewport').offsetHeight);
+                    else
+                        self.viewportSize(document.getElementById(params.resizedId).offsetHeight);
+
                     self.lastY = event.pageY;
                 };
 
