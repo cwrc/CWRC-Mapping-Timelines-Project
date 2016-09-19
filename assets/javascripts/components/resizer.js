@@ -29,7 +29,18 @@ ko.components.register('resizer', {
                 self.isInternal = self.content.some(function (node) {
                     return [Node.ELEMENT_NODE, Node.DOCUMENT_NODE, Node.DOCUMENT_FRAGMENT_NODE].indexOf(node.nodeType) >= 0;
                 });
-                self.viewportSize = params.resizerObservable || ko.observable(); // px
+                self.viewPortSizeRaw = params.resizerObservable || ko.observable(); // px
+                self.viewportSize = ko.computed({
+                    read: function () {
+                        return self.viewPortSizeRaw();
+                    },
+                    write: function (newVal) {
+                        if (!newVal.toString().match(/px$/))
+                            newVal = newVal + 'px';
+
+                        self.viewPortSizeRaw(newVal)
+                    }
+                });
 
                 // better to use the natural size as a default, rather than some probably-wrong constant.
                 if (self.isInternal)
@@ -42,10 +53,14 @@ ko.components.register('resizer', {
                 };
 
                 window.addEventListener('mousemove', function (event) {
-                    if (self.lastY && event.buttons == 1) {
-                        var delta = event.pageY - self.lastY;
+                    var delta, current;
 
-                        self.viewportSize(Math.max(self.viewportSize() + delta, 0));
+                    if (self.lastY && event.buttons == 1) {
+                        delta = event.pageY - self.lastY;
+
+                        current = +self.viewportSize().replace('px', '');
+
+                        self.viewportSize(Math.max(current + delta, 0));
 
                         self.lastY = event.pageY;
                     }
