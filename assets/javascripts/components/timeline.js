@@ -95,6 +95,8 @@ ko.components.register('timeline', {
             onScroll: function (viewModel, scrollEvent) {
                 var mouseX, mouseY, viewportRect;
 
+                scrollEvent = scrollEvent.originalEvent || scrollEvent; // jquery wraps the event and ruins the API
+
                 viewportRect = self.viewport.getElement().getBoundingClientRect();
 
                 //  mouseX, Y are relative to viewport, in unscaled pixels
