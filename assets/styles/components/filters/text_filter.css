@@ -6,7 +6,8 @@ text_filter header {
    margin-bottom: 0.25em;
 }
 
-text_filter input {
+text_filter input[type="search"],
+text_filter input[type="text"] {
    display: block;
 
    width: 100%;
