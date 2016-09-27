@@ -603,9 +603,23 @@ CWRC.Timeline.DEFAULT_SCALE_STEP = 1.25;
             return 'translate(' + -self.bounds.toPx().left + 'px, ' + -self.bounds.toPx().top + 'px)'
         });
 
-        // Need to iterate because there's only a zoom-one-step function.
-        for (var i = 0; i < initialZoom; i++) {
-            self.zoom(elementWidth / 2, 0, false);
+        if (!initialZoom) {
+            var maxZooms = 1000; // just for safety
+            var zooms = 0;
+            var maxSpan = CWRC.latestStamp() - CWRC.earliestStamp();
+
+            while ((self.bounds.timespan() < maxSpan) && (zooms < maxZooms)) {
+                self.zoom(elementWidth / 2, 0, false);
+                zooms = zooms + 1;
+            }
+
+            if (!startDate)
+                self.panTo(maxSpan / 2 + CWRC.earliestStamp())
+        } else {
+            // Need to iterate because there's only a zoom-one-step function.
+            for (var i = 0; i < initialZoom; i++) {
+                self.zoom(elementWidth / 2, 0, false);
+            }
         }
     };
 
