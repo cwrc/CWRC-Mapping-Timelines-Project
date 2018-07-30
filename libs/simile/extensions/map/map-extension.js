@@ -51,7 +51,7 @@
         
     if ((Exhibit.MapExtension.params.service == "google") &&
 	!("google" in window && "maps" in window.google)) {
-	scriptURLs.push("http://maps.googleapis.com/maps/api/js?sensor=false");
+	scriptURLs.push("https://maps.googleapis.com/maps/api/js?sensor=false");
     } else if (Exhibit.MapExtension.params.service == "openlayers") {
 	scriptURLs.push("http://www.openlayers.org/api/OpenLayers.js");
         scriptURLs.push("http://www.openstreetmap.org/openlayers/OpenStreetMap.js");
